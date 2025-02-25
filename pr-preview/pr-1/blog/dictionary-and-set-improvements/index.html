@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Dictionary and Set Improvements in Swift 4.0</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <meta name="description" content="In the latest release of Swift,
+dictionaries and sets gain a number of new methods and initializers
+that make common tasks easier than ever.
+Operations like grouping, filtering, and transforming values
+can now be performed in a single step,
+letting you write more expressive and efficient code.
+">
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/blog/dictionary-and-set-improvements/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Dictionary and Set Improvements in Swift 4.0" />
+  <meta name="twitter:description" content="In the latest release of Swift,
+dictionaries and sets gain a number of new methods and initializers
+that make common tasks easier than ever.
+Operations like grouping, filtering, and transforming values
+can now be performed in a single step,
+letting you write more expressive and efficient code.
+" />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Dictionary and Set Improvements in Swift 4.0" />
+  <meta property="og:url" content="https://swift.org/blog/dictionary-and-set-improvements/" />
+  <meta property="og:description" content="In the latest release of Swift,
+dictionaries and sets gain a number of new methods and initializers
+that make common tasks easier than ever.
+Operations like grouping, filtering, and transforming values
+can now be performed in a single step,
+letting you write more expressive and efficient code.
+" />
+  <meta property="article:published_time" content="2017-10-04T08:00:00-04:00" />
+  <meta property="article:modified_time" content="2025-02-24T22:05:16-04:00" />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+<article class="post">
+  <header>
+    <h1>Dictionary and Set Improvements in Swift 4.0</h1>
+
+    <time pubdate datetime="2017-10-04T08:00:00-04:00">October 4, 2017</time>
+    <div class="authors compact">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/5f463dd4e7af28b64ad8f0e032ee82dc?s=64&d=mp"
+            
+            alt="Nate Cook"
+            title="Nate Cook is a member of the Swift standard library team at Apple."
+            />
+          <span class="author">
+            
+              <a href="https://github.com/natecook1000/" rel="nofollow" title="Nate Cook (@natecook1000) on GitHub">Nate Cook</a>
+            
+          </span>
+        </div>
+        
+      </div>
+    
+  
+</div>
+  </header>
+
+  <p>In the latest release of Swift,
+dictionaries and sets gain a number of new methods and initializers
+that make common tasks easier than ever.
+Operations like grouping, filtering, and transforming values
+can now be performed in a single step,
+letting you write more expressive and efficient code.</p>
+
+<p>This post explores these new transformations,
+using some grocery data for a market as an example.
+This custom <code class="language-plaintext highlighter-rouge">GroceryItem</code> struct,
+made up of a name and a department,
+will serve as the data type:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">GroceryItem</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">department</span><span class="p">:</span> <span class="kt">Department</span>
+
+    <span class="kd">enum</span> <span class="kt">Department</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">bakery</span><span class="p">,</span> <span class="n">produce</span><span class="p">,</span> <span class="n">seafood</span>
+    <span class="p">}</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">GroceryItem</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">GroceryItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="nf">return</span> <span class="p">(</span><span class="n">lhs</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">lhs</span><span class="o">.</span><span class="n">department</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">rhs</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">rhs</span><span class="o">.</span><span class="n">department</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">var</span> <span class="nv">hashValue</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span>
+        <span class="c1">// Combine the hash values for the name and department</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">hashValue</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">department</span><span class="o">.</span><span class="n">hashValue</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Create some groceries for our store:</span>
+<span class="k">let</span> <span class="nv">🍎</span> <span class="o">=</span> <span class="kt">GroceryItem</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Apples"</span><span class="p">,</span> <span class="nv">department</span><span class="p">:</span> <span class="o">.</span><span class="n">produce</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">🍌</span> <span class="o">=</span> <span class="kt">GroceryItem</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Bananas"</span><span class="p">,</span> <span class="nv">department</span><span class="p">:</span> <span class="o">.</span><span class="n">produce</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">🥐</span> <span class="o">=</span> <span class="kt">GroceryItem</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Croissants"</span><span class="p">,</span> <span class="nv">department</span><span class="p">:</span> <span class="o">.</span><span class="n">bakery</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">🐟</span> <span class="o">=</span> <span class="kt">GroceryItem</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Salmon"</span><span class="p">,</span> <span class="nv">department</span><span class="p">:</span> <span class="o">.</span><span class="n">seafood</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">🍇</span> <span class="o">=</span> <span class="kt">GroceryItem</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Grapes"</span><span class="p">,</span> <span class="nv">department</span><span class="p">:</span> <span class="o">.</span><span class="n">produce</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">🍞</span> <span class="o">=</span> <span class="kt">GroceryItem</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Bread"</span><span class="p">,</span> <span class="nv">department</span><span class="p">:</span> <span class="o">.</span><span class="n">bakery</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">🍤</span> <span class="o">=</span> <span class="kt">GroceryItem</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Shrimp"</span><span class="p">,</span> <span class="nv">department</span><span class="p">:</span> <span class="o">.</span><span class="n">seafood</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">groceries</span> <span class="o">=</span> <span class="p">[</span><span class="n">🍎</span><span class="p">,</span> <span class="n">🍌</span><span class="p">,</span> <span class="n">🥐</span><span class="p">,</span> <span class="n">🐟</span><span class="p">,</span> <span class="n">🍇</span><span class="p">,</span> <span class="n">🍞</span><span class="p">,</span> <span class="n">🍤</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>The examples that follow use the <code class="language-plaintext highlighter-rouge">groceries</code> array
+to build and transform dictionaries with these new tools.</p>
+
+<h2 id="grouping-values-by-a-key" class="header-with-anchor">Grouping Values by a Key <a title="Permalink for Grouping Values by a Key section" href="#grouping-values-by-a-key">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p><img alt="Grouping groceries by their department" src="/assets/images/dictionary-blog/grouping.png" srcset="/assets/images/dictionary-blog/grouping_2x.png 2x" class="dictionary-blog" /></p>
+
+<p>A new grouping initializer makes it a snap
+to build a dictionary from a sequence of values,
+grouped by keys computed from those values.
+We’ll use this new initializer to build a dictionary of groceries
+grouped by their department.</p>
+
+<p>To do this in earlier versions of Swift,
+you used iteration to build up a dictionary from scratch.
+This required type annotations, manual iteration,
+and a check to see if each key already existed in the dictionary.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Swift &lt;= 3.1</span>
+<span class="k">var</span> <span class="nv">grouped</span><span class="p">:</span> <span class="p">[</span><span class="kt">GroceryItem</span><span class="o">.</span><span class="kt">Department</span><span class="p">:</span> <span class="p">[</span><span class="kt">GroceryItem</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[:]</span>
+<span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="n">groceries</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="n">grouped</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">department</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="n">grouped</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">department</span><span class="p">]</span><span class="o">!.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">grouped</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">department</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>With this update to Swift,
+you can use the <code class="language-plaintext highlighter-rouge">Dictionary(grouping:by)</code> initializer to create the same dictionary
+with a single line of code.
+Pass a closure that returns a key for each element in your array.
+In the following code, the closure returns the department for each grocery item:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Swift 4.0</span>
+<span class="k">let</span> <span class="nv">groceriesByDepartment</span> <span class="o">=</span> <span class="kt">Dictionary</span><span class="p">(</span><span class="nv">grouping</span><span class="p">:</span> <span class="n">groceries</span><span class="p">,</span>
+                                       <span class="nv">by</span><span class="p">:</span> <span class="p">{</span> <span class="n">item</span> <span class="k">in</span> <span class="n">item</span><span class="o">.</span><span class="n">department</span> <span class="p">})</span>
+<span class="c1">// groceriesByDepartment[.bakery] == [🥐, 🍞]</span>
+</code></pre></div></div>
+
+<p>The resulting <code class="language-plaintext highlighter-rouge">groceriesByDepartment</code> dictionary
+has an entry for each department in the list of groceries.
+The value for each key is an array of the groceries within that department,
+in the same order as the original list.
+Using <code class="language-plaintext highlighter-rouge">.bakery</code> as a key in <code class="language-plaintext highlighter-rouge">groceriesByDepartment</code> gives you the array <code class="language-plaintext highlighter-rouge">[🥐, 🍞]</code>.</p>
+
+<h2 id="transforming-a-dictionarys-values" class="header-with-anchor">Transforming a Dictionary’s Values <a title="Permalink for Transforming a Dictionary’s Values section" href="#transforming-a-dictionarys-values">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>You can transform the values of a dictionary,
+while keeping the same keys,
+by using the new <code class="language-plaintext highlighter-rouge">mapValues(_:)</code> method.
+This code transforms the arrays of items in <code class="language-plaintext highlighter-rouge">groceriesByDepartment</code> into their counts,
+creating a lookup table for the number of items in each department:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">departmentCounts</span> <span class="o">=</span> <span class="n">groceriesByDepartment</span><span class="o">.</span><span class="n">mapValues</span> <span class="p">{</span> <span class="n">items</span> <span class="k">in</span> <span class="n">items</span><span class="o">.</span><span class="n">count</span> <span class="p">}</span>
+<span class="c1">// departmentCounts[.bakery] == 2</span>
+</code></pre></div></div>
+
+<p>Because the dictionary has all the same keys,
+just with different values,
+it can use the same internal layout as the original dictionary
+and doesn’t need to recompute any hash values.
+This makes calling <code class="language-plaintext highlighter-rouge">mapValues(_:)</code> faster
+than rebuilding the dictionary from scratch.</p>
+
+<h2 id="building-dictionaries-from-key-value-pairs" class="header-with-anchor">Building Dictionaries from Key-Value Pairs <a title="Permalink for Building Dictionaries from Key-Value Pairs section" href="#building-dictionaries-from-key-value-pairs">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p><img alt="Building a dictionary from names and values" src="/assets/images/dictionary-blog/uniqueKeys.png" srcset="/assets/images/dictionary-blog/uniqueKeys_2x.png 2x" class="dictionary-blog" /></p>
+
+<p>You can now create dictionaries
+from sequences of key-value pairs
+using two different initializers:
+one for when you have unique keys,
+and one for when you might have keys that repeat.</p>
+
+<p>If you start with a sequence of keys and a sequence of values,
+you can combine them
+into a single sequence of pairs
+using the <code class="language-plaintext highlighter-rouge">zip(_:_:)</code> function.
+For example,
+this code creates a sequence of tuples
+with the name of a grocery item and the item itself:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">zippedNames</span> <span class="o">=</span> <span class="nf">zip</span><span class="p">(</span><span class="n">groceries</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="n">name</span> <span class="p">},</span> <span class="n">groceries</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Each element of <code class="language-plaintext highlighter-rouge">zippedNames</code> is a <code class="language-plaintext highlighter-rouge">(String, GroceryItem)</code> tuple,
+the first of which is <code class="language-plaintext highlighter-rouge">("Apples", 🍎)</code>.
+Because every grocery item has a unique name,
+the following code successfully creates a dictionary
+that uses names as keys for grocery items:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="nv">groceriesByName</span> <span class="o">=</span> <span class="kt">Dictionary</span><span class="p">(</span><span class="nv">uniqueKeysWithValues</span><span class="p">:</span> <span class="n">zippedNames</span><span class="p">)</span>
+<span class="c1">// groceriesByName["Apples"] == 🍎</span>
+<span class="c1">// groceriesByName["Kumquats"] == nil</span>
+</code></pre></div></div>
+
+<p>Use the <code class="language-plaintext highlighter-rouge">Dictionary(uniqueKeysWithValues:)</code> initializer only when you’re sure
+that your data has unique keys.
+Any duplicated keys in the sequence will trigger a runtime error.</p>
+
+<p>If your data has (or might have) repeated keys,
+use the new merging initializer, <code class="language-plaintext highlighter-rouge">Dictionary(_:uniquingKeysWith:)</code>.
+This initializer takes a sequence of key-value pairs
+along with a closure that is called whenever a key is repeated.
+The <em>uniquing</em> closure takes the first and second value
+that share the same key as arguments,
+and can return the existing value,
+the new value,
+or combine them however you decide.</p>
+
+<p>For example,
+the following code converts an array of <code class="language-plaintext highlighter-rouge">(String, String)</code> tuples
+into a dictionary by using <code class="language-plaintext highlighter-rouge">Dictionary(_:uniquingKeysWith:)</code>.
+Note that <code class="language-plaintext highlighter-rouge">"dog"</code> is the key in two of the key-value pairs.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="s">"dog"</span><span class="p">,</span> <span class="s">"🐕"</span><span class="p">),</span> <span class="p">(</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"🐱"</span><span class="p">),</span> <span class="p">(</span><span class="s">"dog"</span><span class="p">,</span> <span class="s">"🐶"</span><span class="p">),</span> <span class="p">(</span><span class="s">"bunny"</span><span class="p">,</span> <span class="s">"🐰"</span><span class="p">)]</span>
+<span class="k">let</span> <span class="nv">petmoji</span> <span class="o">=</span> <span class="kt">Dictionary</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span>
+                         <span class="nv">uniquingKeysWith</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="k">new</span><span class="p">)</span> <span class="k">in</span> <span class="k">new</span> <span class="p">})</span>
+<span class="c1">// petmoji["cat"] == "🐱"</span>
+<span class="c1">// petmoji["dog"] == "🐶"</span>
+</code></pre></div></div>
+
+<p>When the second key-value pair with the key <code class="language-plaintext highlighter-rouge">"dog"</code> is reached,
+the uniquing closure is called with the old and new values (<code class="language-plaintext highlighter-rouge">"🐕"</code> and <code class="language-plaintext highlighter-rouge">"🐶"</code>).
+Because the closure always returns its second parameter,
+the result has <code class="language-plaintext highlighter-rouge">"🐶"</code> as the value for the <code class="language-plaintext highlighter-rouge">"dog"</code> key.</p>
+
+<h2 id="selecting-certain-entries" class="header-with-anchor">Selecting Certain Entries <a title="Permalink for Selecting Certain Entries section" href="#selecting-certain-entries">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Dictionaries now have a <code class="language-plaintext highlighter-rouge">filter(_:)</code> method that returns a dictionary,
+not just an array of key-value pairs,
+like in earlier versions of Swift.
+Pass a closure that takes a key-value pair as its argument
+and returns <code class="language-plaintext highlighter-rouge">true</code> if that pair should be in the result.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">isOutOfStock</span><span class="p">(</span><span class="n">_</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">GroceryItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="c1">// Looks up `item` in inventory</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">outOfStock</span> <span class="o">=</span> <span class="n">groceriesByName</span><span class="o">.</span><span class="n">filter</span> <span class="p">{</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="k">in</span> <span class="nf">isOutOfStock</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="p">}</span>
+<span class="c1">// outOfStock["Croissants"] == 🥐</span>
+<span class="c1">// outOfStock["Apples"] == nil</span>
+</code></pre></div></div>
+
+<p>This code calls an <code class="language-plaintext highlighter-rouge">isOutOfStock(_:)</code> function on each item,
+keeping only the grocery items that are out of stock.</p>
+
+<h2 id="using-default-values" class="header-with-anchor">Using Default Values <a title="Permalink for Using Default Values section" href="#using-default-values">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Dictionaries now have a second key-based subscript
+that makes it easier to get and update values.
+The following code defines a simple shopping cart,
+implemented as a dictionary of items and their counts:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Begin with a single banana</span>
+<span class="k">var</span> <span class="nv">cart</span> <span class="o">=</span> <span class="p">[</span><span class="nv">🍌</span><span class="p">:</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Because some keys may not have corresponding values in the dictionary,
+when you use a key to look up a value, the result is optional.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// One banana:</span>
+<span class="n">cart</span><span class="p">[</span><span class="n">🍌</span><span class="p">]</span>    <span class="c1">// Optional(1)</span>
+<span class="c1">// But no shrimp:</span>
+<span class="n">cart</span><span class="p">[</span><span class="n">🍤</span><span class="p">]</span>    <span class="c1">// nil</span>
+</code></pre></div></div>
+
+<p>Instead of using the nil coalescing operator (<code class="language-plaintext highlighter-rouge">??</code>)
+to turn optional values into the actual count you need,
+you can now subscript a dictionary with a key and a <code class="language-plaintext highlighter-rouge">default</code> parameter.
+If the key is found,
+its value is returned and the default is ignored.
+If the key isn’t found,
+the subscript returns the default value you provided.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Still one banana:</span>
+<span class="n">cart</span><span class="p">[</span><span class="n">🍌</span><span class="p">,</span> <span class="k">default</span><span class="p">:</span> <span class="mi">0</span><span class="p">]</span>    <span class="c1">// 1</span>
+<span class="c1">// And zero shrimp:</span>
+<span class="n">cart</span><span class="p">[</span><span class="n">🍤</span><span class="p">,</span> <span class="k">default</span><span class="p">:</span> <span class="mi">0</span><span class="p">]</span>    <span class="c1">// 0</span>
+</code></pre></div></div>
+
+<p>You can even modify a value through the new subscript,
+simplifying the code needed to add new items to the cart.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="p">[</span><span class="n">🍌</span><span class="p">,</span> <span class="n">🍌</span><span class="p">,</span> <span class="n">🍞</span><span class="p">]</span> <span class="p">{</span>
+    <span class="n">cart</span><span class="p">[</span><span class="n">item</span><span class="p">,</span> <span class="k">default</span><span class="p">:</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When this loop processes each banana (<code class="language-plaintext highlighter-rouge">🍌</code>),
+the current value is retrieved, incremented,
+and stored back into the dictionary.
+When it’s time to add the loaf of bread (<code class="language-plaintext highlighter-rouge">🍞</code>),
+the dictionary doesn’t find the key,
+and instead returns the <em>default value</em> (<code class="language-plaintext highlighter-rouge">0</code>).
+After that value is incremented,
+the dictionary adds the new key-value pair.</p>
+
+<p>At the end of the loop, <code class="language-plaintext highlighter-rouge">cart</code> is <code class="language-plaintext highlighter-rouge">[🍌: 3, 🍞: 1]</code>.</p>
+
+<h2 id="merging-two-dictionaries-into-one" class="header-with-anchor">Merging Two Dictionaries into One <a title="Permalink for Merging Two Dictionaries into One section" href="#merging-two-dictionaries-into-one">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>In addition to easier incremental changes,
+dictionaries now make it simpler to make changes in bulk,
+with methods that merge one dictionary into another.</p>
+
+<p><img alt="Merging two carts together" src="/assets/images/dictionary-blog/merging.png" srcset="/assets/images/dictionary-blog/merging_2x.png 2x" class="dictionary-blog" /></p>
+
+<p>To merge the contents of <code class="language-plaintext highlighter-rouge">cart</code> and another dictionary,
+you can use the mutating <code class="language-plaintext highlighter-rouge">merge(_:uniquingKeysWith:)</code> method.
+The uniquing closure that you pass works the same way
+as in the <code class="language-plaintext highlighter-rouge">Dictionary(_:uniquingKeysWith:)</code> initializer:
+It’s called whenever there are two values with the same key,
+and returns one, the other, or a combination of the values.</p>
+
+<p>In this example,
+passing the addition operator as the <code class="language-plaintext highlighter-rouge">uniquingKeysWith</code> parameter
+adds together any counts for matching keys,
+so the updated cart has the correct total for each item:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">otherCart</span> <span class="o">=</span> <span class="p">[</span><span class="nv">🍌</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">🍇</span><span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">cart</span><span class="o">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">otherCart</span><span class="p">,</span> <span class="nv">uniquingKeysWith</span><span class="p">:</span> <span class="o">+</span><span class="p">)</span>
+<span class="c1">// cart == [🍌: 5, 🍇: 3, 🍞: 1]</span>
+</code></pre></div></div>
+
+<p>To create a new dictionary
+with the merged contents instead of merging in place,
+use the nonmutating <code class="language-plaintext highlighter-rouge">merging(_:uniquingKeysWith:)</code> method.</p>
+
+<h2 id="and-thats-not-all" class="header-with-anchor">And That’s Not All… <a title="Permalink for And That’s Not All… section" href="#and-thats-not-all">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>There are a few more additions we haven’t covered.
+Dictionaries now have custom <code class="language-plaintext highlighter-rouge">keys</code> and <code class="language-plaintext highlighter-rouge">values</code> collections with new capabilities.
+The <code class="language-plaintext highlighter-rouge">keys</code> collection maintains fast key lookup,
+while the mutable <code class="language-plaintext highlighter-rouge">values</code> collection lets you modify values in place.</p>
+
+<p>Like dictionaries,
+sets gain a new <code class="language-plaintext highlighter-rouge">filter(_:)</code> method that returns a set of the same type,
+instead of an array like in earlier versions of Swift.
+And finally,
+both sets and dictionaries now expose their current capacity
+and add a <code class="language-plaintext highlighter-rouge">reserveCapacity(_:)</code> method.
+With these additions you can see and control the size of their internal storage.</p>
+
+<p>Other than the custom <code class="language-plaintext highlighter-rouge">keys</code> and <code class="language-plaintext highlighter-rouge">values</code> collections,
+all these changes are available in Swift 3.2.
+Even if you haven’t yet switched to using Swift 4.0,
+you can start taking advantage of these improvements today!</p>
+
+<p>You can find more information about all these new capabilities
+in the <a href="https://developer.apple.com/documentation/swift/dictionary">Dictionary</a> and <a href="https://developer.apple.com/documentation/swift/set">Set</a> documentation,
+or read more about the rationale behind the additions
+in the Swift Evolution proposals for the
+<a href="https://github.com/swiftlang/swift-evolution/blob/master/proposals/0154-dictionary-key-and-value-collections.md">custom <code class="language-plaintext highlighter-rouge">keys</code> and <code class="language-plaintext highlighter-rouge">values</code> collections</a> and
+<a href="https://github.com/swiftlang/swift-evolution/blob/master/proposals/0165-dict.md">other dictionary and set enhancements</a>.</p>
+
+<style type="text/css">
+img.dictionary-blog {
+    float: right;
+    padding: 10px;
+}
+pre {
+    clear: right;
+}
+@media only screen and (max-width: 480px) {
+    img.dictionary-blog {
+        float: none;
+        padding: 0;
+        width: 100%;
+        margin: 1em 0 0;
+    }
+}
+</style>
+
+
+
+  <footer>
+    
+      <p>Written by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/5f463dd4e7af28b64ad8f0e032ee82dc?s=64&d=mp"
+            
+            alt="Nate Cook"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/natecook1000/" rel="nofollow" title="Nate Cook (@natecook1000) on GitHub">Nate Cook</a>
+            
+          </span>
+        </div>
+        
+          
+          
+            <div class="about">Nate Cook is a member of the Swift standard library team at Apple.</div>
+          
+        
+      </div>
+    
+  
+</div>
+    
+
+    
+    <nav>
+      
+      <a href="/blog/swift-4.0-released/" rel="prev" title="Previous: Swift 4.0 Released!">Swift 4.0 Released!</a>
+      
+
+      
+      <a href="/blog/xcode-9.1-improves-display-of-fatal-errors/" rel="next" title="Next: Xcode 9.1 Improves Display of Fatal Errors">Xcode 9.1 Improves Display of Fatal Errors</a>
+      
+    </nav>
+    
+  </footer>
+</article>
+</main>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+  <p>Except where otherwise noted, all content on this blog is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

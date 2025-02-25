@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Swift Local Refactoring</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <meta name="description" content="Xcode 9 includes a brand new refactoring engine. It can transform code locally
+within a single Swift source file, or globally, such as renaming a method or property
+that occurs in multiple files and even different languages. The logic behind local refactorings is
+implemented entirely in the compiler and SourceKit, and is now open source in
+the swift repository. Therefore, any Swift enthusiast can
+contribute refactoring actions to the language. This post discusses how
+a simple refactoring can be implemented and surfaced in Xcode.
+">
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/blog/swift-local-refactoring/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift Local Refactoring" />
+  <meta name="twitter:description" content="Xcode 9 includes a brand new refactoring engine. It can transform code locally
+within a single Swift source file, or globally, such as renaming a method or property
+that occurs in multiple files and even different languages. The logic behind local refactorings is
+implemented entirely in the compiler and SourceKit, and is now open source in
+the swift repository. Therefore, any Swift enthusiast can
+contribute refactoring actions to the language. This post discusses how
+a simple refactoring can be implemented and surfaced in Xcode.
+" />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Swift Local Refactoring" />
+  <meta property="og:url" content="https://swift.org/blog/swift-local-refactoring/" />
+  <meta property="og:description" content="Xcode 9 includes a brand new refactoring engine. It can transform code locally
+within a single Swift source file, or globally, such as renaming a method or property
+that occurs in multiple files and even different languages. The logic behind local refactorings is
+implemented entirely in the compiler and SourceKit, and is now open source in
+the swift repository. Therefore, any Swift enthusiast can
+contribute refactoring actions to the language. This post discusses how
+a simple refactoring can be implemented and surfaced in Xcode.
+" />
+  <meta property="article:published_time" content="2017-08-22T05:45:00-04:00" />
+  <meta property="article:modified_time" content="2025-02-24T22:05:16-04:00" />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+<article class="post">
+  <header>
+    <h1>Swift Local Refactoring</h1>
+
+    <time pubdate datetime="2017-08-22T05:45:00-04:00">August 22, 2017</time>
+    <div class="authors compact">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.github.com/nkcsgexi.png?size=64"
+            
+            alt="Xi Ge"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/nkcsgexi/" rel="nofollow" title="Xi Ge (@nkcsgexi) on GitHub">Xi Ge</a>
+            
+          </span>
+        </div>
+        
+      </div>
+    
+  
+</div>
+  </header>
+
+  <p>Xcode 9 includes a brand new refactoring engine. It can transform code locally
+within a single Swift source file, or globally, such as renaming a method or property
+that occurs in multiple files and even different languages. The logic behind local refactorings is
+implemented entirely in the compiler and SourceKit, and is now open source in
+the <a href="https://github.com/apple/swift">swift repository</a>. Therefore, any Swift enthusiast can
+contribute refactoring actions to the language. This post discusses how
+a simple refactoring can be implemented and surfaced in Xcode.</p>
+
+<h2 id="kinds-of-refactorings" class="header-with-anchor">Kinds of Refactorings <a title="Permalink for Kinds of Refactorings section" href="#kinds-of-refactorings">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>A <strong>local refactoring</strong> occurs within the confines of a single file.
+Examples of local refactoring include <em>Extract Method</em> and <em>Extract Repeated Expression</em>.
+<strong>Global refactorings</strong>, which change code cross multiple files
+(such as <em>Global Rename</em>), currently require special coordination by Xcode and currently
+cannot be implemented on their own within the Swift codebase. This post focuses on
+local refactorings, which can be quite powerful in their own right.</p>
+
+<p>A refactoring action is initiated by a user’s cursor selection in the editor.
+According to how they are initialized, we categorize refactoring actions as cursor-based
+or range-based. <strong>Cursor-based refactoring</strong> has a refactoring target sufficiently
+specified by a cursor position in a Swift source file, such as rename refactoring.
+In contrast, <strong>range-based refactoring</strong> needs a start and end position to specify
+its target, such as Extract Method refactoring. To facilitate the implementation
+of these two categories, the Swift repository provides pre-analyzed results called
+<a href="https://github.com/apple/swift/blob/7f29b362d68eb990a592257850aabadb24de61df/include/swift/IDE/Utils.h#L158">ResolvedCursorInfo</a> and <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/Utils.h#L344">ResolvedRangeInfo</a> to answer several common questions about a cursor
+position or a range in a Swift source file.</p>
+
+<p>For instance, <a href="https://github.com/apple/swift/blob/7f29b362d68eb990a592257850aabadb24de61df/include/swift/IDE/Utils.h#L158">ResolvedCursorInfo</a> can tell us whether a location in the source file
+points to the start of an expression and, if so, provide the corresponding compiler object of that
+expression. Alternatively, if the cursor points to a name, <a href="https://github.com/apple/swift/blob/7f29b362d68eb990a592257850aabadb24de61df/include/swift/IDE/Utils.h#L158">ResolvedCursorInfo</a> gives
+us the declaration corresponding to that name. Similarly, <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/Utils.h#L344">ResolvedRangeInfo</a> encapsulates
+information about a given source range, such as whether the range has multiple entry or exit points.</p>
+
+<p>To implement a new refactoring for Swift, we don’t
+need to start from the raw representation of a cursor or a range position;
+instead, we can start with <a href="https://github.com/apple/swift/blob/7f29b362d68eb990a592257850aabadb24de61df/include/swift/IDE/Utils.h#L158">ResolvedCursorInfo</a> and <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/Utils.h#L344">ResolvedRangeInfo</a> upon which a refactoring-specific
+analysis can be derived.</p>
+
+<h2 id="cursor-based-refactoring" class="header-with-anchor">Cursor-based Refactoring <a title="Permalink for Cursor-based Refactoring section" href="#cursor-based-refactoring">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p><img src="/assets/images/local-refactoring/Cursor.png" alt="Cursor-based Refactoring" /></p>
+
+<p>Cursor-based refactoring is initiated by a cursor location in a Swift source file.
+Refactoring actions implement methods that the refactoring engine uses to display the available actions
+on the IDE and to perform the transformations.</p>
+
+<p>Specifically, for displaying the available actions:</p>
+
+<ol>
+  <li>The user selects a location from the Xcode editor.</li>
+  <li>Xcode makes a request to <a href="https://github.com/apple/swift/tree/master/tools/SourceKit">sourcekitd</a> to see what available refactoring actions exist for that location.</li>
+  <li>Each implemented refactoring action is queried with a <code class="language-plaintext highlighter-rouge">ResolvedCursorInfo</code> object to see if the action is applicable for that location.</li>
+  <li>The list of applicable actions is returned as response from <a href="https://github.com/apple/swift/tree/master/tools/SourceKit">sourcekitd</a> and displayed to the user by Xcode.</li>
+</ol>
+
+<p>When the user selects one of the available actions:</p>
+
+<ol>
+  <li>Xcode makes a request to <a href="https://github.com/apple/swift/tree/master/tools/SourceKit">sourcekitd</a> to perform the selected action on the source location.</li>
+  <li>The specific refactoring action is queried with a <code class="language-plaintext highlighter-rouge">ResolvedCursorInfo</code> object, derived from the same location, to verify that the action is applicable.</li>
+  <li>The refactoring action is asked to perform the transformation with textual source edits.</li>
+  <li>The source edits are returned as response from <a href="https://github.com/apple/swift/tree/master/tools/SourceKit">sourcekitd</a> and are applied by the Xcode editor.</li>
+</ol>
+
+<p>To implement <em>String Localization</em> refactoring, we need to first declare this
+refactoring in the <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/RefactoringKinds.def">RefactoringKinds.def</a> file with an entry like:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">CURSOR_REFACTORING</span><span class="p">(</span><span class="n">LocalizeString</span><span class="p">,</span> <span class="s">"Localize String"</span><span class="p">,</span> <span class="n">localize</span><span class="p">.</span><span class="n">string</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">CURSOR_REFACTORING</code> specifies that this refactoring is initialized at a cursor
+location and thus will use <a href="https://github.com/apple/swift/blob/7f29b362d68eb990a592257850aabadb24de61df/include/swift/IDE/Utils.h#L158">ResolvedCursorInfo</a> in the implementation. The first field,
+<code class="language-plaintext highlighter-rouge">LocalizeString</code>, specifies the internal name of this refactoring in the Swift
+codebase. In this example, the class corresponding to this refactoring is named
+<code class="language-plaintext highlighter-rouge">RefactoringActionLocalizeString</code>. The string literal <code class="language-plaintext highlighter-rouge">"Localize String"</code> is the
+display name for this refactoring to be presented to users in the UI. Finally,
+“localize.string” is a stable key that identifies the refactoring action, which
+the Swift toolchain uses in communication with the source editor.
+This entry also allows
+the C++ compiler to generate the class stub for the String Localization refactoring
+and its callers. Therefore, we can focus on the implementation of the
+required functions.</p>
+
+<p>After specifying this entry, we need to implement two functions to
+teach Xcode:</p>
+
+<ol>
+  <li>When it is appropriate to show the refactoring action.</li>
+  <li>What code change should be applied when a user invokes this refactoring action.</li>
+</ol>
+
+<p>Both declarations are automatically generated from the
+aforementioned entry. To fulfill (1), we need to implement the <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp#L646">isApplicable</a> function
+of <code class="language-plaintext highlighter-rouge">RefactoringActionLocalizeString</code> in <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp">Refactoring.cpp</a>, as below:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="kt">bool</span> <span class="n">RefactoringActionLocalizeString</span><span class="o">::</span>
+<span class="mi">2</span>  <span class="nf">isApplicable</span><span class="p">(</span><span class="n">ResolvedCursorInfo</span> <span class="n">CursorInfo</span><span class="p">)</span> <span class="p">{</span>
+<span class="mi">3</span>    <span class="k">if</span> <span class="p">(</span><span class="n">CursorInfo</span><span class="p">.</span><span class="n">Kind</span> <span class="o">==</span> <span class="n">CursorInfoKind</span><span class="o">::</span><span class="n">ExprStart</span><span class="p">)</span> <span class="p">{</span>
+<span class="mi">4</span>      <span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="o">*</span><span class="n">Literal</span> <span class="o">=</span> <span class="n">dyn_cast</span><span class="o">&lt;</span><span class="n">StringLiteralExpr</span><span class="o">&gt;</span><span class="p">(</span><span class="n">CursorInfo</span><span class="p">.</span><span class="n">TrailingExpr</span><span class="p">)</span> <span class="p">{</span>
+<span class="mi">5</span>        <span class="k">return</span> <span class="o">!</span><span class="n">Literal</span><span class="o">-&gt;</span><span class="n">hasInterpolation</span><span class="p">();</span> <span class="c1">// Not real API.</span>
+<span class="mi">6</span>      <span class="p">}</span>
+<span class="mi">7</span>    <span class="p">}</span>
+<span class="mi">8</span>  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Taking a <a href="https://github.com/apple/swift/blob/7f29b362d68eb990a592257850aabadb24de61df/include/swift/IDE/Utils.h#L158">ResolvedCursorInfo</a> object as input, it’s almost trivial to check
+when to populate the available refactoring menu with
+“localize string”. In this case, checking that the cursor points to the start of
+an expression (Line 3), and the expression is a string literal (Line 4) without
+interpolation (Line 5) is sufficient.</p>
+
+<p>Next, we need to implement how the code under the cursor should be
+changed if the refactoring action is applied. To do this, we
+have to implement the <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp#L599">performChange</a> method of <code class="language-plaintext highlighter-rouge">RefactoringActionLocalizeString</code>.
+In the implementation of <code class="language-plaintext highlighter-rouge">performChange</code>, we can access the same <code class="language-plaintext highlighter-rouge">ResolvedCursorInfo</code> object that <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp#L646">isApplicable</a> received.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="kt">bool</span> <span class="n">RefactoringActionLocalizeString</span><span class="o">::</span>
+<span class="mi">2</span>  <span class="nf">performChange</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">3</span>    <span class="n">EditConsumer</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">SM</span><span class="p">,</span> <span class="n">Cursor</span><span class="p">.</span><span class="n">TrailingExpr</span><span class="o">-&gt;</span><span class="n">getStartLoc</span><span class="p">(),</span> <span class="s">"NSLocalizedString("</span><span class="p">);</span>
+<span class="mi">4</span>    <span class="n">EditConsumer</span><span class="p">.</span><span class="n">insertAfter</span><span class="p">(</span><span class="n">SM</span><span class="p">,</span> <span class="n">Cursor</span><span class="p">.</span><span class="n">TrailingExpr</span><span class="o">-&gt;</span><span class="n">getEndLoc</span><span class="p">(),</span> <span class="s">", comment: </span><span class="se">\"\"</span><span class="s">)"</span><span class="p">);</span>
+<span class="mi">5</span>    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">// Return true if code change aborted.</span>
+<span class="mi">6</span>  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Still using String Localization as an example, the <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp#L599">performChange</a> function
+is fairly straightforward to implement. In the function body, we
+can use <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/Utils.h#L506">EditConsumer</a> to issue textual edits around the expression pointed by
+the cursor with the appropriate Foundation API calls, as Lines 3 and 4 illustrate.</p>
+
+<h2 id="range-based-refactoring" class="header-with-anchor">Range-based Refactoring <a title="Permalink for Range-based Refactoring section" href="#range-based-refactoring">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p><img src="/assets/images/local-refactoring/Range.png" alt="Range-based Refactoring" /></p>
+
+<p>As the above figure shows, range-based refactoring is initiated by selecting a
+continuous range of code in a Swift source file. Taking the implementation of the <em>Extract Expression</em>
+refactoring as an example, we first need to declare the following item in
+<a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/RefactoringKinds.def">RefactoringKinds.def</a>.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">RANGE_REFACTORING</span><span class="p">(</span><span class="n">ExtractExpr</span><span class="p">,</span> <span class="s">"Extract Expression"</span><span class="p">,</span> <span class="n">extract</span><span class="p">.</span><span class="n">expr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This entry declares that the Extract Expression refactoring is initiated by a range selection,
+named internally as <code class="language-plaintext highlighter-rouge">ExtractExpr</code>, using <code class="language-plaintext highlighter-rouge">"Extract Expression"</code> as display name, and with
+a stable key of “extract.expr” for service communication purposes.</p>
+
+<p>To teach Xcode when this refactoring should be available, we
+also need to implement <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp#L646">isApplicable</a> for this refactoring in <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp">Refactoring.cpp</a>,
+with the slight difference that the input is a <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/Utils.h#L344">ResolvedRangeInfo</a> instead of a <a href="https://github.com/apple/swift/blob/7f29b362d68eb990a592257850aabadb24de61df/include/swift/IDE/Utils.h#L158">ResolvedCursorInfo</a> .</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="kt">bool</span> <span class="n">RefactoringActionExtractExpr</span><span class="o">::</span>
+<span class="mi">2</span>  <span class="nf">isApplicable</span><span class="p">(</span><span class="n">ResolvedRangeInfo</span> <span class="n">Info</span><span class="p">)</span> <span class="p">{</span>
+<span class="mi">3</span>    <span class="k">if</span> <span class="p">(</span><span class="n">Info</span><span class="p">.</span><span class="n">Kind</span> <span class="o">!=</span> <span class="n">RangeKind</span><span class="o">::</span><span class="n">SingleExpression</span><span class="p">)</span>
+<span class="mi">4</span>      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="mi">5</span>    <span class="k">auto</span> <span class="n">Ty</span> <span class="o">=</span> <span class="n">Info</span><span class="p">.</span><span class="n">getType</span><span class="p">();</span>
+<span class="mi">6</span>    <span class="k">if</span> <span class="p">(</span><span class="n">Ty</span><span class="p">.</span><span class="n">isNull</span><span class="p">()</span> <span class="o">||</span> <span class="n">Ty</span><span class="p">.</span><span class="n">hasError</span><span class="p">())</span>
+<span class="mi">7</span>      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="mi">8</span>    <span class="p">...</span>
+<span class="mi">9</span>    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="mi">10</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Though a little more complex than its counterpart in the aforementioned String
+Localization refactoring, this implementation is self-explaining too. Lines 3
+to 4 check the kind of the given range, which has to be a single expression
+to proceed with the extraction. Lines 5 to 7 ensure the extracted expression has
+a well-formed type. Further conditions that need to be checked are omitted in
+the example for now. Interested readers can refer to <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp">Refactoring.cpp</a> for
+more details. For the code change part, we can use the same <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/Utils.h#L344">ResolvedRangeInfo</a> instance
+to emit textual edits:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="kt">bool</span> <span class="n">RefactoringActionExtractExprBase</span><span class="o">::</span><span class="n">performChange</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">2</span>    <span class="n">llvm</span><span class="o">::</span><span class="n">SmallString</span><span class="o">&lt;</span><span class="mi">64</span><span class="o">&gt;</span> <span class="n">DeclBuffer</span><span class="p">;</span>
+<span class="mi">3</span>    <span class="n">llvm</span><span class="o">::</span><span class="n">raw_svector_ostream</span> <span class="n">OS</span><span class="p">(</span><span class="n">DeclBuffer</span><span class="p">);</span>
+<span class="mi">4</span>    <span class="n">OS</span> <span class="o">&lt;&lt;</span> <span class="n">tok</span><span class="o">::</span><span class="n">kw_let</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+<span class="mi">5</span>    <span class="n">OS</span> <span class="o">&lt;&lt;</span> <span class="n">PreferredName</span><span class="p">;</span>
+<span class="mi">6</span>    <span class="n">OS</span> <span class="o">&lt;&lt;</span> <span class="n">TyBuffer</span><span class="p">.</span><span class="n">str</span><span class="p">()</span> <span class="o">&lt;&lt;</span>  <span class="s">" = "</span> <span class="o">&lt;&lt;</span> <span class="n">RangeInfo</span><span class="p">.</span><span class="n">ContentRange</span><span class="p">.</span><span class="n">str</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="mi">7</span>    <span class="n">Expr</span> <span class="o">*</span><span class="n">E</span> <span class="o">=</span> <span class="n">RangeInfo</span><span class="p">.</span><span class="n">ContainedNodes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">get</span><span class="o">&lt;</span><span class="n">Expr</span><span class="o">*&gt;</span><span class="p">();</span>
+<span class="mi">8</span>    <span class="n">EditConsumer</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">SM</span><span class="p">,</span> <span class="n">InsertLoc</span><span class="p">,</span> <span class="n">DeclBuffer</span><span class="p">.</span><span class="n">str</span><span class="p">());</span>
+<span class="mi">9</span>    <span class="n">EditConsumer</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">SM</span><span class="p">,</span>
+<span class="mi">10</span>                       <span class="n">Lexer</span><span class="o">::</span><span class="n">getCharSourceRangeFromSourceRange</span><span class="p">(</span><span class="n">SM</span><span class="p">,</span> <span class="n">E</span><span class="o">-&gt;</span><span class="n">getSourceRange</span><span class="p">()),</span>
+<span class="mi">11</span>                       <span class="n">PreferredName</span><span class="p">)</span>
+<span class="mi">12</span>   <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">// Return true if code change aborted.</span>
+<span class="mi">13</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Lines 2 to 6 construct the declaration of a local variable with the initialized
+value of the expression under extraction, e.g. <code class="language-plaintext highlighter-rouge">let extractedExpr = foo()</code>. Line
+8 inserts the declaration at the proper source location in the local context, and
+Line 9 replaces the original occurrence of the expression with a reference to
+the newly declared variable. As demonstrated by the code example, within the
+function body of <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp#L599">performChange</a>, we can access not only the original
+<a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/IDE/Utils.h#L344">ResolvedRangeInfo</a> for the user’s selection, but also other important utilities such
+as the edit consumer and source manager, making the implementation more convenient.</p>
+
+<h2 id="diagnostics" class="header-with-anchor">Diagnostics <a title="Permalink for Diagnostics section" href="#diagnostics">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+<p>A refactoring action may need to be aborted during automated code change for various reasons.
+When this happens, a refactoring implementation can communicate via diagnostics the cause of such failures to the user.
+Refactoring diagnostics employ the same mechanism as the compiler itself.
+Taking rename refactoring as an example, we would like to issue
+an error message if the given new name is an invalid Swift identifier. To do so,
+we first need to declare the following entry for the diagnostics in
+<a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/include/swift/AST/DiagnosticsRefactoring.def">DiagnosticsRefactoring.def</a>.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">ERROR</span><span class="p">(</span><span class="n">invalid_name</span><span class="p">,</span> <span class="n">none</span><span class="p">,</span> <span class="s">"'%0' is not a valid name"</span><span class="p">,</span> <span class="p">(</span><span class="n">StringRef</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>After declaring it, we can use the diagnostic in either <a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp#L646">isApplicable</a> or
+<a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp#L599">performChange</a>. For <em>Local Rename</em> refactoring, emitting the diagnostic in
+<a href="https://github.com/apple/swift/blob/60a91bb7360dde5ce9531889e0ed10a2edbc961a/lib/IDE/Refactoring.cpp">Refactoring.cpp</a> would look something like:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="kt">bool</span> <span class="n">RefactoringActionLocalRename</span><span class="o">::</span><span class="n">performChange</span><span class="p">()</span> <span class="p">{</span>
+   <span class="p">...</span>
+<span class="mi">2</span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">DeclNameViewer</span><span class="p">(</span><span class="n">PreferredName</span><span class="p">).</span><span class="n">isValid</span><span class="p">())</span> <span class="p">{</span>
+<span class="mi">3</span>      <span class="n">DiagEngine</span><span class="p">.</span><span class="n">diagnose</span><span class="p">(</span><span class="n">SourceLoc</span><span class="p">(),</span> <span class="n">diag</span><span class="o">::</span><span class="n">invalid_name</span><span class="p">,</span> <span class="n">PreferredName</span><span class="p">);</span>
+<span class="mi">4</span>      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// Return true if code change aborted.</span>
+<span class="mi">5</span>    <span class="p">}</span>
+   <span class="p">...</span>
+<span class="mi">6</span>  <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="testing" class="header-with-anchor">Testing <a title="Permalink for Testing section" href="#testing">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Corresponding to the two steps in implementing a new
+refactoring action, we need to test that:</p>
+
+<ol>
+  <li>The contextually available refactorings are
+populated properly.</li>
+  <li>The automated code change updates the user’s codebase correctly.</li>
+</ol>
+
+<p>These two parts are both tested using the <a href="https://github.com/apple/swift/tree/60a91bb7360dde5ce9531889e0ed10a2edbc961a/tools/swift-refactor">swift-refactor</a> command line utility which
+is built alongside the compiler.</p>
+
+<h4 id="contextual-refactoring-test" class="header-with-anchor">Contextual Refactoring Test <a title="Permalink for Contextual Refactoring Test section" href="#contextual-refactoring-test">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h4>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="n">func</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">2</span>    <span class="n">print</span><span class="p">(</span><span class="s">"Hello World!"</span><span class="p">)</span>
+<span class="mi">3</span>  <span class="p">}</span>
+<span class="mi">4</span>  <span class="c1">// RUN: %refactor -source-filename %s -pos=2:14 | %FileCheck %s -check-prefix=CHECK-LOCALIZE-STRING</span>
+<span class="mi">5</span>  <span class="c1">// CHECK-LOCALIZE-STRING: Localize String</span>
+</code></pre></div></div>
+
+<p>Let’s again take String Localization as an example. The above code
+snippet is a test for contextual refactoring actions.
+Similar tests can be found in <a href="https://github.com/apple/swift/tree/master/test/refactoring/RefactoringKind">test/refactoring/RefactoringKind/</a>.</p>
+
+<p>Let’s take a look at the <code class="language-plaintext highlighter-rouge">RUN</code> line in more detail, starting with the use of the <code class="language-plaintext highlighter-rouge">%refactor</code> utility:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">refactor</span> <span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="n">filename</span> <span class="o">%</span><span class="n">s</span> <span class="o">-</span><span class="n">pos</span><span class="o">=</span><span class="mi">2</span><span class="o">:</span><span class="mi">14</span> <span class="o">|</span> <span class="o">%</span><span class="n">FileCheck</span> <span class="o">%</span><span class="n">s</span> <span class="o">-</span><span class="n">check</span><span class="o">-</span><span class="n">prefix</span><span class="o">=</span><span class="n">CHECK</span><span class="o">-</span><span class="n">LOCALIZE</span><span class="o">-</span><span class="n">STRING</span>
+</code></pre></div></div>
+
+<p>This line will dump the display names for all applicable refactorings when a user points the cursor to the string literal “Hello World!”.
+<code class="language-plaintext highlighter-rouge">%refactor</code> is an alias that gets substituted by the test runner to give the full path to <code class="language-plaintext highlighter-rouge">swift-refactor</code> when the tests get run.
+<code class="language-plaintext highlighter-rouge">-pos</code> gives the cursor position where contextual refactoring actions should be pulled from. Since
+<code class="language-plaintext highlighter-rouge">String Localization</code> refactoring is cursor-based, specifying <code class="language-plaintext highlighter-rouge">-pos</code> alone will be
+sufficient. To test range-based refactorings, we need to specify
+<code class="language-plaintext highlighter-rouge">-end-pos</code> to indicate the end location of the refactoring target as well. All positions are
+in the format of <code class="language-plaintext highlighter-rouge">line:column</code>.</p>
+
+<p>To make sure the output of the tool is the expected one, we use the <code class="language-plaintext highlighter-rouge">%FileCheck</code> utility:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">FileCheck</span> <span class="o">%</span><span class="n">s</span> <span class="o">-</span><span class="n">check</span><span class="o">-</span><span class="n">prefix</span><span class="o">=</span><span class="n">CHECK</span><span class="o">-</span><span class="n">LOCALIZE</span><span class="o">-</span><span class="n">STRING</span>
+</code></pre></div></div>
+
+<p>This will check the output text from <code class="language-plaintext highlighter-rouge">%refactor</code>
+against all following lines with prefix <code class="language-plaintext highlighter-rouge">CHECK-LOCALIZE-STRING</code>. In this case, it will
+check whether the available refactorings include <code class="language-plaintext highlighter-rouge">Localize String</code>. In addition to
+testing that we show the right actions at the right cursor positions, we also need to
+test available refactorings are not wrongly populated in situations like string literals
+with interpolation.</p>
+
+<h4 id="code-transformation-test" class="header-with-anchor">Code Transformation Test <a title="Permalink for Code Transformation Test section" href="#code-transformation-test">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h4>
+
+<p>We should also test that when applying the refactoring, the automated code
+change matches our expectations. As a preparation, we need to teach <a href="https://github.com/apple/swift/tree/60a91bb7360dde5ce9531889e0ed10a2edbc961a/tools/swift-refactor">swift-refactor</a>
+a refactoring kind flag to specify the action we are testing with. To achieve this,
+the following entry is added in <a href="https://github.com/apple/swift/blob/master/tools/swift-refactor/swift-refactor.cpp">swift-refactor.cpp</a>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">clEnumValN</span><span class="p">(</span><span class="n">RefactoringKind</span><span class="o">::</span><span class="n">LocalizeString</span><span class="p">,</span> <span class="s">"localize-string"</span><span class="p">,</span> <span class="s">"Perform String Localization refactoring"</span><span class="p">),</span>
+</code></pre></div></div>
+
+<p>With such an entry, <a href="https://github.com/apple/swift/tree/60a91bb7360dde5ce9531889e0ed10a2edbc961a/tools/swift-refactor">swift-refactor</a> can test the code transformation part of
+String Localization specifically. A typical code transformation test consists of two parts:</p>
+
+<ol>
+  <li>The code snippet before refactoring.</li>
+  <li>The expected output after transformation.</li>
+</ol>
+
+<p>The test performs the designated refactoring in (1) and compares the result
+with (2). It passes if the two are identical, otherwise the test fails.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="kd">func</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">2</span>    <span class="nf">print</span><span class="p">(</span><span class="s">"Hello World!"</span><span class="p">)</span>
+<span class="mi">3</span>  <span class="p">}</span>
+<span class="mi">4</span>  <span class="c1">// RUN: rm -rf %t.result &amp;&amp; mkdir -p %t.result</span>
+<span class="mi">5</span>  <span class="c1">// RUN: %refactor -localize-string -source-filename %s -pos=2:14 &gt; %t.result/localized.swift</span>
+<span class="mi">6</span>  <span class="c1">// RUN: diff -u %S/Iutputs/localized.swift.expected %t.result/localized.swift</span>
+</code></pre></div></div>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span>  <span class="kd">func</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">2</span>    <span class="nf">print</span><span class="p">(</span><span class="kt">NSLocalizedString</span><span class="p">(</span><span class="s">"Hello World!"</span><span class="p">,</span> <span class="nv">comment</span><span class="p">:</span> <span class="s">""</span><span class="p">))</span>
+<span class="mi">3</span>  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above two code snippets comprise a meaningful code transformation test.
+Line 4 prepares a temporary source directory
+for the code resulting from the refactoring; using the newly added <code class="language-plaintext highlighter-rouge">-localize-string</code>,
+ Line 5 performs the refactoring code change at the start position of <code class="language-plaintext highlighter-rouge">"Hello World!"</code> and
+dumps the result to the temporary directory; finally, Line 6 compares the result
+with the expected output illustrated in the second code example.</p>
+
+<h2 id="integrating-with-xcode" class="header-with-anchor">Integrating with Xcode <a title="Permalink for Integrating with Xcode section" href="#integrating-with-xcode">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+<p>After implementing all of above pieces in the Swift codebase, we
+are ready to test/use the newly added refactoring in Xcode by integrating with
+a locally-built open source toolchain.</p>
+
+<ol>
+  <li>
+    <p>Run <a href="https://github.com/apple/swift/blob/master/utils/build-toolchain">build-toolchain</a>
+to build the open source toolchain locally.</p>
+  </li>
+  <li>
+    <p>Untar and copy the toolchain to <code class="language-plaintext highlighter-rouge">/Library/Developer/Toolchains/</code>.</p>
+  </li>
+  <li>
+    <p>Specify the local toolchain for Xcode’s use via <code class="language-plaintext highlighter-rouge">Xcode-&gt;Toolchains</code>, like the
+following figure illustrates.</p>
+  </li>
+</ol>
+
+<p><img src="/assets/images/local-refactoring/Toolchain.png" alt="Specify Toolchain" /></p>
+
+<h2 id="potential-local-refactoring-ideas" class="header-with-anchor">Potential Local Refactoring Ideas <a title="Permalink for Potential Local Refactoring Ideas section" href="#potential-local-refactoring-ideas">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+<p>This post just touches on some of the things that are now possible to implement in the new refactoring engine.
+If you are excited about extending the refactoring engine to implement additional transformations,
+Swift’s <a href="https://bugs.swift.org">issue database</a> contains <a href="https://bugs.swift.org/issues/?jql=labels%3DStarterProposal%20AND%20labels%3DRefactoring%20AND%20resolution%3DUnresolved">several ideas of refactoring transformations</a> awaiting implementations.
+If you’d like to propose new refactoring ideas, filing a task in Swift’s <a href="https://bugs.swift.org">issue database</a> with
+label <code class="language-plaintext highlighter-rouge">Refactoring</code> will be sufficient.</p>
+
+<p>For further help with implementing refactoring transformations, please see the <a href="https://github.com/apple/swift/blob/master/docs/refactoring/SwiftLocalRefactoring.md">documentation</a> or feel free to ask questions on the <a href="https://lists.swift.org/pipermail/swift-dev/">swift-dev</a> mailing list.</p>
+
+
+
+  <footer>
+    
+      <p>Written by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.github.com/nkcsgexi.png?size=64"
+            
+            alt="Xi Ge"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/nkcsgexi/" rel="nofollow" title="Xi Ge (@nkcsgexi) on GitHub">Xi Ge</a>
+            
+          </span>
+        </div>
+        
+          
+          
+        
+      </div>
+    
+  
+</div>
+    
+
+    
+    <nav>
+      
+      <a href="/blog/swift-package-manager-manifest-api-redesign/" rel="prev" title="Previous: Swift Package Manager Manifest API Redesign">Swift Package Manager Manifest API Redesign</a>
+      
+
+      
+      <a href="/blog/swift-4.0-released/" rel="next" title="Next: Swift 4.0 Released!">Swift 4.0 Released!</a>
+      
+    </nav>
+    
+  </footer>
+</article>
+</main>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+  <p>Except where otherwise noted, all content on this blog is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

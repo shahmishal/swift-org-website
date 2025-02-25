@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Introducing Swift Distributed Actors</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <meta name="description" content="We’re thrilled to announce a new open-source package for the Swift on Server ecosystem, Swift Distributed Actors, a complete server-oriented cluster library for the upcoming distributed actor language feature!
+">
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/blog/distributed-actors/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Introducing Swift Distributed Actors" />
+  <meta name="twitter:description" content="We’re thrilled to announce a new open-source package for the Swift on Server ecosystem, Swift Distributed Actors, a complete server-oriented cluster library for the upcoming distributed actor language feature!
+" />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Introducing Swift Distributed Actors" />
+  <meta property="og:url" content="https://swift.org/blog/distributed-actors/" />
+  <meta property="og:description" content="We’re thrilled to announce a new open-source package for the Swift on Server ecosystem, Swift Distributed Actors, a complete server-oriented cluster library for the upcoming distributed actor language feature!
+" />
+  <meta property="article:published_time" content="2021-10-28T05:00:00-04:00" />
+  <meta property="article:modified_time" content="2025-02-24T22:05:16-04:00" />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+<article class="post">
+  <header>
+    <h1>Introducing Swift Distributed Actors</h1>
+
+    <time pubdate datetime="2021-10-28T05:00:00-04:00">October 28, 2021</time>
+    <div class="authors compact">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/03cb20b97f6a14701c24c4e088b6af87?s=64&d=mp"
+            
+            alt="Konrad ‘ktoso’ Malawski"
+            title="Konrad Malawski is a member of a team developing foundational server-side Swift libraries at Apple, with focus on distributed systems and concurrency."
+            />
+          <span class="author">
+            
+              <a href="https://github.com/ktoso/" rel="nofollow" title="Konrad ‘ktoso’ Malawski (@ktoso) on GitHub">Konrad ‘ktoso’ Malawski</a>
+            
+          </span>
+        </div>
+        
+      </div>
+    
+  
+</div>
+  </header>
+
+  <p>We’re thrilled to announce a new open-source package for the Swift on Server ecosystem, <a href="https://github.com/apple/swift-distributed-actors/">Swift Distributed Actors</a>, a complete server-oriented cluster library for the upcoming <code class="language-plaintext highlighter-rouge">distributed actor</code> language feature!</p>
+
+<p>This library provides a complete solution for using distributed actors in server use-cases. By open-sourcing this project early, alongside the ongoing work on the language feature, we hope to gather more useful feedback on the shape of the language feature and associated transport implementations.</p>
+
+<h3 id="distributed-actors-proposal" class="header-with-anchor">Distributed Actors Proposal <a title="Permalink for Distributed Actors Proposal section" href="#distributed-actors-proposal">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Distributed actors are an early and <em>experimental language feature</em>.  We aim to simplify and push the state-of-the-art for distributed systems programming in Swift as we did with concurrent programming with local actors and Swift’s structured concurrency approach embedded in the language.</p>
+
+<p>Currently, we are iterating on the design of distributed actors. We are looking to gather your feedback, use-cases, and general ideas in the proposal’s <a href="https://forums.swift.org/t/pitch-distributed-actors/51669">pitch thread</a>, as well as the <a href="https://forums.swift.org/c/server/distributed-actors/79">Distributed Actors category</a> on the Swift forums. The library and language feature described in the proposal and this blog post are available in <a href="/downloads">nightly toolchains</a>, so please feel free to download them and get a feel for the feature. We will be posting updated proposals and other discussion threads on the forums, so if you are interested, please follow the respective category and threads on the Swift forums.</p>
+
+<p>We are most interested in general feedback, thoughts about use cases, and potential transport implementations you would be interested in taking on. As we mature and design the language feature, the library (introduced below) will serve as the <em>reference implementation</em> of one such advanced and powerful actor transport. If you are interested in distributed systems, <a href="https://github.com/apple/swift-distributed-actors/">contributions to the library</a> itself are also very welcome, and there is <a href="https://github.com/apple/swift-distributed-actors/issues">much to be done</a> there as well!</p>
+
+<p>Soon, we will also provide a more complete “reference guide,” examples, and article-style guides.  These materials, to be authored using the <a href="/blog/swift-docc/">recently open-sourced DocC</a> documentation compiler, will teach about the specific patterns and use-cases this library enables.</p>
+
+<p>These proposed language features–as all language features–will go through a proper <a href="https://github.com/swiftlang/swift-evolution/blob/main/process.md">Swift Evolution process</a> before lifting their experimental status. We invite the community to participate and help us shape the language and APIs through review, contributions, and sharing experiences. Thank you very much in advance!</p>
+
+<blockquote>
+  <p>This project is released as “early preview” and all of its APIs are subject to change, or even removal without any prior warning.</p>
+</blockquote>
+
+<p>The library depends on un-released, work-in-progress, and Swift Evolution review pending language features. As such, we cannot recommend using it in production just yet — the library may depend on specific nightly builds of toolchains, etc.</p>
+
+<p>The primary purpose of open sourcing this library early is to prove the ability to implement a feature-complete, compelling clustering solution using the <code class="language-plaintext highlighter-rouge">distributed actor</code> language feature and co-evolving the two in tandem.</p>
+
+<h3 id="distributed-actors-overview" class="header-with-anchor">Distributed Actors Overview <a title="Permalink for Distributed Actors Overview section" href="#distributed-actors-overview">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Distributed actors are the next step in the evolution of <a href="https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html">Swift’s concurrency model</a>.</p>
+
+<p>With actors built into the language, Swift offers developers a safe and intuitive concurrency model that is an excellent fit for many applications. Thanks to advanced semantic checks, the compiler can guide and help developers write programs free from low-level data races. These checks are not where the usefulness of the actor model ends, though: unlike other concurrency models, the actor model is also tremendously valuable for modeling distributed systems.  Thanks to the notion of <em>location transparent</em> distributed actors, we can program distributed systems using the familiar idea of actors and then readily move it to a distributed, e.g., clustered, environment.</p>
+
+<p>With distributed actors, we aim to simplify and push the state of the art of distributed systems programming, the same way we did with concurrent programming with local actors and Swift’s structured concurrency models embedded in the language.</p>
+
+<p>This abstraction does not intend to completely hide away the fact that distributed calls are crossing the network, though. In a way, we are doing the opposite and programming assuming that calls <em>may</em> be remote. This small yet crucial observation allows us to build systems primarily intended for distribution and testable in local test clusters that may even efficiently simulate various error scenarios.</p>
+
+<p>Distributed actors are similar to (local) actors because they encapsulate their state with communication exclusively through asynchronous calls. The distributed aspect adds to that equation some additional isolation, type system, and runtime considerations. However, the surface of the feature feels very similar to local actors. Here is a small example of a distributed actor declaration:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+<span class="c1">// 1) Actors may be declared with the new 'distributed' modifier</span>
+<span class="kd">distributed</span> <span class="kd">actor</span> <span class="kt">Worker</span> <span class="p">{</span>
+
+  <span class="c1">// 2) An actor's isolated state is only stored on the node where the actor lives.</span>
+  <span class="c1">//    Actor Isolation rules ensure that programs only access isolated state in</span>
+  <span class="c1">//    correct ways, i.e. in a thread-safe manner, and only when the state is</span>
+  <span class="c1">//    known to exist.</span>
+  <span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">SomeData</span>
+
+  <span class="c1">// 3) Only functions (and computed properties) declared as 'distributed' may be accessed cross actor.</span>
+  <span class="c1">//    Distributed function parameters and return types must be Codable,</span>
+  <span class="c1">//    because they will be crossing network boundaries during remote calls.</span>
+  <span class="kd">distributed</span> <span class="kd">func</span> <span class="nf">work</span><span class="p">(</span><span class="nv">item</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">WorkItem</span><span class="o">.</span><span class="kt">Result</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Distributed actors take away a lot of the boilerplate that we’d typically have to build and re-invent every time we create some distributed RPC system. After all, we did not care in the snippet about exact serialization and networking details; we declared what we needed to get done and sent work requests across the network! This omission of boilerplate is quite powerful, and we hope you’ll enjoy using actors in this capacity, in addition to their concurrency aspect.</p>
+
+<p>To have a distributed actor participate in some distributed system, we must provide it with an <code class="language-plaintext highlighter-rouge">ActorTransport</code>, a user-implementable library component responsible for performing all the networking necessary to make remote function calls. Developers offer their transport of choice during the instantiation of a distributed actor, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+
+<span class="c1">// 4) Distributed actors must have a transport associated with them at initialization</span>
+<span class="k">let</span> <span class="nv">someTransport</span><span class="p">:</span> <span class="kt">ActorTransport</span> <span class="o">=</span> <span class="o">...</span>
+<span class="k">let</span> <span class="nv">worker</span> <span class="o">=</span> <span class="kt">Worker</span><span class="p">(</span><span class="nv">transport</span><span class="p">:</span> <span class="n">someTransport</span><span class="p">)</span>
+
+<span class="c1">// 5) Distributed function invocations are asynchronous and throwing, when performed cross-actor,</span>
+<span class="c1">//    because of the potential network interactions of such call.</span>
+<span class="c1">//</span>
+<span class="c1">//    These effects are applied to such functions implicitly, only in contexts where necessary,</span>
+<span class="c1">//    for example: when it is known that the target actor is local, the implicit-throwing effect</span>
+<span class="c1">//    is not applied to such call.</span>
+<span class="n">_</span> <span class="o">=</span> <span class="k">try</span> <span class="k">await</span> <span class="n">worker</span><span class="o">.</span><span class="nf">work</span><span class="p">(</span><span class="nv">item</span><span class="p">:</span> <span class="s">"work-item-32"</span><span class="p">)</span>
+
+<span class="c1">// 6) Remote systems may obtain references to the actor by using the 'resolve' function.</span>
+<span class="c1">//    It returns a special "proxy" object, that transforms all distributed function calls into messages.</span>
+<span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="k">try</span> <span class="k">await</span> <span class="kt">Worker</span><span class="o">.</span><span class="nf">resolve</span><span class="p">(</span><span class="n">worker</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="nv">using</span><span class="p">:</span> <span class="n">otherTransport</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This post summarizes the distributed actor feature at a very high level. We encourage those interested to read the full proposal available in <a href="https://github.com/swiftlang/swift-evolution/pulls?q=is%3Apr+is%3Aopen+distributed">Swift Evolution</a>, and provide feedback or ask questions in the <a href="https://forums.swift.org/c/server/distributed-actors/79">Distributed Actors category on the Swift Forums</a>.</p>
+
+<p>You can follow along and provide feedback on the <code class="language-plaintext highlighter-rouge">distributed actor</code> language proposal on the Swift forums and <a href="https://github.com/swiftlang/swift-evolution/pulls?q=is%3Apr+is%3Aopen+distributed">Swift Evolution</a>. The <a href="https://github.com/swiftlang/swift-evolution/pull/1433">current, complete draft</a> is also available for review, though we expect to make significant changes to it shortly.</p>
+
+<p>We would love to hear your feedback and see you participate in the Swift Evolution reviews of this exciting new feature!</p>
+
+<h3 id="distributed-actor-transport-implementations" class="header-with-anchor">Distributed Actor Transport Implementations <a title="Permalink for Distributed Actor Transport Implementations section" href="#distributed-actor-transport-implementations">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The Swift standard library itself does not provide any specific transport. Instead, it focuses on defining the language model and extension points that transport implementations can use to implement particular transports for distributed actors.</p>
+
+<p>We intend to enable new and exciting transport implementations. The standard library defines an <code class="language-plaintext highlighter-rouge">ActorTransport</code> protocol, which anyone may implement to utilize distributed actors in unique and compelling use cases. Examples of potential transport implementations include, but are not limited to, clustered systems, web-socket-based messaging, or even inter-process communication for distributed actors.</p>
+
+<p>Building an actor transport is not a trivial task, and we only expect a handful of mature implementations to take the stage eventually.</p>
+
+<h2 id="introducing-distributed-actors-cluster-transport" class="header-with-anchor">Introducing: Distributed Actors Cluster Transport <a title="Permalink for Introducing: Distributed Actors Cluster Transport section" href="#introducing-distributed-actors-cluster-transport">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Today, we are announcing the open source release of the <a href="https://github.com/apple/swift-distributed-actors">Swift Distributed Actors library</a> - a fully featured framework for building distributed systems Swift. It is an implementation of the above mentioned <code class="language-plaintext highlighter-rouge">ActorTransport</code> protocol, and can serve as a reference implementation for other transport authors.</p>
+
+<p>This cluster library is focused on server-side peer-to-peer systems, which are often used in systems which require “live” interactions with multiple parties, such as: presence systems, game lobbies, monitoring or IoT systems, and classical “control plane” systems such as orchestrators, schedulers, etc.</p>
+
+<p>The library makes use of <a href="https://github.com/apple/swift-nio">SwiftNIO</a>, Swift’s high-performance server-side focused networking library, to implement the cluster’s networking layer. The cluster also provides a membership service, based on the <a href="/blog/swift-cluster-membership/">Swift Cluster Membership</a> library which was open sourced earlier last year. This means you can use this cluster in a stand-alone mode, without needing to spin up additional service discovery or database services. We believe this is an important capability as it simplifies deployment in some bare-metal scenarios, and makes utilizing this cluster technology viable in others where it otherwise might not have been possible due to resource constraints.</p>
+
+<p>The cluster is designed to be very extensible, and it is possible to bring your own implementations of most of the core components, including node discovery, failure detection and more.</p>
+
+<p>The distributed actor system enables actors to form a cluster, discover each other and communicate with one another without the need for low-level network programming that would otherwise be necessary. In the next sections we’ll showcase some of the basic steps one would take to build such distributed actor system.</p>
+
+<h3 id="forming-clusters" class="header-with-anchor">Forming Clusters <a title="Permalink for Forming Clusters section" href="#forming-clusters">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>For distributed actors to live up to their name, let us focus on a multi-node scenario right away. We’ll start two nodes and have them form a cluster. The code snippets perform this task in one and the same process, but of course the intent of such system is to eventually run across multiple independent machines. Doing so isn’t all that different, and we’ll discuss this a bit later.</p>
+
+<p>The ability to create multiple cluster nodes in the same process highlights another useful capability of the cluster: it is possible to write your distributed system tests in-process, and either have them communicate in memory or communicate over an actual network - the only difference between those two cases is the transport passed to each actor. This allows us to develop distributed actors <em>once</em>, and then test, run, and deploy the same code but in slightly different configurations. We can run the same set of distributed actors in either:</p>
+
+<ul>
+  <li>single node cluster, using a single process - only <em>pretending</em> to be distributed, which can be useful for early and local development,</li>
+  <li>multiple cluster nodes, but sharing the same process - which is useful in testing, as we can write <em>unit tests</em> for our distributed system, and have it use the actual networking, or even a transport simulating message loss or delays,</li>
+  <li>multiple cluster nodes, on actual different physical machines - which is the usual deployment strategy for such systems in production.</li>
+</ul>
+
+<p>Forming clusters needs <em>some</em> knowledge about where other nodes of the clusters can be found. First, let us show the same-process but many nodes way of forming a cluster, as this is what one frequently uses in local testing:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+
+<span class="k">let</span> <span class="nv">first</span> <span class="o">=</span> <span class="kt">ActorSystem</span><span class="p">(</span><span class="s">"FirstNode"</span><span class="p">)</span> <span class="p">{</span> <span class="n">settings</span> <span class="k">in</span>
+  <span class="n">settings</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="nf">enable</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"127.0.0.1"</span><span class="p">,</span> <span class="nv">port</span><span class="p">:</span> <span class="mi">7337</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">let</span> <span class="nv">second</span> <span class="o">=</span> <span class="kt">ActorSystem</span><span class="p">(</span><span class="s">"SecondNode"</span><span class="p">)</span> <span class="p">{</span> <span class="n">settings</span> <span class="k">in</span>
+  <span class="n">settings</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="nf">enable</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"127.0.0.1"</span><span class="p">,</span> <span class="nv">port</span><span class="p">:</span> <span class="mi">8228</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">first</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="nf">join</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"127.0.0.1"</span><span class="p">,</span> <span class="nv">port</span><span class="p">:</span> <span class="mi">8228</span><span class="p">)</span>
+<span class="c1">// or convenience API for local testing:</span>
+<span class="c1">// first.cluster.join(node: second.settings.cluster.node)</span>
+</code></pre></div></div>
+
+<p>The actor system exposes many useful functions regarding the cluster state and actions it can perform via the <code class="language-plaintext highlighter-rouge">.cluster</code> property, such as <code class="language-plaintext highlighter-rouge">joining</code> other nodes into the cluster.</p>
+
+<p>If the cluster already has multiple nodes, it is only necessary for a single node to join a new node for all the other nodes to eventually learn about this new node. Membership information is gossiped throughout the cluster automatically.</p>
+
+<p>In a production system, we wouldn’t be hardcoding the joining process like this. Production deployments usually have some form of service discovery of nodes available, and thanks to <a href="/blog/swift-service-discovery/">Swift Service Discovery</a> we can easily utilize those to discover and automatically join nodes into our cluster. Swift Service Discovery provides an abstract API over discovery mechanisms, and can support backends such as DNS records or Kubernetes service discovery. We could use a hypothetical DNS discovery mechanism to discover the nodes:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+
+<span class="k">let</span> <span class="nv">third</span> <span class="o">=</span> <span class="kt">ActorSystem</span><span class="p">(</span><span class="s">"Third"</span><span class="p">)</span> <span class="p">{</span> <span class="n">settings</span> <span class="k">in</span>
+  <span class="n">settings</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="nf">enable</span><span class="p">()</span>
+  <span class="n">settings</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">discovery</span> <span class="o">=</span> <span class="kt">ServiceDiscoverySettings</span><span class="p">(</span>
+    <span class="kt">SomeExistingDNSBasedServiceDiscovery</span><span class="p">(),</span> <span class="c1">// or any other swift-service-discovery mechanism</span>
+    <span class="nv">service</span><span class="p">:</span> <span class="s">"my-actor-cluster"</span> <span class="c1">// `Service` type aligned with what DNSBasedServiceDiscovery expects</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// automatically joins all nodes that DNSBasedServiceDiscovery finds for "my-actor-cluster"</span>
+</code></pre></div></div>
+
+<p>This configuration would cause the system to periodically query DNS for service records and attempt joining any newly discovered nodes to our cluster.</p>
+
+<h3 id="discovering-distributed-actors" class="header-with-anchor">Discovering Distributed Actors <a title="Permalink for Discovering Distributed Actors section" href="#discovering-distributed-actors">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>A common question when first learning about distributed actors is “How do I <em>find</em> a remote actor?” since in order to obtain a remote reference, we need to obtain a specific <code class="language-plaintext highlighter-rouge">ActorIdentity</code> to be provided to the runtime, yet it is impossible to “just guess” the right identifier of a remote actor.</p>
+
+<p>Thankfully, the cluster comes with a solution to this problem! We call it the <code class="language-plaintext highlighter-rouge">Receptionist</code> pattern - because similar to a hotel, actors need to check-in (and out) at the reception in order for others to be able to find them. This check-in is optional and not automatic, by design, as not all distributed actors necessarily want to advertise their existence to <em>all</em> other actors, but only to a few select ones they know and trust etc.</p>
+
+<p>The receptionist is interacted with from both sides, the actor registering with it, and an actor who is interested in listening to updates of a specific reception key.</p>
+
+<p>First, let’s see how a distributed actor can advertise itself in the cluster under a known reception key:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+<span class="kd">distributed</span> <span class="kd">actor</span> <span class="kt">FamousActor</span> <span class="p">{</span>
+  <span class="nf">init</span><span class="p">(</span><span class="nv">transport</span><span class="p">:</span> <span class="kt">ActorSystem</span><span class="p">)</span> <span class="k">async</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="n">transport</span><span class="o">.</span><span class="n">receptionist</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">withKey</span><span class="p">:</span> <span class="o">.</span><span class="n">famousActors</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">DistributedReception</span><span class="o">.</span><span class="kt">Key</span> <span class="p">{</span>
+  <span class="kd">static</span> <span class="k">var</span> <span class="nv">famousActors</span><span class="p">:</span> <span class="k">Self</span><span class="o">&lt;</span><span class="kt">FamousActor</span><span class="o">&gt;</span> <span class="p">{</span> <span class="s">"famous-actors"</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>As we register a specific actor with the receptionist, it will automatically gossip this information across the network with other nodes in the cluster, and ensure all nodes are aware of this famous actor.</p>
+
+<p>On other nodes of the cluster we can listen to updates about the famous actors key, and we’d simply be notified when new actors become known in the cluster. Here we use Swift’s <code class="language-plaintext highlighter-rouge">AsyncSequence</code> feature to consume this potentially infinite stream of updates:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** SYNTAX BASED ON CURRENT PROPOSAL TEXT AND LIBRARY -- NOT FINAL APIs ****</span>
+<span class="k">for</span> <span class="k">try</span> <span class="k">await</span> <span class="n">famousActor</span> <span class="k">in</span> <span class="n">transport</span><span class="o">.</span><span class="n">receptionist</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="o">.</span><span class="n">famousActors</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">print</span><span class="p">(</span><span class="s">"Oh, a new famous actor appeared: </span><span class="se">\(</span><span class="n">famousActor</span><span class="o">.</span><span class="n">id</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+  <span class="c1">// we can use the famousActor right away and send messages to it</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>It is also possible to ask the receptionist for a single, or all actors known under a specific key, rather than subscribing to updates.</p>
+
+<p>The receptionist pattern gives us a type-safe way to advertise and discover actors, without having to worry about the exact networking details of how we’d achieve this.</p>
+
+<h3 id="reacting-to-cluster-and-actor-lifecycle-events" class="header-with-anchor">Reacting to Cluster and Actor Lifecycle Events <a title="Permalink for Reacting to Cluster and Actor Lifecycle Events section" href="#reacting-to-cluster-and-actor-lifecycle-events">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The cluster provides the ability to reason about the lifecycle of actors, regardless if they are co-located on the same, or on some remote compute node. This feature is surfaced as allowing distributed actors to “watch” each other for termination.</p>
+
+<p>Whenever a watched actor is deinitialized, or the node on which it was running is determined “down”, a terminated signal is emitted about this actor, to any actors which were watching its lifecycle. The cluster uses the <a href="https://www.github.com/apple/swift-cluster-membership">Swift Cluster Membership</a> library which was open sourced earlier last year to detect nodes failing, and it moves them along a lifecycle graph as shown below:</p>
+
+<p><img src="/assets/images/distributed-blog/cluster_lifecycle.png" alt="Cluster lifecycle diagram" /></p>
+
+<p>Cluster events are emitted as an <code class="language-plaintext highlighter-rouge">AsyncSequence&lt;Cluster.Event&gt;</code>. Such sequence always begins with a “snapshot” of the current state of the cluster, followed by any changes that occur since that moment. This could be used to implement a function that waits until the cluster reaches a certain size for example:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+
+<span class="k">var</span> <span class="nv">membership</span><span class="p">:</span> <span class="kt">Membership</span> <span class="o">=</span> <span class="o">.</span><span class="n">empty</span>
+
+<span class="c1">// "infinite" stream of cluster events</span>
+<span class="k">for</span> <span class="k">try</span> <span class="k">await</span> <span class="n">event</span> <span class="k">in</span> <span class="n">system</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">events</span> <span class="p">{</span>
+  <span class="nf">print</span><span class="p">(</span><span class="s">"Cluster event: </span><span class="se">\(</span><span class="n">event</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+
+  <span class="c1">// events can be applied to membership to</span>
+  <span class="k">try</span> <span class="n">membership</span><span class="o">.</span><span class="nf">apply</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">membership</span><span class="o">.</span><span class="nf">count</span><span class="p">(</span><span class="nv">atLeast</span><span class="p">:</span> <span class="o">.</span><span class="n">up</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="p">{</span> <span class="c1">// membership has useful utility functions</span>
+    <span class="k">break</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We could also inspect the specific events if desired. Refer to the documentation of <code class="language-plaintext highlighter-rouge">Cluster.Membership</code> to learn more about all the types of events and information available to you about the cluster state.</p>
+
+<p>This isn’t the level of API most developers will be interacting with though. The actor cluster automatically translates relevant events to actor lifecycle signals, so instead of listening for cluster events every time we want to monitor an actor’s lifecycle, we can monitor <em>specific</em> actors, and in case the entire node the actor was located on is terminated, we’ll get notified about that too. This feature is called <code class="language-plaintext highlighter-rouge">LifecycleWatch</code> and is used as follows:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+
+<span class="c1">// distributed actor Person {}</span>
+<span class="k">let</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">Person</span>
+<span class="k">let</span> <span class="nv">system</span><span class="p">:</span> <span class="kt">ActorSystem</span>
+
+<span class="nf">watchTermination</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="n">terminatedIdentity</span> <span class="k">in</span>
+  <span class="n">system</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="nf">info</span><span class="p">(</span><span class="s">"Actor terminated: </span><span class="se">\(</span><span class="n">terminatedIdentity</span><span class="se">)</span><span class="s">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>It is important that the watch API does not retain the actor, and thus won’t keep it alive - otherwise the the termination would never be observed after all.</p>
+
+<p>Distributed actors may need to keep themselves alive by storing strong references to them in some kind of “manager” actor, some registry, or having the receptionist retain them (e.g. until they unregister, or some other condition happens).</p>
+
+<h3 id="example-distributed-worker-pool" class="header-with-anchor">Example: Distributed Worker Pool <a title="Permalink for Example: Distributed Worker Pool section" href="#example-distributed-worker-pool">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Finally, we can put all those features together and show how to build a sample distributed worker pool utilizing the actor cluster.</p>
+
+<p>Thanks to the cluster’s service discovery and failure detection mechanisms, we do not need to implement anything special in order to add new nodes as they are added to the cluster, or remove them as they are terminated. Instead, we can focus on the actors themselves, as the cluster mechanisms will automatically translate cluster events into respective events about the distributed actors.</p>
+
+<p>First, let us prepare a <code class="language-plaintext highlighter-rouge">WorkerPool</code> distributed actor. It will subscribe to the receptionist with a worker key, and add all workers which appear in the cluster to the pool. As they terminate, it removes them from the pool it maintains.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+
+<span class="kd">extension</span> <span class="kt">Reception</span><span class="o">.</span><span class="kt">Key</span> <span class="p">{</span>
+  <span class="kd">static</span> <span class="k">var</span> <span class="nv">workers</span><span class="p">:</span> <span class="k">Self</span><span class="o">&lt;</span><span class="kt">Worker</span><span class="o">&gt;</span> <span class="p">{</span> <span class="s">"workers"</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">distributed</span> <span class="kd">actor</span> <span class="kt">WorkerPool</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="nv">workers</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">Worker</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="nf">init</span><span class="p">(</span><span class="nv">transport</span><span class="p">:</span> <span class="kt">ActorSystem</span><span class="p">)</span> <span class="k">async</span> <span class="p">{</span>
+    <span class="kt">Task</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="k">try</span> <span class="k">await</span> <span class="n">worker</span> <span class="k">in</span> <span class="n">transport</span><span class="o">.</span><span class="n">receptionist</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="o">.</span><span class="n">workers</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">workers</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="n">worker</span><span class="p">)</span>
+        <span class="nf">watchTermination</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="n">worker</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">workers</span><span class="o">.</span><span class="nf">remove</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span> <span class="c1">// thread-safe!</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">distributed</span> <span class="kd">func</span> <span class="nf">submit</span><span class="p">(</span><span class="n">work</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">WorkItem</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Result</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">worker</span> <span class="o">=</span> <span class="n">workers</span><span class="o">.</span><span class="n">shuffled</span><span class="o">.</span><span class="n">first</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="kt">NoWorkersAvailable</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">try</span> <span class="k">await</span> <span class="n">worker</span><span class="o">.</span><span class="nf">work</span><span class="p">(</span><span class="nv">on</span><span class="p">:</span> <span class="n">item</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">WorkerPool</code> also reaps the usual benefits from being an <code class="language-plaintext highlighter-rouge">actor</code>, in addition to being a <em>distributed</em> actor: we can safely modify the <code class="language-plaintext highlighter-rouge">workers</code> variable without having to care or worry about threading — the actor guarantees the concurrency safety of this property thanks to actor isolation.</p>
+
+<p>The worker pool uses two cluster features: the receptionist to discover new workers, and the lifecycle watching in order to remove them as they terminate. This is enough to implement a fully managed set of peers, that will be dynamically updated as worker nodes join and leave the cluster.</p>
+
+<p>The worker implementation is pretty short as well. We need to ensure that all <code class="language-plaintext highlighter-rouge">Worker</code> actors register themselves with the receptionist as they become initialized, so we’ll do this in the actor’s asynchronous initializer. We don’t need to do anything else for the receptionist to automatically make a reference to this worker available in the cluster. When the worker deinitializes, or the entire node it was running on crashes, the receptionists on the other systems will automatically translate this into termination signals on their respective systems.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// **** APIS AND SYNTAX ARE WORK IN PROGRESS / PENDING SWIFT EVOLUTION ****</span>
+
+<span class="kd">distributed</span> <span class="kd">actor</span> <span class="kt">Worker</span> <span class="p">{</span>
+  <span class="nf">init</span><span class="p">(</span><span class="nv">transport</span><span class="p">:</span> <span class="kt">ActorSystem</span><span class="p">)</span> <span class="k">async</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="n">transport</span><span class="o">.</span><span class="n">receptionist</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">withKey</span><span class="p">:</span> <span class="o">.</span><span class="n">workers</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">distributed</span> <span class="kd">func</span> <span class="nf">work</span><span class="p">(</span><span class="n">on</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">WorkItem</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt">Result</span> <span class="p">{</span>
+    <span class="c1">// do the work</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>That’s it! The receptionist will automatically gossip with other peers in the cluster about the new worker instance joining the reception under the workers key. Any other actor in the cluster which subscribes to the receptionist’s updates can then discover these actors and contact them.</p>
+
+<p>You also may have noticed that we did not have to deep dive into implementing any networking, request/reply matching or even any encoding/decoding from some wire format. All this is handled by the language feature in collaboration with the ActorSystem transport implementation. There are ways to customize many aspects of these, however in the simple case — we don’t need to worry about it!</p>
+
+<p>So, other than the system initialization (configuring node discovery), this really is all the code you need to write to prepare a distributed worker pool. We hope this small example has inspired you and given you a rough idea what kinds of use cases this feature enables. There is much more to learn and discover about distributed actors, but for now we’ll leave it at that.</p>
+
+<h3 id="resources" class="header-with-anchor">Resources <a title="Permalink for Resources section" href="#resources">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<ul>
+  <li><a href="https://github.com/swiftlang/swift-evolution/pull/1433">Swift Evolution: Distributed Actors Pitch, revision #1</a></li>
+  <li><a href="https://github.com/apple/swift-distributed-actors">Swift Distributed Actors Library repository</a></li>
+  <li><a href="https://forums.swift.org/c/server/distributed-actors/79">Distributed Actors category on Swift Forums</a></li>
+</ul>
+
+
+  <footer>
+    
+      <p>Written by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/03cb20b97f6a14701c24c4e088b6af87?s=64&d=mp"
+            
+            alt="Konrad ‘ktoso’ Malawski"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/ktoso/" rel="nofollow" title="Konrad ‘ktoso’ Malawski (@ktoso) on GitHub">Konrad ‘ktoso’ Malawski</a>
+            
+          </span>
+        </div>
+        
+          
+          
+            <div class="about">Konrad Malawski is a member of a team developing foundational server-side Swift libraries at Apple, with focus on distributed systems and concurrency.</div>
+          
+        
+      </div>
+    
+  
+</div>
+    
+
+    
+    <nav>
+      
+      <a href="/blog/swift-docc/" rel="prev" title="Previous: Swift-DocC is Now Open Source">Swift-DocC is Now Open Source</a>
+      
+
+      
+      <a href="/blog/swift-5.6-released/" rel="next" title="Next: Swift 5.6 Released!">Swift 5.6 Released!</a>
+      
+    </nav>
+    
+  </footer>
+</article>
+</main>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+  <p>Except where otherwise noted, all content on this blog is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>
