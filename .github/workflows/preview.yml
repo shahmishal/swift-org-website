@@ -23,9 +23,12 @@ jobs:
         with:
           ruby-version: 3.3.6
 
+      - name: Set env
+        run: echo "JEKYLL_ENV=stage" >> $GITHUB_ENV
+
       - name: Install and Build
         if: github.event.action != 'closed' # You might want to skip the build if the PR has been closed
-        run: JEKYLL_ENV=stage bundle install && bundle exec jekyll build --baseurl /swift-org-website/pr-preview/pr-1
+        run: bundle install && bundle exec jekyll build --baseurl /swift-org-website/pr-preview/pr-1
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
