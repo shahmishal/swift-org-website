@@ -6,6 +6,7 @@ exclude: ["README.md", "config.ru", "Gemfile", "Gemfile.lock", "Procfile", "vend
 safe: false
 future: true
 basewebsite: /swift-org-website/pr-preview/pr-1/
+baseurl: /swift-org-website/pr-preview/pr-1/
 
 kramdown:
     syntax_highlighter: rouge
