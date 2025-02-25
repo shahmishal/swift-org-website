@@ -6,7 +6,7 @@
         
         
         <url>
-            <loc>https://swift.org/</loc>
+            <loc>https://shahmishal.github.io/</loc>
             
                 <priority>1.0</priority>
             
@@ -17,7 +17,7 @@
         
         
         <url>
-            <loc>https://swift.org/404.html</loc>
+            <loc>https://shahmishal.github.io/404.html</loc>
             
                 <priority>0.7</priority>
             
@@ -27,7 +27,7 @@
         
         
         <url>
-            <loc>https://swift.org/500.html</loc>
+            <loc>https://shahmishal.github.io/500.html</loc>
             
                 <priority>0.7</priority>
             
@@ -37,7 +37,7 @@
         
         
         <url>
-            <loc>https://swift.org/about/</loc>
+            <loc>https://shahmishal.github.io/about/</loc>
             
                 <priority>0.7</priority>
             
@@ -47,7 +47,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/6.0/amazonlinux2.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/6.0/amazonlinux2.json</loc>
             
                 <priority>0.7</priority>
             
@@ -57,7 +57,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/6.0/centos7.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/6.0/centos7.json</loc>
             
                 <priority>0.7</priority>
             
@@ -67,7 +67,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/6.0/macos.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/6.0/macos.json</loc>
             
                 <priority>0.7</priority>
             
@@ -77,7 +77,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/6.0/static-sdk.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/6.0/static-sdk.json</loc>
             
                 <priority>0.7</priority>
             
@@ -87,7 +87,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/6.0/ubi9.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/6.0/ubi9.json</loc>
             
                 <priority>0.7</priority>
             
@@ -97,7 +97,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/6.0/ubuntu2004.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/6.0/ubuntu2004.json</loc>
             
                 <priority>0.7</priority>
             
@@ -107,7 +107,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/6.0/ubuntu2204.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/6.0/ubuntu2204.json</loc>
             
                 <priority>0.7</priority>
             
@@ -117,7 +117,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/6.0/windows10.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/6.0/windows10.json</loc>
             
                 <priority>0.7</priority>
             
@@ -127,7 +127,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/main/amazonlinux2.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/main/amazonlinux2.json</loc>
             
                 <priority>0.7</priority>
             
@@ -137,7 +137,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/main/centos7.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/main/centos7.json</loc>
             
                 <priority>0.7</priority>
             
@@ -147,7 +147,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/main/macos.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/main/macos.json</loc>
             
                 <priority>0.7</priority>
             
@@ -157,7 +157,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/main/static-sdk.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/main/static-sdk.json</loc>
             
                 <priority>0.7</priority>
             
@@ -167,7 +167,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/main/ubi9.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/main/ubi9.json</loc>
             
                 <priority>0.7</priority>
             
@@ -177,7 +177,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/main/ubuntu2004.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/main/ubuntu2004.json</loc>
             
                 <priority>0.7</priority>
             
@@ -187,7 +187,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/main/ubuntu2204.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/main/ubuntu2204.json</loc>
             
                 <priority>0.7</priority>
             
@@ -197,7 +197,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/dev/main/windows10.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/dev/main/windows10.json</loc>
             
                 <priority>0.7</priority>
             
@@ -207,7 +207,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/install/releases.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/install/releases.json</loc>
             
                 <priority>0.7</priority>
             
@@ -217,7 +217,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/sswg/incubation/all.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/sswg/incubation/all.json</loc>
             
                 <priority>0.7</priority>
             
@@ -227,7 +227,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/sswg/incubation/graduated.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/sswg/incubation/graduated.json</loc>
             
                 <priority>0.7</priority>
             
@@ -237,7 +237,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/sswg/incubation/incubating.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/sswg/incubation/incubating.json</loc>
             
                 <priority>0.7</priority>
             
@@ -247,7 +247,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/sswg/incubation/sandbox.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/sswg/incubation/sandbox.json</loc>
             
                 <priority>0.7</priority>
             
@@ -257,7 +257,7 @@
         
         
         <url>
-            <loc>https://swift.org/api/v1/swiftly.json</loc>
+            <loc>https://shahmishal.github.io/api/v1/swiftly.json</loc>
             
                 <priority>0.7</priority>
             
@@ -267,7 +267,7 @@
         
         
         <url>
-            <loc>https://swift.org/assets/javascripts/application.js</loc>
+            <loc>https://shahmishal.github.io/assets/javascripts/application.js</loc>
             
                 <priority>0.7</priority>
             
@@ -277,7 +277,7 @@
         
         
         <url>
-            <loc>https://swift.org/assets/stylesheets/application.css</loc>
+            <loc>https://shahmishal.github.io/assets/stylesheets/application.css</loc>
             
                 <priority>0.7</priority>
             
@@ -287,7 +287,7 @@
         
         
         <url>
-            <loc>https://swift.org/assets/stylesheets/application.css.map</loc>
+            <loc>https://shahmishal.github.io/assets/stylesheets/application.css.map</loc>
             
                 <priority>0.7</priority>
             
@@ -298,7 +298,7 @@
         
         
         <url>
-            <loc>https://swift.org/blog-post-contributions/</loc>
+            <loc>https://shahmishal.github.io/blog-post-contributions/</loc>
             
                 <priority>0.7</priority>
             
@@ -308,7 +308,7 @@
         
         
         <url>
-            <loc>https://swift.org/blog/</loc>
+            <loc>https://shahmishal.github.io/blog/</loc>
             
                 <priority>0.7</priority>
             
@@ -318,7 +318,7 @@
         
         
         <url>
-            <loc>https://swift.org/code-of-conduct/</loc>
+            <loc>https://shahmishal.github.io/code-of-conduct/</loc>
             
                 <priority>0.7</priority>
             
@@ -328,7 +328,7 @@
         
         
         <url>
-            <loc>https://swift.org/community/</loc>
+            <loc>https://shahmishal.github.io/community/</loc>
             
                 <priority>0.7</priority>
             
@@ -338,7 +338,7 @@
         
         
         <url>
-            <loc>https://swift.org/compiler-stdlib/</loc>
+            <loc>https://shahmishal.github.io/compiler-stdlib/</loc>
             
                 <priority>0.7</priority>
             
@@ -348,7 +348,7 @@
         
         
         <url>
-            <loc>https://swift.org/continuous-integration/</loc>
+            <loc>https://shahmishal.github.io/continuous-integration/</loc>
             
                 <priority>0.7</priority>
             
@@ -358,7 +358,7 @@
         
         
         <url>
-            <loc>https://swift.org/contributing/</loc>
+            <loc>https://shahmishal.github.io/contributing/</loc>
             
                 <priority>0.7</priority>
             
@@ -368,7 +368,7 @@
         
         
         <url>
-            <loc>https://swift.org/contributor-experience-workgroup/</loc>
+            <loc>https://shahmishal.github.io/contributor-experience-workgroup/</loc>
             
                 <priority>0.7</priority>
             
@@ -378,7 +378,7 @@
         
         
         <url>
-            <loc>https://swift.org/core-libraries/</loc>
+            <loc>https://shahmishal.github.io/core-libraries/</loc>
             
                 <priority>0.7</priority>
             
@@ -388,7 +388,7 @@
         
         
         <url>
-            <loc>https://swift.org/cxx-interop-workgroup/</loc>
+            <loc>https://shahmishal.github.io/cxx-interop-workgroup/</loc>
             
                 <priority>0.7</priority>
             
@@ -398,7 +398,7 @@
         
         
         <url>
-            <loc>https://swift.org/diversity/</loc>
+            <loc>https://shahmishal.github.io/diversity/</loc>
             
                 <priority>0.7</priority>
             
@@ -408,7 +408,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation-workgroup/</loc>
+            <loc>https://shahmishal.github.io/documentation-workgroup/</loc>
             
                 <priority>0.7</priority>
             
@@ -418,7 +418,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/</loc>
+            <loc>https://shahmishal.github.io/documentation/</loc>
             
                 <priority>0.7</priority>
             
@@ -428,7 +428,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/api-design-guidelines.html</loc>
+            <loc>https://shahmishal.github.io/documentation/api-design-guidelines.html</loc>
             
                 <priority>0.7</priority>
             
@@ -438,7 +438,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/api-design-guidelines/</loc>
+            <loc>https://shahmishal.github.io/documentation/api-design-guidelines/</loc>
             
                 <priority>0.7</priority>
             
@@ -448,7 +448,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/articles/getting-started-with-vscode-swift.html</loc>
+            <loc>https://shahmishal.github.io/documentation/articles/getting-started-with-vscode-swift.html</loc>
             
                 <priority>0.7</priority>
             
@@ -458,7 +458,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/articles/static-linux-getting-started.html</loc>
+            <loc>https://shahmishal.github.io/documentation/articles/static-linux-getting-started.html</loc>
             
                 <priority>0.7</priority>
             
@@ -468,7 +468,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/articles/value-and-reference-types.html</loc>
+            <loc>https://shahmishal.github.io/documentation/articles/value-and-reference-types.html</loc>
             
                 <priority>0.7</priority>
             
@@ -478,7 +478,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/articles/wrapping-c-cpp-library-in-swift.html</loc>
+            <loc>https://shahmishal.github.io/documentation/articles/wrapping-c-cpp-library-in-swift.html</loc>
             
                 <priority>0.7</priority>
             
@@ -488,7 +488,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/articles/zero-to-swift-emacs.html</loc>
+            <loc>https://shahmishal.github.io/documentation/articles/zero-to-swift-emacs.html</loc>
             
                 <priority>0.7</priority>
             
@@ -498,7 +498,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/articles/zero-to-swift-nvim.html</loc>
+            <loc>https://shahmishal.github.io/documentation/articles/zero-to-swift-nvim.html</loc>
             
                 <priority>0.7</priority>
             
@@ -508,7 +508,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/concurrency/</loc>
+            <loc>https://shahmishal.github.io/documentation/concurrency/</loc>
             
                 <priority>0.7</priority>
             
@@ -518,7 +518,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/continuous-integration/</loc>
+            <loc>https://shahmishal.github.io/documentation/continuous-integration/</loc>
             
                 <priority>0.7</priority>
             
@@ -528,7 +528,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/core-libraries/</loc>
+            <loc>https://shahmishal.github.io/documentation/core-libraries/</loc>
             
                 <priority>0.7</priority>
             
@@ -538,7 +538,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/cxx-interop.html</loc>
+            <loc>https://shahmishal.github.io/documentation/cxx-interop.html</loc>
             
                 <priority>0.7</priority>
             
@@ -548,7 +548,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/cxx-interop/</loc>
+            <loc>https://shahmishal.github.io/documentation/cxx-interop/</loc>
             
                 <priority>0.7</priority>
             
@@ -558,7 +558,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/cxx-interop/project-build-setup.html</loc>
+            <loc>https://shahmishal.github.io/documentation/cxx-interop/project-build-setup.html</loc>
             
                 <priority>0.7</priority>
             
@@ -568,7 +568,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/cxx-interop/project-build-setup/</loc>
+            <loc>https://shahmishal.github.io/documentation/cxx-interop/project-build-setup/</loc>
             
                 <priority>0.7</priority>
             
@@ -578,7 +578,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/cxx-interop/status.html</loc>
+            <loc>https://shahmishal.github.io/documentation/cxx-interop/status.html</loc>
             
                 <priority>0.7</priority>
             
@@ -588,7 +588,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/cxx-interop/status/</loc>
+            <loc>https://shahmishal.github.io/documentation/cxx-interop/status/</loc>
             
                 <priority>0.7</priority>
             
@@ -598,7 +598,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/lldb/</loc>
+            <loc>https://shahmishal.github.io/documentation/lldb/</loc>
             
                 <priority>0.7</priority>
             
@@ -608,7 +608,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/monthly-non-darwin-release/</loc>
+            <loc>https://shahmishal.github.io/documentation/monthly-non-darwin-release/</loc>
             
                 <priority>0.7</priority>
             
@@ -618,7 +618,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/package-manager/</loc>
+            <loc>https://shahmishal.github.io/documentation/package-manager/</loc>
             
                 <priority>0.7</priority>
             
@@ -628,7 +628,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/</loc>
+            <loc>https://shahmishal.github.io/documentation/server/</loc>
             
                 <priority>0.7</priority>
             
@@ -638,7 +638,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/</loc>
             
                 <priority>0.7</priority>
             
@@ -648,7 +648,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/allocations.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/allocations.html</loc>
             
                 <priority>0.7</priority>
             
@@ -658,7 +658,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/building.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/building.html</loc>
             
                 <priority>0.7</priority>
             
@@ -668,7 +668,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/deploying/aws-copilot-fargate-vapor-mongo.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/deploying/aws-copilot-fargate-vapor-mongo.html</loc>
             
                 <priority>0.7</priority>
             
@@ -678,7 +678,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/deploying/aws-sam-lambda.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/deploying/aws-sam-lambda.html</loc>
             
                 <priority>0.7</priority>
             
@@ -688,7 +688,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/deploying/aws.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/deploying/aws.html</loc>
             
                 <priority>0.7</priority>
             
@@ -698,7 +698,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/deploying/digital-ocean.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/deploying/digital-ocean.html</loc>
             
                 <priority>0.7</priority>
             
@@ -708,7 +708,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/deploying/gcp.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/deploying/gcp.html</loc>
             
                 <priority>0.7</priority>
             
@@ -718,7 +718,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/deploying/heroku.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/deploying/heroku.html</loc>
             
                 <priority>0.7</priority>
             
@@ -728,7 +728,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/deploying/ubuntu.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/deploying/ubuntu.html</loc>
             
                 <priority>0.7</priority>
             
@@ -738,7 +738,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/deployment.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/deployment.html</loc>
             
                 <priority>0.7</priority>
             
@@ -748,7 +748,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/libraries/concurrency-adoption-guidelines.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/libraries/concurrency-adoption-guidelines.html</loc>
             
                 <priority>0.7</priority>
             
@@ -758,7 +758,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/libraries/log-levels.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/libraries/log-levels.html</loc>
             
                 <priority>0.7</priority>
             
@@ -768,7 +768,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/linux-perf.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/linux-perf.html</loc>
             
                 <priority>0.7</priority>
             
@@ -778,7 +778,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/llvm-sanitizers.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/llvm-sanitizers.html</loc>
             
                 <priority>0.7</priority>
             
@@ -788,7 +788,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/memory-leaks-and-usage.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/memory-leaks-and-usage.html</loc>
             
                 <priority>0.7</priority>
             
@@ -798,7 +798,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/packaging.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/packaging.html</loc>
             
                 <priority>0.7</priority>
             
@@ -808,7 +808,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/passkeys.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/passkeys.html</loc>
             
                 <priority>0.7</priority>
             
@@ -818,7 +818,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/performance.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/performance.html</loc>
             
                 <priority>0.7</priority>
             
@@ -828,7 +828,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/server/guides/testing.html</loc>
+            <loc>https://shahmishal.github.io/documentation/server/guides/testing.html</loc>
             
                 <priority>0.7</priority>
             
@@ -838,7 +838,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/source-code/</loc>
+            <loc>https://shahmishal.github.io/documentation/source-code/</loc>
             
                 <priority>0.7</priority>
             
@@ -848,7 +848,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/source-compatibility/</loc>
+            <loc>https://shahmishal.github.io/documentation/source-compatibility/</loc>
             
                 <priority>0.7</priority>
             
@@ -858,7 +858,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/standard-library/</loc>
+            <loc>https://shahmishal.github.io/documentation/standard-library/</loc>
             
                 <priority>0.7</priority>
             
@@ -868,7 +868,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/swift-compiler/</loc>
+            <loc>https://shahmishal.github.io/documentation/swift-compiler/</loc>
             
                 <priority>0.7</priority>
             
@@ -878,7 +878,7 @@
         
         
         <url>
-            <loc>https://swift.org/documentation/tspl/</loc>
+            <loc>https://shahmishal.github.io/documentation/tspl/</loc>
             
                 <priority>0.7</priority>
             
@@ -888,7 +888,7 @@
         
         
         <url>
-            <loc>https://swift.org/download/</loc>
+            <loc>https://shahmishal.github.io/download/</loc>
             
                 <priority>0.7</priority>
             
@@ -898,7 +898,7 @@
         
         
         <url>
-            <loc>https://swift.org/foundation-workgroup/</loc>
+            <loc>https://shahmishal.github.io/foundation-workgroup/</loc>
             
                 <priority>0.7</priority>
             
@@ -908,7 +908,7 @@
         
         
         <url>
-            <loc>https://swift.org/getting-started/</loc>
+            <loc>https://shahmishal.github.io/getting-started/</loc>
             
                 <priority>0.7</priority>
             
@@ -918,7 +918,7 @@
         
         
         <url>
-            <loc>https://swift.org/getting-started/cli-swiftpm/</loc>
+            <loc>https://shahmishal.github.io/getting-started/cli-swiftpm/</loc>
             
                 <priority>0.7</priority>
             
@@ -928,7 +928,7 @@
         
         
         <url>
-            <loc>https://swift.org/getting-started/embedded-swift/</loc>
+            <loc>https://shahmishal.github.io/getting-started/embedded-swift/</loc>
             
                 <priority>0.7</priority>
             
@@ -938,7 +938,7 @@
         
         
         <url>
-            <loc>https://swift.org/getting-started/library-swiftpm/</loc>
+            <loc>https://shahmishal.github.io/getting-started/library-swiftpm/</loc>
             
                 <priority>0.7</priority>
             
@@ -948,7 +948,7 @@
         
         
         <url>
-            <loc>https://swift.org/getting-started/swiftui/</loc>
+            <loc>https://shahmishal.github.io/getting-started/swiftui/</loc>
             
                 <priority>0.7</priority>
             
@@ -958,7 +958,7 @@
         
         
         <url>
-            <loc>https://swift.org/getting-started/vapor-web-server/</loc>
+            <loc>https://shahmishal.github.io/getting-started/vapor-web-server/</loc>
             
                 <priority>0.7</priority>
             
@@ -968,7 +968,7 @@
         
         
         <url>
-            <loc>https://swift.org/gsoc2019/</loc>
+            <loc>https://shahmishal.github.io/gsoc2019/</loc>
             
                 <priority>0.7</priority>
             
@@ -978,7 +978,7 @@
         
         
         <url>
-            <loc>https://swift.org/gsoc2020/</loc>
+            <loc>https://shahmishal.github.io/gsoc2020/</loc>
             
                 <priority>0.7</priority>
             
@@ -988,7 +988,7 @@
         
         
         <url>
-            <loc>https://swift.org/gsoc2021/</loc>
+            <loc>https://shahmishal.github.io/gsoc2021/</loc>
             
                 <priority>0.7</priority>
             
@@ -998,7 +998,7 @@
         
         
         <url>
-            <loc>https://swift.org/gsoc2022/</loc>
+            <loc>https://shahmishal.github.io/gsoc2022/</loc>
             
                 <priority>0.7</priority>
             
@@ -1008,7 +1008,7 @@
         
         
         <url>
-            <loc>https://swift.org/gsoc2023/</loc>
+            <loc>https://shahmishal.github.io/gsoc2023/</loc>
             
                 <priority>0.7</priority>
             
@@ -1018,7 +1018,7 @@
         
         
         <url>
-            <loc>https://swift.org/gsoc2024/</loc>
+            <loc>https://shahmishal.github.io/gsoc2024/</loc>
             
                 <priority>0.7</priority>
             
@@ -1028,7 +1028,7 @@
         
         
         <url>
-            <loc>https://swift.org/gsoc2025/</loc>
+            <loc>https://shahmishal.github.io/gsoc2025/</loc>
             
                 <priority>0.7</priority>
             
@@ -1038,7 +1038,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/</loc>
+            <loc>https://shahmishal.github.io/install/</loc>
             
                 <priority>0.7</priority>
             
@@ -1048,7 +1048,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/</loc>
+            <loc>https://shahmishal.github.io/install/linux/</loc>
             
                 <priority>0.7</priority>
             
@@ -1058,7 +1058,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/amazonlinux/</loc>
+            <loc>https://shahmishal.github.io/install/linux/amazonlinux/</loc>
             
                 <priority>0.7</priority>
             
@@ -1068,7 +1068,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/amazonlinux/2/</loc>
+            <loc>https://shahmishal.github.io/install/linux/amazonlinux/2/</loc>
             
                 <priority>0.7</priority>
             
@@ -1078,7 +1078,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/debian/</loc>
+            <loc>https://shahmishal.github.io/install/linux/debian/</loc>
             
                 <priority>0.7</priority>
             
@@ -1088,7 +1088,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/debian/12/</loc>
+            <loc>https://shahmishal.github.io/install/linux/debian/12/</loc>
             
                 <priority>0.7</priority>
             
@@ -1098,7 +1098,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/docker/</loc>
+            <loc>https://shahmishal.github.io/install/linux/docker/</loc>
             
                 <priority>0.7</priority>
             
@@ -1108,7 +1108,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/fedora/</loc>
+            <loc>https://shahmishal.github.io/install/linux/fedora/</loc>
             
                 <priority>0.7</priority>
             
@@ -1118,7 +1118,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/fedora/39/</loc>
+            <loc>https://shahmishal.github.io/install/linux/fedora/39/</loc>
             
                 <priority>0.7</priority>
             
@@ -1128,7 +1128,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/rpm/</loc>
+            <loc>https://shahmishal.github.io/install/linux/rpm/</loc>
             
                 <priority>0.7</priority>
             
@@ -1138,7 +1138,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/tarball/</loc>
+            <loc>https://shahmishal.github.io/install/linux/tarball/</loc>
             
                 <priority>0.7</priority>
             
@@ -1148,7 +1148,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/ubi/</loc>
+            <loc>https://shahmishal.github.io/install/linux/ubi/</loc>
             
                 <priority>0.7</priority>
             
@@ -1158,7 +1158,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/ubi/9/</loc>
+            <loc>https://shahmishal.github.io/install/linux/ubi/9/</loc>
             
                 <priority>0.7</priority>
             
@@ -1168,7 +1168,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/ubuntu/</loc>
+            <loc>https://shahmishal.github.io/install/linux/ubuntu/</loc>
             
                 <priority>0.7</priority>
             
@@ -1178,7 +1178,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/ubuntu/20_04/</loc>
+            <loc>https://shahmishal.github.io/install/linux/ubuntu/20_04/</loc>
             
                 <priority>0.7</priority>
             
@@ -1188,7 +1188,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/ubuntu/22_04/</loc>
+            <loc>https://shahmishal.github.io/install/linux/ubuntu/22_04/</loc>
             
                 <priority>0.7</priority>
             
@@ -1198,7 +1198,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/linux/ubuntu/24_04/</loc>
+            <loc>https://shahmishal.github.io/install/linux/ubuntu/24_04/</loc>
             
                 <priority>0.7</priority>
             
@@ -1208,7 +1208,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/macos/</loc>
+            <loc>https://shahmishal.github.io/install/macos/</loc>
             
                 <priority>0.7</priority>
             
@@ -1218,7 +1218,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/macos/package_installer/</loc>
+            <loc>https://shahmishal.github.io/install/macos/package_installer/</loc>
             
                 <priority>0.7</priority>
             
@@ -1228,7 +1228,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/windows/</loc>
+            <loc>https://shahmishal.github.io/install/windows/</loc>
             
                 <priority>0.7</priority>
             
@@ -1238,7 +1238,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/windows/archived/</loc>
+            <loc>https://shahmishal.github.io/install/windows/archived/</loc>
             
                 <priority>0.7</priority>
             
@@ -1248,7 +1248,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/windows/manual/</loc>
+            <loc>https://shahmishal.github.io/install/windows/manual/</loc>
             
                 <priority>0.7</priority>
             
@@ -1258,7 +1258,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/windows/scoop/</loc>
+            <loc>https://shahmishal.github.io/install/windows/scoop/</loc>
             
                 <priority>0.7</priority>
             
@@ -1268,7 +1268,7 @@
         
         
         <url>
-            <loc>https://swift.org/install/windows/winget/</loc>
+            <loc>https://shahmishal.github.io/install/windows/winget/</loc>
             
                 <priority>0.7</priority>
             
@@ -1278,7 +1278,7 @@
         
         
         <url>
-            <loc>https://swift.org/keys/active/</loc>
+            <loc>https://shahmishal.github.io/keys/active/</loc>
             
                 <priority>0.7</priority>
             
@@ -1288,7 +1288,7 @@
         
         
         <url>
-            <loc>https://swift.org/keys/expired/</loc>
+            <loc>https://shahmishal.github.io/keys/expired/</loc>
             
                 <priority>0.7</priority>
             
@@ -1298,7 +1298,7 @@
         
         
         <url>
-            <loc>https://swift.org/language-steering-group/</loc>
+            <loc>https://shahmishal.github.io/language-steering-group/</loc>
             
                 <priority>0.7</priority>
             
@@ -1308,7 +1308,7 @@
         
         
         <url>
-            <loc>https://swift.org/legal/license.html</loc>
+            <loc>https://shahmishal.github.io/legal/license.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1318,7 +1318,7 @@
         
         
         <url>
-            <loc>https://swift.org/lldb/</loc>
+            <loc>https://shahmishal.github.io/lldb/</loc>
             
                 <priority>0.7</priority>
             
@@ -1328,7 +1328,7 @@
         
         
         <url>
-            <loc>https://swift.org/mentorship-interest-survey/</loc>
+            <loc>https://shahmishal.github.io/mentorship-interest-survey/</loc>
             
                 <priority>0.7</priority>
             
@@ -1338,7 +1338,7 @@
         
         
         <url>
-            <loc>https://swift.org/mentorship-tos/</loc>
+            <loc>https://shahmishal.github.io/mentorship-tos/</loc>
             
                 <priority>0.7</priority>
             
@@ -1348,7 +1348,7 @@
         
         
         <url>
-            <loc>https://swift.org/mentorship/</loc>
+            <loc>https://shahmishal.github.io/mentorship/</loc>
             
                 <priority>0.7</priority>
             
@@ -1358,7 +1358,7 @@
         
         
         <url>
-            <loc>https://swift.org/migration-guide-swift3/</loc>
+            <loc>https://shahmishal.github.io/migration-guide-swift3/</loc>
             
                 <priority>0.7</priority>
             
@@ -1368,7 +1368,7 @@
         
         
         <url>
-            <loc>https://swift.org/migration-guide-swift3/se-0107-migrate.html</loc>
+            <loc>https://shahmishal.github.io/migration-guide-swift3/se-0107-migrate.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1378,7 +1378,7 @@
         
         
         <url>
-            <loc>https://swift.org/migration-guide-swift4.2/</loc>
+            <loc>https://shahmishal.github.io/migration-guide-swift4.2/</loc>
             
                 <priority>0.7</priority>
             
@@ -1388,7 +1388,7 @@
         
         
         <url>
-            <loc>https://swift.org/migration-guide-swift4/</loc>
+            <loc>https://shahmishal.github.io/migration-guide-swift4/</loc>
             
                 <priority>0.7</priority>
             
@@ -1398,7 +1398,7 @@
         
         
         <url>
-            <loc>https://swift.org/migration-guide-swift5/</loc>
+            <loc>https://shahmishal.github.io/migration-guide-swift5/</loc>
             
                 <priority>0.7</priority>
             
@@ -1408,7 +1408,7 @@
         
         
         <url>
-            <loc>https://swift.org/migration-guide/</loc>
+            <loc>https://shahmishal.github.io/migration-guide/</loc>
             
                 <priority>0.7</priority>
             
@@ -1418,7 +1418,7 @@
         
         
         <url>
-            <loc>https://swift.org/monthly-non-darwin-release/</loc>
+            <loc>https://shahmishal.github.io/monthly-non-darwin-release/</loc>
             
                 <priority>0.7</priority>
             
@@ -1428,7 +1428,7 @@
         
         
         <url>
-            <loc>https://swift.org/openapi/</loc>
+            <loc>https://shahmishal.github.io/openapi/</loc>
             
                 <priority>0.7</priority>
             
@@ -1438,7 +1438,7 @@
         
         
         <url>
-            <loc>https://swift.org/package-manager/</loc>
+            <loc>https://shahmishal.github.io/package-manager/</loc>
             
                 <priority>0.7</priority>
             
@@ -1448,7 +1448,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/</loc>
+            <loc>https://shahmishal.github.io/packages/</loc>
             
                 <priority>0.7</priority>
             
@@ -1458,7 +1458,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/logging.html</loc>
+            <loc>https://shahmishal.github.io/packages/logging.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1468,7 +1468,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/macros.html</loc>
+            <loc>https://shahmishal.github.io/packages/macros.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1478,7 +1478,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/networking.html</loc>
+            <loc>https://shahmishal.github.io/packages/networking.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1488,7 +1488,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/server.html</loc>
+            <loc>https://shahmishal.github.io/packages/server.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1498,7 +1498,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-april-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-april-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1508,7 +1508,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-august-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-august-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1518,7 +1518,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-december-2023.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-december-2023.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1528,7 +1528,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-december-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-december-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1538,7 +1538,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-february-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-february-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1548,7 +1548,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-january-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-january-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1558,7 +1558,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-january-2025.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-january-2025.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1568,7 +1568,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-july-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-july-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1578,7 +1578,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-june-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-june-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1588,7 +1588,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-march-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-march-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1598,7 +1598,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-may-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-may-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1608,7 +1608,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-november-2023.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-november-2023.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1618,7 +1618,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-november-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-november-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1628,7 +1628,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-october-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-october-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1638,7 +1638,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase-september-2024.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase-september-2024.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1648,7 +1648,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/showcase.html</loc>
+            <loc>https://shahmishal.github.io/packages/showcase.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1658,7 +1658,7 @@
         
         
         <url>
-            <loc>https://swift.org/packages/testing.html</loc>
+            <loc>https://shahmishal.github.io/packages/testing.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1668,7 +1668,7 @@
         
         
         <url>
-            <loc>https://swift.org/platform-steering-group/</loc>
+            <loc>https://shahmishal.github.io/platform-steering-group/</loc>
             
                 <priority>0.7</priority>
             
@@ -1678,7 +1678,7 @@
         
         
         <url>
-            <loc>https://swift.org/platform-support/</loc>
+            <loc>https://shahmishal.github.io/platform-support/</loc>
             
                 <priority>0.7</priority>
             
@@ -1688,7 +1688,7 @@
         
         
         <url>
-            <loc>https://swift.org/project-ideas/</loc>
+            <loc>https://shahmishal.github.io/project-ideas/</loc>
             
                 <priority>0.7</priority>
             
@@ -1698,7 +1698,7 @@
         
         
         <url>
-            <loc>https://swift.org/quickstart-contribution/</loc>
+            <loc>https://shahmishal.github.io/quickstart-contribution/</loc>
             
                 <priority>0.7</priority>
             
@@ -1709,7 +1709,7 @@
         
         
         <url>
-            <loc>https://swift.org/server-apis/</loc>
+            <loc>https://shahmishal.github.io/server-apis/</loc>
             
                 <priority>0.7</priority>
             
@@ -1719,7 +1719,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/</loc>
+            <loc>https://shahmishal.github.io/server/</loc>
             
                 <priority>0.7</priority>
             
@@ -1729,7 +1729,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/</loc>
+            <loc>https://shahmishal.github.io/server/guides/</loc>
             
                 <priority>0.7</priority>
             
@@ -1739,7 +1739,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/allocations</loc>
+            <loc>https://shahmishal.github.io/server/guides/allocations</loc>
             
                 <priority>0.7</priority>
             
@@ -1749,7 +1749,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/building</loc>
+            <loc>https://shahmishal.github.io/server/guides/building</loc>
             
                 <priority>0.7</priority>
             
@@ -1759,7 +1759,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/deploying/aws</loc>
+            <loc>https://shahmishal.github.io/server/guides/deploying/aws</loc>
             
                 <priority>0.7</priority>
             
@@ -1769,7 +1769,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/deploying/aws-copilot-fargate-vapor-mongo</loc>
+            <loc>https://shahmishal.github.io/server/guides/deploying/aws-copilot-fargate-vapor-mongo</loc>
             
                 <priority>0.7</priority>
             
@@ -1779,7 +1779,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/deploying/aws-sam-lambda</loc>
+            <loc>https://shahmishal.github.io/server/guides/deploying/aws-sam-lambda</loc>
             
                 <priority>0.7</priority>
             
@@ -1789,7 +1789,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/deploying/digital-ocean</loc>
+            <loc>https://shahmishal.github.io/server/guides/deploying/digital-ocean</loc>
             
                 <priority>0.7</priority>
             
@@ -1799,7 +1799,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/deploying/gcp</loc>
+            <loc>https://shahmishal.github.io/server/guides/deploying/gcp</loc>
             
                 <priority>0.7</priority>
             
@@ -1809,7 +1809,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/deploying/heruko</loc>
+            <loc>https://shahmishal.github.io/server/guides/deploying/heruko</loc>
             
                 <priority>0.7</priority>
             
@@ -1819,7 +1819,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/deploying/ubuntu</loc>
+            <loc>https://shahmishal.github.io/server/guides/deploying/ubuntu</loc>
             
                 <priority>0.7</priority>
             
@@ -1829,7 +1829,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/deployment</loc>
+            <loc>https://shahmishal.github.io/server/guides/deployment</loc>
             
                 <priority>0.7</priority>
             
@@ -1839,7 +1839,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/libraries/concurrency-adoption-guidelines</loc>
+            <loc>https://shahmishal.github.io/server/guides/libraries/concurrency-adoption-guidelines</loc>
             
                 <priority>0.7</priority>
             
@@ -1849,7 +1849,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/libraries/log-levels</loc>
+            <loc>https://shahmishal.github.io/server/guides/libraries/log-levels</loc>
             
                 <priority>0.7</priority>
             
@@ -1859,7 +1859,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/linux-perf</loc>
+            <loc>https://shahmishal.github.io/server/guides/linux-perf</loc>
             
                 <priority>0.7</priority>
             
@@ -1869,7 +1869,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/llvm-sanitizers</loc>
+            <loc>https://shahmishal.github.io/server/guides/llvm-sanitizers</loc>
             
                 <priority>0.7</priority>
             
@@ -1879,7 +1879,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/memory-leaks-and-usage</loc>
+            <loc>https://shahmishal.github.io/server/guides/memory-leaks-and-usage</loc>
             
                 <priority>0.7</priority>
             
@@ -1889,7 +1889,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/packaging</loc>
+            <loc>https://shahmishal.github.io/server/guides/packaging</loc>
             
                 <priority>0.7</priority>
             
@@ -1899,7 +1899,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/performance</loc>
+            <loc>https://shahmishal.github.io/server/guides/performance</loc>
             
                 <priority>0.7</priority>
             
@@ -1909,7 +1909,7 @@
         
         
         <url>
-            <loc>https://swift.org/server/guides/testing</loc>
+            <loc>https://shahmishal.github.io/server/guides/testing</loc>
             
                 <priority>0.7</priority>
             
@@ -1920,7 +1920,7 @@
         
         
         <url>
-            <loc>https://swift.org/source-code/</loc>
+            <loc>https://shahmishal.github.io/source-code/</loc>
             
                 <priority>0.7</priority>
             
@@ -1930,7 +1930,7 @@
         
         
         <url>
-            <loc>https://swift.org/source-compatibility/</loc>
+            <loc>https://shahmishal.github.io/source-compatibility/</loc>
             
                 <priority>0.7</priority>
             
@@ -1940,7 +1940,7 @@
         
         
         <url>
-            <loc>https://swift.org/sswg-survey-2023/</loc>
+            <loc>https://shahmishal.github.io/sswg-survey-2023/</loc>
             
                 <priority>0.7</priority>
             
@@ -1950,7 +1950,7 @@
         
         
         <url>
-            <loc>https://swift.org/sswg/</loc>
+            <loc>https://shahmishal.github.io/sswg/</loc>
             
                 <priority>0.7</priority>
             
@@ -1960,7 +1960,7 @@
         
         
         <url>
-            <loc>https://swift.org/sswg/incubated-packages.html</loc>
+            <loc>https://shahmishal.github.io/sswg/incubated-packages.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1970,7 +1970,7 @@
         
         
         <url>
-            <loc>https://swift.org/sswg/incubation-process.html</loc>
+            <loc>https://shahmishal.github.io/sswg/incubation-process.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1980,7 +1980,7 @@
         
         
         <url>
-            <loc>https://swift.org/sswg/security/</loc>
+            <loc>https://shahmishal.github.io/sswg/security/</loc>
             
                 <priority>0.7</priority>
             
@@ -1990,7 +1990,7 @@
         
         
         <url>
-            <loc>https://swift.org/sswg/security/contributor-found-vulnerability.html</loc>
+            <loc>https://shahmishal.github.io/sswg/security/contributor-found-vulnerability.html</loc>
             
                 <priority>0.7</priority>
             
@@ -2000,7 +2000,7 @@
         
         
         <url>
-            <loc>https://swift.org/sswg/security/package-maintainer-received-vulnerability-report.html</loc>
+            <loc>https://shahmishal.github.io/sswg/security/package-maintainer-received-vulnerability-report.html</loc>
             
                 <priority>0.7</priority>
             
@@ -2010,7 +2010,7 @@
         
         
         <url>
-            <loc>https://swift.org/sswg/security/package-requirements.html</loc>
+            <loc>https://shahmishal.github.io/sswg/security/package-requirements.html</loc>
             
                 <priority>0.7</priority>
             
@@ -2020,7 +2020,7 @@
         
         
         <url>
-            <loc>https://swift.org/standard-library/</loc>
+            <loc>https://shahmishal.github.io/standard-library/</loc>
             
                 <priority>0.7</priority>
             
@@ -2030,7 +2030,7 @@
         
         
         <url>
-            <loc>https://swift.org/support/security.html</loc>
+            <loc>https://shahmishal.github.io/support/security.html</loc>
             
                 <priority>0.7</priority>
             
@@ -2040,7 +2040,7 @@
         
         
         <url>
-            <loc>https://swift.org/swift-compiler/</loc>
+            <loc>https://shahmishal.github.io/swift-compiler/</loc>
             
                 <priority>0.7</priority>
             
@@ -2050,7 +2050,7 @@
         
         
         <url>
-            <loc>https://swift.org/swift-evolution/</loc>
+            <loc>https://shahmishal.github.io/swift-evolution/</loc>
             
                 <priority>0.7</priority>
             
@@ -2060,7 +2060,7 @@
         
         
         <url>
-            <loc>https://swift.org/tools/</loc>
+            <loc>https://shahmishal.github.io/tools/</loc>
             
                 <priority>0.7</priority>
             
@@ -2070,7 +2070,7 @@
         
         
         <url>
-            <loc>https://swift.org/tspl/</loc>
+            <loc>https://shahmishal.github.io/tspl/</loc>
             
                 <priority>0.7</priority>
             
@@ -2080,7 +2080,7 @@
         
         
         <url>
-            <loc>https://swift.org/website-governance/</loc>
+            <loc>https://shahmishal.github.io/website-governance/</loc>
             
                 <priority>0.7</priority>
             
@@ -2090,7 +2090,7 @@
         
         
         <url>
-            <loc>https://swift.org/website-workgroup/</loc>
+            <loc>https://shahmishal.github.io/website-workgroup/</loc>
             
                 <priority>0.7</priority>
             
@@ -2100,7 +2100,7 @@
         
         
         <url>
-            <loc>https://swift.org/website/</loc>
+            <loc>https://shahmishal.github.io/website/</loc>
             
                 <priority>0.7</priority>
             
@@ -2109,677 +2109,677 @@
 
     
         <url>
-            <loc>https://swift.org/blog/how-swifts-server-support-powers-things-cloud/</loc>
+            <loc>https://shahmishal.github.io/blog/how-swifts-server-support-powers-things-cloud/</loc>
             <lastmod>2025-02-21</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/grpc-swift-2/</loc>
+            <loc>https://shahmishal.github.io/blog/grpc-swift-2/</loc>
             <lastmod>2025-02-14</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/vscode-swift-2/</loc>
+            <loc>https://shahmishal.github.io/blog/vscode-swift-2/</loc>
             <lastmod>2025-02-10</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/the-next-chapter-in-swift-build-technologies/</loc>
+            <loc>https://shahmishal.github.io/blog/the-next-chapter-in-swift-build-technologies/</loc>
             <lastmod>2025-02-01</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/announcing-swift-6/</loc>
+            <loc>https://shahmishal.github.io/blog/announcing-swift-6/</loc>
             <lastmod>2024-09-17</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/introducing-swift-nio-oblivious-http/</loc>
+            <loc>https://shahmishal.github.io/blog/introducing-swift-nio-oblivious-http/</loc>
             <lastmod>2024-08-21</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/announcing-swift-homomorphic-encryption/</loc>
+            <loc>https://shahmishal.github.io/blog/announcing-swift-homomorphic-encryption/</loc>
             <lastmod>2024-07-30</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/ready-for-swift-6/</loc>
+            <loc>https://shahmishal.github.io/blog/ready-for-swift-6/</loc>
             <lastmod>2024-07-01</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swiftlang-github/</loc>
+            <loc>https://shahmishal.github.io/blog/swiftlang-github/</loc>
             <lastmod>2024-06-10</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/embedded-swift-examples/</loc>
+            <loc>https://shahmishal.github.io/blog/embedded-swift-examples/</loc>
             <lastmod>2024-04-03</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/sswg-update-2024/</loc>
+            <loc>https://shahmishal.github.io/blog/sswg-update-2024/</loc>
             <lastmod>2024-03-28</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/adwaita-swift/</loc>
+            <loc>https://shahmishal.github.io/blog/adwaita-swift/</loc>
             <lastmod>2024-03-25</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/benchmarks/</loc>
+            <loc>https://shahmishal.github.io/blog/benchmarks/</loc>
             <lastmod>2024-03-20</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/byte-sized-swift-tiny-games-playdate/</loc>
+            <loc>https://shahmishal.github.io/blog/byte-sized-swift-tiny-games-playdate/</loc>
             <lastmod>2024-03-12</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/pack-iteration/</loc>
+            <loc>https://shahmishal.github.io/blog/pack-iteration/</loc>
             <lastmod>2024-03-07</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.10-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.10-released/</loc>
             <lastmod>2024-03-05</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-google-summer-of-code-2024/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-google-summer-of-code-2024/</loc>
             <lastmod>2024-02-23</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/mlx-swift/</loc>
+            <loc>https://shahmishal.github.io/blog/mlx-swift/</loc>
             <lastmod>2024-02-20</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/summer-of-code-2023-summary/</loc>
+            <loc>https://shahmishal.github.io/blog/summer-of-code-2023-summary/</loc>
             <lastmod>2024-02-13</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-openapi-generator-1.0/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-openapi-generator-1.0/</loc>
             <lastmod>2024-01-31</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.9-backtraces/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.9-backtraces/</loc>
             <lastmod>2023-11-08</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/packages-page/</loc>
+            <loc>https://shahmishal.github.io/blog/packages-page/</loc>
             <lastmod>2023-11-01</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-everywhere-windows-interop/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-everywhere-windows-interop/</loc>
             <lastmod>2023-10-13</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/whats-new-swift-debugging-5.9/</loc>
+            <loc>https://shahmishal.github.io/blog/whats-new-swift-debugging-5.9/</loc>
             <lastmod>2023-09-28</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.9-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.9-released/</loc>
             <lastmod>2023-09-18</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/sswg-update-2023/</loc>
+            <loc>https://shahmishal.github.io/blog/sswg-update-2023/</loc>
             <lastmod>2023-08-17</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/introducing-swift-http-types/</loc>
+            <loc>https://shahmishal.github.io/blog/introducing-swift-http-types/</loc>
             <lastmod>2023-07-10</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/introducing-swift-openapi-generator/</loc>
+            <loc>https://shahmishal.github.io/blog/introducing-swift-openapi-generator/</loc>
             <lastmod>2023-06-12</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/using-upcoming-feature-flags/</loc>
+            <loc>https://shahmishal.github.io/blog/using-upcoming-feature-flags/</loc>
             <lastmod>2023-05-30</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/evolving-swift-project-workgroups/</loc>
+            <loc>https://shahmishal.github.io/blog/evolving-swift-project-workgroups/</loc>
             <lastmod>2023-05-18</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/foundation-preview-now-available/</loc>
+            <loc>https://shahmishal.github.io/blog/foundation-preview-now-available/</loc>
             <lastmod>2023-04-26</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.8-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.8-released/</loc>
             <lastmod>2023-03-30</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-package-index-developer-spotlight/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-package-index-developer-spotlight/</loc>
             <lastmod>2023-03-24</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-certificates-and-asn1/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-certificates-and-asn1/</loc>
             <lastmod>2023-03-07</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/tspl-on-docc/</loc>
+            <loc>https://shahmishal.github.io/blog/tspl-on-docc/</loc>
             <lastmod>2023-02-16</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/future-of-foundation/</loc>
+            <loc>https://shahmishal.github.io/blog/future-of-foundation/</loc>
             <lastmod>2022-12-09</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-summer-of-code-2022-summary/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-summer-of-code-2022-summary/</loc>
             <lastmod>2022-12-05</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/focus-areas-2023/</loc>
+            <loc>https://shahmishal.github.io/blog/focus-areas-2023/</loc>
             <lastmod>2022-11-18</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.7-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.7-released/</loc>
             <lastmod>2022-09-12</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-nio-imap/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-nio-imap/</loc>
             <lastmod>2022-08-30</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/sswg-server-guides/</loc>
+            <loc>https://shahmishal.github.io/blog/sswg-server-guides/</loc>
             <lastmod>2022-08-18</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/documentation-workgroup/</loc>
+            <loc>https://shahmishal.github.io/blog/documentation-workgroup/</loc>
             <lastmod>2022-07-22</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/vscode-extension/</loc>
+            <loc>https://shahmishal.github.io/blog/vscode-extension/</loc>
             <lastmod>2022-07-14</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-language-updates-from-wwdc22/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-language-updates-from-wwdc22/</loc>
             <lastmod>2022-07-06</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/graphing-calculator/</loc>
+            <loc>https://shahmishal.github.io/blog/graphing-calculator/</loc>
             <lastmod>2022-06-30</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/property-wrappers/</loc>
+            <loc>https://shahmishal.github.io/blog/property-wrappers/</loc>
             <lastmod>2022-06-21</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/language-workgroup/</loc>
+            <loc>https://shahmishal.github.io/blog/language-workgroup/</loc>
             <lastmod>2022-06-15</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/mentorship-2022/</loc>
+            <loc>https://shahmishal.github.io/blog/mentorship-2022/</loc>
             <lastmod>2022-05-19</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/sswg-update/</loc>
+            <loc>https://shahmishal.github.io/blog/sswg-update/</loc>
             <lastmod>2022-04-25</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-async-algorithms/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-async-algorithms/</loc>
             <lastmod>2022-03-24</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/website-open-source/</loc>
+            <loc>https://shahmishal.github.io/blog/website-open-source/</loc>
             <lastmod>2022-03-15</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.6-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.6-released/</loc>
             <lastmod>2022-03-14</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/distributed-actors/</loc>
+            <loc>https://shahmishal.github.io/blog/distributed-actors/</loc>
             <lastmod>2021-10-28</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-docc/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-docc/</loc>
             <lastmod>2021-10-13</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.5-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.5-released/</loc>
             <lastmod>2021-09-20</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/package-collections/</loc>
+            <loc>https://shahmishal.github.io/blog/package-collections/</loc>
             <lastmod>2021-06-07</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-mentorship-program/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-mentorship-program/</loc>
             <lastmod>2021-05-10</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.4-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.4-released/</loc>
             <lastmod>2021-04-26</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-collections/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-collections/</loc>
             <lastmod>2021-04-05</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/womens-history-month/</loc>
+            <loc>https://shahmishal.github.io/blog/womens-history-month/</loc>
             <lastmod>2021-03-24</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/black-history-month/</loc>
+            <loc>https://shahmishal.github.io/blog/black-history-month/</loc>
             <lastmod>2021-02-22</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/diversity-in-swift/</loc>
+            <loc>https://shahmishal.github.io/blog/diversity-in-swift/</loc>
             <lastmod>2020-12-16</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/accessibility-and-inclusion/</loc>
+            <loc>https://shahmishal.github.io/blog/accessibility-and-inclusion/</loc>
             <lastmod>2020-12-16</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swiftnio-ssh/</loc>
+            <loc>https://shahmishal.github.io/blog/swiftnio-ssh/</loc>
             <lastmod>2020-11-19</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-service-discovery/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-service-discovery/</loc>
             <lastmod>2020-10-21</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-algorithms/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-algorithms/</loc>
             <lastmod>2020-10-07</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-atomics/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-atomics/</loc>
             <lastmod>2020-10-01</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-system/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-system/</loc>
             <lastmod>2020-09-25</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-on-windows/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-on-windows/</loc>
             <lastmod>2020-09-22</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.3-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.3-released/</loc>
             <lastmod>2020-09-16</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-cluster-membership/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-cluster-membership/</loc>
             <lastmod>2020-08-27</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-service-lifecycle/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-service-lifecycle/</loc>
             <lastmod>2020-07-15</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/AWS-lambda-runtime/</loc>
+            <loc>https://shahmishal.github.io/blog/AWS-lambda-runtime/</loc>
             <lastmod>2020-05-29</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/additional-linux-distros/</loc>
+            <loc>https://shahmishal.github.io/blog/additional-linux-distros/</loc>
             <lastmod>2020-05-05</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/5.3-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/5.3-release-process/</loc>
             <lastmod>2020-03-25</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.2-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.2-released/</loc>
             <lastmod>2020-03-24</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/argument-parser/</loc>
+            <loc>https://shahmishal.github.io/blog/argument-parser/</loc>
             <lastmod>2020-02-27</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/preview-package/</loc>
+            <loc>https://shahmishal.github.io/blog/preview-package/</loc>
             <lastmod>2020-02-18</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/library-evolution/</loc>
+            <loc>https://shahmishal.github.io/blog/library-evolution/</loc>
             <lastmod>2020-02-13</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/crypto/</loc>
+            <loc>https://shahmishal.github.io/blog/crypto/</loc>
             <lastmod>2020-02-03</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/numerics/</loc>
+            <loc>https://shahmishal.github.io/blog/numerics/</loc>
             <lastmod>2019-11-07</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/sswg-update-2019/</loc>
+            <loc>https://shahmishal.github.io/blog/sswg-update-2019/</loc>
             <lastmod>2019-10-31</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/new-diagnostic-arch-overview/</loc>
+            <loc>https://shahmishal.github.io/blog/new-diagnostic-arch-overview/</loc>
             <lastmod>2019-10-17</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/5.2-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/5.2-release-process/</loc>
             <lastmod>2019-09-24</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5.1-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5.1-released/</loc>
             <lastmod>2019-09-20</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/tsan-support-on-linux/</loc>
+            <loc>https://shahmishal.github.io/blog/tsan-support-on-linux/</loc>
             <lastmod>2019-08-13</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5-released/</loc>
             <lastmod>2019-03-25</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/utf8-string/</loc>
+            <loc>https://shahmishal.github.io/blog/utf8-string/</loc>
             <lastmod>2019-03-20</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/behind-SE-0200/</loc>
+            <loc>https://shahmishal.github.io/blog/behind-SE-0200/</loc>
             <lastmod>2019-02-20</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/5.1-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/5.1-release-process/</loc>
             <lastmod>2019-02-18</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/abi-stability-and-apple/</loc>
+            <loc>https://shahmishal.github.io/blog/abi-stability-and-apple/</loc>
             <lastmod>2019-02-11</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/abi-stability-and-more/</loc>
+            <loc>https://shahmishal.github.io/blog/abi-stability-and-more/</loc>
             <lastmod>2019-02-07</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/sourcekitd-stress-tester/</loc>
+            <loc>https://shahmishal.github.io/blog/sourcekitd-stress-tester/</loc>
             <lastmod>2019-02-06</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-5-exclusivity/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-5-exclusivity/</loc>
             <lastmod>2019-02-05</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swiftpm-repl-support/</loc>
+            <loc>https://shahmishal.github.io/blog/swiftpm-repl-support/</loc>
             <lastmod>2018-10-08</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/how-mirror-works/</loc>
+            <loc>https://shahmishal.github.io/blog/how-mirror-works/</loc>
             <lastmod>2018-09-26</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/5.0-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/5.0-release-process/</loc>
             <lastmod>2018-09-25</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-4.2-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-4.2-released/</loc>
             <lastmod>2018-09-17</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/related-projects/</loc>
+            <loc>https://shahmishal.github.io/blog/related-projects/</loc>
             <lastmod>2018-05-10</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-community-hosted-CI/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-community-hosted-CI/</loc>
             <lastmod>2018-05-03</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/iuo/</loc>
+            <loc>https://shahmishal.github.io/blog/iuo/</loc>
             <lastmod>2018-04-26</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-4.1-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-4.1-released/</loc>
             <lastmod>2018-03-29</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/4.2-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/4.2-release-process/</loc>
             <lastmod>2018-02-28</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/osize/</loc>
+            <loc>https://shahmishal.github.io/blog/osize/</loc>
             <lastmod>2018-02-08</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/forums/</loc>
+            <loc>https://shahmishal.github.io/blog/forums/</loc>
             <lastmod>2018-01-19</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/conditional-conformance/</loc>
+            <loc>https://shahmishal.github.io/blog/conditional-conformance/</loc>
             <lastmod>2018-01-08</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-4.1-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-4.1-release-process/</loc>
             <lastmod>2017-10-17</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/xcode-9.1-improves-display-of-fatal-errors/</loc>
+            <loc>https://shahmishal.github.io/blog/xcode-9.1-improves-display-of-fatal-errors/</loc>
             <lastmod>2017-10-05</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/dictionary-and-set-improvements/</loc>
+            <loc>https://shahmishal.github.io/blog/dictionary-and-set-improvements/</loc>
             <lastmod>2017-10-04</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-4.0-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-4.0-released/</loc>
             <lastmod>2017-09-19</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-local-refactoring/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-local-refactoring/</loc>
             <lastmod>2017-08-22</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-package-manager-manifest-api-redesign/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-package-manager-manifest-api-redesign/</loc>
             <lastmod>2017-06-21</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-source-compatibility-test-suite/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-source-compatibility-test-suite/</loc>
             <lastmod>2017-04-24</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-3.1-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-3.1-released/</loc>
             <lastmod>2017-03-27</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-4.0-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-4.0-release-process/</loc>
             <lastmod>2017-02-16</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/bridging-pch/</loc>
+            <loc>https://shahmishal.github.io/blog/bridging-pch/</loc>
             <lastmod>2017-01-26</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-evolution-status-page/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-evolution-status-page/</loc>
             <lastmod>2017-01-18</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-3.1-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-3.1-release-process/</loc>
             <lastmod>2016-12-09</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/server-api-workgroup/</loc>
+            <loc>https://shahmishal.github.io/blog/server-api-workgroup/</loc>
             <lastmod>2016-10-25</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/whole-module-optimizations/</loc>
+            <loc>https://shahmishal.github.io/blog/whole-module-optimizations/</loc>
             <lastmod>2016-10-21</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-3.0-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-3.0-released/</loc>
             <lastmod>2016-09-13</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-xcode-playground-support/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-xcode-playground-support/</loc>
             <lastmod>2016-07-07</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-3.0-preview-1-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-3.0-preview-1-released/</loc>
             <lastmod>2016-06-13</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-2.3/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-2.3/</loc>
             <lastmod>2016-06-12</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-3.0-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-3.0-release-process/</loc>
             <lastmod>2016-05-06</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-2.2-new-features/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-2.2-new-features/</loc>
             <lastmod>2016-03-30</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-2.2-released/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-2.2-released/</loc>
             <lastmod>2016-03-21</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-commit-access/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-commit-access/</loc>
             <lastmod>2016-02-29</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-benchmark-suite/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-benchmark-suite/</loc>
             <lastmod>2016-02-08</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-CI/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-CI/</loc>
             <lastmod>2016-02-01</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-api-transformation/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-api-transformation/</loc>
             <lastmod>2016-01-29</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-2.2-release-process/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-2.2-release-process/</loc>
             <lastmod>2016-01-05</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-3-api-design/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-3-api-design/</loc>
             <lastmod>2015-12-03</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/swift-linux-port/</loc>
+            <loc>https://shahmishal.github.io/blog/swift-linux-port/</loc>
             <lastmod>2015-12-03</lastmod>
         </url>
     
         <url>
-            <loc>https://swift.org/blog/welcome/</loc>
+            <loc>https://shahmishal.github.io/blog/welcome/</loc>
             <lastmod>2015-12-03</lastmod>
         </url>
     
