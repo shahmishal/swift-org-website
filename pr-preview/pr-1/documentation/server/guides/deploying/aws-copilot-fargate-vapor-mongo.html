@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Deploying to AWS with Fargate, Vapor, and MongoDB Atlas</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/documentation/server/guides/deploying/aws-copilot-fargate-vapor-mongo.html" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift.org" />
+  <meta name="twitter:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:title" content="Swift.org" />
+  <meta property="og:url" content="https://swift.org" />
+  <meta property="og:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+  <article class="page">
+  
+    
+      <header>
+        <h1>Deploying to AWS with Fargate, Vapor, and MongoDB Atlas</h1>
+      </header>
+    
+  
+
+  <p>This guide illustrates how to deploy a Server-Side Swift workload on AWS. The workload is a REST API for tracking a To Do List. It uses the <a href="https://vapor.codes/">Vapor</a> framework to program the API methods. The methods store and retrieve data in a <a href="https://www.mongodb.com/atlas/database">MongoDB Atlas</a> cloud database. The Vapor application is containerized and deployed to AWS on AWS Fargate using the <a href="https://aws.github.io/copilot-cli/">AWS Copilot</a> toolkit.</p>
+
+<h2 id="architecture" class="header-with-anchor">Architecture <a title="Permalink for Architecture section" href="#architecture">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p><img src="/assets/images/server-guides/aws/aws-fargate-vapor-mongo.png" alt="Architecture" /></p>
+
+<ul>
+  <li>Amazon API Gateway receives API requests</li>
+  <li>API Gateway locates your application containers in AWS Fargate through internal DNS managed by AWS Cloud Map</li>
+  <li>API Gateway forwards the requests to the containers</li>
+  <li>The containers run the Vapor framework and have methods to GET and POST items</li>
+  <li>Vapor stores and retrieves items in a MongoDB Atlas cloud database which runs in a MongoDB managed AWS account</li>
+</ul>
+
+<h2 id="prerequisites" class="header-with-anchor">Prerequisites <a title="Permalink for Prerequisites section" href="#prerequisites">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>To build this sample application, you need:</p>
+
+<ul>
+  <li><a href="https://console.aws.amazon.com/">AWS Account</a></li>
+  <li><a href="https://www.mongodb.com/atlas/database">MongoDB Atlas Database</a></li>
+  <li><a href="https://aws.github.io/copilot-cli/">AWS Copilot</a> - a command-line tool used to create containerized workloads on AWS</li>
+  <li><a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a> - to compile your Swift code into a Docker image</li>
+  <li><a href="https://vapor.codes/">Vapor</a> - to code the REST service</li>
+  <li><a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">AWS Command Line Interface (AWS CLI)</a> - install the CLI and <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html">configure</a> it with credentials to your AWS account</li>
+</ul>
+
+<h2 id="step-1-create-your-database" class="header-with-anchor">Step 1: Create Your Database <a title="Permalink for Step 1: Create Your Database section" href="#step-1-create-your-database">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>If you are new to MongoDB Atlas, follow this <a href="https://www.mongodb.com/docs/atlas/getting-started/">Getting Started Guide</a>. You need to create the following items:</p>
+
+<ul>
+  <li>Atlas Account</li>
+  <li>Cluster</li>
+  <li>Database Username / Password</li>
+  <li>Database</li>
+  <li>Collection</li>
+</ul>
+
+<p>In subsequent steps, you provide values to these items to configure the application.</p>
+
+<h2 id="step-2-initialize-a-new-vapor-project" class="header-with-anchor">Step 2: Initialize a New Vapor Project <a title="Permalink for Step 2: Initialize a New Vapor Project section" href="#step-2-initialize-a-new-vapor-project">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Create a folder for your project.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir todo-app &amp;&amp; cd todo-app
+</code></pre></div></div>
+
+<p>Initialize a Vapor project named <em>api</em>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vapor new api -n
+</code></pre></div></div>
+
+<h2 id="step-3-add-project-dependencies" class="header-with-anchor">Step 3: Add Project Dependencies <a title="Permalink for Step 3: Add Project Dependencies section" href="#step-3-add-project-dependencies">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Vapor initializes a <em>Package.swift</em> file for the project dependencies. Your project requires an additional library, <a href="https://github.com/mongodb/mongodb-vapor">MongoDBVapor</a>. Add the MongoDBVapor library to the project and target dependencies of your <em>Package.swift</em> file.</p>
+
+<p>Your updated file should look like this:</p>
+
+<p><strong>api/Package.swift</strong></p>
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// swift-tools-version:5.6</span>
+<span class="kd">import</span> <span class="kt">PackageDescription</span>
+
+<span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="s">"api"</span><span class="p">,</span>
+    <span class="nv">platforms</span><span class="p">:</span> <span class="p">[</span>
+       <span class="o">.</span><span class="nf">macOS</span><span class="p">(</span><span class="o">.</span><span class="n">v12</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/vapor/vapor"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"4.7.0"</span><span class="p">)),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/mongodb/mongodb-vapor"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"1.1.0"</span><span class="p">))</span>
+    <span class="p">],</span>
+    <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">target</span><span class="p">(</span>
+            <span class="nv">name</span><span class="p">:</span> <span class="s">"App"</span><span class="p">,</span>
+            <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+                <span class="o">.</span><span class="nf">product</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Vapor"</span><span class="p">,</span> <span class="nv">package</span><span class="p">:</span> <span class="s">"vapor"</span><span class="p">),</span>
+                <span class="o">.</span><span class="nf">product</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"MongoDBVapor"</span><span class="p">,</span> <span class="nv">package</span><span class="p">:</span> <span class="s">"mongodb-vapor"</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="nv">swiftSettings</span><span class="p">:</span> <span class="p">[</span>
+                <span class="o">.</span><span class="nf">unsafeFlags</span><span class="p">([</span><span class="s">"-cross-module-optimization"</span><span class="p">],</span> <span class="o">.</span><span class="nf">when</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="o">.</span><span class="n">release</span><span class="p">))</span>
+            <span class="p">]</span>
+        <span class="p">),</span>
+        <span class="o">.</span><span class="nf">executableTarget</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Run"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">target</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"App"</span><span class="p">)]),</span>
+        <span class="o">.</span><span class="nf">testTarget</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"AppTests"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+            <span class="o">.</span><span class="nf">target</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"App"</span><span class="p">),</span>
+            <span class="o">.</span><span class="nf">product</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"XCTVapor"</span><span class="p">,</span> <span class="nv">package</span><span class="p">:</span> <span class="s">"vapor"</span><span class="p">),</span>
+        <span class="p">])</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="step-4-update-the-dockerfile" class="header-with-anchor">Step 4: Update the Dockerfile <a title="Permalink for Step 4: Update the Dockerfile section" href="#step-4-update-the-dockerfile">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>You deploy your Swift Server code to AWS Fargate as a Docker image. Vapor generates an initial Dockerfile for your application. Your application requires a few modifications to this Dockerfile:</p>
+
+<ul>
+  <li>pull the <em>build</em> and <em>run</em> images from the <a href="https://gallery.ecr.aws">Amazon ECR Public Gallery</a>  container repository</li>
+  <li>install <em>libssl-dev</em> in the build image</li>
+  <li>install <em>libxml2</em> and <em>curl</em> in the run image</li>
+</ul>
+
+<p>Replace the contents of the Vapor generated Dockerfile with the following code:</p>
+
+<p><strong>api/Dockerfile</strong></p>
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ================================</span>
+<span class="c"># Build image</span>
+<span class="c"># ================================</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">public.ecr.aws/docker/library/swift:5.6.2-focal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">build</span>
+
+<span class="c"># Install OS updates</span>
+<span class="k">RUN </span><span class="nb">export </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive <span class="nv">DEBCONF_NONINTERACTIVE_SEEN</span><span class="o">=</span><span class="nb">true</span> <span class="se">\
+</span>    <span class="o">&amp;&amp;</span> apt-get <span class="nt">-q</span> update <span class="se">\
+</span>    <span class="o">&amp;&amp;</span> apt-get <span class="nt">-q</span> dist-upgrade <span class="nt">-y</span> <span class="se">\
+</span>    <span class="o">&amp;&amp;</span> apt-get <span class="nt">-y</span> <span class="nb">install </span>libssl-dev <span class="se">\
+</span>    <span class="o">&amp;&amp;</span> <span class="nb">rm</span> <span class="nt">-rf</span> /var/lib/apt/lists/<span class="k">*</span>
+
+<span class="c"># Set up a build area</span>
+<span class="k">WORKDIR</span><span class="s"> /build</span>
+
+<span class="c"># First just resolve dependencies.</span>
+<span class="c"># This creates a cached layer that can be reused</span>
+<span class="c"># as long as your Package.swift/Package.resolved</span>
+<span class="c"># files do not change.</span>
+<span class="k">COPY</span><span class="s"> ./Package.* ./</span>
+<span class="k">RUN </span>swift package resolve
+
+<span class="c"># Copy entire repo into container</span>
+<span class="k">COPY</span><span class="s"> . .</span>
+
+<span class="c"># Build everything, with optimizations</span>
+<span class="k">RUN </span>swift build <span class="nt">-c</span> release <span class="nt">--static-swift-stdlib</span>
+
+<span class="c"># Switch to the staging area</span>
+<span class="k">WORKDIR</span><span class="s"> /staging</span>
+
+<span class="c"># Copy main executable to staging area</span>
+<span class="k">RUN </span><span class="nb">cp</span> <span class="s2">"</span><span class="si">$(</span>swift build <span class="nt">--package-path</span> /build <span class="nt">-c</span> release <span class="nt">--show-bin-path</span><span class="si">)</span><span class="s2">/Run"</span> ./
+
+<span class="c"># Copy resources bundled by SwiftPM to staging area</span>
+<span class="k">RUN </span>find <span class="nt">-L</span> <span class="s2">"</span><span class="si">$(</span>swift build <span class="nt">--package-path</span> /build <span class="nt">-c</span> release <span class="nt">--show-bin-path</span><span class="si">)</span><span class="s2">/"</span> <span class="nt">-regex</span> <span class="s1">'.*\.resources$'</span> <span class="nt">-exec</span> <span class="nb">cp</span> <span class="nt">-Ra</span> <span class="o">{}</span> ./ <span class="se">\;</span>
+
+<span class="c"># Copy any resources from the public directory and views directory if the directories exist</span>
+<span class="c"># Ensure that by default, neither the directory nor any of its contents are writable.</span>
+<span class="k">RUN </span><span class="o">[</span> <span class="nt">-d</span> /build/Public <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span> <span class="nb">mv</span> /build/Public ./Public <span class="o">&amp;&amp;</span> <span class="nb">chmod</span> <span class="nt">-R</span> a-w ./Public<span class="p">;</span> <span class="o">}</span> <span class="o">||</span> <span class="nb">true</span>
+<span class="k">RUN </span><span class="o">[</span> <span class="nt">-d</span> /build/Resources <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span> <span class="nb">mv</span> /build/Resources ./Resources <span class="o">&amp;&amp;</span> <span class="nb">chmod</span> <span class="nt">-R</span> a-w ./Resources<span class="p">;</span> <span class="o">}</span> <span class="o">||</span> <span class="nb">true</span>
+
+<span class="c"># ================================</span>
+<span class="c"># Run image</span>
+<span class="c"># ================================</span>
+<span class="k">FROM</span><span class="s"> public.ecr.aws/ubuntu/ubuntu:focal</span>
+
+<span class="c"># Make sure all system packages are up to date, and install only essential packages.</span>
+<span class="k">RUN </span><span class="nb">export </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive <span class="nv">DEBCONF_NONINTERACTIVE_SEEN</span><span class="o">=</span><span class="nb">true</span> <span class="se">\
+</span>    <span class="o">&amp;&amp;</span> apt-get <span class="nt">-q</span> update <span class="se">\
+</span>    <span class="o">&amp;&amp;</span> apt-get <span class="nt">-q</span> dist-upgrade <span class="nt">-y</span> <span class="se">\
+</span>    <span class="o">&amp;&amp;</span> apt-get <span class="nt">-q</span> <span class="nb">install</span> <span class="nt">-y</span> <span class="se">\
+</span>      ca-certificates <span class="se">\
+</span>      tzdata <span class="se">\
+</span>      curl <span class="se">\
+</span>      libxml2 <span class="se">\
+</span>    <span class="o">&amp;&amp;</span> <span class="nb">rm</span> <span class="nt">-r</span> /var/lib/apt/lists/<span class="k">*</span>
+
+<span class="c"># Create a vapor user and group with /app as its home directory</span>
+<span class="k">RUN </span>useradd <span class="nt">--user-group</span> <span class="nt">--create-home</span> <span class="nt">--system</span> <span class="nt">--skel</span> /dev/null <span class="nt">--home-dir</span> /app vapor
+
+<span class="c"># Switch to the new home directory</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+
+<span class="c"># Copy built executable and any staged resources from builder</span>
+<span class="k">COPY</span><span class="s"> --from=build --chown=vapor:vapor /staging /app</span>
+
+<span class="c"># Ensure all further commands run as the vapor user</span>
+<span class="k">USER</span><span class="s"> vapor:vapor</span>
+
+<span class="c"># Let Docker bind to port 8080</span>
+<span class="k">EXPOSE</span><span class="s"> 8080</span>
+
+<span class="c"># Start the Vapor service when the image is run, default to listening on 8080 in production environment</span>
+<span class="k">ENTRYPOINT</span><span class="s"> ["./Run"]</span>
+<span class="k">CMD</span><span class="s"> ["serve", "--env", "production", "--hostname", "0.0.0.0", "--port", "8080"]</span>
+</code></pre></div></div>
+
+<h2 id="step-5-update-the-vapor-source-code" class="header-with-anchor">Step 5: Update the Vapor Source Code <a title="Permalink for Step 5: Update the Vapor Source Code section" href="#step-5-update-the-vapor-source-code">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Vapor also generates the sample files needed to code an API. You must customize these files with code that exposes your To Do List API methods and interacts with your MongoDB database.</p>
+
+<p>The <em>configure.swift</em> file initializes an application-wide pool of connections to your MongoDB database. It retrieves the connection string to your MongoDB database from an environment variable at runtime.</p>
+
+<p>Replace the contents of the file with the following code:</p>
+
+<p><strong>api/Sources/App/configure.swift</strong></p>
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">MongoDBVapor</span>
+<span class="kd">import</span> <span class="kt">Vapor</span>
+
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">configure</span><span class="p">(</span><span class="n">_</span> <span class="nv">app</span><span class="p">:</span> <span class="kt">Application</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="nv">MONGODB_URI</span> <span class="o">=</span> <span class="kt">Environment</span><span class="o">.</span><span class="nf">get</span><span class="p">(</span><span class="s">"MONGODB_URI"</span><span class="p">)</span> <span class="p">??</span> <span class="s">""</span>
+
+    <span class="k">try</span> <span class="n">app</span><span class="o">.</span><span class="n">mongoDB</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="kt">MONGODB_URI</span><span class="p">)</span>
+
+    <span class="kt">ContentConfiguration</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="nf">use</span><span class="p">(</span><span class="nv">encoder</span><span class="p">:</span> <span class="kt">ExtendedJSONEncoder</span><span class="p">(),</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">json</span><span class="p">)</span>
+    <span class="kt">ContentConfiguration</span><span class="o">.</span><span class="n">global</span><span class="o">.</span><span class="nf">use</span><span class="p">(</span><span class="nv">decoder</span><span class="p">:</span> <span class="kt">ExtendedJSONDecoder</span><span class="p">(),</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">json</span><span class="p">)</span>
+
+    <span class="k">try</span> <span class="nf">routes</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <em>routes.swift</em> file defines the methods to your API. These include a <em>POST Item</em> method to insert a new item and a <em>GET Items</em> method to retrieve a list of all existing items. See comments in the code to understand what happens in each section.</p>
+
+<p>Replace the contents of the file with the following code:</p>
+
+<p><strong>api/Sources/App/routes.swift</strong></p>
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">Vapor</span>
+<span class="kd">import</span> <span class="kt">MongoDBVapor</span>
+
+<span class="c1">// define the structure of a ToDoItem</span>
+<span class="kd">struct</span> <span class="kt">ToDoItem</span><span class="p">:</span> <span class="kt">Content</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">_id</span><span class="p">:</span> <span class="kt">BSONObjectID</span><span class="p">?</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">createdOn</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span>
+<span class="p">}</span>
+
+<span class="c1">// import the MongoDB database and collection names from environment variables</span>
+<span class="k">let</span> <span class="nv">MONGODB_DATABASE</span> <span class="o">=</span> <span class="kt">Environment</span><span class="o">.</span><span class="nf">get</span><span class="p">(</span><span class="s">"MONGODB_DATABASE"</span><span class="p">)</span> <span class="p">??</span> <span class="s">""</span>
+<span class="k">let</span> <span class="nv">MONGODB_COLLECTION</span> <span class="o">=</span> <span class="kt">Environment</span><span class="o">.</span><span class="nf">get</span><span class="p">(</span><span class="s">"MONGODB_COLLECTION"</span><span class="p">)</span> <span class="p">??</span> <span class="s">""</span>
+
+<span class="c1">// define an extension to the Vapor Request object to interact with the database and collection</span>
+<span class="kd">extension</span> <span class="kt">Request</span> <span class="p">{</span>
+
+    <span class="k">var</span> <span class="nv">todoCollection</span><span class="p">:</span> <span class="kt">MongoCollection</span><span class="o">&lt;</span><span class="kt">ToDoItem</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">mongoDB</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="nf">db</span><span class="p">(</span><span class="kt">MONGODB_DATABASE</span><span class="p">)</span><span class="o">.</span><span class="nf">collection</span><span class="p">(</span><span class="kt">MONGODB_COLLECTION</span><span class="p">,</span> <span class="nv">withType</span><span class="p">:</span> <span class="kt">ToDoItem</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// define the api routes</span>
+<span class="kd">func</span> <span class="nf">routes</span><span class="p">(</span><span class="n">_</span> <span class="nv">app</span><span class="p">:</span> <span class="kt">Application</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
+
+    <span class="c1">// an base level route used for container healthchecks</span>
+    <span class="n">app</span><span class="o">.</span><span class="k">get</span> <span class="p">{</span> <span class="n">req</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="s">"OK"</span>
+    <span class="p">}</span>
+
+    <span class="c1">// GET items returns a JSON array of all items in the database</span>
+    <span class="n">app</span><span class="o">.</span><span class="nf">get</span><span class="p">(</span><span class="s">"items"</span><span class="p">)</span> <span class="p">{</span> <span class="n">req</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ToDoItem</span><span class="p">]</span> <span class="k">in</span>
+        <span class="k">try</span> <span class="k">await</span> <span class="n">req</span><span class="o">.</span><span class="n">todoCollection</span><span class="o">.</span><span class="nf">find</span><span class="p">()</span><span class="o">.</span><span class="nf">toArray</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="c1">// POST item inserts a new item into the database and returns the item as JSON</span>
+    <span class="n">app</span><span class="o">.</span><span class="nf">post</span><span class="p">(</span><span class="s">"item"</span><span class="p">)</span> <span class="p">{</span> <span class="n">req</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ToDoItem</span> <span class="k">in</span>
+
+        <span class="k">var</span> <span class="nv">item</span> <span class="o">=</span> <span class="k">try</span> <span class="n">req</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="nf">decode</span><span class="p">(</span><span class="kt">ToDoItem</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">createdOn</span> <span class="o">=</span> <span class="kt">Date</span><span class="p">()</span>
+
+        <span class="k">let</span> <span class="nv">response</span> <span class="o">=</span> <span class="k">try</span> <span class="k">await</span> <span class="n">req</span><span class="o">.</span><span class="n">todoCollection</span><span class="o">.</span><span class="nf">insertOne</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">response</span><span class="p">?</span><span class="o">.</span><span class="n">insertedID</span><span class="o">.</span><span class="n">objectIDValue</span>
+
+        <span class="k">return</span> <span class="n">item</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <em>main.swift</em> file defines the startup and shutdown code for the application. Change the code to include a <em>defer</em> statement to close the connection to your MongoDB database when the application ends.</p>
+
+<p>Replace the contents of the file with the following code:</p>
+
+<p><strong>api/Sources/Run/main.swift</strong></p>
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">App</span>
+<span class="kd">import</span> <span class="kt">Vapor</span>
+<span class="kd">import</span> <span class="kt">MongoDBVapor</span>
+
+<span class="k">var</span> <span class="nv">env</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Environment</span><span class="o">.</span><span class="nf">detect</span><span class="p">()</span>
+<span class="k">try</span> <span class="kt">LoggingSystem</span><span class="o">.</span><span class="nf">bootstrap</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">env</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">app</span> <span class="o">=</span> <span class="kt">Application</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="k">try</span> <span class="nf">configure</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="c1">// shutdown and cleanup the MongoDB connection when the application terminates</span>
+<span class="k">defer</span> <span class="p">{</span>
+  <span class="n">app</span><span class="o">.</span><span class="n">mongoDB</span><span class="o">.</span><span class="nf">cleanup</span><span class="p">()</span>
+  <span class="nf">cleanupMongoSwift</span><span class="p">()</span>
+  <span class="n">app</span><span class="o">.</span><span class="nf">shutdown</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">try</span> <span class="n">app</span><span class="o">.</span><span class="nf">run</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="step-6-initialize-aws-copilot" class="header-with-anchor">Step 6: Initialize AWS Copilot <a title="Permalink for Step 6: Initialize AWS Copilot section" href="#step-6-initialize-aws-copilot">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p><a href="https://aws.github.io/copilot-cli/">AWS Copilot</a> is a command-line utility for generating a containerized application in AWS. You use Copilot to build and deploy your Vapor code as containers in Fargate. Copilot also creates and tracks an AWS Systems Manager secret parameter for the value of your MongoDB connection string. You store this value as a secret as it contains the username and password to your database.  You never want to store this in your source code. Finally, Copilot creates an API Gateway to expose a public endpoint for your API.</p>
+
+<p>Initialize a new Copilot application.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>copilot app init todo
+</code></pre></div></div>
+
+<p>Add a new Copilot <em>Backend Service</em>. The service refers to the Dockerfile of your Vapor project for instructions on how to build the container.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>copilot svc init <span class="nt">--name</span> api <span class="nt">--svc-type</span> <span class="s2">"Backend Service"</span> <span class="nt">--dockerfile</span> ./api/Dockerfile
+</code></pre></div></div>
+
+<p>Create a Copilot environment for your application. An environment typically aligns to a phase, such as dev, test, or prod. When prompted, select the AWS credentials profile you configured with the AWS CLI.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>copilot <span class="nb">env </span>init <span class="nt">--name</span> dev <span class="nt">--app</span> todo <span class="nt">--default-config</span>
+</code></pre></div></div>
+
+<p>Deploy the <em>dev</em> environment:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>copilot <span class="nb">env </span>deploy <span class="nt">--name</span> dev
+</code></pre></div></div>
+
+<h2 id="step-7-create-a-copilot-secret-for-database-credentials" class="header-with-anchor">Step 7: Create a Copilot Secret for Database Credentials <a title="Permalink for Step 7: Create a Copilot Secret for Database Credentials section" href="#step-7-create-a-copilot-secret-for-database-credentials">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Your application requires credentials to authenticate to your MongoDB Atlas database. You should never store this sensitive information in your source code. Create a Copilot <em>secret</em> to store the credentials. This stores the connection string to your MongoDB cluster in an AWS Systems Manager Secret Parameter.</p>
+
+<p>Determine the connection string from the MongoDB Atlas website. Select the <em>Connect</em> button on your cluster page and the <em>Connect your application</em>.</p>
+
+<p><img src="/assets/images/server-guides/aws/aws-fargate-vapor-mongo-atlas-connection.png" alt="Architecture" /></p>
+
+<p>Select <em>Swift version 1.2.0</em> as the Driver and copy the displayed connection string. It looks something like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mongodb+srv://username:&lt;password&gt;@mycluster.mongodb.net/?retryWrites<span class="o">=</span><span class="nb">true</span>&amp;w<span class="o">=</span>majority
+</code></pre></div></div>
+
+<p>The connection string contains your database username and a placeholder for the password. Replace the <strong>&lt;password&gt;</strong> section with your database password. Then create a new Copilot secret named MONGODB_URI and save your connection string when prompted for the value.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>copilot secret init <span class="nt">--app</span> todo <span class="nt">--name</span> MONGODB_URI
+</code></pre></div></div>
+
+<p>Fargate injects the secret value as an environment variable into your container at runtime. In Step 5 above, you extracted this value in your <em>api/Sources/App/configure.swift</em> file and used it to configure your MongoDB connection.</p>
+
+<h2 id="step-8-configure-the-backend-service" class="header-with-anchor">Step 8: Configure the Backend Service <a title="Permalink for Step 8: Configure the Backend Service section" href="#step-8-configure-the-backend-service">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Copilot generates a <em>manifest.yml</em> file for your application that defines the attributes of your service, such as the Docker image, network, secrets, and environment variables. Change the manifest file generated by Copilot to add the following properties:</p>
+
+<ul>
+  <li>configure a health check for the container image</li>
+  <li>add a reference to the MONGODB_URI secret</li>
+  <li>configure the service network as <em>private</em></li>
+  <li>add environment variables for the MONGODB_DATABASE and MONGODB_COLLECTION</li>
+</ul>
+
+<p>To implement these changes, replace the contents of the <em>manifest.yml</em> file with the following code. Update the values of MONGODB_DATABASE and MONGODB_COLLECTION to reflect the names of the database and cluster you created in MongoDB Atlas for this application.</p>
+
+<p>If you are building this solution on a <strong>Mac M1/M2</strong> machine, uncomment the <strong>platform</strong> property in the manifest.yml file to specify an ARM build. The default value is <em>linux/x86_64</em>.</p>
+
+<p><strong>copilot/api/manifest.yml</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The manifest for the "api" service.</span>
+<span class="c1"># Read the full specification for the "Backend Service" type at:</span>
+<span class="c1">#  https://aws.github.io/copilot-cli/docs/manifest/backend-service/</span>
+
+<span class="c1"># Your service name will be used in naming your resources like log groups, ECS services, etc.</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">api</span>
+<span class="na">type</span><span class="pi">:</span> <span class="s">Backend Service</span>
+
+<span class="c1"># Your service is reachable at "http://api.${COPILOT_SERVICE_DISCOVERY_ENDPOINT}:8080" but is not public.</span>
+
+<span class="c1"># Configuration for your containers and service.</span>
+<span class="na">image</span><span class="pi">:</span>
+  <span class="c1"># Docker build arguments. For additional overrides: https://aws.github.io/copilot-cli/docs/manifest/backend-service/#image-build</span>
+  <span class="na">build</span><span class="pi">:</span> <span class="s">api/Dockerfile</span>
+  <span class="c1"># Port exposed through your container to route traffic to it.</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">8080</span>
+  <span class="na">healthcheck</span><span class="pi">:</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">CMD-SHELL"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">curl</span><span class="nv"> </span><span class="s">-f</span><span class="nv"> </span><span class="s">http://localhost:8080</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">exit</span><span class="nv"> </span><span class="s">1"</span><span class="pi">]</span>
+    <span class="na">interval</span><span class="pi">:</span> <span class="s">10s</span>
+    <span class="na">retries</span><span class="pi">:</span> <span class="m">2</span>
+    <span class="na">timeout</span><span class="pi">:</span> <span class="s">5s</span>
+    <span class="na">start_period</span><span class="pi">:</span> <span class="s">0s</span>
+
+<span class="c1"># Mac M1/M2 users - uncomment the following platform line</span>
+<span class="c1"># the default platform is linux/x86_64</span>
+
+<span class="c1"># platform: linux/arm64</span>
+
+<span class="na">cpu</span><span class="pi">:</span> <span class="m">256</span>       <span class="c1"># Number of CPU units for the task.</span>
+<span class="na">memory</span><span class="pi">:</span> <span class="m">512</span>    <span class="c1"># Amount of memory in MiB used by the task.</span>
+<span class="na">count</span><span class="pi">:</span> <span class="m">2</span>       <span class="c1"># Number of tasks that should be running in your service.</span>
+<span class="na">exec</span><span class="pi">:</span> <span class="kc">true</span>     <span class="c1"># Enable running commands in your container.</span>
+
+<span class="c1"># define the network as private. this will place Fargate in private subnets</span>
+<span class="na">network</span><span class="pi">:</span>
+  <span class="na">vpc</span><span class="pi">:</span>
+    <span class="na">placement</span><span class="pi">:</span> <span class="s">private</span>
+
+<span class="c1"># Optional fields for more advanced use-cases.</span>
+<span class="c1">#</span>
+<span class="c1"># Pass environment variables as key value pairs.</span>
+<span class="na">variables</span><span class="pi">:</span>
+ <span class="na">MONGODB_DATABASE</span><span class="pi">:</span> <span class="s">home</span>
+ <span class="na">MONGODB_COLLECTION</span><span class="pi">:</span> <span class="s">todolist</span>
+
+<span class="c1"># Pass secrets from AWS Systems Manager (SSM) Parameter Store.</span>
+<span class="na">secrets</span><span class="pi">:</span>
+ <span class="na">MONGODB_URI</span><span class="pi">:</span> <span class="s">/copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/MONGODB_URI</span>
+
+<span class="c1"># You can override any of the values defined above by environment.</span>
+<span class="c1">#environments:</span>
+<span class="c1">#  test:</span>
+<span class="c1">#    count: 2               # Number of tasks to run for the "test" environment.</span>
+<span class="c1">#    deployment:            # The deployment strategy for the "test" environment.</span>
+<span class="c1">#       rolling: 'recreate' # Stops existing tasks before new ones are started for faster deployments.</span>
+</code></pre></div></div>
+
+<h2 id="step-9-create-a-copilot-addon-service-for-your-api-gateway" class="header-with-anchor">Step 9: Create a Copilot Addon Service for your API Gateway <a title="Permalink for Step 9: Create a Copilot Addon Service for your API Gateway section" href="#step-9-create-a-copilot-addon-service-for-your-api-gateway">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Copilot does not have the capability to add an API Gateway to your application. You can, however, add additional AWS resources to your application using <a href="https://aws.github.io/copilot-cli/docs/developing/additional-aws-resources/#how-to-do-i-add-other-resources">Copilot “Addons”</a>.</p>
+
+<p>Define an addon by creating an <em>addons</em> folder under your Copilot service folder and creating a CloudFormation yaml template to define the services you wish to create.</p>
+
+<p>Create a folder for the addon:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> copilot/api/addons
+</code></pre></div></div>
+
+<p>Create a file to define the API Gateway:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>copilot/api/addons/apigateway.yml
+</code></pre></div></div>
+
+<p>Create a file to pass parameters from the main service into the addon service:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>copilot/api/addons/addons.parameters.yml
+</code></pre></div></div>
+
+<p>Copy the following code into the <em>addons.parameters.yml</em> file. It passes the ID of the Cloud Map service into the addon stack.</p>
+
+<p><strong>copilot/api/addons/addons.parameters.yml</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Parameters</span><span class="pi">:</span>
+   <span class="na">DiscoveryServiceARN</span><span class="pi">:</span>  <span class="kt">!GetAtt</span> <span class="s">DiscoveryService.Arn</span>
+</code></pre></div></div>
+
+<p>Copy the following code into the <em>addons/apigateway.yml</em> file. It creates an API Gateway using the DiscoveryServiceARN to integrate with the Cloud Map service Copilot created for your Fargate containers.</p>
+
+<p><strong>copilot/api/addons/apigateway.yml</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Parameters</span><span class="pi">:</span>
+  <span class="na">App</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+    <span class="na">Description</span><span class="pi">:</span> <span class="s">Your application's name.</span>
+  <span class="na">Env</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+    <span class="na">Description</span><span class="pi">:</span> <span class="s">The environment name your service, job, or workflow is being deployed to.</span>
+  <span class="na">Name</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+    <span class="na">Description</span><span class="pi">:</span> <span class="s">The name of the service, job, or workflow being deployed.</span>
+  <span class="na">DiscoveryServiceARN</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s">String</span>
+    <span class="na">Description</span><span class="pi">:</span> <span class="s">The ARN of the Cloud Map discovery service.</span>
+
+<span class="na">Resources</span><span class="pi">:</span>
+  <span class="na">ApiVpcLink</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s">AWS::ApiGatewayV2::VpcLink</span>
+    <span class="na">Properties</span><span class="pi">:</span>
+      <span class="na">Name</span><span class="pi">:</span> <span class="kt">!Sub</span> <span class="s2">"</span><span class="s">${App}-${Env}-${Name}"</span>
+      <span class="na">SubnetIds</span><span class="pi">:</span>
+        <span class="kt">!Split</span> <span class="pi">[</span><span class="s2">"</span><span class="s">,"</span><span class="pi">,</span> <span class="nv">Fn</span><span class="pi">::</span><span class="nv">ImportValue</span><span class="pi">:</span> <span class="kt">!Sub</span> <span class="s2">"</span><span class="s">${App}-${Env}-PrivateSubnets"</span><span class="pi">]</span>
+      <span class="na">SecurityGroupIds</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">Fn::ImportValue</span><span class="pi">:</span> <span class="kt">!Sub</span> <span class="s2">"</span><span class="s">${App}-${Env}-EnvironmentSecurityGroup"</span>
+
+  <span class="na">ApiGatewayV2Api</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">AWS::ApiGatewayV2::Api"</span>
+    <span class="na">Properties</span><span class="pi">:</span>
+      <span class="na">Name</span><span class="pi">:</span> <span class="kt">!Sub</span> <span class="s2">"</span><span class="s">${Name}.${Env}.${App}.api"</span>
+      <span class="na">ProtocolType</span><span class="pi">:</span> <span class="s2">"</span><span class="s">HTTP"</span>
+      <span class="na">CorsConfiguration</span><span class="pi">:</span>
+        <span class="na">AllowHeaders</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s2">"</span><span class="s">*"</span>
+        <span class="na">AllowMethods</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s2">"</span><span class="s">*"</span>
+        <span class="na">AllowOrigins</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s2">"</span><span class="s">*"</span>
+
+  <span class="na">ApiGatewayV2Stage</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">AWS::ApiGatewayV2::Stage"</span>
+    <span class="na">Properties</span><span class="pi">:</span>
+      <span class="na">StageName</span><span class="pi">:</span> <span class="s2">"</span><span class="s">$default"</span>
+      <span class="na">ApiId</span><span class="pi">:</span> <span class="kt">!Ref</span> <span class="s">ApiGatewayV2Api</span>
+      <span class="na">AutoDeploy</span><span class="pi">:</span> <span class="kc">true</span>
+
+  <span class="na">ApiGatewayV2Integration</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">AWS::ApiGatewayV2::Integration"</span>
+    <span class="na">Properties</span><span class="pi">:</span>
+      <span class="na">ApiId</span><span class="pi">:</span> <span class="kt">!Ref</span> <span class="s">ApiGatewayV2Api</span>
+      <span class="na">ConnectionId</span><span class="pi">:</span> <span class="kt">!Ref</span> <span class="s">ApiVpcLink</span>
+      <span class="na">ConnectionType</span><span class="pi">:</span> <span class="s2">"</span><span class="s">VPC_LINK"</span>
+      <span class="na">IntegrationMethod</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ANY"</span>
+      <span class="na">IntegrationType</span><span class="pi">:</span> <span class="s2">"</span><span class="s">HTTP_PROXY"</span>
+      <span class="na">IntegrationUri</span><span class="pi">:</span> <span class="kt">!Sub</span> <span class="s2">"</span><span class="s">${DiscoveryServiceARN}"</span>
+      <span class="na">TimeoutInMillis</span><span class="pi">:</span> <span class="m">30000</span>
+      <span class="na">PayloadFormatVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+
+  <span class="na">ApiGatewayV2Route</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">AWS::ApiGatewayV2::Route"</span>
+    <span class="na">Properties</span><span class="pi">:</span>
+      <span class="na">ApiId</span><span class="pi">:</span> <span class="kt">!Ref</span> <span class="s">ApiGatewayV2Api</span>
+      <span class="na">RouteKey</span><span class="pi">:</span> <span class="s2">"</span><span class="s">$default"</span>
+      <span class="na">Target</span><span class="pi">:</span> <span class="kt">!Sub</span> <span class="s2">"</span><span class="s">integrations/${ApiGatewayV2Integration}"</span>
+</code></pre></div></div>
+
+<h2 id="step-10-deploy-the-copilot-service" class="header-with-anchor">Step 10: Deploy the Copilot Service <a title="Permalink for Step 10: Deploy the Copilot Service section" href="#step-10-deploy-the-copilot-service">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>When deploying your service, Copilot executes the following actions:</p>
+
+<ul>
+  <li>builds your Vapor Docker image</li>
+  <li>deploys the image to the Amazon Elastic Container Registry (ECR) in your AWS account</li>
+  <li>creates and deploys an AWS CloudFormation template into your AWS account. CloudFormation creates all the services defined in your application.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>copilot svc deploy <span class="nt">--name</span> api <span class="nt">--app</span> todo <span class="nt">--env</span> dev
+</code></pre></div></div>
+
+<h2 id="step-11-configure-mongodb-atlas-network-access" class="header-with-anchor">Step 11: Configure MongoDB Atlas Network Access <a title="Permalink for Step 11: Configure MongoDB Atlas Network Access section" href="#step-11-configure-mongodb-atlas-network-access">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>MongoDB Atlas uses an IP Access List to restrict access to your database to a specific list of source IP addresses. In your application, traffic from your containers originates from the public IP addresses of the NAT Gateways in your application’s network. You must configure MongoDB Atlas to allow traffic from these IP addresses.</p>
+
+<p>To get the IP address of the NAT Gateways, run the following AWS CLI command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws ec2 describe-nat-gateways <span class="nt">--filter</span> <span class="s2">"Name=tag-key, Values=copilot-application"</span> <span class="nt">--query</span> <span class="s1">'NatGateways[?State == `available`].NatGatewayAddresses[].PublicIp'</span> <span class="nt">--output</span> table
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">---------------------</span>
+|DescribeNatGateways|
++-------------------+
+|  1.1.1.1          |
+|  2.2.2.2          |
++-------------------+
+</code></pre></div></div>
+
+<p>Use the IP addresses to create a Network Access rule in your MongoDB Atlas account for each address.</p>
+
+<p><img src="/assets/images/server-guides/aws/aws-fargate-vapor-mongo-atlas-network-address.png" alt="Architecture" /></p>
+
+<h2 id="step-12-use-your-api" class="header-with-anchor">Step 12: Use your API <a title="Permalink for Step 12: Use your API section" href="#step-12-use-your-api">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>To get the endpoint for your API, use the following AWS CLI command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws apigatewayv2 get-apis <span class="nt">--query</span> <span class="s1">'Items[?Name==`api.dev.todo.api`].ApiEndpoint'</span> <span class="nt">--output</span> table
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">------------------------------------------------------------</span>
+|                          GetApis                         |
++----------------------------------------------------------+
+|  https://[your-api-endpoint]                             |
++----------------------------------------------------------+
+</code></pre></div></div>
+
+<p>Use cURL or a tool such as <a href="https://www.postman.com/">Postman</a> to interact with your API:</p>
+
+<p>Add a To Do List item</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">--request</span> POST <span class="s1">'https://[your-api-endpoint]/item'</span> <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="nt">--data-raw</span> <span class="s1">'{"name": "my todo item"}'</span>
+</code></pre></div></div>
+
+<p>Retrieve To Do List items</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl https://[your-api-endpoint]/items
+</code></pre></div></div>
+
+<h2 id="cleanup" class="header-with-anchor">Cleanup <a title="Permalink for Cleanup section" href="#cleanup">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>When finished with your application, use Copilot to delete it. This deletes all the services created in your AWS account.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>copilot app delete <span class="nt">--name</span> todo
+</code></pre></div></div>
+
+
+  
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

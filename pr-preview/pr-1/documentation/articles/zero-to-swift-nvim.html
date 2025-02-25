@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Configuring Neovim for Swift Development</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/documentation/articles/zero-to-swift-nvim.html" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift.org" />
+  <meta name="twitter:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:title" content="Swift.org" />
+  <meta property="og:url" content="https://swift.org" />
+  <meta property="og:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+  <article class="page">
+  
+    
+      <header>
+        <h1>Configuring Neovim for Swift Development</h1>
+      </header>
+    
+  
+
+  <p><a href="https://neovim.io">Neovim</a> is a modern reimplementation of <em>Vim</em>, a popular terminal-based text
+editor.
+Neovim adds new features like asynchronous operations and powerful Lua bindings
+for a snappy editing experience, in addition to the improvements <em>Vim</em> brings to
+the original <em>Vi</em> editor.</p>
+
+<p>This article walks you through configuring Neovim for Swift development,
+providing configurations for various plugins to build a working Swift editing
+experience.
+The configuration files are built up step by step and the end of the article contains the
+fully assembled versions of those files.
+It is not a tutorial on how to use Neovim and assumes some familiarity
+with modal text editors like <em>Neovim</em>, <em>Vim</em>, or <em>Vi</em>.
+We are also assuming that you have already installed a Swift toolchain on your
+computer. If not, please see the
+<a href="https://www.swift.org/install">Swift installation instructions</a>.</p>
+
+<p>Although the article references Ubuntu 22.04, the configuration itself works on
+any operating system where a recent version of Neovim and a Swift toolchain is
+available.</p>
+
+<p>Basic setup and configuration includes:</p>
+
+<ol>
+  <li>Installing Neovim.</li>
+  <li>Installing <code class="language-plaintext highlighter-rouge">lazy.nvim</code> to manage our plugins.</li>
+  <li>Configuring the SourceKit-LSP server.</li>
+  <li>Setting up Language-Server-driven code completion with <em>nvim-cmp</em>.</li>
+  <li>Setting up snippets with <em>LuaSnip</em>.</li>
+</ol>
+
+<p>The following sections are provided to help guide you through the setup:</p>
+
+<ul>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#packaging-with-lazy">Package Management</a></li>
+  <li><a href="#language-server-support">Language Server Support</a>
+    <ul>
+      <li><a href="#file-updating">File Updates</a></li>
+    </ul>
+  </li>
+  <li><a href="#code-completion">Code Completion</a></li>
+  <li><a href="#Snippets">Snippets</a></li>
+  <li><a href="#files">Fully Assembled Configuration Files</a></li>
+</ul>
+
+<blockquote>
+  <p>Tip: If you already have Neovim, Swift, and a package manager installed, you can skip to setting up <a href="#language-server-support">Language Server support</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>Note: If you are bypassing the <a href="#prerequisites">Prerequisites</a> section, make sure your
+copy of Neovim is version v0.9.4 or higher, or you may experience issues with some
+of the Language Server Protocol (LSP) Lua APIs.</p>
+</blockquote>
+
+<h2 id="prerequisites" class="header-with-anchor">Prerequisites <a title="Permalink for Prerequisites section" href="#prerequisites">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>To get started, you’ll need to install Neovim. The Lua
+APIs exposed by Neovim are under rapid development. We will want to take
+advantage of the recent improvements in the integrated support for Language
+Server Protocol (LSP), so we will need a fairly recent version
+of Neovim.</p>
+
+<p>I’m running Ubuntu 22.04 on an <code class="language-plaintext highlighter-rouge">x86_64</code> machine. Unfortunately, the
+version of Neovim shipped in the Ubuntu 22.04 <code class="language-plaintext highlighter-rouge">apt</code> repository is too old to
+support many of the APIs that we will be using.</p>
+
+<p>For this install, I used <code class="language-plaintext highlighter-rouge">snap</code> to install Neovim v0.9.4.
+Ubuntu 24.04 has a new enough version of Neovim, so a normal
+<code class="language-plaintext highlighter-rouge">apt install neovim</code> invocation will work.
+For installing Neovim on other operating systems and Linux distributions,
+please see the
+<a href="https://github.com/neovim/neovim/blob/master/INSTALL.md">Neovim install page</a>.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp"> $</span><span class="w">  </span><span class="nb">sudo </span>snap <span class="nb">install </span>nvim <span class="nt">--classic</span>
+<span class="gp"> $</span><span class="w">  </span>nvim <span class="nt">--version</span>
+<span class="go">NVIM v0.9.4
+Build type: RelWithDebInfo
+LuaJIT 2.1.1692716794
+Compilation: /usr/bin/cc -O2 -g -Og -g -Wall -Wextra -pedantic -Wno-unused-pa...
+
+</span><span class="gp">   system vimrc file: "$</span>VIM/sysinit.vim<span class="s2">"
+</span><span class="gp">  fall-back for $</span><span class="s2">VIM: "</span>/usr/share/nvim<span class="s2">"
+</span><span class="go">
+Run :checkhealth for more info
+</span></code></pre></div></div>
+
+<h2 id="getting-started" class="header-with-anchor">Getting Started <a title="Permalink for Getting Started section" href="#getting-started">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>We have working copies of Neovim and Swift on our path. While we can start with
+a <code class="language-plaintext highlighter-rouge">vimrc</code> file, Neovim is transitioning from using vimscript to Lua. Lua
+is easier to find documentation for since it’s an actual programming language,
+tends to run faster, and pulls your configuration out of the main runloop so
+your editor stays nice and snappy.
+You can still use a <code class="language-plaintext highlighter-rouge">vimrc</code> with vimscript, but we’ll use Lua.</p>
+
+<p>The main Neovim configuration file goes in <code class="language-plaintext highlighter-rouge">~/.config/nvim</code>. The other Lua files
+go in <code class="language-plaintext highlighter-rouge">~/.config/nvim/lua</code>. Go ahead and create an <code class="language-plaintext highlighter-rouge">init.lua</code> now;</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp"> $</span><span class="w">  </span><span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/nvim/lua <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/.config/nvim
+<span class="gp"> $</span><span class="w">  </span>nvim init.lua
+</code></pre></div></div>
+
+<blockquote>
+  <p>Note: The examples below contain a GitHub link to the plugin to help you readily access the documentation. You can also explore the plugin itself.</p>
+</blockquote>
+
+<h2 id="packaging-with-lazynvim" class="header-with-anchor">Packaging with <em>lazy.nvim</em> <a title="Permalink for Packaging with <em>lazy.nvim</em> section" href="#packaging-with-lazynvim">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>While it’s possible to set everything up manually, using a package manager helps
+keep your packages up-to-date, and ensures that everything is installed
+correctly when copy your configuration to a new computer. Neovim also has a
+built-in plugin manager, but I have found
+<a href="https://github.com/folke/lazy.nvim"><em>lazy.nvim</em></a> to work well.</p>
+
+<p>We will start with a little bootstrapping script to install <em>lazy.nvim</em> if it
+isn’t installed already, add it to our runtime path, and finally configure our
+packages.</p>
+
+<p>At the top of your <code class="language-plaintext highlighter-rouge">init.lua</code> write:</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">lazypath</span> <span class="o">=</span> <span class="n">vim</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">stdpath</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span> <span class="o">..</span> <span class="s2">"/lazy/lazy.nvim"</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">vim</span><span class="p">.</span><span class="n">loop</span><span class="p">.</span><span class="n">fs_stat</span><span class="p">(</span><span class="n">lazypath</span><span class="p">)</span> <span class="k">then</span>
+    <span class="n">vim</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">system</span><span class="p">({</span>
+        <span class="s2">"git"</span><span class="p">,</span>
+        <span class="s2">"clone"</span><span class="p">,</span>
+        <span class="s2">"--filter=blob:none"</span><span class="p">,</span>
+        <span class="s2">"https://github.com/folke/lazy.nvim.git"</span><span class="p">,</span>
+        <span class="s2">"--branch=stable"</span><span class="p">,</span>
+        <span class="n">lazypath</span>
+    <span class="p">})</span>
+<span class="k">end</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">opt</span><span class="p">.</span><span class="n">rtp</span><span class="p">:</span><span class="n">prepend</span><span class="p">(</span><span class="n">lazypath</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This snippet clones <em>lazy.nvim</em> if it doesn’t already exist, and then adds it to the
+runtime path. Now we initialize <em>lazy.nvim</em> and tell it where to look for the plugin
+specs.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span><span class="p">(</span><span class="s2">"lazy"</span><span class="p">).</span><span class="n">setup</span><span class="p">(</span><span class="s2">"plugins"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This configures <em>lazy.nvim</em> to look in a <code class="language-plaintext highlighter-rouge">plugins/</code> directory under our <code class="language-plaintext highlighter-rouge">lua/</code>
+directory for each plugin. We’ll also want a place to put our own non-plugin
+related configurations, so we’ll stick it in <code class="language-plaintext highlighter-rouge">config/</code>. Go ahead and create
+those directories now.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp"> $</span><span class="w">  </span><span class="nb">mkdir </span>lua/plugins lua/config
+</code></pre></div></div>
+
+<p>See <a href="https://github.com/folke/lazy.nvim?tab=readme-ov-file#%EF%B8%8F-configuration">lazy.nvim Configuration</a> for details on configuring <em>lazy.nvim</em>.</p>
+
+<p><img src="/assets/images/zero-to-swift-nvim/Lazy.png" alt="_lazy.nvim_ package manger" /></p>
+
+<p>Note that your configuration won’t look exactly like this.
+We have only installed <em>lazy.nvim</em>, so that is the only plugin that is listed on
+your configuration at the moment.
+That’s not very exciting to look at, so I’ve added a few additional plugins to
+make it look more appealing.</p>
+
+<p>To check that it’s working:</p>
+<ul>
+  <li>
+    <p>Launch Neovim.</p>
+
+    <p>You should first see an error saying that there were no specs found for
+module plugins. This just means that there aren’t any plugins.</p>
+  </li>
+  <li>
+    <p>Press Enter and type, <code class="language-plaintext highlighter-rouge">:Lazy</code>.</p>
+
+    <p><em>lazy.nvim</em> lists the plugins installed. There should only be one right now:
+“lazy.nvim”. This is <em>lazy.nvim</em> tracking and updating itself.</p>
+  </li>
+  <li>
+    <p>We can manage our plugins through the <em>lazy.nvim</em> menu.</p>
+    <ul>
+      <li>Pressing <code class="language-plaintext highlighter-rouge">I</code> will install new plugins.</li>
+      <li>Pressing <code class="language-plaintext highlighter-rouge">U</code> will update installed plugins.</li>
+      <li>Pressing <code class="language-plaintext highlighter-rouge">X</code> will delete any plugins that <em>lazy.nvim</em> installed, but are
+no longer tracked in your configuration.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="language-server-support" class="header-with-anchor">Language Server Support <a title="Permalink for Language Server Support section" href="#language-server-support">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Language servers respond to editor requests providing language-specific support.
+Neovim has support for Language Server Protocol (LSP) built-in, so you don’t
+need an external package for LSP, but adding a configuration for each LSP server
+manually is a lot of work. Neovim has a package for configuring LSP servers,
+<a href="https://github.com/neovim/nvim-lspconfig">nvim-lspconfig</a>.</p>
+
+<p>Go ahead and create a new file under <code class="language-plaintext highlighter-rouge">lua/plugins/lsp.lua</code>. In it, we’ll start
+by adding the following snippet.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="p">{</span>
+    <span class="p">{</span>
+        <span class="s2">"neovim/nvim-lspconfig"</span><span class="p">,</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+            <span class="kd">local</span> <span class="n">lspconfig</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'lspconfig'</span><span class="p">)</span>
+            <span class="n">lspconfig</span><span class="p">.</span><span class="n">sourcekit</span><span class="p">.</span><span class="n">setup</span> <span class="p">{}</span>
+        <span class="k">end</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>While this gives us LSP support through SourceKit-LSP, there are no keybindings,
+so it’s not very practical. Let’s hook those up now.</p>
+
+<p>We’ll set up an auto command that fires when an LSP server attaches in the <code class="language-plaintext highlighter-rouge">config</code>
+function under where we set up the <code class="language-plaintext highlighter-rouge">sourcekit</code> server. The keybindings are
+applied to all LSP servers so you end up with a consistent experience across
+languages.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">config</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+    <span class="kd">local</span> <span class="n">lspconfig</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'lspconfig'</span><span class="p">)</span>
+    <span class="n">lspconfig</span><span class="p">.</span><span class="n">sourcekit</span><span class="p">.</span><span class="n">setup</span> <span class="p">{}</span>
+
+    <span class="n">vim</span><span class="p">.</span><span class="n">api</span><span class="p">.</span><span class="n">nvim_create_autocmd</span><span class="p">(</span><span class="s1">'LspAttach'</span><span class="p">,</span> <span class="p">{</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">'LSP Actions'</span><span class="p">,</span>
+        <span class="n">callback</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+            <span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'K'</span><span class="p">,</span> <span class="n">vim</span><span class="p">.</span><span class="n">lsp</span><span class="p">.</span><span class="n">buf</span><span class="p">.</span><span class="n">hover</span><span class="p">,</span> <span class="p">{</span><span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span><span class="p">})</span>
+            <span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'gd'</span><span class="p">,</span> <span class="n">vim</span><span class="p">.</span><span class="n">lsp</span><span class="p">.</span><span class="n">buf</span><span class="p">.</span><span class="n">definition</span><span class="p">,</span> <span class="p">{</span><span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span><span class="p">})</span>
+        <span class="k">end</span><span class="p">,</span>
+    <span class="p">})</span>
+<span class="k">end</span><span class="p">,</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/zero-to-swift-nvim/LSP-Error.png" alt="LSP powered live error messages" /></p>
+
+<p>I’ve created a little example Swift package that computes <a href="https://oeis.org/A000045">Fibonacci
+numbers</a> asynchronously.
+Pressing <code class="language-plaintext highlighter-rouge">shift</code> + <code class="language-plaintext highlighter-rouge">k</code> on one of the references to the <code class="language-plaintext highlighter-rouge">fibonacci</code> function
+shows the documentation for that function, along with the function signature.
+The LSP integration is also showing that we have an error in the code.</p>
+
+<h3 id="file-updating" class="header-with-anchor">File Updating <a title="Permalink for File Updating section" href="#file-updating">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>SourceKit-LSP increasingly relies on the editor informing the server when
+certain files change. This need is communicated through <em>dynamic registration</em>.
+You don’t have to understand what that means, but Neovim doesn’t implement
+dynamic registration. You’ll notice this when you update your package manifest,
+or add new files to your <code class="language-plaintext highlighter-rouge">compile_commands.json</code> file and LSP doesn’t work without
+restarting Neovim.</p>
+
+<p>Instead, we know that SourceKit-LSP needs this functionality, so we’ll enable it
+statically. We’ll update our <code class="language-plaintext highlighter-rouge">sourcekit</code> setup configuration to manually set the
+<code class="language-plaintext highlighter-rouge">didChangeWatchedFiles</code> capability.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lspconfig</span><span class="p">.</span><span class="n">sourcekit</span><span class="p">.</span><span class="n">setup</span> <span class="p">{</span>
+    <span class="n">capabilities</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">workspace</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">didChangeWatchedFiles</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">dynamicRegistration</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>If you’re interested in reading more about this issue, the conversations in the
+following issues describe the issue in more detail:</p>
+<ul>
+  <li><a href="https://github.com/neovim/neovim/issues/13634">LSP: Implement dynamicRegistration</a></li>
+  <li><a href="https://github.com/microsoft/vscode-eslint/pull/1307">add documentFormattingProvider to server capabilities response</a></li>
+</ul>
+
+<h2 id="code-completion" class="header-with-anchor">Code Completion <a title="Permalink for Code Completion section" href="#code-completion">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p><img src="/assets/images/zero-to-swift-nvim/LSP-Autocomplete.png" alt="LSP-driven autocomplete completing the Foundation module" /></p>
+
+<p>We will use <a href="https://github.com/hrsh7th/nvim-cmp"><em>nvim-cmp</em></a> to act as the code completion mechanism.
+We’ll start by telling <em>lazy.nvim</em> to download the package and to load it lazily when we enter insert
+mode since you don’t need code completion if you’re not editing the file.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- lua/plugins/codecompletion.lua</span>
+<span class="k">return</span> <span class="p">{</span>
+    <span class="p">{</span>
+        <span class="s2">"hrsh7th/nvim-cmp"</span><span class="p">,</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="s2">"InsertEnter"</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Next, we’ll configure some completion sources to provide code completion results.
+<em>nvim-cmp</em> doesn’t come with completion sources, those are additional plugins.
+For this configuration, I want results based on LSP, filepath completion, and
+the text in my current buffer. For more, the <em>nvim-cmp</em> Wiki has a <a href="https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources">list of
+sources</a>.</p>
+
+<p>To start, we will tell <em>lazy.nvim</em> about the new plugins and that <em>nvim-cmp</em> depends
+on them.
+This ensures that <em>lazy.nvim</em> will initialize each of them when <em>nvim-cmp</em> is loaded.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- lua/plugins/codecompletion.lua</span>
+<span class="k">return</span> <span class="p">{</span>
+    <span class="p">{</span>
+        <span class="s2">"hrsh7th/nvim-cmp"</span><span class="p">,</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="s2">"InsertEnter"</span><span class="p">,</span>
+        <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"hrsh7th/cmp-nvim-lsp"</span><span class="p">,</span>
+            <span class="s2">"hrsh7th/cmp-path"</span><span class="p">,</span>
+            <span class="s2">"hrsh7th/cmp-buffer"</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="p">{</span> <span class="s2">"hrsh7th/cmp-nvim-lsp"</span><span class="p">,</span> <span class="n">lazy</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="s2">"hrsh7th/cmp-path"</span><span class="p">,</span> <span class="n">lazy</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="s2">"hrsh7th/cmp-buffer"</span><span class="p">,</span> <span class="n">lazy</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now we need to configure <em>nvim-cmp</em> to take advantage of the code completion
+sources.
+Unlike many other plugins, <em>nvim-cmp</em> hides many of its inner-workings, so
+configuring it is a little different from other plugins. Specifically, you’ll
+notice the differences around setting key-bindings. We start out by requiring
+the module from within its own configuration function and will call the setup
+function explicitly.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="s2">"hrsh7th/nvim-cmp"</span><span class="p">,</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="s2">"InsertEnter"</span><span class="p">,</span>
+    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"hrsh7th/cmp-nvim-lsp"</span><span class="p">,</span>
+        <span class="s2">"hrsh7th/cmp-path"</span><span class="p">,</span>
+        <span class="s2">"hrsh7th/cmp-buffer"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+        <span class="kd">local</span> <span class="n">cmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'cmp'</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1">-- Where to get completion results from</span>
+            <span class="n">sources</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">sources</span> <span class="p">{</span>
+                <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"nvim_lsp"</span> <span class="p">},</span>
+                <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"buffer"</span><span class="p">},</span>
+                <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"path"</span> <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="c1">-- Make 'enter' key select the completion</span>
+            <span class="n">mapping</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">.</span><span class="n">preset</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span>
+                <span class="p">[</span><span class="s2">"&lt;CR&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">.</span><span class="n">confirm</span><span class="p">({</span> <span class="nb">select</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+            <span class="p">}),</span>
+        <span class="p">}</span>
+        <span class="n">cmp</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<p>Using the <code class="language-plaintext highlighter-rouge">tab</code> key to select completions is a fairly popular option, so we’ll
+go ahead and set that up now.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mapping</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">.</span><span class="n">preset</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span>
+    <span class="p">[</span><span class="s2">"&lt;CR&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">.</span><span class="n">confirm</span><span class="p">({</span> <span class="nb">select</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">}),</span>
+    <span class="p">[</span><span class="s2">"&lt;tab&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cmp</span><span class="p">.</span><span class="n">visible</span><span class="p">()</span> <span class="k">then</span>
+            <span class="n">cmp</span><span class="p">.</span><span class="n">select_next_item</span><span class="p">()</span> <span class="c1">-- run completion selection if completing</span>
+        <span class="k">else</span>
+            <span class="n">original</span><span class="p">()</span>      <span class="c1">-- run the original behavior if not completing</span>
+        <span class="k">end</span>
+    <span class="k">end</span><span class="p">,</span> <span class="p">{</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">}),</span>
+    <span class="p">[</span><span class="s2">"&lt;S-tab&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cmp</span><span class="p">.</span><span class="n">visible</span><span class="p">()</span> <span class="k">then</span>
+            <span class="n">cmp</span><span class="p">.</span><span class="n">select_prev_item</span><span class="p">()</span>
+        <span class="k">else</span>
+            <span class="n">original</span><span class="p">()</span>
+        <span class="k">end</span>
+    <span class="k">end</span><span class="p">,</span> <span class="p">{</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">}),</span>
+<span class="p">}),</span>
+</code></pre></div></div>
+
+<p>Pressing <code class="language-plaintext highlighter-rouge">tab</code> while the completion menu is visible will select the next
+completion and <code class="language-plaintext highlighter-rouge">shift</code> + <code class="language-plaintext highlighter-rouge">tab</code> will select the previous item. The tab behavior
+falls back on whatever pre-defined behavior was there originally if the menu
+isn’t visible.</p>
+
+<h2 id="snippets" class="header-with-anchor">Snippets <a title="Permalink for Snippets section" href="#snippets">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Snippets are a great way to improve your workflow by expanding short pieces of
+text into anything you like. Lets hook those up now. We’ll use <a href="https://github.com/L3MON4D3/LuaSnip"><em>LuaSnip</em></a> as our
+snippet plugin.</p>
+
+<p>Create a new file in your plugins directory for configuring the snippet plugin.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- lua/plugins/snippets.lua</span>
+<span class="k">return</span> <span class="p">{</span>
+    <span class="p">{</span>
+        <span class="s1">'L3MON4D3/LuaSnip'</span><span class="p">,</span>
+        <span class="n">conifg</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+            <span class="nb">require</span><span class="p">(</span><span class="s1">'luasnip'</span><span class="p">).</span><span class="n">setup</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+            <span class="nb">require</span><span class="p">(</span><span class="s1">'luasnip.loaders.from_snipmate'</span><span class="p">).</span><span class="nb">load</span><span class="p">({</span> <span class="n">paths</span> <span class="o">=</span> <span class="s2">"./snippets"</span> <span class="p">})</span>
+        <span class="k">end</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now we’ll wire the snippet expansions into <em>nvim-cmp</em>. First, we’ll add
+<em>LuaSnip</em> as a dependency of <em>nvim-cmp</em> to ensure that it gets loaded before
+<em>nvim-cmp</em>. Then we’ll wire it into the tab key expansion behavior.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="s2">"hrsh7th/nvim-cmp"</span><span class="p">,</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="s2">"InsertEnter"</span><span class="p">,</span>
+    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"hrsh7th/cmp-nvim-lsp"</span><span class="p">,</span>
+        <span class="s2">"hrsh7th/cmp-path"</span><span class="p">,</span>
+        <span class="s2">"hrsh7th/cmp-buffer"</span><span class="p">,</span>
+        <span class="s2">"L3MON4D3/LuaSnip"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+        <span class="kd">local</span> <span class="n">cmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'cmp'</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">luasnip</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'cmp'</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1">-- Where to get completion results from</span>
+            <span class="n">sources</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">sources</span> <span class="p">{</span>
+                <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"nvim_lsp"</span> <span class="p">},</span>
+                <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"buffer"</span><span class="p">},</span>
+                <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"path"</span> <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="n">mapping</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">.</span><span class="n">preset</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span>
+                <span class="c1">-- Make 'enter' key select the completion</span>
+                <span class="p">[</span><span class="s2">"&lt;CR&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">.</span><span class="n">confirm</span><span class="p">({</span> <span class="nb">select</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">}),</span>
+                <span class="c1">-- Super-tab behavior</span>
+                <span class="p">[</span><span class="s2">"&lt;tab&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">cmp</span><span class="p">.</span><span class="n">visible</span><span class="p">()</span> <span class="k">then</span>
+                        <span class="n">cmp</span><span class="p">.</span><span class="n">select_next_item</span><span class="p">()</span> <span class="c1">-- run completion selection if completing</span>
+                    <span class="k">elseif</span> <span class="n">luasnip</span><span class="p">.</span><span class="n">expand_or_jumpable</span><span class="p">()</span> <span class="k">then</span>
+                        <span class="n">luasnip</span><span class="p">.</span><span class="n">expand_or_jump</span><span class="p">()</span> <span class="c1">-- expand snippets</span>
+                    <span class="k">else</span>
+                        <span class="n">original</span><span class="p">()</span>      <span class="c1">-- run the original behavior if not completing</span>
+                    <span class="k">end</span>
+                <span class="k">end</span><span class="p">,</span> <span class="p">{</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">}),</span>
+                <span class="p">[</span><span class="s2">"&lt;S-tab&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">cmp</span><span class="p">.</span><span class="n">visible</span><span class="p">()</span> <span class="k">then</span>
+                        <span class="n">cmp</span><span class="p">.</span><span class="n">select_prev_item</span><span class="p">()</span>
+                    <span class="k">elseif</span> <span class="n">luasnip</span><span class="p">.</span><span class="n">expand_or_jumpable</span><span class="p">()</span> <span class="k">then</span>
+                        <span class="n">luasnip</span><span class="p">.</span><span class="n">jump</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">else</span>
+                        <span class="n">original</span><span class="p">()</span>
+                    <span class="k">end</span>
+                <span class="k">end</span><span class="p">,</span> <span class="p">{</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">}),</span>
+            <span class="p">}),</span>
+            <span class="n">snippets</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">expand</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+                    <span class="n">luasnip</span><span class="p">.</span><span class="n">lsp_expand</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">end</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="n">cmp</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<p>Now our tab-key is thoroughly overloaded in super-tab fashion.</p>
+<ul>
+  <li>If the completion window is open, pressing tab selects the next item in the
+list.</li>
+  <li>If you press tab over a snippet, the snippet will expand, and continuing to
+press tab moves the cursor to the next selection point.</li>
+  <li>If you’re neither code completing nor expanding a snippet, it will behave
+like a normal <code class="language-plaintext highlighter-rouge">tab</code> key.</li>
+</ul>
+
+<p>Now we need to write up some snippets. <em>LuaSnip</em> supports several snippet formats,
+including a subset of the popular
+<a href="https://macromates.com/textmate/manual/snippets">TextMate</a>,
+<a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets">Visual Studio Code</a> snippet format,
+and its own <a href="https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua">Lua-based</a> API.</p>
+
+<p>Here are some snippets that I’ve found to be useful:</p>
+
+<pre><code class="language-snipmate">snippet pub "public access control"
+  public $0
+
+snippet priv "private access control"
+  private $0
+
+snippet if "if statement"
+  if $1 {
+    $2
+  }$0
+
+snippet ifl "if let"
+  if let $1 = ${2:$1} {
+    $3
+  }$0
+
+snippet ifcl "if case let"
+  if case let $1 = ${2:$1} {
+    $3
+  }$0
+
+snippet func "function declaration"
+  func $1($2) $3{
+    $0
+  }
+
+snippet funca "async function declaration"
+  func $1($2) async $3{
+    $0
+  }
+
+snippet guard
+  guard $1 else {
+    $2
+  }$0
+
+snippet guardl
+  guard let $1 else {
+    $2
+  }$0
+
+snippet main
+  @main public struct ${1:App} {
+    public static func main() {
+      $2
+    }
+  }$0
+</code></pre>
+
+<p>Another popular snippet plugin worth mentioning is
+<a href="https://github.com/SirVer/ultisnips">UltiSnips</a> which allows you to use inline
+Python while defining the snippet, allowing you to write some very powerful
+snippets.</p>
+
+<h1 id="conclusion" class="header-with-anchor">Conclusion <a title="Permalink for Conclusion section" href="#conclusion">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h1>
+
+<p>Swift development with Neovim is a solid experience once everything is
+configured correctly. There are thousands of plugins for you to explore, this
+article gives you a solid foundation for building up your Swift development
+experience in Neovim.</p>
+
+<h1 id="files" class="header-with-anchor">Files <a title="Permalink for Files section" href="#files">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h1>
+
+<p>Here are the files for this configuration in their final form.</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- init.lua</span>
+<span class="kd">local</span> <span class="n">lazypath</span> <span class="o">=</span> <span class="n">vim</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">stdpath</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span> <span class="o">..</span> <span class="s2">"/lazy/lazy.nvim"</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">vim</span><span class="p">.</span><span class="n">loop</span><span class="p">.</span><span class="n">fs_stat</span><span class="p">(</span><span class="n">lazypath</span><span class="p">)</span> <span class="k">then</span>
+    <span class="n">vim</span><span class="p">.</span><span class="n">fn</span><span class="p">.</span><span class="n">system</span><span class="p">({</span>
+        <span class="s2">"git"</span><span class="p">,</span>
+        <span class="s2">"clone"</span><span class="p">,</span>
+        <span class="s2">"--filter=blob:none"</span><span class="p">,</span>
+        <span class="s2">"https://github.com/folke/lazy.nvim.git"</span><span class="p">,</span>
+        <span class="s2">"--branch=stable"</span><span class="p">,</span>
+        <span class="n">lazypath</span>
+    <span class="p">})</span>
+<span class="k">end</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">opt</span><span class="p">.</span><span class="n">rtp</span><span class="p">:</span><span class="n">prepend</span><span class="p">(</span><span class="n">lazypath</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s2">"lazy"</span><span class="p">).</span><span class="n">setup</span><span class="p">(</span><span class="s2">"plugins"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="n">ui</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">icons</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">cmd</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">config</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">event</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">ft</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">init</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">keys</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">plugin</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">runtime</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="nb">require</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">source</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">start</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">task</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+      <span class="n">lazy</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="n">vim</span><span class="p">.</span><span class="n">opt</span><span class="p">.</span><span class="n">wildmenu</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">opt</span><span class="p">.</span><span class="n">wildmode</span> <span class="o">=</span> <span class="s2">"list:longest,list:full"</span> <span class="c1">-- don't insert, show options</span>
+
+<span class="c1">-- line numbers</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">opt</span><span class="p">.</span><span class="n">nu</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">opt</span><span class="p">.</span><span class="n">rnu</span> <span class="o">=</span> <span class="kc">true</span>
+
+<span class="c1">-- textwrap at 80 cols</span>
+<span class="n">vim</span><span class="p">.</span><span class="n">opt</span><span class="p">.</span><span class="n">tw</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="c1">-- set solarized colorscheme.</span>
+<span class="c1">-- NOTE: Uncomment this if you have installed solarized, otherwise you'll see</span>
+<span class="c1">--       errors.</span>
+<span class="c1">-- vim.cmd.background = "dark"</span>
+<span class="c1">-- vim.cmd.colorscheme("solarized")</span>
+<span class="c1">-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })</span>
+</code></pre></div></div>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- lua/plugins/codecompletion.lua</span>
+<span class="k">return</span> <span class="p">{</span>
+  <span class="p">{</span>
+    <span class="s2">"hrsh7th/nvim-cmp"</span><span class="p">,</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="s2">"InsertEnter"</span><span class="p">,</span>
+    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s2">"hrsh7th/cmp-nvim-lsp"</span><span class="p">,</span>
+      <span class="s2">"hrsh7th/cmp-path"</span><span class="p">,</span>
+      <span class="s2">"hrsh7th/cmp-buffer"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+      <span class="kd">local</span> <span class="n">cmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'cmp'</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">luasnip</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'luasnip'</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">sources</span> <span class="p">{</span>
+          <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"nvim_lsp"</span><span class="p">,</span> <span class="p">},</span>
+          <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"path"</span><span class="p">,</span> <span class="p">},</span>
+          <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"buffer"</span><span class="p">,</span> <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="n">mapping</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">.</span><span class="n">preset</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span>
+          <span class="p">[</span><span class="s2">"&lt;CR&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">.</span><span class="n">confirm</span><span class="p">({</span> <span class="nb">select</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">}),</span>
+          <span class="p">[</span><span class="s2">"&lt;tab&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"tab pressed"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cmp</span><span class="p">.</span><span class="n">visible</span><span class="p">()</span> <span class="k">then</span>
+              <span class="nb">print</span><span class="p">(</span><span class="s2">"cmp expand"</span><span class="p">)</span>
+              <span class="n">cmp</span><span class="p">.</span><span class="n">select_next_item</span><span class="p">()</span>
+            <span class="k">elseif</span> <span class="n">luasnip</span><span class="p">.</span><span class="n">expand_or_jumpable</span><span class="p">()</span> <span class="k">then</span>
+              <span class="nb">print</span><span class="p">(</span><span class="s2">"snippet expand"</span><span class="p">)</span>
+              <span class="n">luasnip</span><span class="p">.</span><span class="n">expand_or_jump</span><span class="p">()</span>
+            <span class="k">else</span>
+              <span class="nb">print</span><span class="p">(</span><span class="s2">"fallback"</span><span class="p">)</span>
+              <span class="n">original</span><span class="p">()</span>
+            <span class="k">end</span>
+          <span class="k">end</span><span class="p">,</span> <span class="p">{</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">}),</span>
+          <span class="p">[</span><span class="s2">"&lt;S-tab&gt;"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmp</span><span class="p">.</span><span class="n">mapping</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cmp</span><span class="p">.</span><span class="n">visible</span><span class="p">()</span> <span class="k">then</span>
+              <span class="n">cmp</span><span class="p">.</span><span class="n">select_prev_item</span><span class="p">()</span>
+            <span class="k">elseif</span> <span class="n">luasnip</span><span class="p">.</span><span class="n">expand_or_jumpable</span><span class="p">()</span> <span class="k">then</span>
+              <span class="n">luasnip</span><span class="p">.</span><span class="n">jump</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span>
+              <span class="n">original</span><span class="p">()</span>
+            <span class="k">end</span>
+          <span class="k">end</span><span class="p">,</span> <span class="p">{</span><span class="s2">"i"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">}),</span>
+
+        <span class="p">})</span>
+      <span class="p">}</span>
+      <span class="n">cmp</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">"hrsh7th/cmp-nvim-lsp"</span><span class="p">,</span> <span class="n">lazy</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">"hrsh7th/cmp-path"</span><span class="p">,</span> <span class="n">lazy</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="s2">"hrsh7th/cmp-buffer"</span><span class="p">,</span> <span class="n">lazy</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- lua/plugins/lsp.lua</span>
+<span class="k">return</span> <span class="p">{</span>
+  <span class="p">{</span>
+    <span class="s2">"neovim/nvim-lspconfig"</span><span class="p">,</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+      <span class="kd">local</span> <span class="n">lspconfig</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'lspconfig'</span><span class="p">)</span>
+    <span class="n">lspconfig</span><span class="p">.</span><span class="n">sourcekit</span><span class="p">.</span><span class="n">setup</span> <span class="p">{</span>
+      <span class="n">capabilities</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="n">workspace</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">didChangeWatchedFiles</span> <span class="o">=</span> <span class="p">{</span>
+              <span class="n">dynamicRegistration</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="p">},</span>
+          <span class="p">},</span>
+        <span class="p">},</span>
+      <span class="p">}</span>
+
+      <span class="n">vim</span><span class="p">.</span><span class="n">api</span><span class="p">.</span><span class="n">nvim_create_autocmd</span><span class="p">(</span><span class="s1">'LspAttach'</span><span class="p">,</span> <span class="p">{</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s2">"LSP Actions"</span><span class="p">,</span>
+        <span class="n">callback</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+          <span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"K"</span><span class="p">,</span> <span class="n">vim</span><span class="p">.</span><span class="n">lsp</span><span class="p">.</span><span class="n">buf</span><span class="p">.</span><span class="n">hover</span><span class="p">,</span> <span class="p">{</span><span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span><span class="p">})</span>
+          <span class="n">vim</span><span class="p">.</span><span class="n">keymap</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"gd"</span><span class="p">,</span> <span class="n">vim</span><span class="p">.</span><span class="n">lsp</span><span class="p">.</span><span class="n">buf</span><span class="p">.</span><span class="n">definition</span><span class="p">,</span> <span class="p">{</span><span class="n">noremap</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span><span class="p">})</span>
+        <span class="k">end</span><span class="p">,</span>
+      <span class="p">})</span>
+    <span class="k">end</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- lua/plugins/snippets.lua</span>
+<span class="k">return</span> <span class="p">{</span>
+  <span class="p">{</span>
+    <span class="s1">'L3MON4D3/LuaSnip'</span><span class="p">,</span>
+    <span class="n">lazy</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">luasnip</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">'luasnip'</span><span class="p">)</span>
+      <span class="n">luasnip</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+      <span class="nb">require</span><span class="p">(</span><span class="s1">'luasnip.loaders.from_snipmate'</span><span class="p">).</span><span class="nb">load</span><span class="p">({</span> <span class="n">paths</span> <span class="o">=</span> <span class="s2">"./snippets"</span><span class="p">})</span>
+    <span class="k">end</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<pre><code class="language-snipmate"># snippets/swift.snippets
+
+snippet pub "public access control"
+  public $0
+
+snippet priv "private access control"
+  private $0
+
+snippet if "if statement"
+  if $1 {
+    $2
+  }$0
+
+snippet ifl "if let"
+  if let $1 = ${2:$1} {
+    $3
+  }$0
+
+snippet ifcl "if case let"
+  if case let $1 = ${2:$1} {
+    $3
+  }$0
+
+snippet func "function declaration"
+  func $1($2) $3{
+    $0
+  }
+
+snippet funca "async function declaration"
+  func $1($2) async $3{
+    $0
+  }
+
+snippet guard
+  guard $1 else {
+    $2
+  }$0
+
+snippet guardl
+  guard let $1 else {
+    $2
+  }$0
+
+snippet main
+  @main public struct ${1:App} {
+    public static func main() {
+      $2
+    }
+  }$0
+</code></pre>
+
+
+  
+    <footer>
+      <p>Contributed by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.github.com/etcwilde.png?size=64"
+            
+            alt="Evan Wilde"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/etcwilde/" rel="nofollow" title="Evan Wilde (@etcwilde) on GitHub">Evan Wilde</a>
+            
+          </span>
+        </div>
+        
+          
+          
+        
+      </div>
+    
+  
+</div>
+    </footer>
+  
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

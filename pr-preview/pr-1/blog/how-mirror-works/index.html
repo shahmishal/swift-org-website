@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - How Mirror Works</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <meta name="description" content="Swift places a lot of emphasis on static typing, but it also supports rich metadata about types, which allows code to inspect and manipulate arbitrary values at runtime. This is exposed to Swift programmers through the Mirror API. One might wonder, how does something like Mirror work in a language with so much emphasis on static types? Let’s take a look!
+">
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/blog/how-mirror-works/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="How Mirror Works" />
+  <meta name="twitter:description" content="Swift places a lot of emphasis on static typing, but it also supports rich metadata about types, which allows code to inspect and manipulate arbitrary values at runtime. This is exposed to Swift programmers through the Mirror API. One might wonder, how does something like Mirror work in a language with so much emphasis on static types? Let’s take a look!
+" />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How Mirror Works" />
+  <meta property="og:url" content="https://swift.org/blog/how-mirror-works/" />
+  <meta property="og:description" content="Swift places a lot of emphasis on static typing, but it also supports rich metadata about types, which allows code to inspect and manipulate arbitrary values at runtime. This is exposed to Swift programmers through the Mirror API. One might wonder, how does something like Mirror work in a language with so much emphasis on static types? Let’s take a look!
+" />
+  <meta property="article:published_time" content="2018-09-26T06:00:00-04:00" />
+  <meta property="article:modified_time" content="2025-02-24T21:52:35-04:00" />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+<article class="post">
+  <header>
+    <h1>How Mirror Works</h1>
+
+    <time pubdate datetime="2018-09-26T06:00:00-04:00">September 26, 2018</time>
+    <div class="authors compact">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/9245f9f7df459c19a735740e281aeae2?s=64&d=mp"
+            
+            alt="Mike Ash"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/mikeash/" rel="nofollow" title="Mike Ash (@mikeash) on GitHub">Mike Ash</a>
+            
+          </span>
+        </div>
+        
+      </div>
+    
+  
+</div>
+  </header>
+
+  <p>Swift places a lot of emphasis on static typing, but it also supports rich metadata about types, which allows code to inspect and manipulate arbitrary values at runtime. This is exposed to Swift programmers through the <code class="language-plaintext highlighter-rouge">Mirror</code> API. One might wonder, how does something like <code class="language-plaintext highlighter-rouge">Mirror</code> work in a language with so much emphasis on static types? Let’s take a look!</p>
+
+<h2 id="disclaimer" class="header-with-anchor">Disclaimer <a title="Permalink for Disclaimer section" href="#disclaimer">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Everything here is an internal implementation detail. The code is current as of this writing, but may change. The metadata will become a fixed, reliable format when ABI stability hits, but at the moment that is still subject to change. If you’re writing normal Swift code, don’t rely on any of this. If you’re writing code that wants to do more sophisticated reflection than what <code class="language-plaintext highlighter-rouge">Mirror</code> provides, this will give you a starting point, but you’ll need to keep it up to date with changes until ABI stability. If you want to work on the <code class="language-plaintext highlighter-rouge">Mirror</code> code itself, this should give you a good idea of how it all fits together, but keep in mind that things may change.</p>
+
+<h2 id="interface" class="header-with-anchor">Interface <a title="Permalink for Interface section" href="#interface">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">Mirror(reflecting:)</code> initializer accepts an arbitrary value. The resulting <code class="language-plaintext highlighter-rouge">Mirror</code> instance then provides information about that value, primarily the children it contains. A child consists of a value and an optional label. You can then use <code class="language-plaintext highlighter-rouge">Mirror</code> on the child values to traverse an entire object graph without knowing any of the types at compile time.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Mirror</code> allows types to provide a custom representation by conforming to the <code class="language-plaintext highlighter-rouge">CustomReflectable</code> protocol. This is useful for types which want to present something nicer than what they would get from introspection. For example, <code class="language-plaintext highlighter-rouge">Array</code> conforms to <code class="language-plaintext highlighter-rouge">CustomReflectable</code> and exposes the elements of the array as unlabeled children. <code class="language-plaintext highlighter-rouge">Dictionary</code> uses it to expose its key/value pairs as labeled children.</p>
+
+<p>For all other types, <code class="language-plaintext highlighter-rouge">Mirror</code> does some magic to come up with a list of children based on the actual contents of the value. For structs and classes, it presents the stored properties as children. For tuples, it presents the tuple elements. Enums present the enum case and associated value, if there is one.</p>
+
+<p>How does that magic work? Let’s find out!</p>
+
+<h2 id="structure" class="header-with-anchor">Structure <a title="Permalink for Structure section" href="#structure">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>The reflection API is partially implemented in Swift and partially in C++. Swift is more suitable for implementing a Swifty interface, and makes a lot of tasks easier. The lower levels of the Swift runtime are implemented in C++, and accessing those C++ classes directly from Swift isn’t possible, so a layer of C connects the two. The Swift side is implemented in <a href="https://github.com/apple/swift/blob/master/stdlib/public/core/ReflectionMirror.swift"><code class="language-plaintext highlighter-rouge">ReflectionMirror.swift</code></a>, and the C++ side is in <a href="https://github.com/apple/swift/blob/master/stdlib/public/runtime/ReflectionMirror.mm"><code class="language-plaintext highlighter-rouge">ReflectionMirror.mm</code></a>.</p>
+
+<p>The two pieces communicate through a small set of C++ functions that are exposed to Swift. Rather than using Swift’s built in C bridging, they are declared in Swift with a directive that specifies a custom symbol name, and then a C++ function with that name is carefully crafted to be directly callable from Swift. This allows the two pieces to communicate directly without worrying about what the bridging machinery will do to the values behind the scenes, but it requires knowledge of exactly how Swift passes parameters and return values. Don’t try this at home unless you’re working on runtime code that needs it.</p>
+
+<p>For an example of this, take a look at the <code class="language-plaintext highlighter-rouge">_getChildCount</code> function in <code class="language-plaintext highlighter-rouge">ReflectionMirror.swift</code>:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@_silgen_name</span><span class="p">(</span><span class="s">"swift_reflectionMirror_count"</span><span class="p">)</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="n">_getChildCount</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">Any</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">@_silgen_name</code> attribute informs the Swift compiler to map this function to a symbol named <code class="language-plaintext highlighter-rouge">swift_reflectionMirror_count</code>, instead of the usual Swift mangling applied to <code class="language-plaintext highlighter-rouge">_getChildCount</code>. Note that the underscore at the beginning indicates that this attribute is reserved for the Standard Library. On the C++ side, the function looks like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">SWIFT_CC</span><span class="p">(</span><span class="n">swift</span><span class="p">)</span> <span class="kt">SWIFT_RUNTIME_STDLIB_INTERFACE</span>
+<span class="n">intptr_t</span> <span class="nf">swift_reflectionMirror_count</span><span class="p">(</span><span class="kt">OpaqueValue</span> <span class="o">*</span><span class="n">value</span><span class="p">,</span>
+                                      <span class="n">const</span> <span class="kt">Metadata</span> <span class="o">*</span><span class="n">type</span><span class="p">,</span>
+                                      <span class="n">const</span> <span class="kt">Metadata</span> <span class="o">*</span><span class="kt">T</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">SWIFT_CC(swift)</code> tells the compiler that this function uses the Swift calling convention rather than the C/C++ convention. <code class="language-plaintext highlighter-rouge">SWIFT_RUNTIME_STDLIB_INTERFACE</code> marks this as a function that’s part of the interface to the Swift side of things, and has the effect of marking it as <code class="language-plaintext highlighter-rouge">extern "C"</code> which avoids C++ name mangling and ensures that this function will have the symbol name that the Swift side expects. The C++ parameters are carefully arranged to match how Swift will call this function based on the Swift declaration. When Swift code calls <code class="language-plaintext highlighter-rouge">_getChildCount</code>, the C++ function is invoked with <code class="language-plaintext highlighter-rouge">value</code> containing a pointer to the Swift value, <code class="language-plaintext highlighter-rouge">type</code> containing the value of the type parameter, and <code class="language-plaintext highlighter-rouge">T</code> containing the type corresponding to the generic <code class="language-plaintext highlighter-rouge">&lt;T&gt;</code>.</p>
+
+<p>The full interface between the Swift and C++ parts of <code class="language-plaintext highlighter-rouge">Mirror</code> consists of these functions:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@_silgen_name</span><span class="p">(</span><span class="s">"swift_reflectionMirror_normalizedType"</span><span class="p">)</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="n">_getNormalizedType</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">Any</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="o">.</span><span class="k">Type</span>
+
+<span class="kd">@_silgen_name</span><span class="p">(</span><span class="s">"swift_reflectionMirror_count"</span><span class="p">)</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="n">_getChildCount</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">Any</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span>
+
+<span class="kd">internal</span> <span class="kd">typealias</span> <span class="kt">NameFreeFunc</span> <span class="o">=</span> <span class="kd">@convention</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">(</span><span class="kt">UnsafePointer</span><span class="o">&lt;</span><span class="kt">CChar</span><span class="o">&gt;</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+
+<span class="kd">@_silgen_name</span><span class="p">(</span><span class="s">"swift_reflectionMirror_subscript"</span><span class="p">)</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="n">_getChild</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="nv">of</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span>
+  <span class="nv">type</span><span class="p">:</span> <span class="kt">Any</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span>
+  <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+  <span class="nv">outName</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="kt">UnsafePointer</span><span class="o">&lt;</span><span class="kt">CChar</span><span class="o">&gt;</span><span class="p">?</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="nv">outFreeFunc</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="kt">NameFreeFunc</span><span class="p">?</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span>
+
+<span class="c1">// Returns 'c' (class), 'e' (enum), 's' (struct), 't' (tuple), or '\0' (none)</span>
+<span class="kd">@_silgen_name</span><span class="p">(</span><span class="s">"swift_reflectionMirror_displayStyle"</span><span class="p">)</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="n">_getDisplayStyle</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CChar</span>
+
+<span class="kd">@_silgen_name</span><span class="p">(</span><span class="s">"swift_reflectionMirror_quickLookObject"</span><span class="p">)</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="n">_getQuickLookObject</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="p">?</span>
+
+<span class="kd">@_silgen_name</span><span class="p">(</span><span class="s">"_swift_stdlib_NSObject_isKindOfClass"</span><span class="p">)</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="nf">_isImpl</span><span class="p">(</span><span class="n">_</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="nv">kindOf</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+</code></pre></div></div>
+
+<h2 id="dynamic-dispatch-done-weird" class="header-with-anchor">Dynamic Dispatch Done Weird <a title="Permalink for Dynamic Dispatch Done Weird section" href="#dynamic-dispatch-done-weird">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>There isn’t a single universal way to fetch the info we want from any type. Tuples, structs, classes, and enums all need different code for many of these tasks, such as looking up the number of children. There are further subtleties, such as different treatment for Swift and Objective-C classes.</p>
+
+<p>All of these functions will need code that dispatches to different implementations based on what kind of type is being examined. This sounds a lot like dynamic dispatch of methods, except that the choice of which implementation to call is more complicated than checking the class of the object the method is being used on. The reflection code attempts to simplify matters by using C++ dynamic dispatch with an abstract base class that contains a C++ version of the above interface, and a bunch of subclasses covering all the various cases. A single function maps a Swift type to an instance of one of those C++ classes. Calling a method on that instance then dispatches to the appropriate implementation.</p>
+
+<p>The mapping function is called <code class="language-plaintext highlighter-rouge">call</code> and its declaration looks like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">F</span><span class="p">&gt;</span>
+<span class="k">auto</span> <span class="n">call</span><span class="p">(</span><span class="n">OpaqueValue</span> <span class="o">*</span><span class="n">passedValue</span><span class="p">,</span> <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">T</span><span class="p">,</span> <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">passedType</span><span class="p">,</span>
+          <span class="k">const</span> <span class="n">F</span> <span class="o">&amp;</span><span class="n">f</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">passedValue</code> is a pointer to the actual Swift value that was passed in. <code class="language-plaintext highlighter-rouge">T</code> is the static type of that value, which corresponds to the generic parameter <code class="language-plaintext highlighter-rouge">&lt;T&gt;</code> on the Swift side. <code class="language-plaintext highlighter-rouge">passedType</code> is a type that’s explicitly passed in by the Swift side and used for the actual reflection step. (This type will be different from the actual runtime type of the object when working with a superclass <code class="language-plaintext highlighter-rouge">Mirror</code> for an instance of a subclass.) Finally, the <code class="language-plaintext highlighter-rouge">f</code> parameter is something that will be called, passing in a reference to the implementation object that this function looks up. This function then returns whatever <code class="language-plaintext highlighter-rouge">f</code> returns when called, to make it easier for users to get values back out.</p>
+
+<p>The implementation of <code class="language-plaintext highlighter-rouge">call</code> isn’t too exciting. It’s mostly a big <code class="language-plaintext highlighter-rouge">switch</code> statement with some extra code to handle special cases. The important thing is that it will end up calling <code class="language-plaintext highlighter-rouge">f</code> with an instance of a subclass of <code class="language-plaintext highlighter-rouge">ReflectionMirrorImpl</code>, which will then call a method on that instance to get the real work done.</p>
+
+<p>Here is <code class="language-plaintext highlighter-rouge">ReflectionMirrorImpl</code>, which is the interface everything goes through:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">ReflectionMirrorImpl</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">type</span><span class="p">;</span>
+  <span class="n">OpaqueValue</span> <span class="o">*</span><span class="n">value</span><span class="p">;</span>
+
+  <span class="k">virtual</span> <span class="kt">char</span> <span class="n">displayStyle</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">virtual</span> <span class="kt">intptr_t</span> <span class="n">count</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">virtual</span> <span class="n">AnyReturn</span> <span class="n">subscript</span><span class="p">(</span><span class="kt">intptr_t</span> <span class="n">index</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">outName</span><span class="p">,</span>
+                              <span class="kt">void</span> <span class="p">(</span><span class="o">**</span><span class="n">outFreeFunc</span><span class="p">)(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">enumCaseName</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="cp">#if SWIFT_OBJC_INTEROP
+</span>  <span class="k">virtual</span> <span class="n">id</span> <span class="nf">quickLookObject</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">nil</span><span class="p">;</span> <span class="p">}</span>
+<span class="cp">#endif
+</span>
+  <span class="k">virtual</span> <span class="o">~</span><span class="n">ReflectionMirrorImpl</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>The functions which serve as the interface between the Swift and C++ components then use <code class="language-plaintext highlighter-rouge">call</code> to invoke the corresponding method. For example, here’s what <code class="language-plaintext highlighter-rouge">swift_reflectionMirror_count</code> looks like:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SWIFT_CC</span><span class="p">(</span><span class="n">swift</span><span class="p">)</span> <span class="n">SWIFT_RUNTIME_STDLIB_INTERFACE</span>
+<span class="kt">intptr_t</span> <span class="nf">swift_reflectionMirror_count</span><span class="p">(</span><span class="n">OpaqueValue</span> <span class="o">*</span><span class="n">value</span><span class="p">,</span>
+                                      <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">type</span><span class="p">,</span>
+                                      <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">call</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">type</span><span class="p">,</span> <span class="p">[](</span><span class="n">ReflectionMirrorImpl</span> <span class="o">*</span><span class="n">impl</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">impl</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="tuple-reflection" class="header-with-anchor">Tuple Reflection <a title="Permalink for Tuple Reflection section" href="#tuple-reflection">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Let’s start out with tuple reflection, which is probably the simplest one that still does some work. It starts off by returning a display style of <code class="language-plaintext highlighter-rouge">'t'</code> to indicate that it’s a tuple:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">TupleImpl</span> <span class="o">:</span> <span class="n">ReflectionMirrorImpl</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">displayStyle</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="sc">'t'</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Using a hardcoded constant like this is unusual, but given that there is exactly one place in C++ and one place in Swift that references this value, and that they’re not using bridging to communicate, it’s a reasonable choice.</p>
+
+<p>Next is the <code class="language-plaintext highlighter-rouge">count</code> method. At this point we know that <code class="language-plaintext highlighter-rouge">type</code> is actually a <code class="language-plaintext highlighter-rouge">TupleTypeMetadata *</code> rather than just a <code class="language-plaintext highlighter-rouge">Metadata *</code>. <code class="language-plaintext highlighter-rouge">TupleTypeMetadata</code> has a <code class="language-plaintext highlighter-rouge">NumElements</code> field which holds the number of elements in the tuple, and we’re done:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">intptr_t</span> <span class="nf">count</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">auto</span> <span class="o">*</span><span class="n">Tuple</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">TupleTypeMetadata</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">Tuple</span><span class="o">-&gt;</span><span class="n">NumElements</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">subscript</code> method takes a bit more work. It starts out with the same <code class="language-plaintext highlighter-rouge">static_cast</code>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">AnyReturn</span> <span class="nf">subscript</span><span class="p">(</span><span class="kt">intptr_t</span> <span class="n">i</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">outName</span><span class="p">,</span>
+                      <span class="kt">void</span> <span class="p">(</span><span class="o">**</span><span class="n">outFreeFunc</span><span class="p">)(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">auto</span> <span class="o">*</span><span class="n">Tuple</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">TupleTypeMetadata</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Next, a bounds check to ensure the caller isn’t asking for an index this tuple can’t contain:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">Tuple</span><span class="o">-&gt;</span><span class="n">NumElements</span><span class="p">)</span>
+      <span class="n">swift</span><span class="o">::</span><span class="n">crash</span><span class="p">(</span><span class="s">"Swift mirror subscript bounds check failure"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Subscript has two jobs: it retrieves the value and the corresponding name. For a struct or class, the name is the stored property’s name. For a tuple, the name is either the tuple label for that element, or a numeric indicator like <code class="language-plaintext highlighter-rouge">.0</code> if there is no label.</p>
+
+<p>Labels are stored in a space-separated list in the <code class="language-plaintext highlighter-rouge">Labels</code> field of the metadata. This code tracks down the <code class="language-plaintext highlighter-rouge">i</code>th string in that list:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// Determine whether there is a label.</span>
+    <span class="kt">bool</span> <span class="n">hasLabel</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">labels</span> <span class="o">=</span> <span class="n">Tuple</span><span class="o">-&gt;</span><span class="n">Labels</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">space</span> <span class="o">=</span> <span class="n">strchr</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="sc">' '</span><span class="p">);</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">intptr_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">!=</span> <span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="n">space</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">space</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">space</span> <span class="o">=</span> <span class="n">strchr</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="sc">' '</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="c1">// If we have a label, create it.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">labels</span> <span class="o">&amp;&amp;</span> <span class="n">space</span> <span class="o">&amp;&amp;</span> <span class="n">labels</span> <span class="o">!=</span> <span class="n">space</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">*</span><span class="n">outName</span> <span class="o">=</span> <span class="n">strndup</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">space</span> <span class="o">-</span> <span class="n">labels</span><span class="p">);</span>
+        <span class="n">hasLabel</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>If there is no label, generate an appropriate numeric name:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">hasLabel</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// The name is the stringized element number '.0'.</span>
+      <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span>
+      <span class="n">asprintf</span><span class="p">(</span><span class="o">&amp;</span><span class="n">str</span><span class="p">,</span> <span class="s">".%"</span> <span class="n">PRIdPTR</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+      <span class="o">*</span><span class="n">outName</span> <span class="o">=</span> <span class="n">str</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Because we’re working at the intersection of Swift and C++, we don’t get nice things like automatic memory management. Swift has ARC and C++ has RAII, but the two don’t get along. The <code class="language-plaintext highlighter-rouge">outFreeFunc</code> allows the C++ code to provide a function to the caller which it will use to free the returned name. The label needs to be freed with <code class="language-plaintext highlighter-rouge">free</code>, so this code sets the value of <code class="language-plaintext highlighter-rouge">*outFreeFunc</code> accordingly:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">*</span><span class="n">outFreeFunc</span> <span class="o">=</span> <span class="p">[](</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span> <span class="p">{</span> <span class="n">free</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="kt">char</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">str</span><span class="p">));</span> <span class="p">};</span>
+</code></pre></div></div>
+
+<p>That takes care of the name. Surprisingly, the value is simpler to retrieve. The <code class="language-plaintext highlighter-rouge">Tuple</code> metadata contains a function that returns information about the element at a given index:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">auto</span> <span class="o">&amp;</span><span class="n">elt</span> <span class="o">=</span> <span class="n">Tuple</span><span class="o">-&gt;</span><span class="n">getElement</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">elt</code> contains an offset which can be applied to the tuple value to get a pointer to the element value:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">auto</span> <span class="o">*</span><span class="n">bytes</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="k">auto</span> <span class="o">*</span><span class="n">eltData</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">OpaqueValue</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">bytes</span> <span class="o">+</span> <span class="n">elt</span><span class="p">.</span><span class="n">Offset</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">elt</code> also contains the element’s type. With the type and the pointer to the value, it’s possible to construct a new <code class="language-plaintext highlighter-rouge">Any</code> containing that value. The type contains function pointers for allocating and initializing storage containing a value of the given type. This code uses those functions to copy the value into the <code class="language-plaintext highlighter-rouge">Any</code>, then returns the <code class="language-plaintext highlighter-rouge">Any</code> to the caller:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">Any</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="n">result</span><span class="p">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">elt</span><span class="p">.</span><span class="n">Type</span><span class="p">;</span>
+    <span class="k">auto</span> <span class="o">*</span><span class="n">opaqueValueAddr</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">Type</span><span class="o">-&gt;</span><span class="n">allocateBoxForExistentialIn</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">.</span><span class="n">Buffer</span><span class="p">);</span>
+    <span class="n">result</span><span class="p">.</span><span class="n">Type</span><span class="o">-&gt;</span><span class="n">vw_initializeWithCopy</span><span class="p">(</span><span class="n">opaqueValueAddr</span><span class="p">,</span>
+                                       <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">OpaqueValue</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">eltData</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="nf">AnyReturn</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>That’s it for tuples.</p>
+
+<h2 id="swift_getfieldat" class="header-with-anchor">swift_getFieldAt <a title="Permalink for swift_getFieldAt section" href="#swift_getfieldat">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Looking up the elements in structs, classes, and enums is currently quite complex. Much of this complexity is due to the lack of a direct reference between these types and the field descriptors which contain the information about a type’s fields. A helper function called <code class="language-plaintext highlighter-rouge">swift_getFieldAt</code> searches for the appropriate field descriptor for a given type. This whole function should go away once we add that direct reference, but in the meantime it provides an interesting look at how the runtime code is able to use the language’s metadata to look up type information.</p>
+
+<p>The function prototype looks like this:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">swift</span><span class="o">::</span><span class="n">_swift_getFieldAt</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">base</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">index</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">llvm</span><span class="o">::</span><span class="n">StringRef</span> <span class="n">name</span><span class="p">,</span> <span class="n">FieldType</span> <span class="n">fieldInfo</span><span class="p">)</span><span class="o">&gt;</span>
+        <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<p>It takes the type to examine and the field index to look up. It also takes a callback which will be invoked with the info that it looked up.</p>
+
+<p>The first task is to get the type context descriptor for this type, which contains additional information about the type which will be used later:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">auto</span> <span class="o">*</span><span class="n">baseDesc</span> <span class="o">=</span> <span class="n">base</span><span class="o">-&gt;</span><span class="n">getTypeContextDescriptor</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">baseDesc</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The work is divided into two parts. First, it looks up the type’s field descriptor. The field descriptor contains all of the info about the fields of the type. Once the field descriptor is available, this function can look up the necessary information from the descriptor.</p>
+
+<p>Looking up the information from the descriptor is wrapped up in a helper called <code class="language-plaintext highlighter-rouge">getFieldAt</code> which the other code calls from various places in its search for the appropriate field descriptor. Let’s start with the search. It starts off by getting a demangler, which is used to turn mangled type names into actual type references:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">auto</span> <span class="n">dem</span> <span class="o">=</span> <span class="n">getDemanglerForRuntimeTypeResolution</span><span class="p">();</span>
+</code></pre></div></div>
+<p>It also has a cache to speed up multiple searches:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">auto</span> <span class="o">&amp;</span><span class="n">cache</span> <span class="o">=</span> <span class="n">FieldCache</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>If the cache already has the field descriptor, call <code class="language-plaintext highlighter-rouge">getFieldAt</code> with it:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="n">Value</span> <span class="o">=</span> <span class="n">cache</span><span class="p">.</span><span class="n">FieldCache</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">base</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">getFieldAt</span><span class="p">(</span><span class="o">*</span><span class="n">Value</span><span class="o">-&gt;</span><span class="n">getDescription</span><span class="p">());</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>To make the search code simpler, there’s a helper which takes a <code class="language-plaintext highlighter-rouge">FieldDescriptor</code> and checks whether it’s the one being searched for. If the descriptor matches, it puts the descriptor in the cache, calls <code class="language-plaintext highlighter-rouge">getFieldAt</code>, and returns success to the caller. Matching is complex, but essentially boils down to comparing the mangled names:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">auto</span> <span class="n">isRequestedDescriptor</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span> <span class="n">FieldDescriptor</span> <span class="o">&amp;</span><span class="n">descriptor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">descriptor</span><span class="p">.</span><span class="n">hasMangledTypeName</span><span class="p">());</span>
+    <span class="k">auto</span> <span class="n">mangledName</span> <span class="o">=</span> <span class="n">descriptor</span><span class="p">.</span><span class="n">getMangledTypeName</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_contextDescriptorMatchesMangling</span><span class="p">(</span><span class="n">baseDesc</span><span class="p">,</span>
+                                           <span class="n">dem</span><span class="p">.</span><span class="n">demangleType</span><span class="p">(</span><span class="n">mangledName</span><span class="p">)))</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+    <span class="n">cache</span><span class="p">.</span><span class="n">FieldCache</span><span class="p">.</span><span class="n">getOrInsert</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">descriptor</span><span class="p">);</span>
+    <span class="n">getFieldAt</span><span class="p">(</span><span class="n">descriptor</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">};</span>
+</code></pre></div></div>
+
+<p>Field descriptors can be registered at runtime or baked into a binary at build time. These two loops search all known field descriptors for a match:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="n">section</span> <span class="o">:</span> <span class="n">cache</span><span class="p">.</span><span class="n">DynamicSections</span><span class="p">.</span><span class="n">snapshot</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">*</span><span class="n">descriptor</span> <span class="o">:</span> <span class="n">section</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">isRequestedDescriptor</span><span class="p">(</span><span class="o">*</span><span class="n">descriptor</span><span class="p">))</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="n">section</span> <span class="o">:</span> <span class="n">cache</span><span class="p">.</span><span class="n">StaticSections</span><span class="p">.</span><span class="n">snapshot</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="n">descriptor</span> <span class="o">:</span> <span class="n">section</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">isRequestedDescriptor</span><span class="p">(</span><span class="n">descriptor</span><span class="p">))</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>In the event that no match is found, log a warning and invoke the callback with an empty tuple just to give it something:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">auto</span> <span class="n">typeName</span> <span class="o">=</span> <span class="n">swift_getTypeName</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="cm">/*qualified*/</span> <span class="nb">true</span><span class="p">);</span>
+  <span class="n">warning</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">"SWIFT RUNTIME BUG: unable to find field metadata for type '%*s'</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+             <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">typeName</span><span class="p">.</span><span class="n">length</span><span class="p">,</span> <span class="n">typeName</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+  <span class="n">callback</span><span class="p">(</span><span class="s">"unknown"</span><span class="p">,</span>
+           <span class="n">FieldType</span><span class="p">()</span>
+             <span class="p">.</span><span class="n">withType</span><span class="p">(</span><span class="n">TypeInfo</span><span class="p">(</span><span class="o">&amp;</span><span class="n">METADATA_SYM</span><span class="p">(</span><span class="n">EMPTY_TUPLE_MANGLING</span><span class="p">),</span> <span class="p">{}))</span>
+             <span class="p">.</span><span class="n">withIndirect</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
+             <span class="p">.</span><span class="n">withWeak</span><span class="p">(</span><span class="nb">false</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>That takes care of the search for a field descriptor. The <code class="language-plaintext highlighter-rouge">getFieldAt</code> helper transforms the field descriptor into the name and field type that gets passed to the callback. It starts out by getting the requested field record out of the field descriptor:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">auto</span> <span class="n">getFieldAt</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span> <span class="n">FieldDescriptor</span> <span class="o">&amp;</span><span class="n">descriptor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">auto</span> <span class="o">&amp;</span><span class="n">field</span> <span class="o">=</span> <span class="n">descriptor</span><span class="p">.</span><span class="n">getFields</span><span class="p">()[</span><span class="n">index</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>The name is directly accessible from the record:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">auto</span> <span class="n">name</span> <span class="o">=</span> <span class="n">field</span><span class="p">.</span><span class="n">getFieldName</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>If the field is actually an enum case, it may not have a type. Check for that early and invoke the callback accordingly:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">field</span><span class="p">.</span><span class="n">hasMangledTypeName</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">callback</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">FieldType</span><span class="p">().</span><span class="n">withIndirect</span><span class="p">(</span><span class="n">field</span><span class="p">.</span><span class="n">isIndirectCase</span><span class="p">()));</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The field record stores the field type as a mangled name. The callback expects a pointer to metadata, so the mangled name has to be resolved to an actual type. The function <code class="language-plaintext highlighter-rouge">_getTypeByMangledName</code> handles most of that work, but requires the caller to resolve any generic arguments used by the type. Doing that requires pulling out all of the generic contexts that the type is nested in:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">ContextDescriptor</span> <span class="o">*&gt;</span> <span class="n">descriptorPath</span><span class="p">;</span>
+    <span class="p">{</span>
+      <span class="k">const</span> <span class="k">auto</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span>
+                              <span class="k">const</span> <span class="n">ContextDescriptor</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">baseDesc</span><span class="p">);</span>
+      <span class="k">while</span> <span class="p">(</span><span class="n">parent</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">isGeneric</span><span class="p">())</span>
+          <span class="n">descriptorPath</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">parent</span><span class="p">);</span>
+
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now get the mangled name and fetch the type, passing in a lambda that resolves generic arguments:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">auto</span> <span class="n">typeName</span> <span class="o">=</span> <span class="n">field</span><span class="p">.</span><span class="n">getMangledTypeName</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="k">auto</span> <span class="n">typeInfo</span> <span class="o">=</span> <span class="n">_getTypeByMangledName</span><span class="p">(</span>
+        <span class="n">typeName</span><span class="p">,</span>
+        <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">unsigned</span> <span class="n">depth</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<p>If the requested depth is beyond the size of the descriptor path, fail:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          <span class="k">if</span> <span class="p">(</span><span class="n">depth</span> <span class="o">&gt;=</span> <span class="n">descriptorPath</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+            <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Otherwise, fetch the generic argument from the type that contains the field. This requires converting the index and depth into a single flat index, which is done by walking up the descriptor path and adding the number of generic parameters at each stage until the given depth is reached:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          <span class="kt">unsigned</span> <span class="n">currentDepth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="kt">unsigned</span> <span class="n">flatIndex</span> <span class="o">=</span> <span class="n">index</span><span class="p">;</span>
+          <span class="k">const</span> <span class="n">ContextDescriptor</span> <span class="o">*</span><span class="n">currentContext</span> <span class="o">=</span> <span class="n">descriptorPath</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+
+          <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">*</span><span class="n">context</span> <span class="o">:</span> <span class="n">llvm</span><span class="o">::</span><span class="n">reverse</span><span class="p">(</span><span class="n">descriptorPath</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentDepth</span> <span class="o">&gt;=</span> <span class="n">depth</span><span class="p">)</span>
+              <span class="k">break</span><span class="p">;</span>
+
+            <span class="n">flatIndex</span> <span class="o">+=</span> <span class="n">context</span><span class="o">-&gt;</span><span class="n">getNumGenericParams</span><span class="p">();</span>
+            <span class="n">currentContext</span> <span class="o">=</span> <span class="n">context</span><span class="p">;</span>
+            <span class="o">++</span><span class="n">currentDepth</span><span class="p">;</span>
+          <span class="p">}</span>
+</code></pre></div></div>
+
+<p>If the index is beyond the generic parameters available at the given depth, fail:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">currentContext</span><span class="o">-&gt;</span><span class="n">getNumGenericParams</span><span class="p">())</span>
+            <span class="k">return</span> <span class="nb">nullptr</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Otherwise fetch the appropriate generic argument from the base type:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          <span class="k">return</span> <span class="n">base</span><span class="o">-&gt;</span><span class="n">getGenericArgs</span><span class="p">()[</span><span class="n">flatIndex</span><span class="p">];</span>
+        <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Like before, if the type couldn’t be found, use an empty tuple:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">if</span> <span class="p">(</span><span class="n">typeInfo</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">typeInfo</span> <span class="o">=</span> <span class="n">TypeInfo</span><span class="p">(</span><span class="o">&amp;</span><span class="n">METADATA_SYM</span><span class="p">(</span><span class="n">EMPTY_TUPLE_MANGLING</span><span class="p">),</span> <span class="p">{});</span>
+      <span class="n">warning</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">"SWIFT RUNTIME BUG: unable to demangle type of field '%*s'. "</span>
+                 <span class="s">"mangled type name is '%*s'</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+                 <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">name</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">name</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span>
+                 <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">typeName</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">typeName</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then invoke the callback with whatever was found:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">callback</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">FieldType</span><span class="p">()</span>
+                       <span class="p">.</span><span class="n">withType</span><span class="p">(</span><span class="n">typeInfo</span><span class="p">)</span>
+                       <span class="p">.</span><span class="n">withIndirect</span><span class="p">(</span><span class="n">field</span><span class="p">.</span><span class="n">isIndirectCase</span><span class="p">())</span>
+                       <span class="p">.</span><span class="n">withWeak</span><span class="p">(</span><span class="n">typeInfo</span><span class="p">.</span><span class="n">isWeak</span><span class="p">()));</span>
+
+  <span class="p">};</span>
+</code></pre></div></div>
+
+<p>That’s <code class="language-plaintext highlighter-rouge">swift_getFieldAt</code>. With that helper available, let’s take a look at the other reflection implementations.</p>
+
+<h2 id="structs" class="header-with-anchor">Structs <a title="Permalink for Structs section" href="#structs">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>The implementation for structs is similar, but a little more complex. There are struct types which don’t support reflection at all, looking up the name and offset in a struct takes more effort, and structs can contain weak references which the reflection code needs to be able to extract.</p>
+
+<p>First is a helper method to check whether the struct can be reflected at all. This is stored in a flag that’s accessible through the struct metadata. Similar to the above code with tuples, we know at this point that <code class="language-plaintext highlighter-rouge">type</code> is really a <code class="language-plaintext highlighter-rouge">StructMetadata *</code>, so we can cast freely:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">StructImpl</span> <span class="o">:</span> <span class="n">ReflectionMirrorImpl</span> <span class="p">{</span>
+  <span class="kt">bool</span> <span class="n">isReflectable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="k">auto</span> <span class="o">*</span><span class="n">Struct</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">StructMetadata</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="n">Description</span> <span class="o">=</span> <span class="n">Struct</span><span class="o">-&gt;</span><span class="n">getDescription</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">Description</span><span class="o">-&gt;</span><span class="n">getTypeContextDescriptorFlags</span><span class="p">().</span><span class="n">isReflectable</span><span class="p">();</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The display style for a struct is <code class="language-plaintext highlighter-rouge">'s'</code>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">char</span> <span class="nf">displayStyle</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="sc">'s'</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The child count is the number of fields as reported by the metadata, or <code class="language-plaintext highlighter-rouge">0</code> if this type isn’t actually reflectable:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">intptr_t</span> <span class="nf">count</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isReflectable</span><span class="p">())</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">auto</span> <span class="o">*</span><span class="n">Struct</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">StructMetadata</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">Struct</span><span class="o">-&gt;</span><span class="n">getDescription</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">NumFields</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Like before, the <code class="language-plaintext highlighter-rouge">subscript</code> method is the complicated part. It starts off similarly, doing a bounds check and looking up the offset:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">AnyReturn</span> <span class="nf">subscript</span><span class="p">(</span><span class="kt">intptr_t</span> <span class="n">i</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">outName</span><span class="p">,</span>
+                      <span class="kt">void</span> <span class="p">(</span><span class="o">**</span><span class="n">outFreeFunc</span><span class="p">)(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">auto</span> <span class="o">*</span><span class="n">Struct</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">StructMetadata</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">Struct</span><span class="o">-&gt;</span><span class="n">getDescription</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">NumFields</span><span class="p">)</span>
+      <span class="n">swift</span><span class="o">::</span><span class="n">crash</span><span class="p">(</span><span class="s">"Swift mirror subscript bounds check failure"</span><span class="p">);</span>
+
+    <span class="c1">// Load the offset from its respective vector.</span>
+    <span class="k">auto</span> <span class="n">fieldOffset</span> <span class="o">=</span> <span class="n">Struct</span><span class="o">-&gt;</span><span class="n">getFieldOffsets</span><span class="p">()[</span><span class="n">i</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>Getting the type info for a struct field is a bit more involved. That work is passed off to the <code class="language-plaintext highlighter-rouge">_swift_getFieldAt</code> helper function:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">Any</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="n">_swift_getFieldAt</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="n">llvm</span><span class="o">::</span><span class="n">StringRef</span> <span class="n">name</span><span class="p">,</span> <span class="n">FieldType</span> <span class="n">fieldInfo</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<p>Once it has the field info, things proceed similarly to the tuple code. Fill out the name and compute a pointer to the field’s storage:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="o">*</span><span class="n">outName</span> <span class="o">=</span> <span class="n">name</span><span class="p">.</span><span class="n">data</span><span class="p">();</span>
+      <span class="o">*</span><span class="n">outFreeFunc</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+
+      <span class="k">auto</span> <span class="o">*</span><span class="n">bytes</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+      <span class="k">auto</span> <span class="o">*</span><span class="n">fieldData</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">OpaqueValue</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">bytes</span> <span class="o">+</span> <span class="n">fieldOffset</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>There’s an extra step to copy the field’s value into the <code class="language-plaintext highlighter-rouge">Any</code> return value to handle weak references. The <code class="language-plaintext highlighter-rouge">loadSpecialReferenceStorage</code> function handles those. If it doesn’t load the value then the value has normal storage, and the value can be copied into the return value normally:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="kt">bool</span> <span class="n">didLoad</span> <span class="o">=</span> <span class="n">loadSpecialReferenceStorage</span><span class="p">(</span><span class="n">fieldData</span><span class="p">,</span> <span class="n">fieldInfo</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">didLoad</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">fieldInfo</span><span class="p">.</span><span class="n">getType</span><span class="p">();</span>
+        <span class="k">auto</span> <span class="o">*</span><span class="n">opaqueValueAddr</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">Type</span><span class="o">-&gt;</span><span class="n">allocateBoxForExistentialIn</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">.</span><span class="n">Buffer</span><span class="p">);</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">Type</span><span class="o">-&gt;</span><span class="n">vw_initializeWithCopy</span><span class="p">(</span><span class="n">opaqueValueAddr</span><span class="p">,</span>
+                                           <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">OpaqueValue</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">fieldData</span><span class="p">));</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nf">AnyReturn</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>That takes care of structs.</p>
+
+<h2 id="classes" class="header-with-anchor">Classes <a title="Permalink for Classes section" href="#classes">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Classes are similar to structs, and the code in <code class="language-plaintext highlighter-rouge">ClassImpl</code> is almost the same. There are two notable differences due to Objective-C interop. One is that it has an implementation of <code class="language-plaintext highlighter-rouge">quickLookObject</code> which invokes the Objective-C <code class="language-plaintext highlighter-rouge">debugQuickLookObject</code> method:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#if SWIFT_OBJC_INTEROP
+</span><span class="n">id</span> <span class="nf">quickLookObject</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">id</span> <span class="n">object</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">id</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="n">retain</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">([</span><span class="n">object</span> <span class="n">respondsToSelector</span><span class="o">:</span><span class="err">@</span><span class="n">selector</span><span class="p">(</span><span class="n">debugQuickLookObject</span><span class="p">)])</span> <span class="p">{</span>
+    <span class="n">id</span> <span class="n">quickLookObject</span> <span class="o">=</span> <span class="p">[</span><span class="n">object</span> <span class="n">debugQuickLookObject</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">quickLookObject</span> <span class="n">retain</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">object</span> <span class="n">release</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">quickLookObject</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">object</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">#endif
+</span></code></pre></div></div>
+
+<p>The other is that the field offset has to be obtained from the Objective-C runtime if the class has an Objective-C superclass:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">uintptr_t</span> <span class="n">fieldOffset</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">usesNativeSwiftReferenceCounting</span><span class="p">(</span><span class="n">Clas</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">fieldOffset</span> <span class="o">=</span> <span class="n">Clas</span><span class="o">-&gt;</span><span class="n">getFieldOffsets</span><span class="p">()[</span><span class="n">i</span><span class="p">];</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="cp">#if SWIFT_OBJC_INTEROP
+</span>    <span class="n">Ivar</span> <span class="o">*</span><span class="n">ivars</span> <span class="o">=</span> <span class="n">class_copyIvarList</span><span class="p">((</span><span class="n">Class</span><span class="p">)</span><span class="n">Clas</span><span class="p">,</span> <span class="nb">nullptr</span><span class="p">);</span>
+    <span class="n">fieldOffset</span> <span class="o">=</span> <span class="n">ivar_getOffset</span><span class="p">(</span><span class="n">ivars</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">ivars</span><span class="p">);</span>
+<span class="cp">#else
+</span>    <span class="n">swift</span><span class="o">::</span><span class="n">crash</span><span class="p">(</span><span class="s">"Object appears to be Objective-C, but no runtime."</span><span class="p">);</span>
+<span class="cp">#endif
+</span>  <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="enums" class="header-with-anchor">Enums <a title="Permalink for Enums section" href="#enums">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Enums are a bit different. <code class="language-plaintext highlighter-rouge">Mirror</code> considers an enum instance to have at most one child, which has the enum case name as its label and the associated value as its value. Cases with no associated value have no children. For example:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">enum</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="n">bar</span>
+  <span class="k">case</span> <span class="n">baz</span><span class="p">(</span><span class="n">Int</span><span class="p">)</span>
+  <span class="k">case</span> <span class="n">quux</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When mirror is used on a value of <code class="language-plaintext highlighter-rouge">Foo</code>, it will show no children for <code class="language-plaintext highlighter-rouge">Foo.bar</code>, one child with an <code class="language-plaintext highlighter-rouge">Int</code> value for a <code class="language-plaintext highlighter-rouge">Foo.baz</code>, and one child with a <code class="language-plaintext highlighter-rouge">(String, String)</code> value for a <code class="language-plaintext highlighter-rouge">Foo.quux</code>. While a value of a class or struct always contains the same fields and thus the same child labels and types, different enum cases of the same type do not. Associated values can also be <code class="language-plaintext highlighter-rouge">indirect</code>, which requires special handling.</p>
+
+<p>There are four key pieces of information needed to reflect an <code class="language-plaintext highlighter-rouge">enum</code> value: the case name, the tag (a numeric representation of which enum case the value stores), the payload type, and whether the payload is indirect. The <code class="language-plaintext highlighter-rouge">getInfo</code> method fetches all of these values:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">getInfo</span><span class="p">(</span><span class="kt">unsigned</span> <span class="o">*</span><span class="n">tagPtr</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">,</span>
+                    <span class="k">const</span> <span class="n">Metadata</span> <span class="o">**</span><span class="n">payloadTypePtr</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">,</span>
+                    <span class="kt">bool</span> <span class="o">*</span><span class="n">indirectPtr</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<p>The tag is retrieved by querying the metadata directly:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kt">unsigned</span> <span class="n">tag</span> <span class="o">=</span> <span class="n">type</span><span class="o">-&gt;</span><span class="n">vw_getEnumTag</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The other info is retrieved using <code class="language-plaintext highlighter-rouge">_swift_getFieldAt</code>. It takes the tag as the “field index” and provides the appropriate info:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">payloadType</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">indirect</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">caseName</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+  <span class="n">_swift_getFieldAt</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="n">llvm</span><span class="o">::</span><span class="n">StringRef</span> <span class="n">name</span><span class="p">,</span> <span class="n">FieldType</span> <span class="n">info</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">caseName</span> <span class="o">=</span> <span class="n">name</span><span class="p">.</span><span class="n">data</span><span class="p">();</span>
+    <span class="n">payloadType</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">getType</span><span class="p">();</span>
+    <span class="n">indirect</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">isIndirect</span><span class="p">();</span>
+  <span class="p">});</span>
+</code></pre></div></div>
+
+<p>All of these values are then returned to the caller:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">if</span> <span class="p">(</span><span class="n">tagPtr</span><span class="p">)</span>
+    <span class="o">*</span><span class="n">tagPtr</span> <span class="o">=</span> <span class="n">tag</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">payloadTypePtr</span><span class="p">)</span>
+    <span class="o">*</span><span class="n">payloadTypePtr</span> <span class="o">=</span> <span class="n">payloadType</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">indirectPtr</span><span class="p">)</span>
+    <span class="o">*</span><span class="n">indirectPtr</span> <span class="o">=</span> <span class="n">indirect</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="n">caseName</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>(You might wonder: why is the case name the one that’s returned directly, while the other three are returned through pointers? Why not return the tag, or the payload type? The answer is: I don’t really know, it seemed like a good idea at the time.)</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">count</code> method can then use <code class="language-plaintext highlighter-rouge">getInfo</code> to retrieve the payload type, and return <code class="language-plaintext highlighter-rouge">0</code> or <code class="language-plaintext highlighter-rouge">1</code> if the payload type is <code class="language-plaintext highlighter-rouge">null</code> or not:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">intptr_t</span> <span class="nf">count</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isReflectable</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">payloadType</span><span class="p">;</span>
+  <span class="n">getInfo</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">payloadType</span><span class="p">,</span> <span class="nb">nullptr</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">payloadType</span> <span class="o">!=</span> <span class="nb">nullptr</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">subscript</code> method starts out by getting all info about the value:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AnyReturn</span> <span class="nf">subscript</span><span class="p">(</span><span class="kt">intptr_t</span> <span class="n">i</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">outName</span><span class="p">,</span>
+                    <span class="kt">void</span> <span class="p">(</span><span class="o">**</span><span class="n">outFreeFunc</span><span class="p">)(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">))</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="n">tag</span><span class="p">;</span>
+  <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">payloadType</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">indirect</span><span class="p">;</span>
+
+  <span class="k">auto</span> <span class="o">*</span><span class="n">caseName</span> <span class="o">=</span> <span class="n">getInfo</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tag</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">payloadType</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">indirect</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Actually copying the value takes a bit more work. In order to handle indirect values, the whole process goes through an extra box:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">const</span> <span class="n">Metadata</span> <span class="o">*</span><span class="n">boxType</span> <span class="o">=</span> <span class="p">(</span><span class="n">indirect</span> <span class="o">?</span> <span class="o">&amp;</span><span class="n">METADATA_SYM</span><span class="p">(</span><span class="n">Bo</span><span class="p">).</span><span class="n">base</span> <span class="o">:</span> <span class="n">payloadType</span><span class="p">);</span>
+  <span class="n">BoxPair</span> <span class="n">pair</span> <span class="o">=</span> <span class="n">swift_allocBox</span><span class="p">(</span><span class="n">boxType</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Because of the way enum extraction works, there’s no way to cleanly copy the value out. The only operation available is to <em>destructively</em> extract the payload value. To make a copy and leave the original intact, destructively extract it, then put it back in:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">type</span><span class="o">-&gt;</span><span class="n">vw_destructiveProjectEnumData</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">OpaqueValue</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
+  <span class="n">boxType</span><span class="o">-&gt;</span><span class="n">vw_initializeWithCopy</span><span class="p">(</span><span class="n">pair</span><span class="p">.</span><span class="n">buffer</span><span class="p">,</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">OpaqueValue</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
+  <span class="n">type</span><span class="o">-&gt;</span><span class="n">vw_destructiveInjectEnumTag</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">OpaqueValue</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">tag</span><span class="p">);</span>
+
+  <span class="n">value</span> <span class="o">=</span> <span class="n">pair</span><span class="p">.</span><span class="n">buffer</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>In the indirect case, the real data has to be pulled out of the box:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">if</span> <span class="p">(</span><span class="n">indirect</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">HeapObject</span> <span class="o">*</span><span class="n">owner</span> <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">HeapObject</span> <span class="o">*</span> <span class="k">const</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">swift_projectBox</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">HeapObject</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">owner</span><span class="p">));</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>Everything is now in place. The child’s label is set to be the case name:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">*</span><span class="n">outName</span> <span class="o">=</span> <span class="n">caseName</span><span class="p">;</span>
+  <span class="o">*</span><span class="n">outFreeFunc</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The now-familiar pattern is used to return the payload as an <code class="language-plaintext highlighter-rouge">Any</code>:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">Any</span> <span class="n">result</span><span class="p">;</span>
+
+  <span class="n">result</span><span class="p">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">payloadType</span><span class="p">;</span>
+  <span class="k">auto</span> <span class="o">*</span><span class="n">opaqueValueAddr</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">Type</span><span class="o">-&gt;</span><span class="n">allocateBoxForExistentialIn</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">.</span><span class="n">Buffer</span><span class="p">);</span>
+  <span class="n">result</span><span class="p">.</span><span class="n">Type</span><span class="o">-&gt;</span><span class="n">vw_initializeWithCopy</span><span class="p">(</span><span class="n">opaqueValueAddr</span><span class="p">,</span>
+                                     <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">OpaqueValue</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
+
+  <span class="n">swift_release</span><span class="p">(</span><span class="n">pair</span><span class="p">.</span><span class="n">object</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nf">AnyReturn</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="miscellaneous-kinds" class="header-with-anchor">Miscellaneous Kinds <a title="Permalink for Miscellaneous Kinds section" href="#miscellaneous-kinds">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>There are three more implementations in this file, all of which do almost nothing. <code class="language-plaintext highlighter-rouge">ObjCClassImpl</code> handles Objective-C classes. It doesn’t even attempt to return any children for these, because Objective-C allows too much leeway with the contents of ivars. Objective-C classes are allowed to do things like keep a dangling pointer sitting around forever, with some separate logic telling the implementation not to touch the value. Attempting to return such a value as a <code class="language-plaintext highlighter-rouge">Mirror</code>’s child would violate Swift’s memory safety guarantees. There’s no way to reliably tell if the value in question is doing such a thing, so this code avoids it entirely.</p>
+
+<p><code class="language-plaintext highlighter-rouge">MetatypeImpl</code> handles metatypes. If you use <code class="language-plaintext highlighter-rouge">Mirror</code> on an actual type, such as <code class="language-plaintext highlighter-rouge">Mirror(reflecting: String.self)</code>, this is what’s used. There could conceivably be some useful information to provide here, but at the moment it doesn’t even try, and just returns nothing. Similarly, <code class="language-plaintext highlighter-rouge">OpaqueImpl</code> handles opaque types and returns nothing.</p>
+
+<h2 id="swift-interface" class="header-with-anchor">Swift Interface <a title="Permalink for Swift Interface section" href="#swift-interface">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>On the Swift side of things, <code class="language-plaintext highlighter-rouge">Mirror</code> calls the interface functions implemented in C++ to retrieve the information it needs, then presents it in a friendlier form. This is done in an initializer on <code class="language-plaintext highlighter-rouge">Mirror</code>:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">internal</span> <span class="nf">init</span><span class="p">(</span><span class="n">internalReflecting</span> <span class="nv">subject</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span>
+            <span class="nv">subjectType</span><span class="p">:</span> <span class="kt">Any</span><span class="o">.</span><span class="k">Type</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">customAncestor</span><span class="p">:</span> <span class="kt">Mirror</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">{</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">subjectType</code> is the type that will be used to reflect the <code class="language-plaintext highlighter-rouge">subject</code> value. This is typically the value’s runtime type, but it will be a superclass if the caller uses <code class="language-plaintext highlighter-rouge">superclassMirror</code> to walk up the class hierarchy. If the caller didn’t pass in a <code class="language-plaintext highlighter-rouge">subjectType</code>, this code asks the C++ code to grab the type of <code class="language-plaintext highlighter-rouge">subject</code>:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">let</span> <span class="nv">subjectType</span> <span class="o">=</span> <span class="n">subjectType</span> <span class="p">??</span> <span class="nf">_getNormalizedType</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="nf">type</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="n">subject</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Then it constructs the <code class="language-plaintext highlighter-rouge">children</code> by getting the number of children, and creating a collection that lazily fetches each individual child:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">let</span> <span class="nv">childCount</span> <span class="o">=</span> <span class="nf">_getChildCount</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="n">subjectType</span><span class="p">)</span>
+  <span class="k">let</span> <span class="nv">children</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">..&lt;</span> <span class="n">childCount</span><span class="p">)</span><span class="o">.</span><span class="kd">lazy</span><span class="o">.</span><span class="nf">map</span><span class="p">({</span>
+    <span class="nf">getChild</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="n">subjectType</span><span class="p">,</span> <span class="nv">index</span><span class="p">:</span> <span class="nv">$0</span><span class="p">)</span>
+  <span class="p">})</span>
+  <span class="k">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="kt">Children</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">getChild</code> function is a small wrapper around the C++ <code class="language-plaintext highlighter-rouge">_getChild</code> function which transforms the C string containing the label name into a Swift <code class="language-plaintext highlighter-rouge">String</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Mirror</code> has a <code class="language-plaintext highlighter-rouge">superclassMirror</code> property which returns a <code class="language-plaintext highlighter-rouge">Mirror</code> that inspects the properties of the next class up the class hierarchy. Internally, it has a <code class="language-plaintext highlighter-rouge">_makeSuperclassMirror</code> property which stores a closure that can construct the superclass <code class="language-plaintext highlighter-rouge">Mirror</code> on demand. That closure starts by getting the superclass of <code class="language-plaintext highlighter-rouge">subjectType</code>. Non-class types and classes with no superclasses can’t have a superclass mirror, so they get <code class="language-plaintext highlighter-rouge">nil</code>:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">self</span><span class="o">.</span><span class="n">_makeSuperclassMirror</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">subjectClass</span> <span class="o">=</span> <span class="n">subjectType</span> <span class="k">as?</span> <span class="kt">AnyClass</span><span class="p">,</span>
+          <span class="k">let</span> <span class="nv">superclass</span> <span class="o">=</span> <span class="nf">_getSuperclass</span><span class="p">(</span><span class="n">subjectClass</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The caller can specify a custom ancestor representation, which is a <code class="language-plaintext highlighter-rouge">Mirror</code> instance that can be directly returned as the superclass mirror:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">if</span> <span class="k">let</span> <span class="nv">customAncestor</span> <span class="o">=</span> <span class="n">customAncestor</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="n">superclass</span> <span class="o">==</span> <span class="n">customAncestor</span><span class="o">.</span><span class="n">subjectType</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">customAncestor</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="n">customAncestor</span><span class="o">.</span><span class="n">_defaultDescendantRepresentation</span> <span class="o">==</span> <span class="o">.</span><span class="n">suppressed</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">customAncestor</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Otherwise, return a new <code class="language-plaintext highlighter-rouge">Mirror</code> for the same value but using the <code class="language-plaintext highlighter-rouge">superclass</code> as the <code class="language-plaintext highlighter-rouge">subjectType</code>:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">return</span> <span class="kt">Mirror</span><span class="p">(</span><span class="nv">internalReflecting</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
+                  <span class="nv">subjectType</span><span class="p">:</span> <span class="n">superclass</span><span class="p">,</span>
+                  <span class="nv">customAncestor</span><span class="p">:</span> <span class="n">customAncestor</span><span class="p">)</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finally, it fetches and decodes the display style, and sets up <code class="language-plaintext highlighter-rouge">Mirror</code>’s remaining properties:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">let</span> <span class="nv">rawDisplayStyle</span> <span class="o">=</span> <span class="nf">_getDisplayStyle</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
+    <span class="k">switch</span> <span class="kt">UnicodeScalar</span><span class="p">(</span><span class="kt">Int</span><span class="p">(</span><span class="n">rawDisplayStyle</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s">"c"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">displayStyle</span> <span class="o">=</span> <span class="o">.</span><span class="kd">class</span>
+    <span class="k">case</span> <span class="s">"e"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">displayStyle</span> <span class="o">=</span> <span class="o">.</span><span class="kd">enum</span>
+    <span class="k">case</span> <span class="s">"s"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">displayStyle</span> <span class="o">=</span> <span class="o">.</span><span class="kd">struct</span>
+    <span class="k">case</span> <span class="s">"t"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">displayStyle</span> <span class="o">=</span> <span class="o">.</span><span class="n">tuple</span>
+    <span class="k">case</span> <span class="s">"</span><span class="se">\0</span><span class="s">"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">displayStyle</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="k">default</span><span class="p">:</span> <span class="nf">preconditionFailure</span><span class="p">(</span><span class="s">"Unknown raw display style '</span><span class="se">\(</span><span class="n">rawDisplayStyle</span><span class="se">)</span><span class="s">'"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">self</span><span class="o">.</span><span class="n">subjectType</span> <span class="o">=</span> <span class="n">subjectType</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">_defaultDescendantRepresentation</span> <span class="o">=</span> <span class="o">.</span><span class="n">generated</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="conclusion" class="header-with-anchor">Conclusion <a title="Permalink for Conclusion section" href="#conclusion">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Swift’s rich type metadata exists mostly behind the scenes, supporting things like protocol conformance lookup and generic type resolution. Some of it is exposed to the user with the <code class="language-plaintext highlighter-rouge">Mirror</code> type, allowing runtime inspection of arbitrary values. It might seem weird and mysterious at first, given the statically typed nature of Swift, but it’s really a straightforward application of the information already available. This tour of the implementation should help dispel that mystery and give you insight into what’s going on when you use <code class="language-plaintext highlighter-rouge">Mirror</code>.</p>
+
+
+  <footer>
+    
+      <p>Written by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/9245f9f7df459c19a735740e281aeae2?s=64&d=mp"
+            
+            alt="Mike Ash"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/mikeash/" rel="nofollow" title="Mike Ash (@mikeash) on GitHub">Mike Ash</a>
+            
+          </span>
+        </div>
+        
+          
+          
+        
+      </div>
+    
+  
+</div>
+    
+
+    
+    <nav>
+      
+      <a href="/blog/5.0-release-process/" rel="prev" title="Previous: Swift 5.0 Release Process">Swift 5.0 Release Process</a>
+      
+
+      
+      <a href="/blog/swiftpm-repl-support/" rel="next" title="Next: REPL Support for Swift Packages">REPL Support for Swift Packages</a>
+      
+    </nav>
+    
+  </footer>
+</article>
+</main>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+  <p>Except where otherwise noted, all content on this blog is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

@@ -1,0 +1,2786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/</loc>
+            
+                <priority>1.0</priority>
+            
+        </url>
+    
+        
+        
+        
+        
+        <url>
+            <loc>https://swift.org/404.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/500.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/about/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/6.0/amazonlinux2.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/6.0/centos7.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/6.0/macos.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/6.0/static-sdk.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/6.0/ubi9.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/6.0/ubuntu2004.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/6.0/ubuntu2204.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/6.0/windows10.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/main/amazonlinux2.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/main/centos7.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/main/macos.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/main/static-sdk.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/main/ubi9.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/main/ubuntu2004.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/main/ubuntu2204.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/dev/main/windows10.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/install/releases.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/sswg/incubation/all.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/sswg/incubation/graduated.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/sswg/incubation/incubating.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/sswg/incubation/sandbox.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/api/v1/swiftly.json</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/assets/javascripts/application.js</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/assets/stylesheets/application.css</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/assets/stylesheets/application.css.map</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        
+        <url>
+            <loc>https://swift.org/blog-post-contributions/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/blog/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/code-of-conduct/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/community/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/compiler-stdlib/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/continuous-integration/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/contributing/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/contributor-experience-workgroup/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/core-libraries/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/cxx-interop-workgroup/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/diversity/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation-workgroup/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/api-design-guidelines.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/api-design-guidelines/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/articles/getting-started-with-vscode-swift.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/articles/static-linux-getting-started.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/articles/value-and-reference-types.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/articles/wrapping-c-cpp-library-in-swift.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/articles/zero-to-swift-emacs.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/articles/zero-to-swift-nvim.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/concurrency/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/continuous-integration/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/core-libraries/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/cxx-interop.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/cxx-interop/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/cxx-interop/project-build-setup.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/cxx-interop/project-build-setup/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/cxx-interop/status.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/cxx-interop/status/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/lldb/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/monthly-non-darwin-release/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/package-manager/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/allocations.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/building.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/deploying/aws-copilot-fargate-vapor-mongo.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/deploying/aws-sam-lambda.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/deploying/aws.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/deploying/digital-ocean.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/deploying/gcp.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/deploying/heroku.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/deploying/ubuntu.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/deployment.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/libraries/concurrency-adoption-guidelines.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/libraries/log-levels.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/linux-perf.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/llvm-sanitizers.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/memory-leaks-and-usage.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/packaging.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/passkeys.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/performance.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/server/guides/testing.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/source-code/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/source-compatibility/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/standard-library/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/swift-compiler/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/documentation/tspl/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/download/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/foundation-workgroup/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/getting-started/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/getting-started/cli-swiftpm/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/getting-started/embedded-swift/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/getting-started/library-swiftpm/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/getting-started/swiftui/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/getting-started/vapor-web-server/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/gsoc2019/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/gsoc2020/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/gsoc2021/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/gsoc2022/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/gsoc2023/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/gsoc2024/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/gsoc2025/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/amazonlinux/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/amazonlinux/2/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/debian/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/debian/12/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/docker/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/fedora/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/fedora/39/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/rpm/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/tarball/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/ubi/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/ubi/9/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/ubuntu/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/ubuntu/20_04/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/ubuntu/22_04/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/linux/ubuntu/24_04/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/macos/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/macos/package_installer/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/windows/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/windows/archived/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/windows/manual/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/windows/scoop/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/install/windows/winget/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/keys/active/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/keys/expired/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/language-steering-group/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/legal/license.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/lldb/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/mentorship-interest-survey/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/mentorship-tos/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/mentorship/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/migration-guide-swift3/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/migration-guide-swift3/se-0107-migrate.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/migration-guide-swift4.2/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/migration-guide-swift4/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/migration-guide-swift5/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/migration-guide/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/monthly-non-darwin-release/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/openapi/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/package-manager/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/logging.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/macros.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/networking.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/server.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-april-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-august-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-december-2023.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-december-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-february-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-january-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-january-2025.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-july-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-june-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-march-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-may-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-november-2023.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-november-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-october-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase-september-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/showcase.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/packages/testing.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/platform-steering-group/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/platform-support/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/project-ideas/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/quickstart-contribution/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server-apis/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/allocations</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/building</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/deploying/aws</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/deploying/aws-copilot-fargate-vapor-mongo</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/deploying/aws-sam-lambda</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/deploying/digital-ocean</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/deploying/gcp</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/deploying/heruko</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/deploying/ubuntu</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/deployment</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/libraries/concurrency-adoption-guidelines</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/libraries/log-levels</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/linux-perf</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/llvm-sanitizers</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/memory-leaks-and-usage</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/packaging</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/performance</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/server/guides/testing</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        
+        <url>
+            <loc>https://swift.org/source-code/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/source-compatibility/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/sswg-survey-2023/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/sswg/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/sswg/incubated-packages.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/sswg/incubation-process.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/sswg/security/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/sswg/security/contributor-found-vulnerability.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/sswg/security/package-maintainer-received-vulnerability-report.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/sswg/security/package-requirements.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/standard-library/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/support/security.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/swift-compiler/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/swift-evolution/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/tools/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/tspl/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/website-governance/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/website-workgroup/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://swift.org/website/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+
+    
+        <url>
+            <loc>https://swift.org/blog/how-swifts-server-support-powers-things-cloud/</loc>
+            <lastmod>2025-02-21</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/grpc-swift-2/</loc>
+            <lastmod>2025-02-14</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/vscode-swift-2/</loc>
+            <lastmod>2025-02-10</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/the-next-chapter-in-swift-build-technologies/</loc>
+            <lastmod>2025-02-01</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/announcing-swift-6/</loc>
+            <lastmod>2024-09-17</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/introducing-swift-nio-oblivious-http/</loc>
+            <lastmod>2024-08-21</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/announcing-swift-homomorphic-encryption/</loc>
+            <lastmod>2024-07-30</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/ready-for-swift-6/</loc>
+            <lastmod>2024-07-01</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swiftlang-github/</loc>
+            <lastmod>2024-06-10</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/embedded-swift-examples/</loc>
+            <lastmod>2024-04-03</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/sswg-update-2024/</loc>
+            <lastmod>2024-03-28</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/adwaita-swift/</loc>
+            <lastmod>2024-03-25</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/benchmarks/</loc>
+            <lastmod>2024-03-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/byte-sized-swift-tiny-games-playdate/</loc>
+            <lastmod>2024-03-12</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/pack-iteration/</loc>
+            <lastmod>2024-03-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.10-released/</loc>
+            <lastmod>2024-03-05</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-google-summer-of-code-2024/</loc>
+            <lastmod>2024-02-23</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/mlx-swift/</loc>
+            <lastmod>2024-02-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/summer-of-code-2023-summary/</loc>
+            <lastmod>2024-02-13</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-openapi-generator-1.0/</loc>
+            <lastmod>2024-01-31</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.9-backtraces/</loc>
+            <lastmod>2023-11-08</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/packages-page/</loc>
+            <lastmod>2023-11-01</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-everywhere-windows-interop/</loc>
+            <lastmod>2023-10-13</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/whats-new-swift-debugging-5.9/</loc>
+            <lastmod>2023-09-28</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.9-released/</loc>
+            <lastmod>2023-09-18</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/sswg-update-2023/</loc>
+            <lastmod>2023-08-17</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/introducing-swift-http-types/</loc>
+            <lastmod>2023-07-10</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/introducing-swift-openapi-generator/</loc>
+            <lastmod>2023-06-12</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/using-upcoming-feature-flags/</loc>
+            <lastmod>2023-05-30</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/evolving-swift-project-workgroups/</loc>
+            <lastmod>2023-05-18</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/foundation-preview-now-available/</loc>
+            <lastmod>2023-04-26</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.8-released/</loc>
+            <lastmod>2023-03-30</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-package-index-developer-spotlight/</loc>
+            <lastmod>2023-03-24</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-certificates-and-asn1/</loc>
+            <lastmod>2023-03-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/tspl-on-docc/</loc>
+            <lastmod>2023-02-16</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/future-of-foundation/</loc>
+            <lastmod>2022-12-09</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-summer-of-code-2022-summary/</loc>
+            <lastmod>2022-12-05</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/focus-areas-2023/</loc>
+            <lastmod>2022-11-18</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.7-released/</loc>
+            <lastmod>2022-09-12</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-nio-imap/</loc>
+            <lastmod>2022-08-30</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/sswg-server-guides/</loc>
+            <lastmod>2022-08-18</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/documentation-workgroup/</loc>
+            <lastmod>2022-07-22</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/vscode-extension/</loc>
+            <lastmod>2022-07-14</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-language-updates-from-wwdc22/</loc>
+            <lastmod>2022-07-06</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/graphing-calculator/</loc>
+            <lastmod>2022-06-30</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/property-wrappers/</loc>
+            <lastmod>2022-06-21</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/language-workgroup/</loc>
+            <lastmod>2022-06-15</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/mentorship-2022/</loc>
+            <lastmod>2022-05-19</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/sswg-update/</loc>
+            <lastmod>2022-04-25</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-async-algorithms/</loc>
+            <lastmod>2022-03-24</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/website-open-source/</loc>
+            <lastmod>2022-03-15</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.6-released/</loc>
+            <lastmod>2022-03-14</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/distributed-actors/</loc>
+            <lastmod>2021-10-28</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-docc/</loc>
+            <lastmod>2021-10-13</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.5-released/</loc>
+            <lastmod>2021-09-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/package-collections/</loc>
+            <lastmod>2021-06-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-mentorship-program/</loc>
+            <lastmod>2021-05-10</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.4-released/</loc>
+            <lastmod>2021-04-26</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-collections/</loc>
+            <lastmod>2021-04-05</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/womens-history-month/</loc>
+            <lastmod>2021-03-24</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/black-history-month/</loc>
+            <lastmod>2021-02-22</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/diversity-in-swift/</loc>
+            <lastmod>2020-12-16</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/accessibility-and-inclusion/</loc>
+            <lastmod>2020-12-16</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swiftnio-ssh/</loc>
+            <lastmod>2020-11-19</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-service-discovery/</loc>
+            <lastmod>2020-10-21</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-algorithms/</loc>
+            <lastmod>2020-10-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-atomics/</loc>
+            <lastmod>2020-10-01</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-system/</loc>
+            <lastmod>2020-09-25</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-on-windows/</loc>
+            <lastmod>2020-09-22</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.3-released/</loc>
+            <lastmod>2020-09-16</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-cluster-membership/</loc>
+            <lastmod>2020-08-27</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-service-lifecycle/</loc>
+            <lastmod>2020-07-15</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/AWS-lambda-runtime/</loc>
+            <lastmod>2020-05-29</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/additional-linux-distros/</loc>
+            <lastmod>2020-05-05</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/5.3-release-process/</loc>
+            <lastmod>2020-03-25</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.2-released/</loc>
+            <lastmod>2020-03-24</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/argument-parser/</loc>
+            <lastmod>2020-02-27</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/preview-package/</loc>
+            <lastmod>2020-02-18</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/library-evolution/</loc>
+            <lastmod>2020-02-13</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/crypto/</loc>
+            <lastmod>2020-02-03</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/numerics/</loc>
+            <lastmod>2019-11-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/sswg-update-2019/</loc>
+            <lastmod>2019-10-31</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/new-diagnostic-arch-overview/</loc>
+            <lastmod>2019-10-17</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/5.2-release-process/</loc>
+            <lastmod>2019-09-24</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5.1-released/</loc>
+            <lastmod>2019-09-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/tsan-support-on-linux/</loc>
+            <lastmod>2019-08-13</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5-released/</loc>
+            <lastmod>2019-03-25</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/utf8-string/</loc>
+            <lastmod>2019-03-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/behind-SE-0200/</loc>
+            <lastmod>2019-02-20</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/5.1-release-process/</loc>
+            <lastmod>2019-02-18</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/abi-stability-and-apple/</loc>
+            <lastmod>2019-02-11</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/abi-stability-and-more/</loc>
+            <lastmod>2019-02-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/sourcekitd-stress-tester/</loc>
+            <lastmod>2019-02-06</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-5-exclusivity/</loc>
+            <lastmod>2019-02-05</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swiftpm-repl-support/</loc>
+            <lastmod>2018-10-08</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/how-mirror-works/</loc>
+            <lastmod>2018-09-26</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/5.0-release-process/</loc>
+            <lastmod>2018-09-25</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-4.2-released/</loc>
+            <lastmod>2018-09-17</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/related-projects/</loc>
+            <lastmod>2018-05-10</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-community-hosted-CI/</loc>
+            <lastmod>2018-05-03</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/iuo/</loc>
+            <lastmod>2018-04-26</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-4.1-released/</loc>
+            <lastmod>2018-03-29</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/4.2-release-process/</loc>
+            <lastmod>2018-02-28</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/osize/</loc>
+            <lastmod>2018-02-08</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/forums/</loc>
+            <lastmod>2018-01-19</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/conditional-conformance/</loc>
+            <lastmod>2018-01-08</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-4.1-release-process/</loc>
+            <lastmod>2017-10-17</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/xcode-9.1-improves-display-of-fatal-errors/</loc>
+            <lastmod>2017-10-05</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/dictionary-and-set-improvements/</loc>
+            <lastmod>2017-10-04</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-4.0-released/</loc>
+            <lastmod>2017-09-19</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-local-refactoring/</loc>
+            <lastmod>2017-08-22</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-package-manager-manifest-api-redesign/</loc>
+            <lastmod>2017-06-21</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-source-compatibility-test-suite/</loc>
+            <lastmod>2017-04-24</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-3.1-released/</loc>
+            <lastmod>2017-03-27</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-4.0-release-process/</loc>
+            <lastmod>2017-02-16</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/bridging-pch/</loc>
+            <lastmod>2017-01-26</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-evolution-status-page/</loc>
+            <lastmod>2017-01-18</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-3.1-release-process/</loc>
+            <lastmod>2016-12-09</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/server-api-workgroup/</loc>
+            <lastmod>2016-10-25</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/whole-module-optimizations/</loc>
+            <lastmod>2016-10-21</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-3.0-released/</loc>
+            <lastmod>2016-09-13</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-xcode-playground-support/</loc>
+            <lastmod>2016-07-07</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-3.0-preview-1-released/</loc>
+            <lastmod>2016-06-13</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-2.3/</loc>
+            <lastmod>2016-06-12</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-3.0-release-process/</loc>
+            <lastmod>2016-05-06</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-2.2-new-features/</loc>
+            <lastmod>2016-03-30</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-2.2-released/</loc>
+            <lastmod>2016-03-21</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-commit-access/</loc>
+            <lastmod>2016-02-29</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-benchmark-suite/</loc>
+            <lastmod>2016-02-08</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-CI/</loc>
+            <lastmod>2016-02-01</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-api-transformation/</loc>
+            <lastmod>2016-01-29</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-2.2-release-process/</loc>
+            <lastmod>2016-01-05</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-3-api-design/</loc>
+            <lastmod>2015-12-03</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/swift-linux-port/</loc>
+            <lastmod>2015-12-03</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://swift.org/blog/welcome/</loc>
+            <lastmod>2015-12-03</lastmod>
+        </url>
+    
+</urlset>

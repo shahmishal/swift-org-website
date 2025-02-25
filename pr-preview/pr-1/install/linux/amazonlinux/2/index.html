@@ -1,0 +1,3401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Install Swift</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/install/linux/amazonlinux/2/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift.org" />
+  <meta name="twitter:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:title" content="Swift.org" />
+  <meta property="og:url" content="https://swift.org" />
+  <meta property="og:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+  <article class="page-wide">
+  
+    
+      <header>
+        <h1>Install Swift</h1>
+      </header>
+    
+  
+  <p>Follow the instructions below to install the latest version of Swift on a <a href="/platform-support">supported platform</a>.</p>
+
+<div class="interactive-tabs os">
+  <div class="tabs">
+    <a href="/install/macos" aria-pressed="">macOS</a>
+    <a href="/install/linux#platforms" aria-pressed="true">Linux</a>
+    <a href="/install/windows" aria-pressed="">Windows</a>
+  </div>
+</div>
+<hr />
+
+<p id="platforms">Select Linux platform:</p>
+
+<div class="interactive-tabs os">
+  <div class="tabs">
+    <a href="/install/linux/amazonlinux/2#versions" aria-pressed="true">Amazon Linux</a>
+    <a href="/install/linux/debian/12#versions" aria-pressed="">Debian</a>
+    <a href="/install/linux/fedora/39#versions" aria-pressed="">Fedora</a>
+    <a href="/install/linux/ubi/9#versions" aria-pressed="">Red Hat</a>
+    <a href="/install/linux/ubuntu#versions" aria-pressed="">Ubuntu</a>
+  </div>
+</div>
+
+<hr />
+
+<p id="versions">Select Amazon Linux version:</p>
+
+<div class="interactive-tabs os">
+  <div class="tabs">
+    
+    
+    <a href="/install/linux/amazonlinux/2#latest" aria-pressed="true">Amazon Linux 2</a>
+    
+    
+  </div>
+</div>
+
+<hr />
+
+<h2 id="latest" class="header-with-anchor">Latest Release (Swift 6.0.3) <a title="Permalink for Latest Release (Swift 6.0.3) section" href="#latest">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<ul class="grid-level-0 grid-layout-2-column">
+  <li class="grid-level-1">
+    <h3>Docker</h3>
+    <p class="description">
+      The official Docker images for Swift.
+    </p>
+    <a href="https://hub.docker.com/_/swift" class="cta-secondary external">6.0.3-amazonlinux2</a>
+    <a href="/install/linux/docker" class="cta-secondary">Instructions</a>
+  </li>
+  <li class="grid-level-1">
+    <h3>Tarball</h3>
+    <p class="description">
+      Tarball packages (.tar.gz)
+      <ul>
+        <li>Signature (PGP): <a href="https://download.swift.org/swift-6.0.3-release/amazonlinux2/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-amazonlinux2.tar.gz.sig">x86_64</a> | <a href="https://download.swift.org/swift-6.0.3-release/amazonlinux2-aarch64/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-amazonlinux2-aarch64.tar.gz.sig">aarch64</a></li>
+      </ul>
+    </p>
+    <ul class="grid-level-0 grid-layout-2-column">
+      
+      <a href="https://download.swift.org/swift-6.0.3-release/amazonlinux2/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-amazonlinux2.tar.gz" class="cta-secondary">Download (x86_64)</a>
+      
+      <a href="https://download.swift.org/swift-6.0.3-release/amazonlinux2-aarch64/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-amazonlinux2-aarch64.tar.gz" class="cta-secondary">Download (aarch64)</a>
+      
+    </ul>
+    <a href="/install/linux/tarball" class="cta-secondary">Instructions</a>
+  </li>
+</ul>
+
+<ul class="grid-level-0">
+  
+
+
+
+<li class="grid-level-1 featured">
+  <h3>Static Linux SDK </h3>
+  <p class="description">
+    Static Linux SDK - Cross compile to Linux
+    <ul>
+      <li><a href="https://download.swift.org/swift-6.0.3-release/static-sdk/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE_static-linux-0.0.1.artifactbundle.tar.gz.sig">Signature (PGP)</a>
+      </li>
+      <li>
+        Checksum: <code>67f765e0030e661a7450f7e4877cfe008db4f57f177d5a08a6e26fd661cdd0bd</code></li>
+    </ul>
+  </p>
+  <a href="https://download.swift.org/swift-6.0.3-release/static-sdk/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE_static-linux-0.0.1.artifactbundle.tar.gz" class="cta-secondary">Download Linux Static SDK</a>
+  <a href="/documentation/articles/static-linux-getting-started.html" class="cta-secondary">Instructions (Static Linux SDK)</a>
+</li>
+
+
+  
+    <li class="grid-level-1 featured">
+      <h3>RPM</h3>
+      <p class="description">
+        RPM Package Manager (Experimental use only)
+      </p>
+      <a href="/install/linux/rpm" class="cta-secondary">Instructions</a>
+    </li>
+  
+</ul>
+
+<hr />
+
+<details class="download" style="margin-bottom: 0;">
+  <summary>Older Releases</summary>
+  <table id="osx-builds" class="downloads">
+    <thead>
+        <tr>
+            <th class="download">Release</th>
+            <th class="download">Date</th>
+            <th class="download">Toolchain</th>
+            <th class="download">Docker</th>
+            
+            <th class="download">Static SDK</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        
+        
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 6.0.2
+      
+    </td>
+    <td>
+      October 28, 2024
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-6.0.2-release/amazonlinux2/swift-6.0.2-RELEASE/swift-6.0.2-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-6.0.2-release/amazonlinux2/swift-6.0.2-RELEASE/swift-6.0.2-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-6.0.2-release/amazonlinux2-aarch64/swift-6.0.2-RELEASE/swift-6.0.2-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-6.0.2-release/amazonlinux2-aarch64/swift-6.0.2-RELEASE/swift-6.0.2-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">6.0.2-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        
+        <button onclick="copyToClipboard('swift sdk install https://download.swift.org/swift-6.0.2-release/static-sdk/swift-6.0.2-RELEASE/swift-6.0.2-RELEASE_static-linux-0.0.1.artifactbundle.tar.gz --checksum aa5515476a403797223fc2aad4ca0c3bf83995d5427fb297cab1d93c68cee075')">Copy install command</button>
+    <script>
+        function copyToClipboard(text) {
+          navigator.clipboard.writeText(text)
+        }
+    </script>
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 6.0.1
+      
+    </td>
+    <td>
+      September 24, 2024
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-6.0.1-release/amazonlinux2/swift-6.0.1-RELEASE/swift-6.0.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-6.0.1-release/amazonlinux2/swift-6.0.1-RELEASE/swift-6.0.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-6.0.1-release/amazonlinux2-aarch64/swift-6.0.1-RELEASE/swift-6.0.1-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-6.0.1-release/amazonlinux2-aarch64/swift-6.0.1-RELEASE/swift-6.0.1-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">6.0.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        
+        <button onclick="copyToClipboard('swift sdk install https://download.swift.org/swift-6.0.1-release/static-sdk/swift-6.0.1-RELEASE/swift-6.0.1-RELEASE_static-linux-0.0.1.artifactbundle.tar.gz --checksum d4f46ba40e11e697387468e18987ee622908bc350310d8af54eb5e17c2ff5481')">Copy install command</button>
+    <script>
+        function copyToClipboard(text) {
+          navigator.clipboard.writeText(text)
+        }
+    </script>
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 6.0
+      
+    </td>
+    <td>
+      September 16, 2024
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-6.0-release/amazonlinux2/swift-6.0-RELEASE/swift-6.0-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-6.0-release/amazonlinux2/swift-6.0-RELEASE/swift-6.0-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-6.0-release/amazonlinux2-aarch64/swift-6.0-RELEASE/swift-6.0-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-6.0-release/amazonlinux2-aarch64/swift-6.0-RELEASE/swift-6.0-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">6.0-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        
+        <button onclick="copyToClipboard('swift sdk install https://download.swift.org/swift-6.0-release/static-sdk/swift-6.0-RELEASE/swift-6.0-RELEASE_static-linux-0.0.1.artifactbundle.tar.gz --checksum 7984c2cf175bde52ba6ea1fcbe27fc4a148a6237c41c719209c9288ed3ceb652')">Copy install command</button>
+    <script>
+        function copyToClipboard(text) {
+          navigator.clipboard.writeText(text)
+        }
+    </script>
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.10.1
+      
+    </td>
+    <td>
+      June 5, 2024
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.10.1-release/amazonlinux2/swift-5.10.1-RELEASE/swift-5.10.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.10.1-release/amazonlinux2/swift-5.10.1-RELEASE/swift-5.10.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.10.1-release/amazonlinux2-aarch64/swift-5.10.1-RELEASE/swift-5.10.1-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.10.1-release/amazonlinux2-aarch64/swift-5.10.1-RELEASE/swift-5.10.1-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.10.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.10
+      
+    </td>
+    <td>
+      March 5, 2024
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.10-release/amazonlinux2/swift-5.10-RELEASE/swift-5.10-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.10-release/amazonlinux2/swift-5.10-RELEASE/swift-5.10-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.10-release/amazonlinux2-aarch64/swift-5.10-RELEASE/swift-5.10-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.10-release/amazonlinux2-aarch64/swift-5.10-RELEASE/swift-5.10-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.10-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.9.2
+      
+    </td>
+    <td>
+      December 11, 2023
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.9.2-release/amazonlinux2/swift-5.9.2-RELEASE/swift-5.9.2-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.9.2-release/amazonlinux2/swift-5.9.2-RELEASE/swift-5.9.2-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.9.2-release/amazonlinux2-aarch64/swift-5.9.2-RELEASE/swift-5.9.2-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.9.2-release/amazonlinux2-aarch64/swift-5.9.2-RELEASE/swift-5.9.2-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.9.2-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.9.1
+      
+    </td>
+    <td>
+      October 19, 2023
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.9.1-release/amazonlinux2/swift-5.9.1-RELEASE/swift-5.9.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.9.1-release/amazonlinux2/swift-5.9.1-RELEASE/swift-5.9.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.9.1-release/amazonlinux2-aarch64/swift-5.9.1-RELEASE/swift-5.9.1-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.9.1-release/amazonlinux2-aarch64/swift-5.9.1-RELEASE/swift-5.9.1-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.9.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.9
+      
+    </td>
+    <td>
+      September 18, 2023
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.9-release/amazonlinux2/swift-5.9-RELEASE/swift-5.9-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.9-release/amazonlinux2/swift-5.9-RELEASE/swift-5.9-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.9-release/amazonlinux2-aarch64/swift-5.9-RELEASE/swift-5.9-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.9-release/amazonlinux2-aarch64/swift-5.9-RELEASE/swift-5.9-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.9-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.8.1
+      
+    </td>
+    <td>
+      June 1, 2023
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.8.1-release/amazonlinux2/swift-5.8.1-RELEASE/swift-5.8.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.8.1-release/amazonlinux2/swift-5.8.1-RELEASE/swift-5.8.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.8.1-release/amazonlinux2-aarch64/swift-5.8.1-RELEASE/swift-5.8.1-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.8.1-release/amazonlinux2-aarch64/swift-5.8.1-RELEASE/swift-5.8.1-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.8.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.8
+      
+    </td>
+    <td>
+      March 30, 2023
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.8-release/amazonlinux2/swift-5.8-RELEASE/swift-5.8-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.8-release/amazonlinux2/swift-5.8-RELEASE/swift-5.8-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.8-release/amazonlinux2-aarch64/swift-5.8-RELEASE/swift-5.8-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.8-release/amazonlinux2-aarch64/swift-5.8-RELEASE/swift-5.8-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.8-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.7.3
+      
+    </td>
+    <td>
+      January 18, 2023
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.7.3-release/amazonlinux2/swift-5.7.3-RELEASE/swift-5.7.3-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.7.3-release/amazonlinux2/swift-5.7.3-RELEASE/swift-5.7.3-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.7.3-release/amazonlinux2-aarch64/swift-5.7.3-RELEASE/swift-5.7.3-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.7.3-release/amazonlinux2-aarch64/swift-5.7.3-RELEASE/swift-5.7.3-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.7.3-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.7.2
+      
+    </td>
+    <td>
+      December 13, 2022
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.7.2-release/amazonlinux2/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.7.2-release/amazonlinux2/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.7.2-release/amazonlinux2-aarch64/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.7.2-release/amazonlinux2-aarch64/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.7.2-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.7.1
+      
+    </td>
+    <td>
+      November 1, 2022
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.7.1-release/amazonlinux2/swift-5.7.1-RELEASE/swift-5.7.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.7.1-release/amazonlinux2/swift-5.7.1-RELEASE/swift-5.7.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.7.1-release/amazonlinux2-aarch64/swift-5.7.1-RELEASE/swift-5.7.1-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.7.1-release/amazonlinux2-aarch64/swift-5.7.1-RELEASE/swift-5.7.1-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.7.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.7
+      
+    </td>
+    <td>
+      September 12, 2022
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.7-release/amazonlinux2/swift-5.7-RELEASE/swift-5.7-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.7-release/amazonlinux2/swift-5.7-RELEASE/swift-5.7-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.7-release/amazonlinux2-aarch64/swift-5.7-RELEASE/swift-5.7-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.7-release/amazonlinux2-aarch64/swift-5.7-RELEASE/swift-5.7-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.7-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.6.3
+      
+    </td>
+    <td>
+      September 2, 2022
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.6.3-release/amazonlinux2/swift-5.6.3-RELEASE/swift-5.6.3-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.6.3-release/amazonlinux2/swift-5.6.3-RELEASE/swift-5.6.3-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.6.3-release/amazonlinux2-aarch64/swift-5.6.3-RELEASE/swift-5.6.3-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.6.3-release/amazonlinux2-aarch64/swift-5.6.3-RELEASE/swift-5.6.3-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.6.3-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.6.2
+      
+    </td>
+    <td>
+      June 15, 2022
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.6.2-release/amazonlinux2/swift-5.6.2-RELEASE/swift-5.6.2-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.6.2-release/amazonlinux2/swift-5.6.2-RELEASE/swift-5.6.2-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.6.2-release/amazonlinux2-aarch64/swift-5.6.2-RELEASE/swift-5.6.2-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.6.2-release/amazonlinux2-aarch64/swift-5.6.2-RELEASE/swift-5.6.2-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.6.2-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.6.1
+      
+    </td>
+    <td>
+      April 8, 2022
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.6.1-release/amazonlinux2/swift-5.6.1-RELEASE/swift-5.6.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.6.1-release/amazonlinux2/swift-5.6.1-RELEASE/swift-5.6.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.6.1-release/amazonlinux2-aarch64/swift-5.6.1-RELEASE/swift-5.6.1-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.6.1-release/amazonlinux2-aarch64/swift-5.6.1-RELEASE/swift-5.6.1-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.6.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.6
+      
+    </td>
+    <td>
+      March 14, 2022
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.6-release/amazonlinux2/swift-5.6-RELEASE/swift-5.6-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.6-release/amazonlinux2/swift-5.6-RELEASE/swift-5.6-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.6-release/amazonlinux2-aarch64/swift-5.6-RELEASE/swift-5.6-RELEASE-amazonlinux2-aarch64.tar.gz">aarch64</a>
+        
+        <a href="https://download.swift.org/swift-5.6-release/amazonlinux2-aarch64/swift-5.6-RELEASE/swift-5.6-RELEASE-amazonlinux2-aarch64.tar.gz.sig" title="PGP Signature" class="signature">Signature (aarch64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.6-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.5.3
+      
+    </td>
+    <td>
+      February 9, 2022
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.5.3-release/amazonlinux2/swift-5.5.3-RELEASE/swift-5.5.3-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.5.3-release/amazonlinux2/swift-5.5.3-RELEASE/swift-5.5.3-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.5.3-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.5.2
+      
+    </td>
+    <td>
+      December 13, 2021
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.5.2-release/amazonlinux2/swift-5.5.2-RELEASE/swift-5.5.2-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.5.2-release/amazonlinux2/swift-5.5.2-RELEASE/swift-5.5.2-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.5.2-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.5.1
+      
+    </td>
+    <td>
+      October 25, 2021
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.5.1-release/amazonlinux2/swift-5.5.1-RELEASE/swift-5.5.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.5.1-release/amazonlinux2/swift-5.5.1-RELEASE/swift-5.5.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.5.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.5
+      
+    </td>
+    <td>
+      September 20, 2021
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.5-release/amazonlinux2/swift-5.5-RELEASE/swift-5.5-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.5-release/amazonlinux2/swift-5.5-RELEASE/swift-5.5-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.5-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.4.3
+      
+    </td>
+    <td>
+      September 9, 2021
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.4.3-release/amazonlinux2/swift-5.4.3-RELEASE/swift-5.4.3-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.4.3-release/amazonlinux2/swift-5.4.3-RELEASE/swift-5.4.3-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.4.3-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.4.2
+      
+    </td>
+    <td>
+      June 28, 2021
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.4.2-release/amazonlinux2/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.4.2-release/amazonlinux2/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.4.2-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.4.1
+      
+    </td>
+    <td>
+      May 25, 2021
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.4.1-release/amazonlinux2/swift-5.4.1-RELEASE/swift-5.4.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.4.1-release/amazonlinux2/swift-5.4.1-RELEASE/swift-5.4.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.4.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.4
+      
+    </td>
+    <td>
+      April 26, 2021
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.4-release/amazonlinux2/swift-5.4-RELEASE/swift-5.4-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.4-release/amazonlinux2/swift-5.4-RELEASE/swift-5.4-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.4-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.3.3
+      
+    </td>
+    <td>
+      December 14, 2020
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.3.3-release/amazonlinux2/swift-5.3.3-RELEASE/swift-5.3.3-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.3.3-release/amazonlinux2/swift-5.3.3-RELEASE/swift-5.3.3-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.3.3-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.3.2
+      
+    </td>
+    <td>
+      December 14, 2020
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.3.2-release/amazonlinux2/swift-5.3.2-RELEASE/swift-5.3.2-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.3.2-release/amazonlinux2/swift-5.3.2-RELEASE/swift-5.3.2-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.3.2-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.3.1
+      
+    </td>
+    <td>
+      November 12, 2020
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.3.1-release/amazonlinux2/swift-5.3.1-RELEASE/swift-5.3.1-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.3.1-release/amazonlinux2/swift-5.3.1-RELEASE/swift-5.3.1-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.3.1-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.3
+      
+    </td>
+    <td>
+      September 16, 2020
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.3-release/amazonlinux2/swift-5.3-RELEASE/swift-5.3-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.3-release/amazonlinux2/swift-5.3-RELEASE/swift-5.3-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.3-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.2.5
+      
+    </td>
+    <td>
+      August 4, 2020
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.2.5-release/amazonlinux2/swift-5.2.5-RELEASE/swift-5.2.5-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.2.5-release/amazonlinux2/swift-5.2.5-RELEASE/swift-5.2.5-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.2.5-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+    
+    
+<tr>
+    <td>
+      Swift 5.2.4
+      
+    </td>
+    <td>
+      May 20, 2020
+    </td>
+    <td class="arch-tag"> 
+    
+        
+        
+        
+        <a href="https://download.swift.org/swift-5.2.4-release/amazonlinux2/swift-5.2.4-RELEASE/swift-5.2.4-RELEASE-amazonlinux2.tar.gz">x86_64</a>
+        
+        <a href="https://download.swift.org/swift-5.2.4-release/amazonlinux2/swift-5.2.4-RELEASE/swift-5.2.4-RELEASE-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature (x86_64)</a>
+        
+    
+    </td>
+    <td class="docker-tag">
+    
+        <a href="https://hub.docker.com/_/swift/?tab=tags">5.2.4-amazonlinux2</a>
+    
+    </td>
+    
+    <td class="docker-tag">
+        
+        
+    
+        Unavailable
+    
+    </td>
+    
+</tr>
+
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+
+        
+
+
+        
+            
+    
+
+    
+
+
+        
+
+
+    </tbody>
+</table>
+
+
+</details>
+
+<h2 id="development-snapshots" class="header-with-anchor">Development Snapshots <a title="Permalink for Development Snapshots section" href="#development-snapshots">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Swift snapshots are prebuilt binaries that are automatically created from the branch. These snapshots are not official releases. They have gone through automated unit testing, but they have not gone through the full testing that is performed for official releases.</p>
+
+<ul class="grid-level-0 grid-layout-2-column">
+  <li class="grid-level-1">
+    <h3>main</h3>
+    <p class="description" style="font-size: 14px;">
+      <time datetime="2025-02-20T12:10:00-04:00" title="February 20, 2025 10:10 AM ()">February 20, 2025</time>
+    </p>
+    <h4>Tarball (tar.gz)</h4>
+    
+    <ul class="grid-level-0 grid-layout-2-column">
+      <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-20-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-20-a-amazonlinux2.tar.gz" class="cta-secondary">Download (x86_64)</a>
+      <a href="https://download.swift.org/development/amazonlinux2-aarch64/swift-DEVELOPMENT-SNAPSHOT-2025-02-20-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-20-a-amazonlinux2-aarch64.tar.gz" class="cta-secondary">Download (aarch64)</a>
+    </ul>
+    
+    <h4>Docker</h4>
+    <a href="https://hub.docker.com/r/swiftlang/swift/tags" class="cta-secondary external">nightly-amazonlinux2</a>
+    <p class="description">
+      <ul>
+        Signature (PGP): <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-20-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-20-a-amazonlinux2.tar.gz.sig">x86_64</a> | <a href="https://download.swift.org/development/amazonlinux2-aarch64/swift-DEVELOPMENT-SNAPSHOT-2025-02-20-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-20-a-amazonlinux2-aarch64.tar.gz.sig">aarch64</a>
+      </ul>
+    </p>
+  </li>
+  <li class="grid-level-1">
+    <h3>release/6.1</h3>
+    <p class="description" style="font-size: 14px;">
+      <time datetime="2025-02-21T12:10:00-04:00" title="February 21, 2025 10:10 AM ()">February 21, 2025</time>
+    </p>
+    <h4>Tarball (tar.gz)</h4>
+      
+      <ul class="grid-level-0 grid-layout-2-column">
+        <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-21-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-21-a-amazonlinux2.tar.gz" class="cta-secondary">Download (x86_64)</a>
+        <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2-aarch64/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-21-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-21-a-amazonlinux2-aarch64.tar.gz" class="cta-secondary">Download (aarch64)</a>
+      </ul>
+      
+      <h4>Docker</h4>
+      <a href="https://hub.docker.com/r/swiftlang/swift/tags" class="cta-secondary external">nightly-6.1-amazonlinux2</a>
+      <p class="description">
+        <ul>
+          Signature (PGP): <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-21-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-21-a-amazonlinux2.tar.gz.sig">x86_64</a> | <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2-aarch64/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-21-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-21-a-amazonlinux2-aarch64.tar.gz.sig">aarch64</a>
+        </ul>
+      </p>
+  </li>
+</ul>
+<ul class="grid-level-0 grid-layout-2-column">
+  <a href="/install/linux/tarball" class="cta-secondary">Instructions (Tarball)</a>
+  <a href="/install/linux/docker" class="cta-secondary">Instructions (Docker)</a>
+</ul>
+
+<h3> Static Linux SDK </h3>
+<ul class="grid-level-0 grid-layout-2-column">
+    <li class="grid-level-1">
+    <h3>main</h3>
+    <p class="description" style="font-size: 14px;">
+      <time datetime="2025-01-05T12:10:00-04:00" title="January 5, 2025 10:10 AM ()">January 5, 2025</time>
+    </p>
+    <p class="description">
+      Static Linux SDK - Cross compile to Linux
+      <ul>
+        <li><a href="https://download.swift.org/development/static-sdk/swift-DEVELOPMENT-SNAPSHOT-2025-01-05-a/swift-DEVELOPMENT-SNAPSHOT-2025-01-05-a_static-linux-0.0.1.artifactbundle.tar.gz.sig">Signature (PGP)</a>
+        </li>
+        <li>
+          Checksum: <code>a915e4a5f167f4bc8bbf702c4b235ba2d4b9c79124f61e3d85d3e0c0cafbc63c</code></li>
+      </ul>
+    </p>
+    <a href="https://download.swift.org/development/static-sdk/swift-DEVELOPMENT-SNAPSHOT-2025-01-05-a/swift-DEVELOPMENT-SNAPSHOT-2025-01-05-a_static-linux-0.0.1.artifactbundle.tar.gz" class="cta-secondary">Download Linux Static SDK</a>
+  </li>
+  <li class="grid-level-1">
+    <h3>release/6.1</h3>
+    <p class="description" style="font-size: 14px;">
+      <time datetime="2025-01-31T12:10:00-04:00" title="January 31, 2025 10:10 AM ()">January 31, 2025</time>
+    </p>
+    <p class="description">
+      Static Linux SDK - Cross compile to Linux
+      <ul>
+        <li><a href="https://download.swift.org/swift-6.1-branch/static-sdk/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-01-31-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-01-31-a_static-linux-0.0.1.artifactbundle.tar.gz.sig">Signature (PGP)</a></li>
+        <li>Checksum: <code>2646f6e109c757e4e11a1628f63e81b5e25c6d30a5235d59ddad86ad0eea68a8</code></li>
+      </ul>
+    </p>
+    <a href="https://download.swift.org/swift-6.1-branch/static-sdk/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-01-31-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-01-31-a_static-linux-0.0.1.artifactbundle.tar.gz" class="cta-secondary">Download Linux Static SDK</a>
+  </li>
+</ul>
+<p><a href="/documentation/articles/static-linux-getting-started.html" class="cta-secondary">Instructions (Static Linux SDK)</a></p>
+
+<details class="download" style="margin-bottom: 0;">
+  <summary>Older Snapshots (main)</summary>
+  <table id="linux-builds" class="downloads">
+  <thead>
+    <tr>
+      <th class="download">Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-18-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-18-a-amazonlinux2.tar.gz" title="Download" download="">February 18, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-18-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-18-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-17-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-17-a-amazonlinux2.tar.gz" title="Download" download="">February 17, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-17-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-17-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-15-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-15-a-amazonlinux2.tar.gz" title="Download" download="">February 15, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-15-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-15-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-14-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-14-a-amazonlinux2.tar.gz" title="Download" download="">February 14, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-14-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-14-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-06-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-06-a-amazonlinux2.tar.gz" title="Download" download="">February 6, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-06-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-06-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-04-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-04-a-amazonlinux2.tar.gz" title="Download" download="">February 4, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-04-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-04-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-03-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-03-a-amazonlinux2.tar.gz" title="Download" download="">February 3, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-03-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-03-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-02-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-02-a-amazonlinux2.tar.gz" title="Download" download="">February 2, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-02-02-a/swift-DEVELOPMENT-SNAPSHOT-2025-02-02-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-01-31-a/swift-DEVELOPMENT-SNAPSHOT-2025-01-31-a-amazonlinux2.tar.gz" title="Download" download="">January 31, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-01-31-a/swift-DEVELOPMENT-SNAPSHOT-2025-01-31-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-01-10-a/swift-DEVELOPMENT-SNAPSHOT-2025-01-10-a-amazonlinux2.tar.gz" title="Download" download="">January 10, 2025</a>
+            
+              <a href="https://download.swift.org/development/amazonlinux2/swift-DEVELOPMENT-SNAPSHOT-2025-01-10-a/swift-DEVELOPMENT-SNAPSHOT-2025-01-10-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+</details>
+<details class="download" style="margin-bottom: 0;">
+  <summary>Older Snapshots (release/6.1)</summary>
+  <table id="linux-builds" class="downloads">
+  <thead>
+    <tr>
+      <th class="download">Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-20-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-20-a-amazonlinux2.tar.gz" title="Download" download="">February 20, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-20-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-20-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-19-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-19-a-amazonlinux2.tar.gz" title="Download" download="">February 19, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-19-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-19-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-18-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-18-a-amazonlinux2.tar.gz" title="Download" download="">February 18, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-18-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-18-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-17-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-17-a-amazonlinux2.tar.gz" title="Download" download="">February 17, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-17-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-17-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-14-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-14-a-amazonlinux2.tar.gz" title="Download" download="">February 14, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-14-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-14-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-10-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-10-a-amazonlinux2.tar.gz" title="Download" download="">February 10, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-10-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-10-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-07-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-07-a-amazonlinux2.tar.gz" title="Download" download="">February 7, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-07-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-07-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-06-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-06-a-amazonlinux2.tar.gz" title="Download" download="">February 6, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-06-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-06-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-05-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-05-a-amazonlinux2.tar.gz" title="Download" download="">February 5, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-05-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-05-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="download">
+          <span class="release">
+            <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-04-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-04-a-amazonlinux2.tar.gz" title="Download" download="">February 4, 2025</a>
+            
+              <a href="https://download.swift.org/swift-6.1-branch/amazonlinux2/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-04-a/swift-6.1-DEVELOPMENT-SNAPSHOT-2025-02-04-a-amazonlinux2.tar.gz.sig" title="PGP Signature" class="signature">Signature</a>
+            
+            
+          </span>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+</details>
+
+
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

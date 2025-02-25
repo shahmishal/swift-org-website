@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - UnsafeRawPointer Migration</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/migration-guide-swift3/se-0107-migrate.html" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift.org" />
+  <meta name="twitter:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:title" content="Swift.org" />
+  <meta property="og:url" content="https://swift.org" />
+  <meta property="og:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+  <article class="page">
+  
+    
+      <header>
+        <h1>UnsafeRawPointer Migration</h1>
+      </header>
+    
+  
+
+  <h3 id="contents" class="header-with-anchor">Contents: <a title="Permalink for Contents: section" href="#contents">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#api-for-binding-memory-types-and-pointer-conversion">API for binding memory types and pointer conversion</a></li>
+  <li><a href="#common-use-cases">Common use cases</a></li>
+  <li><a href="#automatic-migration-cases">Automatic migration cases</a></li>
+</ul>
+
+<h2 id="introduction" class="header-with-anchor">Introduction <a title="Permalink for Introduction section" href="#introduction">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Swift 3 introduces an <code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code> type and enforces type safety with respect to unsafe pointer conversion.</p>
+
+<p><a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0107-unsaferawpointer.md">Proposal SE-0107</a> made the following change:</p>
+
+<p>An <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]RawPointer</code> type has been introduced. It
+  replaces <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer&lt;Void&gt;</code>. Conversion from
+  <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;T&gt;</code> to <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;U&gt;</code> has been
+  disallowed. <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]RawPointer</code> provides an API for untyped
+  memory access and an API for binding memory to a type. Binding
+  memory allows for safe conversion between pointer types.</p>
+
+<p>To understand the language rules codified by this change, see the <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0107-unsaferawpointer.md#memory-model-explanation">Swift memory model</a> section of the proposal.</p>
+
+<p>Some Swift 2 code contains UnsafePointer initialization such as:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>func getCStr(ptr: UnsafePointer&lt;UInt8&gt;) -&gt; UnsafePointer&lt;CChar&gt; {
+  UnsafePointer(ptr)
+}
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>func getElementPtr(ptr: UnsafePointer&lt;Void&gt;) -&gt; UnsafePointer&lt;Element&gt; {
+  return UnsafePointer(ptr)
+}
+</code></pre></div></div>
+
+<p>In Swift 3, these initialization statements produce the error message:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error: 'init' is unavailable: use 'withMemoryRebound(to:capacity:_)' to temporarily view memory as another layout-compatible type.
+</code></pre></div></div>
+
+<p>The first step in migrating is to convert <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;Void&gt;</code> to
+<code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code>. This makes Swift code consistent with the way Swift
+3 imports <code class="language-plaintext highlighter-rouge">void *</code> declarations from C headers.</p>
+
+<p>Now the <code class="language-plaintext highlighter-rouge">getElementPtr</code> code above produces this error instead:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error: cannot invoke initializer for type 'UnsafePointer&lt;_&gt;' with an argument list of type '(UnsafeRawPointer)'
+note: Pointer conversion restricted: use '.assumingMemoryBound(to:)' or '.bindMemory(to:capacity:)' to view memory as a type.
+</code></pre></div></div>
+
+<p>These error messages refer to three new methods introduced in Swift 3:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">UnsafePointer.withMemoryRebound(to:capacity:_)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">UnsafeRawPointer.assumingMemoryBound(to:)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">UnsafeRawPointer.bindMemory(to:capacity:)</code></li>
+</ul>
+
+<p>For information on using this API, see <a href="#api-for-binding-memory-types-and-pointer-conversion">API for binding memory types and pointer conversion</a>.
+<!---
+Copy the above Introduction into the main document and update this link
+---></p>
+
+<h2 id="api-for-binding-memory-types-and-pointer-conversion" class="header-with-anchor">API for binding memory types and pointer conversion <a title="Permalink for API for binding memory types and pointer conversion section" href="#api-for-binding-memory-types-and-pointer-conversion">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<h3 id="unsafepointerwithmemoryreboundtocapacity_" class="header-with-anchor">UnsafePointer.withMemoryRebound(to:capacity:_) <a title="Permalink for UnsafePointer.withMemoryRebound(to:capacity:_) section" href="#unsafepointerwithmemoryreboundtocapacity_">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>This method takes a closure in which the memory at <code class="language-plaintext highlighter-rouge">self</code> is viewed as
+a different type through the closure argument. This is the safest way
+to fix an <code class="language-plaintext highlighter-rouge">UnsafePointer</code> conversion that no longer compiled in
+Swift 3. Three caveats are:</p>
+
+<ul>
+  <li>At the point of conversion, the developer must know the number of elements
+that may be accessed at this memory location (<code class="language-plaintext highlighter-rouge">capacity</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">self</code> must not be accessed within the closure.</li>
+  <li>The closure argument (<code class="language-plaintext highlighter-rouge">$0</code>) must not escape the closure.</li>
+</ul>
+
+<p>The full signature is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct UnsafePointer&lt;Pointee&gt; {
+  public func withMemoryRebound&lt;T, Result&gt;(to: T.Type, capacity count: Int,
+    _ body: (UnsafeMutablePointer&lt;T&gt;) throws -&gt; Result
+}
+</code></pre></div></div>
+
+<p>It first binds the memory at <code class="language-plaintext highlighter-rouge">self</code> such that it is now expected to
+hold <code class="language-plaintext highlighter-rouge">capacity</code> values of type <code class="language-plaintext highlighter-rouge">T</code>. Presumably, the memory was
+previously bound to <code class="language-plaintext highlighter-rouge">Pointee</code>, which <code class="language-plaintext highlighter-rouge">T</code> must be layout compatible
+with. i.e. <code class="language-plaintext highlighter-rouge">T</code> has the same number, size and alignment of stored
+properties as <code class="language-plaintext highlighter-rouge">Pointee</code>. Any class references must also be at the same
+locations. <code class="language-plaintext highlighter-rouge">T</code>s stored properties may be a prefix of <code class="language-plaintext highlighter-rouge">Pointee</code>s if
+<code class="language-plaintext highlighter-rouge">capacity == 1</code>.</p>
+
+<p>The memory has now temporarily been “rebound” from <code class="language-plaintext highlighter-rouge">Pointee</code> to
+<code class="language-plaintext highlighter-rouge">T</code>. The closure <code class="language-plaintext highlighter-rouge">body</code> then executes with an argument of
+<code class="language-plaintext highlighter-rouge">UnsafePointer&lt;T&gt;</code>. This pointer to rebound memory should not escape
+from this closure.</p>
+
+<p>Upon returning from the closure, memory is again rebound back to
+<code class="language-plaintext highlighter-rouge">Pointee</code> so that the memory’s bound type is the same before and after
+executing the closure.</p>
+
+<p>Interacting with an external API may make it necessary to rebind
+memory. In Swift 2, type inconsistencies may have been masked by a
+simple initializer as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var addr = sockaddr_in()
+let sock = socket(PF_INET, SOCK_STREAM, 0)
+
+let result = withUnsafePointer(to: &amp;addr) {
+  connect(sock, UnsafePointer($0), socklen_t(MemoryLayout&lt;sockaddr_in&gt;.stride))
+}
+</code></pre></div></div>
+
+<p>In Swift 3, the user should explicitly rebind memory to a different type:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let result = withUnsafePointer(to: &amp;addr) {
+  // Temporarily bind the memory at &amp;addr to a single instance of type sockaddr.
+  $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+    connect(sock, $0, socklen_t(MemoryLayout&lt;sockaddr_in&gt;.stride))
+  }
+}
+</code></pre></div></div>
+
+<p>Ideally, developers will not need to bind memory to interoperate with
+well-designed APIs. The BSD socket API is inherently difficult to use
+from Swift because different API entry points used the same memory as
+unrelated types. Swift code using Sockets should hide this complexity
+behind a helper API. See <a href="#socket-api-helper">Socket API helper</a>.</p>
+
+<h3 id="unsaferawpointerassumingmemoryboundto" class="header-with-anchor">UnsafeRawPointer.assumingMemoryBound(to:) <a title="Permalink for UnsafeRawPointer.assumingMemoryBound(to:) section" href="#unsaferawpointerassumingmemoryboundto">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>This API allows raw memory to viewed as the type that it was bound to
+earlier. It returns a typed <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;T&gt;</code> where <code class="language-plaintext highlighter-rouge">T.self</code> is the
+<code class="language-plaintext highlighter-rouge">to</code> argument. It is the user’s responsiblity to guarantee that the
+memory is already bound to that type or to a related type.</p>
+
+<p>This is useful if the memory’s bound type has been “erased” by an API
+with a raw pointer interface. For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  var threadResultRawPtr: UnsafeMutableRawPointer? = nil
+  pthread_join(thread, &amp;threadResultRawPtr)
+  let threadResultPtr = threadResultRawPtr!.assumingMemoryBound(to: ThreadResult.self)
+</code></pre></div></div>
+
+<p>This is also useful when the user needs to view memory as another type
+that is related to the original type. It is legal to do this in Swift
+without rebinding memory. It allows, for example, viewing memory as
+elements that are nested within a struct or tuple. Calling <code class="language-plaintext highlighter-rouge">withUnsafePointer(to:)</code> on a tuple passes its closure
+argument as <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;(Element, Element, ...)&gt;</code>. Normally the
+closure body wants a pointer to the tuple elements instead. This
+should be done by upcasting the tuple pointer to a raw pointer, then
+assuming that raw pointer is bound to the tuple elements:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var bytes: (CChar, CChar, CChar, CChar) = (0x61, 0x62, 0x63, 0)
+let name: String = withUnsafePointer(to: &amp;bytes) { ptr -&gt; String in
+  return String(cString: UnsafeRawPointer(ptr).assumingMemoryBound(to: CChar.self))
+}
+</code></pre></div></div>
+
+<p>In general, developer’s should not make layout assumptions. However,
+some “obvious” cases can be safely assumed, including homogeneous
+arrays and tuples, and structs with homogeneous stored
+properties. Imported C structs naturally follow the layout rules of
+the platform’s C ABI.</p>
+
+<p>For more information, see this <a href="https://github.com/atrick/swift/blob/type-safe-mem-docs/docs/TypeSafeMemory.rst">discussion on related and layout compatible types</a>.</p>
+
+<h3 id="unsaferawpointerbindmemorytocapacity" class="header-with-anchor">UnsafeRawPointer.bindMemory(to:capacity:) <a title="Permalink for UnsafeRawPointer.bindMemory(to:capacity:) section" href="#unsaferawpointerbindmemorytocapacity">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>This API allows a region of memory to hold unrelated types at
+different points in the program. Binding uninitialized memory to a
+type prepares the memory to store values of that type. Binding memory
+that is already initialized reinterprets the in-memory values
+as the new type. If the old values are either nontrivial (require
+destruction) or if they are ever read from memory before being
+overwritten, then the new type must be mutually layout compatible with
+the old type.</p>
+
+<p>Like <code class="language-plaintext highlighter-rouge">assumingMemoryBound(to:)</code>, it returns a typed <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;T&gt;</code>
+where <code class="language-plaintext highlighter-rouge">T.self</code> is the <code class="language-plaintext highlighter-rouge">to</code> argument. However, this also requires the
+<code class="language-plaintext highlighter-rouge">capacity</code> to be specified because it changes the type of the memory
+itself rather than simply providing a typed pointer. One caveat is
+that a typed pointer should never be used again after rebinding its
+memory to another type.</p>
+
+<p>This is useful for manual layout of newly allocated memory. For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Data header followed in memory by a sequence of Floats.
+struct Header {
+  enum Kind { case A, B }
+  var kind: Kind
+  var numValues: Int
+}
+
+let dataOffset = roundUp(MemoryLayout&lt;Header&gt;.size,
+  toAlignment: MemoryLayout&lt;Float&gt;.alignment)
+
+let ptr = UnsafeMutableRawPointer.allocate(
+  bytes: dataOffset + numValues * MemoryLayout&lt;Float&gt;.stride,
+  alignedTo: MemoryLayout&lt;Header&gt;.alignment)
+
+let header = ptr.bindMemory(to: Header.self, capacity: 1)
+let data = (ptr + dataOffset).bindMemory(to: Float.self, capacity: numValues)
+for index in 0..&lt;numValues {
+  data[index] = 0.0
+}
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">bindMemory</code> is also useful for converting an externally allocated <code class="language-plaintext highlighter-rouge">void*</code>
+into a Swift typed pointer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let rawPtr = mmap(nil, numFloats * MemoryLayout&lt;Float&gt;.stride, ...);
+let floatPtr = rawPtr.bindMemory(to: Float.self, capacity: numFloats)
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">bindMemory</code> even supports implementing custom allocators, as described in <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0107-unsaferawpointer.md#custom-memory-allocation">SE-0107</a></p>
+
+<h3 id="unsafebitcast-of-pointers" class="header-with-anchor">unsafeBitCast of pointers <a title="Permalink for unsafeBitCast of pointers section" href="#unsafebitcast-of-pointers">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>It may be tempting to workaround compiler errors with an
+unsafeBitCast. Note that the following substitution will always
+compile. In fact, it is equivalent to (just as safe or unsafe as) the
+code before UnsafeRawPointer was introduced:</p>
+
+<p>Replace <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer[&lt;Pointee&gt;](&lt;expr&gt;)</code></p>
+
+<p>with <code class="language-plaintext highlighter-rouge">unsafeBitCast(&lt;expr&gt;, to: Unsafe[Mutable]Pointer&lt;Pointee&gt;.self)</code>.</p>
+
+<p>However, <code class="language-plaintext highlighter-rouge">unsafeBitCast</code>ing a pointer is one of the most dangerous
+things Swift a developer can do and is strongly discouraged. That is
+precisely why UnsafePointer conversion was eliminated in Swift 3.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">unsafeBitCast</code> workaround does often work in practice. The common
+case of wrapping arguments passed directly to an external function
+call tends to work. If the Swift compiler cannot see the function body
+it cannot see the memory access to the same memory with an unrelated
+type. Any such workaround should be accompanied by a severe warning
+comment because it sets a very dangerous precedent for other
+developers reading or maintaining the code.</p>
+
+<p>Remember that incorrect use of the Swift memory model can result in
+code that works in one release to be miscompiled in subsequent releases
+of the compiler.</p>
+
+<h2 id="common-use-cases" class="header-with-anchor">Common use cases <a title="Permalink for Common use cases section" href="#common-use-cases">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Part of the difficulty in using Swift UnsafePointer is the impedance
+mismatch with existing API’s. The two common issues that developer
+will encounter are with APIs that represent strings as
+<code class="language-plaintext highlighter-rouge">UnsafePointer&lt;CChar&gt;</code> or untyped memory as <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;UInt8&gt;</code> as
+discussed below.</p>
+
+<h3 id="cstrings" class="header-with-anchor">CStrings <a title="Permalink for CStrings section" href="#cstrings">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Some Swift code operates directly on UTF8 Strings via a buffer of type
+<code class="language-plaintext highlighter-rouge">UnsafePointer&lt;UInt8&gt;</code>. This is incompatible with libc APIs that
+expect <code class="language-plaintext highlighter-rouge">const char *</code>, which is imported as
+<code class="language-plaintext highlighter-rouge">UnsafePointer&lt;CChar&gt;</code>. Before <code class="language-plaintext highlighter-rouge">UnsafePointer</code> conversion was
+restricted, it was common practice to move between these pointer
+representations via the <code class="language-plaintext highlighter-rouge">UnsafePointer</code>
+initializer. e.g. <code class="language-plaintext highlighter-rouge">strlen(UnsafePointer(utf8Buffer))</code>.</p>
+
+<p>Most Swift code should avoid this problem by working with the proper
+String or UTF8View abstractions.</p>
+
+<p>If the goal is to invoke libc routines, then the Swift String can be
+passed directly, and it will automatically be copied into a C string:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import Darwin
+let s1 = "pointers"
+print(strlen(s1))
+</code></pre></div></div>
+
+<p>This works in general for passing any Swift String as an
+<code class="language-plaintext highlighter-rouge">UnsafePointer&lt;CChar&gt;</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import Darwin
+
+func takesCString(cstr: UnsafePointer&lt;CChar&gt;) {...}
+
+let s1 = "pointers"
+takesCString(cstr: s1)
+</code></pre></div></div>
+
+<p>This transformation can be performed directly via the
+<code class="language-plaintext highlighter-rouge">String.utf8CString</code> property. Accessing this property copies memory
+out of String’s buffer into a null-terminated C string.</p>
+
+<p>If the goal is to convert back from a null-terminated C strings into a
+Swift Strings, use the <code class="language-plaintext highlighter-rouge">String.init(cstring:)</code> initializer. It can
+take either <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;UInt8&gt;</code> or <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;CChar&gt;</code> and
+copies null-terminated C string into String’s internal buffer.</p>
+
+<p>A similar failing initializer handles potentially invalid UTF8 C strings:
+<code class="language-plaintext highlighter-rouge">public init?(validatingUTF8 cString: UnsafePointer&lt;CChar&gt;)</code></p>
+
+<p>A String can be initialized from a validated UTF8 C string of <code class="language-plaintext highlighter-rouge">UInt8</code>
+by directly calling: <code class="language-plaintext highlighter-rouge">decodeCString</code> as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let cstr: UnsafePointer&lt;UInt8&gt;
+if let (str, _) = String.decodeCString(cstr, as: UTF8.self,
+  repairingInvalidCodeUnits: false) {
+
+  doSomethingWithString(str)
+}
+</code></pre></div></div>
+
+<p>Unfortunately, a <code class="language-plaintext highlighter-rouge">validatingUTF8</code> initializer is not available for
+<code class="language-plaintext highlighter-rouge">UnsafePointer&lt;UInt8&gt;</code> because of it’s affect on overload
+resolution. However, it could be implemented within one’s own project:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>extension String {
+  public init?(validatingUTF8 cString: UnsafePointer&lt;UInt8&gt;) {
+    if let (result, _) = String.decodeCString(cString, as: UTF8.self,
+      repairingInvalidCodeUnits: false) {
+      self = result
+    }
+    else {
+      return nil
+    }
+  }
+}
+</code></pre></div></div>
+
+<p>The above techniques all copy the string representation. If the goal
+is interoperability between the two types of C strings without copying
+the String, then it is necessary to bind memory to the correct type
+each time the String is accessed, as described in <a href="unsafeRawPointer.bindMemory(to:capacity:)">UnsafeRawPointer.bindMemory(to:capacity:)</a>.</p>
+
+<h3 id="untyped-buffers-raw-vs-uint8" class="header-with-anchor">Untyped Buffers (“raw” vs. UInt8) <a title="Permalink for Untyped Buffers (“raw” vs. UInt8) section" href="#untyped-buffers-raw-vs-uint8">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Memory of any type may be legally accessed with
+<code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code>. Naturally than, an API that views a chunk of raw
+memory and doesn’t care about the type of values that it holds should
+represent addresses into the memory via <code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code>. However,
+either for historical reasons or convenience, many APIs that work with
+raw memory expect view each byte as a <code class="language-plaintext highlighter-rouge">UInt8</code> value and communicate
+memory addresses via <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;UInt8&gt;</code>.</p>
+
+<p>For example, some legacy C APIs accept <code class="language-plaintext highlighter-rouge">char*</code> or <code class="language-plaintext highlighter-rouge">unsigned char *</code>
+arguments when operating on raw bytes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var x = 23
+let count = MemoryLayout.size(ofValue: x)
+let data = withUnsafePointer(to: &amp;x) {
+  // Temporarily rebind `var x` memory as `UInt8` so that
+  // CFDataCreate can copy it into its own `UInt8` buffer.
+  $0.withMemoryRebound(to: UInt8.self, capacity: count) {
+    CFDataCreate(kCFAllocatorDefault, $0, count)
+  }
+}
+</code></pre></div></div>
+
+<p>Ideally, these APIs should be replaced by Swift-side APIs that work
+with raw pointers instead. In the meantime, users are encouraged to
+write their own wrappers that take the correct raw pointer type.</p>
+
+<h3 id="unsaferawbufferpointer-api-proposal" class="header-with-anchor">UnsafeRawBufferPointer API proposal <a title="Permalink for UnsafeRawBufferPointer API proposal section" href="#unsaferawbufferpointer-api-proposal">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0138-unsaferawbufferpointer.md">UnsafeRawBufferPointer proposal</a> describes a data type that adds convenience in some typical
+UnsafePointer migration scenarios. Although this proposed API is not currently
+included with the language, it is possible for developers to copy all
+or part of the proposed implementation into their own project, or at
+least to take inspiration from it.</p>
+
+<h3 id="type-punning-without-rebinding" class="header-with-anchor">Type punning without rebinding <a title="Permalink for Type punning without rebinding section" href="#type-punning-without-rebinding">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Rebinding memory allows the same region of memory to be viewed as
+unrelated types in different parts of the program. However, it is
+possible to type pun without rebinding memory as long as all typed
+access to that memory is consistent, and all access to unrelated types
+are done via an <code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code> API such as <code class="language-plaintext highlighter-rouge">load</code> or <code class="language-plaintext highlighter-rouge">storeBytes</code>.</p>
+
+<p>As a simple example consider the following case that arose during 3.0
+migration. A 16-bit emulated register is typed as UInt16 but the high
+and low bytes can be accessed as UInt8 via raw pointers:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct WordBytePair {
+
+    private let lptr: UnsafeMutableRawPointer
+    private let hptr: UnsafeMutableRawPointer
+    private let wordptr: UnsafeMutablePointer&lt;UInt16&gt;
+
+    var l: UInt8 {
+        get { return lptr.load(as: UInt8.self) }
+        set { lptr.storeBytes(of: newValue, as: UInt8.self) }
+    }
+    var h: UInt8 {
+        get { return hptr.load(as: UInt8.self) }
+        set { hptr.storeBytes(of: newValue, as: UInt8.self) }
+    }
+    var word: UInt16 {
+        get { return wordptr.pointee }
+        set { wordptr.pointee = newValue }
+    }
+
+    init(at ptr: UnsafeMutablePointer&lt;UInt16&gt;, value: UInt16 = 0x0000) {
+
+        ptr.initialize(to: value)
+
+        if Int(bigEndian: 42) == 42 {
+            hptr = UnsafeMutableRawPointer(ptr)
+            lptr = hptr + 1
+        } else {
+            lptr = UnsafeMutableRawPointer(ptr)
+            hptr = lptr + 1
+        }
+
+        wordptr = ptr
+    }
+}
+
+let numRegisters = 8
+// Allocate all the registers in one cache line.
+let registerFile = UnsafeMutablePointer&lt;UInt16&gt;.allocate(capacity: numRegisters)
+
+var R0 = WordBytePair(at: &amp;registerFile[0])
+
+R0.word = 0x02F0
+R0.h = 0x02
+R0.l = 0x04
+</code></pre></div></div>
+
+<h3 id="socket-api-helper" class="header-with-anchor">Socket API Helper <a title="Permalink for Socket API Helper section" href="#socket-api-helper">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>BSD sockets are a common pain point for Swift interoperability. Swift
+3.0 exposes the difficultly in doing this correctly. Fortunately, Quinn
+“The Eskimo!” has provided these helpful wrappers:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import Darwin
+
+extension sockaddr_storage {
+
+    /// Calls a closure with traditional BSD Sockets address parameters.
+    ///
+    /// This is used to call BSD Sockets routines like `connect`, which accept their
+    /// address as an `sa` and `saLen` pair.  For example:
+    ///
+    ///     let ss: sockaddr_storage = …
+    ///     let connectResult = ss.withSockAddr { (sa, saLen) in
+    ///         connect(fd, sa, saLen)
+    ///     }
+    ///
+    /// - parameter body: A closure to call with `self` referenced appropriately for calling
+    ///   BSD Sockets APIs that take an address.
+    ///
+    /// - throws: Any error thrown by `body`.
+    ///
+    /// - returns: Any result returned by `body`.
+
+    func withSockAddr&lt;ReturnType&gt;(_ body: (_ sa: UnsafePointer&lt;sockaddr&gt;, _ saLen: socklen_t) throws -&gt; ReturnType) rethrows -&gt; ReturnType {
+        // We need to create a mutable copy of `self` so that we can pass it to `withUnsafePointer(to:_:)`.
+        var ss = self
+        return try withUnsafePointer(to: &amp;ss) {
+            try $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                try body($0, socklen_t(self.ss_len))
+            }
+        }
+    }
+
+    /// Calls a closure such that it can return an address based on traditional BSD Sockets parameters.
+    ///
+    /// This is used to call BSD Sockets routines like `accept`, which return a value (the file
+    /// descriptor) and an address via memory pointed to by `sa` and `saLen` parameters.  For example:
+    ///
+    ///     let (acceptResult, peerAddr) = sockaddr_storage.fromSockAddr { (_ sa: UnsafeMutablePointer&lt;sockaddr&gt;, _ saLen: inout socklen_t) in
+    ///         return accept(fd, sa, &amp;saLen)
+    ///     }
+    ///
+    /// - parameter body: A closure to call with parameters appropriate for calling BSD Sockets APIs
+    ///   that return an address.
+    ///
+    /// - throws: Any error thrown by `body`.
+    ///
+    /// - returns: A tuple consistent of the result returned by `body` and an address set up by
+    ///   `body` via its `sa` and `saLen` parameters.
+
+    static func fromSockAddr&lt;ReturnType&gt;(_ body: (_ sa: UnsafeMutablePointer&lt;sockaddr&gt;, _ saLen: inout socklen_t) throws -&gt; ReturnType) rethrows -&gt; (ReturnType, sockaddr_storage) {
+        // We need a mutable `sockaddr_storage` so that we can pass it to `withUnsafePointer(to:_:)`.
+        var ss = sockaddr_storage()
+        // Similarly, we need a mutable copy of our length for the benefit of `saLen`.
+        var saLen = socklen_t(MemoryLayout&lt;sockaddr_storage&gt;.size)
+        let result = try withUnsafePointer(to: &amp;ss) {
+            try $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                try body($0, &amp;saLen)
+            }
+        }
+        return (result, ss)
+    }
+
+    /// Calls a closure with an address parameter of a user-specified type.
+    ///
+    /// This makes it easy to access the fields of an address as the appropriate type.  For example:
+    ///
+    ///     let sin: sockaddr_storage = … initialise with an AF_INET address …
+    ///     sin.withSockAddrType { (sin: inout sockaddr_in) in
+    ///         print(sin.sin_len)
+    ///         print(UInt16(bigEndian: sin.sin_port))
+    ///     }
+    ///
+    /// In this case the closure returns void, but there may be other circumstances where it's useful
+    /// to have a return type.
+    ///
+    /// - note: `body` takes an inout parameter for the sake of folks who need to take
+    ///   a pointer to elements of that parameter.  We ignore any changes that the `body`
+    ///   might make to this value.  Without this affordance, the following code would not
+    ///   work:
+    ///
+    ///         let sus: sockaddr_storage = … initialise with an AF_UNIX address …
+    ///         sus.withSockAddrType { (sun: inout sockaddr_un) in
+    ///             print(sun.sun_len)
+    ///             print(String(cString: &amp;sun.sun_path.0))
+    ///         }
+    ///
+    /// - parameter body: A closure to call with `self` referenced via an arbitrary type.
+    ///   Careful with that axe, Eugene.
+    ///
+    /// - throws: Any error thrown by `body`.
+    ///
+    /// - returns: Any result returned by `body`.
+    ///
+    /// - precondition: `AddrType` must not be larger than `sockaddr_storage`.
+
+    func withSockAddrType&lt;AddrType, ReturnType&gt;(_ body: (_ sax: inout AddrType) throws -&gt; ReturnType) rethrows -&gt; ReturnType {
+        precondition(MemoryLayout&lt;AddrType&gt;.size &lt;= MemoryLayout&lt;sockaddr_storage&gt;.size)
+        // We need to create a mutable copy of `self` so that we can pass it to `withUnsafePointer(to:_:)`.
+        var ss = self
+        return try withUnsafeMutablePointer(to: &amp;ss) {
+            try $0.withMemoryRebound(to: AddrType.self, capacity: 1) {
+                try body(&amp;$0.pointee)
+            }
+        }
+    }
+
+    /// Calls a closure such that it can return an address via a user-specified type.
+    ///
+    /// This is useful if you want to create an address from a specific sockaddr_xxx
+    /// type that you initialise piecemeal.  For example:
+    ///
+    ///     let (_, sin) = sockaddr_storage.fromSockAddr { (sin: inout sockaddr_in) in
+    ///         sin.sin_family = sa_family_t(AF_INET)
+    ///         sin.sin_len = UInt8(MemoryLayout&lt;sockaddr_in&gt;.size)
+    ///         sin.sin_port = (12345 as in_port_t).bigEndian
+    ///     }
+    ///
+    /// In this case the closure returns void, but there may be other circumstances where it's useful
+    /// to have a return type.
+    ///
+    /// - parameter body: A closure to call with parameters appropriate for returning an address.
+    ///
+    /// - throws: Any error thrown by `body`.
+    ///
+    /// - returns: A tuple consistent of the result returned by `body` and an address set
+    ///   up by `body` via the `sax` inout parameter.
+    ///
+    /// - precondition: `AddrType` must not be larger than `sockaddr_storage`.
+
+    static func fromSockAddr&lt;AddrType, ReturnType&gt;(_ body: (_ sax: inout AddrType) throws -&gt; ReturnType) rethrows -&gt; (ReturnType, sockaddr_storage) {
+        precondition(MemoryLayout&lt;AddrType&gt;.size &lt;= MemoryLayout&lt;sockaddr_storage&gt;.size)
+        // We need a mutable `sockaddr_storage` so that we can pass it to `withUnsafePointer(to:_:)`.
+        var ss = sockaddr_storage()
+        let result = try withUnsafePointer(to: &amp;ss) {
+            try $0.withMemoryRebound(to: AddrType.self, capacity: 1) {
+                try body(&amp;$0.pointee)
+            }
+        }
+        return (result, ss)
+    }
+}
+</code></pre></div></div>
+
+<h2 id="automatic-migration-cases" class="header-with-anchor">Automatic migration cases <a title="Permalink for Automatic migration cases section" href="#automatic-migration-cases">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>The following cases are not handled by compiler fix-its, but are
+patterns that can be automatically, or almost automatically,
+migrated. Running the Swift 3.0 migrator (“Convert to current Swift
+syntax”) already handles most of these cases.</p>
+
+<p>The following examples assume these declarations:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct A {}
+typealias Tuple=(A, A, A)
+
+class B {}
+class C: B {}
+class D {}
+
+func takesConstTPtr(_ p: UnsafePointer&lt;A&gt;) -&gt; UnsafePointer&lt;A&gt; { return p }
+func takesConstVoidPtr(_ p: UnsafeRawPointer) -&gt; UnsafeRawPointer { return p }
+
+func takesConstDPtr(_ p: UnsafePointer&lt;D&gt;) {}
+func takesDPtr(_ p: UnsafeMutablePointer&lt;D&gt;) {}
+</code></pre></div></div>
+
+<h3 id="1-unsafepointervoid-type-should-be-renamed-unsaferawpointer" class="header-with-anchor">1. <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;Void&gt;</code> type should be renamed <code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code> <a title="Permalink for 1. <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;Void&gt;</code> type should be renamed <code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code> section" href="#1-unsafepointervoid-type-should-be-renamed-unsaferawpointer">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p><em>Handled by the 3.0 migrator</em></p>
+
+<p>This is a textual find/replace operation with these substitutions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original</th>
+      <th>Substitution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UnsafePointer&lt;Void&gt;</code></td>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UnsafePointer&lt;()&gt;  </code></td>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeMutablePointer&lt;Void&gt;</code></td>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeMutableRawPointer</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeMutablePointer&lt;()&gt;</code></td>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeMutableRawPointer</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Diagnostic string:</p>
+
+<p><code class="language-plaintext highlighter-rouge">error: cannot invoke initializer for type 'UnsafePointer&lt;Void&gt;' with an argument list of type '(UnsafeRawPointer)'</code></p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Case #1: Search and replace:
+// func case1(_ ptr: UnsafeMutableRawPointer) -&gt; UnsafeRawPointer {
+//   return UnsafeRawPointer(takesConstVoidPtr(ptr))
+// }
+func case1(ptr: UnsafeMutablePointer&lt;Void&gt;) -&gt; UnsafePointer&lt;Void&gt; {
+  return UnsafePointer&lt;Void&gt;(takesConstVoidPtr(ptr))
+}
+</code></pre></div></div>
+
+<h3 id="2-remove-redundant-initializers" class="header-with-anchor">2. Remove redundant initializers. <a title="Permalink for 2. Remove redundant initializers. section" href="#2-remove-redundant-initializers">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p><em>Handled by the 3.0 migrator</em></p>
+
+<p>When the type of <code class="language-plaintext highlighter-rouge">&lt;expr&gt;</code> is the same as the type being initialized
+(e.g. both <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer&lt;Void&gt;</code> with the same mutability), simply
+remove the initialization:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original</th>
+      <th>Substitution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UnsafePointer(&lt;expr&gt;)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;expr&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeMutablePointer(&lt;expr&gt;)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;expr&gt;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>No diagnostic string.</p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Case #2: redundant initializer:
+// Remove all initializers.
+// func case2a_1(_ ptr: UnsafeRawPointer) -&gt; UnsafeRawPointer {
+//   return ptr
+// }
+// func case2a_2(_ ptr: UnsafeMutableRawPointer) -&gt; UnsafeMutableRawPointer {
+//   return ptr
+// }
+// func case2a_3(_ ptr: UnsafeRawPointer) -&gt; UnsafeRawPointer {
+//   return ptr
+// }
+// func case2a_4(_ ptr: UnsafeMutableRawPointer) -&gt; UnsafeMutableRawPointer {
+//   return ptr
+// }
+func case2_1(ptr: UnsafePointer&lt;Void&gt;) -&gt; UnsafePointer&lt;Void&gt; {
+  return UnsafePointer&lt;Void&gt;(ptr)
+}
+func case2_2(ptr: UnsafeMutablePointer&lt;Void&gt;) -&gt; UnsafeMutablePointer&lt;Void&gt; {
+  return UnsafeMutablePointer&lt;Void&gt;(ptr)
+}
+func case2_3(ptr: UnsafePointer&lt;Void&gt;) -&gt; UnsafePointer&lt;Void&gt; {
+  return UnsafePointer(ptr)
+}
+func case2_4(ptr: UnsafeMutablePointer&lt;Void&gt;) -&gt; UnsafeMutablePointer&lt;Void&gt; {
+  return UnsafeMutablePointer(ptr)
+}
+</code></pre></div></div>
+
+<h3 id="3-convert-to-a-raw-pointer-initializer" class="header-with-anchor">3. Convert to a raw pointer initializer. <a title="Permalink for 3. Convert to a raw pointer initializer. section" href="#3-convert-to-a-raw-pointer-initializer">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p><em>Handled by the 3.0 migrator</em></p>
+
+<p>When initializing an inferred <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer&lt;Void&gt;</code>, substitute:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original</th>
+      <th>Substitution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UnsafePointer(&lt;expr&gt;)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeRawPointer(&lt;expr&gt;)</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeMutablePointer(&lt;expr&gt;)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">UnsafeMutableRawPointer(&lt;expr&gt;)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This is the same substitution as case #1, but with an inferred generic
+parameter in the original code. If the Pointee type were explicit,
+then case #1 would already have handled it.</p>
+
+<p>Diagnostic strings:</p>
+
+<p><code class="language-plaintext highlighter-rouge">error: cannot convert value of type 'UnsafePointer&lt;...&gt;' to expected argument type 'UnsafePointer&lt;_&gt;'</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">error: cannot convert value of type 'UnsafeMutablePointer&lt;...&gt;' to expected argument type 'UnsafeMutablePointer&lt;_&gt;'</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Case #3: convert to raw initializer:
+// - &lt;rdar://problem/27938675&gt; Migrator work for [SE-0107]: UnsafePointer() to UnsafeRawPointer() case.
+// func case2b_1(ptr: UnsafePointer&lt;A&gt;) -&gt; UnsafeRawPointer {
+//   return UnsafeRawPointer(ptr)
+// }
+//
+// func case2b_2(ptr: UnsafeMutablePointer&lt;A&gt;) -&gt; UnsafeMutableRawPointer {
+//   return UnsafeMutableRawPointer(ptr)
+// }
+func case3_1(ptr: UnsafePointer&lt;A&gt;) -&gt; UnsafePointer&lt;Void&gt; {
+  return UnsafePointer(ptr)
+}
+
+func case3_2(ptr: UnsafeMutablePointer&lt;A&gt;) -&gt; UnsafeMutablePointer&lt;Void&gt; {
+  return UnsafeMutablePointer(ptr)
+}
+</code></pre></div></div>
+
+<h3 id="4-update-unsafemutablepointer-initializer-calls-where-pointee--tuple" class="header-with-anchor">4. Update Unsafe[Mutable]Pointer<Pointee> initializer calls, where Pointee ==&gt; tuple</Pointee> <a title="Permalink for 4. Update Unsafe[Mutable]Pointer<Pointee> initializer calls, where Pointee ==&gt; tuple</Pointee> section" href="#4-update-unsafemutablepointer-initializer-calls-where-pointee--tuple">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p><em>Handled by the 3.0 migrator</em></p>
+
+<p>Find occurrences of <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer&lt;Pointee&gt;</code> initializer calls
+of this form:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer[&lt;Pointee&gt;](&lt;expr&gt;)</code></p>
+
+<p>where <expr> type is resolved to an `Unsafe[Mutable]Pointer` with a
+tuple element type, `(Pointee, Pointee, ...)`, such that the tuple
+type is the same as the initializer's generic argument.</expr></p>
+
+<p>Substitute with:</p>
+
+<p><code class="language-plaintext highlighter-rouge">(&lt;expr&gt;).assumingMemoryBound(to: Pointee.self)</code></p>
+
+<p>Diagnostic strings:</p>
+
+<p><code class="language-plaintext highlighter-rouge">error: cannot convert value of type 'UnsafePointer&lt;...&gt;' (aka 'UnsafePointer&lt;(..., ...)&gt;') to expected argument type 'UnsafePointer&lt;_&gt;'</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">error: cannot convert value of type 'UnsafeMutablePointer&lt;...&gt;' (aka 'UnsafeMutablePointer&lt;(..., ...)&gt;') to expected argument type 'UnsafeMutablePointer&lt;_&gt;'</code></p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Case #4: assumingBound to tuple element:
+// - &lt;rdar://problem/27977302&gt; Migrator work for [SE-0107]: tuple element pointers, materialize assumingBound(to:)
+// func case4_1(ptr: UnsafePointer&lt;Tuple&gt;) -&gt; UnsafePointer&lt;A&gt; {
+//   return UnsafeRawPointer(ptr).assumingMemoryBound(to: A.self)
+// }
+// func case4_2(ptr: UnsafeMutablePointer&lt;Tuple&gt;) -&gt; UnsafeMutablePointer&lt;A&gt; {
+//   return UnsafeMutableRawPointer(ptr).assumingMemoryBound(to: A.self)
+// }
+// func case4_3(ptr: UnsafeMutablePointer&lt;Tuple&gt;) -&gt; UnsafePointer&lt;A&gt; {
+//   return UnsafeRawPointer(ptr).assumingMemoryBound(to: A.self)
+// }
+func case4_1(ptr: UnsafePointer&lt;Tuple&gt;) -&gt; UnsafePointer&lt;A&gt; {
+  return UnsafePointer(ptr)
+}
+func case4_2(ptr: UnsafeMutablePointer&lt;Tuple&gt;) -&gt; UnsafeMutablePointer&lt;A&gt; {
+  return UnsafeMutablePointer(ptr)
+}
+func case4_3(ptr: UnsafeMutablePointer&lt;Tuple&gt;) -&gt; UnsafePointer&lt;A&gt; {
+  return UnsafePointer(ptr)
+}
+</code></pre></div></div>
+
+<h3 id="5-update-unsafepointer-initializer-calls-where-pointee--class" class="header-with-anchor">5. Update UnsafePointer<Pointee> initializer calls, where Pointee ==&gt; class</Pointee> <a title="Permalink for 5. Update UnsafePointer<Pointee> initializer calls, where Pointee ==&gt; class</Pointee> section" href="#5-update-unsafepointer-initializer-calls-where-pointee--class">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Find occurrences of <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;Pointee&gt;</code> (non-mutable) initializer
+calls of this form:</p>
+
+<p><code class="language-plaintext highlighter-rouge">UnsafePointer[&lt;Pointee&gt;](&lt;expr&gt;)</code></p>
+
+<p>where <expr> type is resolved to an `Unsafe[Mutable]Pointer` with a
+class type. Check whether the initializer's `Pointee` type is a base
+class or class-constrained protocol (similar to C++ static_cast).  If
+the two types both have class representation and the expressions type is
+a subclass or conformance of the initializer's class or
+class-constrained protocol, then perform this substitution:</expr></p>
+
+<p><code class="language-plaintext highlighter-rouge">(&lt;expr&gt;).assumingMemoryBound(to: Pointee.self)</code></p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Case #5: assumingBound to related class.
+// - &lt;rdar://problem/27978532&gt; Migrator work for [SE-0107]: class pointers, materialize assumingBound(to:)
+// func case4_1(ptr: UnsafePointer&lt;C&gt;) -&gt; UnsafePointer&lt;B&gt; {
+//   return UnsafeRawPointer(ptr).assumingMemoryBound(to: B.self)
+// }
+// func case5_2(ptr: UnsafeMutablePointer&lt;C&gt;) -&gt; UnsafeMutablePointer&lt;B&gt; {
+//   return UnsafeMutableRawPointer(ptr).assumingMemoryBound(to: B.self)
+// }
+// func case5_3(ptr: UnsafeMutablePointer&lt;C&gt;) -&gt; UnsafePointer&lt;B&gt; {
+//   return UnsafeRawPointer(ptr).assumingMemoryBound(to: B.self)
+// }
+func case5_1(ptr: UnsafePointer&lt;C&gt;) -&gt; UnsafePointer&lt;B&gt; {
+  return UnsafePointer(ptr)
+}
+func case5_2(ptr: UnsafeMutablePointer&lt;C&gt;) -&gt; UnsafeMutablePointer&lt;B&gt; {
+  return UnsafeMutablePointer(ptr)
+}
+func case5_3(ptr: UnsafeMutablePointer&lt;C&gt;) -&gt; UnsafePointer&lt;B&gt; {
+  return UnsafePointer(ptr)
+}
+</code></pre></div></div>
+
+<h3 id="5a-update-unsafepointer-initializer-calls-where-pointee--anyobject" class="header-with-anchor">5a. Update UnsafePointer<Pointee> initializer calls, where Pointee ==&gt; AnyObject</Pointee> <a title="Permalink for 5a. Update UnsafePointer<Pointee> initializer calls, where Pointee ==&gt; AnyObject</Pointee> section" href="#5a-update-unsafepointer-initializer-calls-where-pointee--anyobject">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p><em>Handled by the 3.0 migrator</em></p>
+
+<p>We catch one of the most likely cases above simply by allowing any pointer-to-class to be cast to a pointer to AnyObject. This doesn’t require anysophisticated type system support.</p>
+
+<p>Occurrences of this form:</p>
+
+<p><code class="language-plaintext highlighter-rouge">UnsafePointer[&lt;AnyObject&gt;](&lt;expr&gt;)</code></p>
+
+<p>are converted to:</p>
+
+<p><code class="language-plaintext highlighter-rouge">(&lt;expr&gt;).assumingMemoryBound(to: AnyObject.self)</code></p>
+
+<p>Diagnostic string:</p>
+
+<p><code class="language-plaintext highlighter-rouge">error: cannot convert value of type 'UnsafeMutablePointer&lt;...&gt;' to expected argument type 'UnsafeMutablePointer&lt;_&gt;'</code></p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Simplified version of case #5 that handled AnyObject casts.
+func case5a_1(ptr: UnsafePointer&lt;C&gt;) -&gt; UnsafePointer&lt;AnyObject&gt; {
+  return UnsafePointer(ptr)
+}
+func case5a_2(ptr: UnsafeMutablePointer&lt;C&gt;) -&gt; UnsafeMutablePointer&lt;AnyObject&gt; {
+  return UnsafeMutablePointer(ptr)
+}
+func case5a_3(ptr: UnsafeMutablePointer&lt;C&gt;) -&gt; UnsafePointer&lt;AnyObject&gt; {
+  return UnsafePointer(ptr)
+}
+</code></pre></div></div>
+
+<h3 id="6-use-withmemoryrebound-for-unsafepointer-initializers-that-feed-arguments" class="header-with-anchor">6. Use <code class="language-plaintext highlighter-rouge">withMemoryRebound</code> for UnsafePointer initializers that feed arguments. <a title="Permalink for 6. Use <code class="language-plaintext highlighter-rouge">withMemoryRebound</code> for UnsafePointer initializers that feed arguments. section" href="#6-use-withmemoryrebound-for-unsafepointer-initializers-that-feed-arguments">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Find occurrences of <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;Pointee&gt;</code> initializers in which the initializer’s expression is an argument to a function call:</p>
+
+<p><code class="language-plaintext highlighter-rouge">takesPtr(Unsafe[Mutable]Pointer[&lt;T&gt;](ptr))</code></p>
+
+<p>These can be replaced with the pattern:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Replace &lt;&lt;capacity&gt;&gt; with the number of `T` values in memory
+// pointed to by `ptr`.
+ptr.withMemoryRebound(to: D.self, capacity: &lt;&lt;capacity&gt;&gt;) {
+  takesPtr(Unsafe[Mutable]Pointer(ptr))
+}
+</code></pre></div></div>
+
+<p>Diagnostic string:</p>
+
+<p><code class="language-plaintext highlighter-rouge">error: 'init' is unavailable: use 'withMemoryRebound(to:capacity:_)' to temporarily view memory as another layout-compatible type.</code></p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Case #6: Unsafe[Mutable]Pointer argument cast.
+// This pattern can be partially migrated with a comment asking the user
+// to fill in capacity:
+//
+// func case6_1(ptr: UnsafePointer&lt;C&gt;) {
+//   // Replace &lt;&lt;capacity&gt;&gt; with the number of `D` values in memory
+//   // pointed to by `ptr`.
+//   ptr.withMemoryRebound(to: D.self, capacity: &lt;&lt;capacity&gt;&gt;) {
+//     takesConstDPtr($0)
+//   }
+// }
+// func case6_2(ptr: UnsafeMutablePointer&lt;C&gt;) {
+//   // Replace &lt;&lt;capacity&gt;&gt; with the number of `D` values in memory
+//   // pointed to by `ptr`.
+//   ptr.withMemoryRebound(to: D.self, capacity: &lt;&lt;capacity&gt;&gt;) {
+//     takesDPtr($0)
+//   }
+// }
+func case6_1(ptr: UnsafePointer&lt;C&gt;) {
+  takesConstDPtr(UnsafePointer(ptr))
+}
+func case6_2(ptr: UnsafeMutablePointer&lt;C&gt;) {
+  takesDPtr(UnsafeMutablePointer(ptr))
+}
+</code></pre></div></div>
+
+<h3 id="7-use-unsaferawpointerloadas-for-unsafemutablepointerpointee-getters" class="header-with-anchor">7. Use <code class="language-plaintext highlighter-rouge">UnsafeRawPointer.load(as:)</code> for Unsafe[Mutable]Pointer<T>.pointee getters.</T> <a title="Permalink for 7. Use <code class="language-plaintext highlighter-rouge">UnsafeRawPointer.load(as:)</code> for Unsafe[Mutable]Pointer<T>.pointee getters.</T> section" href="#7-use-unsaferawpointerloadas-for-unsafemutablepointerpointee-getters">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Find occurrences of <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer&lt;Pointee&gt;</code> initializers in
+which the initialized expression is only used to access the <code class="language-plaintext highlighter-rouge">pointee</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer[&lt;T&gt;](ptr).pointee</code></p>
+
+<p>These can be replaced with the pattern:</p>
+
+<p><code class="language-plaintext highlighter-rouge">UnsafeRawPointer(ptr).load(as: T.self)</code></p>
+
+<p>Occasionally, the <code class="language-plaintext highlighter-rouge">advanced(by:)</code> method is invoked on the expression prior to accessing the <code class="language-plaintext highlighter-rouge">pointee</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer[&lt;T&gt;](ptr).advanced(by: n).pointee</code></p>
+
+<p>This can be replaced with:</p>
+
+<p><code class="language-plaintext highlighter-rouge">UnsafeRawPointer(ptr).load(fromByteOffset: n * MemoryLayout&lt;T&gt;.stride, as: T.self)</code></p>
+
+<p>Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Case #7: Unsafe[Mutable]Pointer pointee load.
+// This pattern can be replaced with an Unsafe[Mutable]Pointer.load(as:):
+//
+// func case7_1(ptr: UnsafePointer&lt;C&gt;) -&gt; D {
+//   return UnsafeRawPointer(ptr).load(as: D.self)
+// }
+// func case7_2(ptr: UnsafeMutablePointer&lt;C&gt;) -&gt; D {
+//   return UnsafeMutableRawPointer(ptr).load(as: D.self)
+// }
+// func case7_3(ptr: UnsafePointer&lt;C&gt;, n: Int) -&gt; D {
+//   return UnsafeRawPointer(ptr).load(fromByteOffset: n * MemoryLayout&lt;D&gt;.stride, as: D.self)
+// }
+// func case7_4(ptr: UnsafeMutablePointer&lt;C&gt;, n: Int) -&gt; D {
+//   return UnsafeMutableRawPointer(ptr).load(fromByteOffset: n * MemoryLayout&lt;D&gt;.stride, as: D.self)
+// }
+func case7_1(ptr: UnsafePointer&lt;C&gt;) -&gt; D {
+  return UnsafePointer&lt;D&gt;(ptr).pointee
+}
+func case7_2(ptr: UnsafeMutablePointer&lt;C&gt;) -&gt; D {
+  return UnsafeMutablePointer&lt;D&gt;(ptr).pointee
+}
+func case7_3(ptr: UnsafePointer&lt;C&gt;, n: Int) -&gt; D {
+  return UnsafePointer&lt;D&gt;(ptr).advanced(by: n).pointee
+}
+func case7_4(ptr: UnsafeMutablePointer&lt;C&gt;, n: Int) -&gt; D {
+  return UnsafeMutablePointer&lt;D&gt;(ptr).advanced(by: n).pointee
+}
+</code></pre></div></div>
+
+<p>Note that, as with accessing <code class="language-plaintext highlighter-rouge">UnsafePointer.pointee</code>, calling
+<code class="language-plaintext highlighter-rouge">UnsafeRawPointer.load(as:)</code> requires the underlying pointer to be
+properly aligned for the specified type. Reading misaligned data can
+currently only be done by using an API that copies a byte buffer, such
+as <code class="language-plaintext highlighter-rouge">UnsafeRawPointer.copyBytes</code>. Directly loading misaligned data will
+likely be a future addition to the <code class="language-plaintext highlighter-rouge">UnsafeRawPointer</code> API.</p>
+
+
+  
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

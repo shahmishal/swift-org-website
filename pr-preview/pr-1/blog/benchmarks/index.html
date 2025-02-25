@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Introducing the Benchmark Package: Complementing Unit Tests with Performance Checks</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <meta name="description" content="In the world of software development, the old adage “make it work, make it right, make it fast” serves as a guiding principle for creating robust, efficient applications. This journey starts with ensuring that our code functions as intended, a task where unit and integration testing have proven indispensable. However, ensuring functionality is only part of the equation. The true measure of an application’s excellence extends into its performance - how fast and efficiently it operates under various conditions. Herein lies the critical but often overlooked third step: making it fast.
+">
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/blog/benchmarks/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Introducing the Benchmark Package: Complementing Unit Tests with Performance Checks" />
+  <meta name="twitter:description" content="In the world of software development, the old adage “make it work, make it right, make it fast” serves as a guiding principle for creating robust, efficient applications. This journey starts with ensuring that our code functions as intended, a task where unit and integration testing have proven indispensable. However, ensuring functionality is only part of the equation. The true measure of an application’s excellence extends into its performance - how fast and efficiently it operates under various conditions. Herein lies the critical but often overlooked third step: making it fast.
+" />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Introducing the Benchmark Package: Complementing Unit Tests with Performance Checks" />
+  <meta property="og:url" content="https://swift.org/blog/benchmarks/" />
+  <meta property="og:description" content="In the world of software development, the old adage “make it work, make it right, make it fast” serves as a guiding principle for creating robust, efficient applications. This journey starts with ensuring that our code functions as intended, a task where unit and integration testing have proven indispensable. However, ensuring functionality is only part of the equation. The true measure of an application’s excellence extends into its performance - how fast and efficiently it operates under various conditions. Herein lies the critical but often overlooked third step: making it fast.
+" />
+  <meta property="article:published_time" content="2024-03-20T06:00:00-04:00" />
+  <meta property="article:modified_time" content="2025-02-24T21:52:35-04:00" />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+<article class="post">
+  <header>
+    <h1>Introducing the Benchmark Package: Complementing Unit Tests with Performance Checks</h1>
+
+    <time pubdate datetime="2024-03-20T06:00:00-04:00">March 20, 2024</time>
+    <div class="authors compact">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/d6ff2f8e32e6155569a312295bce0ec8?s=64&d=mp"
+            
+            alt="Joakim Hassila"
+            title="Joakim Hassila is the CTO of Ordo One, which builds high performance distributed trading systems written in Swift running on Linux and macOS."
+            />
+          <span class="author">
+            
+              <a href="https://github.com/hassila/" rel="nofollow" title="Joakim Hassila (@hassila) on GitHub">Joakim Hassila</a>
+            
+          </span>
+        </div>
+        
+      </div>
+    
+  
+</div>
+  </header>
+
+  <p>In the world of software development, the old adage “make it work, make it right, make it fast” serves as a guiding principle for creating robust, efficient applications. This journey starts with ensuring that our code functions as intended, a task where unit and integration testing have proven indispensable. However, ensuring functionality is only part of the equation. The true measure of an application’s excellence extends into its performance - how fast and efficiently it operates under various conditions. Herein lies the critical but often overlooked third step: <em>making it fast</em>.</p>
+
+<p>In the realm of professional trading software, the role of a comprehensive benchmarking framework integrated with Continuous Integration (CI) parallels the importance of unit and integration testing. Just as unit and integration tests are essential for ensuring the functional correctness of software, benchmarking within a CI pipeline is crucial for continuously validating the non-functional aspects, such as high throughput, low latency, predictable performance and consistent resource usage. This is vital for maintaining the competitive edge in a fast-paced financial environment where the extreme market data rates and performance requirements means that even small variations in response time - on the scale of microseconds - can significantly impact trade outcomes.</p>
+
+<p>Performance is an important part of the overall product regardless of the application domain, no end user wants to wait on a computer or other electronic device, instant response to user operations truly helps provide a delightful end user experience.</p>
+
+<p>After examining the existing infrastructure within the Swift ecosystem, we concluded that there were no existing solutions meeting our needs for multi-platform and rich metrics support, CI integration, and developer-friendliness. Therefore, we decided to develop a <a href="https://github.com/ordo-one/package-benchmark">Benchmark package</a> and open source it, believing it could help advance performance for the Swift community and benefit all of us.</p>
+
+<h3 id="the-role-of-benchmarks" class="header-with-anchor">The Role Of Benchmarks <a title="Permalink for The Role Of Benchmarks section" href="#the-role-of-benchmarks">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Have you ever encountered a <em>performance problem</em> that slipped through to end users which resulted in a bug report? Do you systematically measure and validate performance metrics when making changes to your Swift package?</p>
+
+<p>Swift aims for performance that rivals C-based languages, emphasizing predictable and consistent execution. Achieving this involves optimizing the use of constrained resources like CPU, memory, and network bandwidth, which significantly influence application workloads across server-side, desktop, and mobile environments. Key performance metrics include CPU usage, memory allocation and management, network I/O, and system calls, among others. These metrics are essential for foundational software, where controlling resource usage and minimizing footprint are as critical as maintaining runtime performance. The Benchmark package readily supports these metrics, along with OS-specific ones for Linux and macOS, providing a comprehensive toolkit for Swift developers to monitor and enhance their applications’ efficiency.</p>
+
+<p>Constructing a set of benchmarks and consistently running them provides an indication when something is not performing as expected, just as a unit test flags if some functional expectation is broken. Then complementary tools (e.g. Instruments, DTrace, Heaptrack, Leaks, Sample, …) are used to for root-cause analysis to analyze and fix the underlying problem.</p>
+
+<p>This is analogous to unit tests, where a failed test indicates that something is wrong, and other more specialized tools are used to fix the problem (e.g., a debugger, TSAN/ASAN, adding asserts, debug printouts, …).</p>
+
+<h3 id="benchmarking-infrastructure" class="header-with-anchor">Benchmarking Infrastructure <a title="Permalink for Benchmarking Infrastructure section" href="#benchmarking-infrastructure">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The open-source <a href="https://github.com/ordo-one/package-benchmark">Benchmark package</a> helps you automate performance testing and makes it easy for individual developers to run a quick performance validation locally before pushing changes.</p>
+
+<p>The Benchmark package is implemented as a SwiftPM command plugin and adds a dedicated command to interact with benchmarks:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">swift package benchmark</code></p>
+</blockquote>
+
+<p>Introductory getting started information is available both on the <a href="https://github.com/ordo-one/package-benchmark">package GitHub page</a> as well as in the <a href="https://swiftpackageindex.com/ordo-one/package-benchmark/documentation/benchmark/gettingstarted">Swift Package Index DocC documentation</a>.</p>
+
+<p>A minimalistic benchmark measuring the performance of <code class="language-plaintext highlighter-rouge">Date</code> would simply be:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">Benchmark</span>
+<span class="kd">import</span> <span class="kt">Foundation</span>
+
+<span class="k">let</span> <span class="nv">benchmarks</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="kt">Benchmark</span><span class="p">(</span><span class="s">"Foundation-Date"</span><span class="p">)</span> <span class="p">{</span> <span class="n">benchmark</span> <span class="k">in</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="n">benchmark</span><span class="o">.</span><span class="n">scaledIterations</span> <span class="p">{</span>
+            <span class="nf">blackHole</span><span class="p">(</span><span class="kt">Foundation</span><span class="o">.</span><span class="kt">Date</span><span class="p">())</span>
+        <span class="p">}</span>
+    <span class="p">}</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>It is suitable both for microbenchmarks mostly concerned with CPU usage as well as for more complex long-running benchmarks and supports measuring a wide range of samples over a long time thanks to using the <a href="https://github.com/HdrHistogram/hdrhistogram-swift">HDR Histogram</a> package.</p>
+
+<p>Benchmark provides support for an <a href="https://swiftpackageindex.com/ordo-one/package-benchmark/documentation/benchmark/metrics">extensive set of built-in metrics</a>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cpuUser</code> - CPU user space time spent for running the test</li>
+  <li><code class="language-plaintext highlighter-rouge">cpuSystem</code> - CPU system time spent for running the test</li>
+  <li><code class="language-plaintext highlighter-rouge">cpuTotal</code> - CPU total time spent for running the test (system + user)</li>
+  <li><code class="language-plaintext highlighter-rouge">wallClock</code> - Wall clock time for running the test</li>
+  <li><code class="language-plaintext highlighter-rouge">throughput</code> - The throughput in operations / second</li>
+  <li><code class="language-plaintext highlighter-rouge">peakMemoryResident</code> - The resident memory usage - sampled during runtime</li>
+  <li><code class="language-plaintext highlighter-rouge">peakMemoryResidentDelta</code> - The resident memory usage - sampled during runtime (excluding start of benchmark baseline)</li>
+  <li><code class="language-plaintext highlighter-rouge">peakMemoryVirtual</code> - The virtual memory usage - sampled during runtime</li>
+  <li><code class="language-plaintext highlighter-rouge">mallocCountSmall</code> - The number of small malloc calls according to jemalloc</li>
+  <li><code class="language-plaintext highlighter-rouge">mallocCountLarge</code> - The number of large malloc calls according to jemalloc</li>
+  <li><code class="language-plaintext highlighter-rouge">mallocCountTotal</code> - The total number of mallocs according to jemalloc</li>
+  <li><code class="language-plaintext highlighter-rouge">allocatedResidentMemory</code> - The amount of allocated resident memory by the application (not including allocator metadata overhead etc) according to jemalloc</li>
+  <li><code class="language-plaintext highlighter-rouge">memoryLeaked</code> - The number of small+large mallocs - small+large frees in resident memory (just a possible leak)</li>
+  <li><code class="language-plaintext highlighter-rouge">syscalls</code> - The number of syscalls made during the test – macOS only</li>
+  <li><code class="language-plaintext highlighter-rouge">contextSwitches</code> - The number of context switches made during the test – <em>macOS only</em></li>
+  <li><code class="language-plaintext highlighter-rouge">threads</code> - The maximum number of threads in the process under the test (not exact, sampled)</li>
+  <li><code class="language-plaintext highlighter-rouge">threadsRunning</code> - The number of threads actually running under the test (not exact, sampled) – macOS only</li>
+  <li><code class="language-plaintext highlighter-rouge">readSyscalls</code> - The number of I/O read syscalls performed e.g. read(2) / pread(2) – <em>Linux only</em></li>
+  <li><code class="language-plaintext highlighter-rouge">writeSyscalls</code> - The number of I/O write syscalls performed e.g. write(2) / pwrite(2) – <em>Linux only</em></li>
+  <li><code class="language-plaintext highlighter-rouge">readBytesLogical</code> - The number of bytes read from storage (may be from pagecache!) – <em>Linux only</em></li>
+  <li><code class="language-plaintext highlighter-rouge">writeBytesLogical</code> - The number bytes written to storage (may be cached) – <em>Linux only</em></li>
+  <li><code class="language-plaintext highlighter-rouge">readBytesPhysical</code> - The number of bytes physically read from a block device – <em>Linux only</em></li>
+  <li><code class="language-plaintext highlighter-rouge">writeBytesPhysical</code> - The number of bytes physically written to a block device – <em>Linux only</em></li>
+  <li><code class="language-plaintext highlighter-rouge">retainCount</code> - The number of retain calls (ARC)</li>
+  <li><code class="language-plaintext highlighter-rouge">releaseCount</code> - The number of release calls (ARC)</li>
+  <li><code class="language-plaintext highlighter-rouge">retainReleaseDelta</code> - <code class="language-plaintext highlighter-rouge">abs(retainCount - releaseCount)</code> - if this is non-zero, it would typically mean the benchmark has a retain cycle (use Memory Graph Debugger to troubleshoot)</li>
+</ul>
+
+<p>Custom metrics are supported as well for application-specific measurements (e.g. cache hit/miss statistics).</p>
+
+<h3 id="writing-benchmarks" class="header-with-anchor">Writing Benchmarks <a title="Permalink for Writing Benchmarks section" href="#writing-benchmarks">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>There’s an <a href="https://swiftpackageindex.com/ordo-one/package-benchmark/documentation/benchmark/writingbenchmarks">introduction to writing benchmarks</a> as well as a <a href="https://github.com/ordo-one/package-benchmark-samples">sample repository</a>.</p>
+
+<p>A slightly more complicated benchmark measuring a part of the <code class="language-plaintext highlighter-rouge">Histogram</code> package:</p>
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">Benchmark</span>
+<span class="kd">import</span> <span class="kt">Foundation</span>
+<span class="kd">import</span> <span class="kt">Histogram</span>
+
+<span class="k">let</span> <span class="nv">benchmarks</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// Minimal benchmark with default settings</span>
+    <span class="kt">Benchmark</span><span class="p">(</span><span class="s">"Foundation-Date"</span><span class="p">)</span> <span class="p">{</span> <span class="n">benchmark</span> <span class="k">in</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="n">benchmark</span><span class="o">.</span><span class="n">scaledIterations</span> <span class="p">{</span>
+            <span class="nf">blackHole</span><span class="p">(</span><span class="kt">Foundation</span><span class="o">.</span><span class="kt">Date</span><span class="p">())</span>
+        <span class="p">}</span>
+    <span class="p">}</span> 
+
+    <span class="c1">// Slightly more complex with some customization</span>
+    <span class="k">let</span> <span class="nv">customBenchmarkConfiguration</span><span class="p">:</span> <span class="kt">Benchmark</span><span class="o">.</span><span class="kt">Configuration</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span>
+        <span class="nv">metrics</span><span class="p">:</span> <span class="p">[</span>
+            <span class="o">.</span><span class="n">wallClock</span><span class="p">,</span>
+            <span class="o">.</span><span class="n">throughput</span><span class="p">,</span>
+            <span class="o">.</span><span class="n">syscalls</span><span class="p">,</span>
+            <span class="o">.</span><span class="n">threads</span><span class="p">,</span>
+            <span class="o">.</span><span class="n">peakMemoryResident</span>
+        <span class="p">],</span>
+        <span class="nv">scalingFactor</span><span class="p">:</span> <span class="o">.</span><span class="n">kilo</span>
+    <span class="p">)</span>
+
+    <span class="kt">Benchmark</span><span class="p">(</span><span class="s">"ValueAtPercentile"</span><span class="p">,</span> <span class="nv">configuration</span><span class="p">:</span> <span class="n">customBenchmarkConfiguration</span><span class="p">)</span> <span class="p">{</span> <span class="n">benchmark</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="nv">maxValue</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="o">=</span> <span class="mi">1_000_000</span>
+
+        <span class="k">var</span> <span class="nv">histogram</span> <span class="o">=</span> <span class="kt">Histogram</span><span class="o">&lt;</span><span class="kt">UInt64</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">highestTrackableValue</span><span class="p">:</span> <span class="n">maxValue</span><span class="p">,</span> 
+                                          <span class="nv">numberOfSignificantValueDigits</span><span class="p">:</span> <span class="o">.</span><span class="n">three</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="mi">0</span> <span class="o">..&lt;</span> <span class="mi">10_000</span> <span class="p">{</span>
+            <span class="nf">blackHole</span><span class="p">(</span><span class="n">histogram</span><span class="o">.</span><span class="nf">record</span><span class="p">(</span><span class="kt">UInt64</span><span class="o">.</span><span class="nf">random</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="mi">10</span> <span class="o">...</span> <span class="mi">1_000</span><span class="p">)))</span>
+        <span class="p">}</span>
+
+        <span class="k">let</span> <span class="nv">percentiles</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mf">99.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">]</span>
+
+        <span class="n">benchmark</span><span class="o">.</span><span class="nf">startMeasurement</span><span class="p">()</span> <span class="c1">// don't measure the setup cost above</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">benchmark</span><span class="o">.</span><span class="n">scaledIterations</span> <span class="p">{</span>
+            <span class="nf">blackHole</span><span class="p">(</span><span class="n">histogram</span><span class="o">.</span><span class="nf">valueAtPercentile</span><span class="p">(</span><span class="n">percentiles</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="n">percentiles</span><span class="o">.</span><span class="n">count</span><span class="p">]))</span>
+        <span class="p">}</span>
+
+        <span class="n">benchmark</span><span class="o">.</span><span class="nf">stopMeasurement</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="benchmark-output-and-analytics" class="header-with-anchor">Benchmark Output And Analytics <a title="Permalink for Benchmark Output And Analytics section" href="#benchmark-output-and-analytics">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The default output is in a table format for human readability, but the package <a href="https://swiftpackageindex.com/ordo-one/package-benchmark/documentation/benchmark/exportingbenchmarks">supports a range of different output formats</a> with output suitable for analysis with other visualization tools.</p>
+
+<p>Sample default output when running benchmarks:
+<img alt="Sample text output for benchmarks" src="/assets/images/benchmark-blog/Benchmark.png" /></p>
+
+<h3 id="key-benchmark-workflows-are-supported" class="header-with-anchor">Key Benchmark Workflows Are Supported <a title="Permalink for Key Benchmark Workflows Are Supported section" href="#key-benchmark-workflows-are-supported">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<ul>
+  <li><em><a href="https://swiftpackageindex.com/ordo-one/package-benchmark/documentation/benchmark/comparingbenchmarksci">Automated Pull Request performance regression checks</a></em> by comparing the performance metrics of a pull request with the main branch and having the PR workflow check fail if there is a regression according to absolute or relative thresholds specified per benchmark</li>
+  <li>Automated Pull Request check vs. a pre-recorded <em>absolute baseline p90 threshold</em> (see e.g., <a href="https://github.com/apple/swift-certificates/tree/main/Benchmarks">Swift Certificates</a> for such a workflow with <a href="https://github.com/apple/swift-certificates/tree/main/docker">related Docker files</a>), suitable for e.g., malloc regression tests</li>
+  <li><em><a href="https://swiftpackageindex.com/ordo-one/package-benchmark/documentation/benchmark/creatingandcomparingbaselines">Manual comparison of multiple performance baselines</a></em> for iterative or A/B performance work by an individual developer</li>
+  <li><em><a href="https://swiftpackageindex.com/ordo-one/package-benchmark/documentation/benchmark/exportingbenchmarks">Export of benchmark results in several formats</a></em> for analysis or visualization</li>
+  <li>Running the Instruments profiler <a href="https://github.com/ordo-one/package-benchmark/releases/tag/1.11.0">on the benchmark suite executable directly from Xcode</a></li>
+</ul>
+
+<h3 id="closing-thoughts" class="header-with-anchor">Closing Thoughts <a title="Permalink for Closing Thoughts section" href="#closing-thoughts">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The Swift community, including major public projects like <a href="https://github.com/swiftlang/swift-foundation">Swift Foundation</a>, <a href="https://github.com/swiftlang/swift-package-manager">SwiftPM</a>, <a href="https://github.com/apple/swift-nio">SwiftNIO</a>, and <a href="https://github.com/google/flatbuffers">Google Flatbuffers</a>, has recently embraced the Benchmark package to focus on performance optimization.</p>
+
+<p>Discover how to leverage this tool for your own Swift applications by exploring <a href="https://swiftpackageindex.com/ordo-one/package-benchmark/documentation/benchmark">the extensive documentation</a> and join the <a href="https://forums.swift.org/c/related-projects/benchmark">conversation on the Swift forums</a> to share insights and get answers to your questions. Or why not provide a PR to your favourite open source package that lacks performance tests?</p>
+
+<p>Take the first step to improve your software today, by adding its first benchmark to check performance!</p>
+
+
+  <footer>
+    
+      <p>Written by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/d6ff2f8e32e6155569a312295bce0ec8?s=64&d=mp"
+            
+            alt="Joakim Hassila"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/hassila/" rel="nofollow" title="Joakim Hassila (@hassila) on GitHub">Joakim Hassila</a>
+            
+          </span>
+        </div>
+        
+          
+          
+            <div class="about">Joakim Hassila is the CTO of Ordo One, which builds high performance distributed trading systems written in Swift running on Linux and macOS.</div>
+          
+        
+      </div>
+    
+  
+</div>
+    
+
+    
+    <nav>
+      
+      <a href="/blog/byte-sized-swift-tiny-games-playdate/" rel="prev" title="Previous: Byte-sized Swift: Building Tiny Games for the Playdate">Byte-sized Swift: Building Tiny Games for the Playdate</a>
+      
+
+      
+      <a href="/blog/adwaita-swift/" rel="next" title="Next: Writing GNOME Apps with Swift">Writing GNOME Apps with Swift</a>
+      
+    </nav>
+    
+  </footer>
+</article>
+</main>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+  <p>Except where otherwise noted, all content on this blog is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>
