@@ -12,25 +12,25 @@
   {% if page.excerpt %}
   <meta name="description" content="{{ page.excerpt | strip_html | escape }}">
   {% endif %}
-  <link rel="license" href="/LICENSE.txt" />
-  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
-  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
-  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  <link rel="license" href="{{ site.baseurl }}/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="{{ site.baseurl }}/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="{{ site.baseurl }}/favicon.ico" />
+  <link rel="apple-touch-icon" href="{{ site.baseurl }}/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="{{ site.baseurl }}/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ site.baseurl }}/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ site.baseurl }}/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ site.baseurl }}/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="{{ site.baseurl }}/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ site.baseurl }}/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="{{ site.baseurl }}/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="{{ site.baseurl }}/assets/images/icon-swift.svg" color="#F05339" />
   {% if page.atom %}
-  <link rel="alternate" type="application/atom+xml" title="Swift.org (Atom Feed)" href="/atom.xml" />
+  <link rel="alternate" type="application/atom+xml" title="Swift.org (Atom Feed)" href="{{ site.baseurl }}/atom.xml" />
   {% endif %}
 
   {% if page.url %}
-  <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+  <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
   {% endif %}
 
   <meta name="twitter:card" content="summary" />
@@ -70,10 +70,10 @@
   </a>
 </p>
 {% endif %}
-<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<script src="{{ site.baseurl }}/assets/javascripts/color-scheme-toggle.js"></script>
 {% include navigation.html %}
 {{content}}
-<script src="/assets/javascripts/application.js"></script>
+<script src="{{ site.baseurl }}/assets/javascripts/application.js"></script>
 <!-- metrics -->
 <script>
     /* RSID: */
