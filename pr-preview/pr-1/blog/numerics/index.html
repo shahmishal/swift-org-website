@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Swift Numerics</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <meta name="description" content="I’m excited to announce a new open-source project for the Swift ecosystem, Swift Numerics!
+Swift Numerics will provide the building blocks of numerical computing in Swift, as a set of fine-grained modules bundled together into a single Swift package.
+My hope is that we can quickly fill some important gaps in the Standard Library’s existing APIs, and unlock new domains of programming to the Swift language.
+">
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/blog/numerics/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift Numerics" />
+  <meta name="twitter:description" content="I’m excited to announce a new open-source project for the Swift ecosystem, Swift Numerics!
+Swift Numerics will provide the building blocks of numerical computing in Swift, as a set of fine-grained modules bundled together into a single Swift package.
+My hope is that we can quickly fill some important gaps in the Standard Library’s existing APIs, and unlock new domains of programming to the Swift language.
+" />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Swift Numerics" />
+  <meta property="og:url" content="https://swift.org/blog/numerics/" />
+  <meta property="og:description" content="I’m excited to announce a new open-source project for the Swift ecosystem, Swift Numerics!
+Swift Numerics will provide the building blocks of numerical computing in Swift, as a set of fine-grained modules bundled together into a single Swift package.
+My hope is that we can quickly fill some important gaps in the Standard Library’s existing APIs, and unlock new domains of programming to the Swift language.
+" />
+  <meta property="article:published_time" content="2019-11-07T06:00:00-04:00" />
+  <meta property="article:modified_time" content="2025-02-24T22:09:56-04:00" />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+<article class="post">
+  <header>
+    <h1>Swift Numerics</h1>
+
+    <time pubdate datetime="2019-11-07T06:00:00-04:00">November 7, 2019</time>
+    <div class="authors compact">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.github.com/stephentyrone.png?size=64"
+            
+            alt="Steve Canon"
+            title="Steve Canon is a member of Apple’s Swift Standard Library team. Previously he spent a decade working on Apple’s math library and the Accelerate framework."
+            />
+          <span class="author">
+            
+              <a href="https://github.com/stephentyrone/" rel="nofollow" title="Steve Canon (@stephentyrone) on GitHub">Steve Canon</a>
+            
+          </span>
+        </div>
+        
+      </div>
+    
+  
+</div>
+  </header>
+
+  <p>I’m excited to announce a new open-source project for the Swift ecosystem, <a href="https://github.com/apple/swift-numerics">Swift Numerics</a>!
+Swift Numerics will provide the building blocks of numerical computing in Swift, as a set of fine-grained modules bundled together into a single Swift package.
+My hope is that we can quickly fill some important gaps in the Standard Library’s existing APIs, and unlock new domains of programming to the Swift language.</p>
+
+<p>I’ve seeded the repository with two much-requested modules that are immediately useful for computational mathematics: <code class="language-plaintext highlighter-rouge">Real</code> (providing the functionality of <a href="https://github.com/swiftlang/swift-evolution/blob/master/proposals/0246-mathable.md">SE-0246</a>) and <code class="language-plaintext highlighter-rouge">Complex</code> (providing complex numbers and arithmetic). Let’s take a look at what they do:</p>
+
+<h3 id="real-numbers" class="header-with-anchor">Real Numbers <a title="Permalink for Real Numbers section" href="#real-numbers">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+<p><a href="https://github.com/swiftlang/swift-evolution/blob/master/proposals/0246-mathable.md">SE-0246</a> proposed an API for “basic math functions” that would make operations like sine and logarithm available in generic contexts.
+It was accepted, but because of limitations in the compiler, the API cannot yet be added to the Standard Library in a source-stable manner.
+The <a href="https://github.com/apple/swift-numerics/tree/master/Sources/RealModule"><code class="language-plaintext highlighter-rouge">Real</code> module</a> provides that API as a separate module so that you can use it right away to get access to the improved API for these operations in your projects.</p>
+
+<p>The module defines three protocols. The most general is <code class="language-plaintext highlighter-rouge">ElementaryFunctions</code>, which makes the following functions available:</p>
+
+<ul>
+  <li>Exponential functions: <code class="language-plaintext highlighter-rouge">exp</code>, <code class="language-plaintext highlighter-rouge">expMinusOne</code></li>
+  <li>Logarithmic functions: <code class="language-plaintext highlighter-rouge">log</code>, <code class="language-plaintext highlighter-rouge">log(onePlus:)</code></li>
+  <li>Trigonometric functions: <code class="language-plaintext highlighter-rouge">cos</code>, <code class="language-plaintext highlighter-rouge">sin</code>, <code class="language-plaintext highlighter-rouge">tan</code></li>
+  <li>Inverse trigonometric functions: <code class="language-plaintext highlighter-rouge">acos</code>, <code class="language-plaintext highlighter-rouge">asin</code>, <code class="language-plaintext highlighter-rouge">atan</code></li>
+  <li>Hyperbolic functions: <code class="language-plaintext highlighter-rouge">cosh</code>, <code class="language-plaintext highlighter-rouge">sinh</code>, <code class="language-plaintext highlighter-rouge">tanh</code></li>
+  <li>Inverse hyperbolic functions: <code class="language-plaintext highlighter-rouge">acosh</code>, <code class="language-plaintext highlighter-rouge">asinh</code>, <code class="language-plaintext highlighter-rouge">atanh</code></li>
+  <li>Power and root functions: <code class="language-plaintext highlighter-rouge">pow</code>, <code class="language-plaintext highlighter-rouge">sqrt</code>, <code class="language-plaintext highlighter-rouge">root</code></li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">RealFunctions</code> protocol refines <code class="language-plaintext highlighter-rouge">ElementaryFunctions</code>, and adds operations that are difficult to define or implement over fields more general than the real numbers:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">atan2(y:x:)</code>, which computes <code class="language-plaintext highlighter-rouge">atan(y/x)</code> with sign chosen by the quadrant of the point <code class="language-plaintext highlighter-rouge">(x,y)</code> in the Cartesian plane.</li>
+  <li><code class="language-plaintext highlighter-rouge">hypot</code>, which computes <code class="language-plaintext highlighter-rouge">sqrt(x*x + y*y)</code> without intermediate overflow or underflow.</li>
+  <li><code class="language-plaintext highlighter-rouge">erf</code> and <code class="language-plaintext highlighter-rouge">erfc</code>, the <a href="https://en.wikipedia.org/wiki/Error_function">error function</a> and its complement.</li>
+  <li>Exponential functions: <code class="language-plaintext highlighter-rouge">exp2</code> and <code class="language-plaintext highlighter-rouge">exp10</code></li>
+  <li>Logarithmic functions: <code class="language-plaintext highlighter-rouge">log2</code> and <code class="language-plaintext highlighter-rouge">log10</code></li>
+  <li>Gamma functions: <code class="language-plaintext highlighter-rouge">gamma</code>, <code class="language-plaintext highlighter-rouge">logGamma</code>, and <code class="language-plaintext highlighter-rouge">signGamma</code>, which evaluate the <a href="https://en.wikipedia.org/wiki/Gamma_function">gamma function</a>, its logarithm, and its sign.</li>
+</ul>
+
+<p>The protocol that you will use most often is <code class="language-plaintext highlighter-rouge">Real</code>, which describes a floating-point type equipped with the full set of basic math functions.
+This is a great protocol to use in writing generic code, because it has all the basics that you need to implement most numeric functions.
+Suppose we were experimenting with some basic machine learning, and needed a generic <a href="https://en.wikipedia.org/wiki/Sigmoid_function">sigmoid function</a> activation function:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">Numerics</span>
+
+<span class="kd">func</span> <span class="n">sigmoid</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">Real</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">x</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span> <span class="p">{</span>
+  <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="nf">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Or suppose we were implementing a <a href="https://en.m.wikipedia.org/wiki/Discrete_Fourier_transform">DFT</a>, and wanted to precompute weights for the transform; DFT weights are roots of unity:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">Numerics</span>
+
+<span class="kd">extension</span> <span class="kt">Real</span> <span class="p">{</span>
+  <span class="c1">// The real and imaginary parts of e^{-2πik/n}</span>
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">dftWeight</span><span class="p">(</span><span class="nv">k</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">r</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">i</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">precondition</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&amp;&amp;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">,</span> <span class="s">"k is out of range"</span><span class="p">)</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">N</span> <span class="o">=</span> <span class="kt">Self</span><span class="p">(</span><span class="nv">exactly</span><span class="p">:</span> <span class="n">n</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nf">preconditionFailure</span><span class="p">(</span><span class="s">"n cannot be represented exactly."</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">let</span> <span class="nv">theta</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="kt">Self</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="kt">N</span><span class="p">)</span>
+    <span class="nf">return</span> <span class="p">(</span><span class="nv">r</span><span class="p">:</span> <span class="o">.</span><span class="nf">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="nv">i</span><span class="p">:</span> <span class="o">.</span><span class="nf">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This gives us an implementation that works for <code class="language-plaintext highlighter-rouge">Float</code>, <code class="language-plaintext highlighter-rouge">Double</code>, and <code class="language-plaintext highlighter-rouge">Float80</code> if the target supports it.
+When new basic floating-point types are added to Swift, like <code class="language-plaintext highlighter-rouge">Float16</code> or <code class="language-plaintext highlighter-rouge">Float128</code>, it will work for them as well.
+This module–especially the <code class="language-plaintext highlighter-rouge">Real</code> protocol–is a significant improvement to generic numerical computing in Swift, and I’m really looking forward to seeing what you do with it.</p>
+
+<h3 id="complex-numbers" class="header-with-anchor">Complex Numbers <a title="Permalink for Complex Numbers section" href="#complex-numbers">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+<p>The <code class="language-plaintext highlighter-rouge">Complex</code> module builds on <code class="language-plaintext highlighter-rouge">Real</code> to provide a complex number type for Swift.</p>
+
+<p>Complex numbers are useful for computation because they are the “smallest algebraically-closed field that contains the rational numbers”.
+What that means in practice is that common equations (like those that give the roots of a polynomial or the eigenvalues of a matrix) do not necessarily have solutions in the real numbers, but are guaranteed to have solutions in the complex numbers.
+This seems like an esoteric fact, but when you develop algorithms, a guarantee that solutions exist is often useful.</p>
+
+<p>Complex numbers arise naturally in computation when working with Fourier transforms: the Fourier transform of a real signal is a symmetric complex signal.
+This means that the natural setting for many signal processing algorithms used in everything from audio processing to circuit simulations is the complex numbers.
+Libraries frequently hide this detail from you in routine use, but when <em>developing</em> libraries, it’s critical to have this tool available.</p>
+
+<p>For example, the <code class="language-plaintext highlighter-rouge">dftWeight</code> code that we showed above can be written more naturally using <code class="language-plaintext highlighter-rouge">Complex</code> as:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">Numerics</span>
+
+<span class="kd">extension</span> <span class="kt">Complex</span> <span class="p">{</span>
+  <span class="c1">// e^{-2πik/n}</span>
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">dftWeight</span><span class="p">(</span><span class="nv">k</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Complex</span> <span class="p">{</span>
+    <span class="nf">precondition</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&amp;&amp;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">,</span> <span class="s">"k is out of range"</span><span class="p">)</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">N</span> <span class="o">=</span> <span class="kt">RealType</span><span class="p">(</span><span class="nv">exactly</span><span class="p">:</span> <span class="n">n</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nf">preconditionFailure</span><span class="p">(</span><span class="s">"n cannot be represented exactly."</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kt">Complex</span><span class="p">(</span><span class="nv">length</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">phase</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="kt">RealType</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="kt">N</span><span class="p">))</span><span class="o">!</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>For these reasons complex numbers are an important building block that most languages or standard libraries provide.
+C has <code class="language-plaintext highlighter-rouge">_Complex</code>, C++ has <code class="language-plaintext highlighter-rouge">std::complex</code>, Fortran and Python have complex numbers built right into the language core.
+I expect that once the Swift Numerics module has some use and we do a few iterations of building out its features, we’ll propose part of it for inclusion in the Swift Standard Library as well.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">Complex</code> type is generic over an underlying <code class="language-plaintext highlighter-rouge">RealType</code>, which conforms to <code class="language-plaintext highlighter-rouge">Real</code>.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">RealType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">RealType</span><span class="p">:</span> <span class="kt">Real</span> <span class="p">{</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Why not support <code class="language-plaintext highlighter-rouge">Complex&lt;T&gt;</code> for integer types <code class="language-plaintext highlighter-rouge">T</code> as well?
+While the Gaussian integers are “just like” the complex numbers–they’re a subset, after all–the actual operations that you perform on them (and the ideal implementation of those operations) are quite different, so it doesn’t make sense to force them together into a single generic type.
+I would love to see support for Gaussian integers added to the library at some future point, but it should be a separate type from <code class="language-plaintext highlighter-rouge">Complex</code>.</p>
+</blockquote>
+
+<p>As a refresher, complex numbers have two components, a real part and an imaginary part.
+There’s a special number, called <em>i</em>,  which is the <em>imaginary unit</em>.
+In mathematics, we write a complex number with real part <em>a</em> and imaginary part <em>b</em> as <em>a + bi</em>.
+In Swift, it looks pretty similar:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">Complex</span>
+
+<span class="k">let</span> <span class="nv">z</span><span class="p">:</span> <span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="o">.</span><span class="n">i</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>      <span class="c1">// 2.0</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">imaginary</span><span class="p">)</span> <span class="c1">// 3.0</span>
+</code></pre></div></div>
+
+<p>Swift Numerics prints complex numbers in Fortran style; <em>a + bi</em> is <code class="language-plaintext highlighter-rouge">(a, b)</code>:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c1">// (2.0, 3.0)</span>
+</code></pre></div></div>
+
+<p>You can also construct a complex number by specifying its real and imaginary parts:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">w</span> <span class="o">=</span> <span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// (1.0, -2.0)</span>
+</code></pre></div></div>
+
+<p>to add two complex numbers, we add the corresponding parts:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span> <span class="c1">// (2.0 + 1.0, 3.0 + -2.0) = (3.0, 1.0)</span>
+</code></pre></div></div>
+
+<p>Multiplication and division are only a little bit more complicated; their definitions follow from the identity:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">u</span><span class="p">:</span> <span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">.</span><span class="n">i</span> <span class="o">*</span> <span class="o">.</span><span class="n">i</span> <span class="c1">// (-1.0, 0.0)</span>
+</code></pre></div></div>
+
+<p>(i.e. <em>i</em> is a square root of -1).
+The <code class="language-plaintext highlighter-rouge">Complex</code> type conforms to the <code class="language-plaintext highlighter-rouge">Numeric</code> protocol, and uses the usual division operator <code class="language-plaintext highlighter-rouge">/</code>, so arithmetic on complex numbers looks just like it does on any other number type.
+For example, here’s a function that implements multiplication by <em>2i</em>, which is a 2x scaling and 90˚ rotation in the complex plane:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">Complex</span>
+
+<span class="kd">func</span> <span class="n">scaleAndRotate</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">z</span><span class="p">:</span> <span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="n">z</span> <span class="o">*</span> <span class="kt">Complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">z</span> <span class="o">=</span> <span class="nf">scaleAndRotate</span><span class="p">(</span><span class="kt">Complex</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span> <span class="c1">// (-2.0, 2.0)</span>
+</code></pre></div></div>
+
+<p>At this point, it’s worth talking a little about infinities and <a href="https://en.wikipedia.org/wiki/NaN">NaNs</a> and their implications for multiplication and division.
+The C and C++ complex math libraries attempt to make fine-grained distinctions between different zeros and infinities and NaNs.
+This is occasionally useful, but it means that multiplication cannot use the obvious arithmetic expression.</p>
+
+<p>Swift does not attempt to make this distinction.
+Any complex number with zero real and imaginary parts is zero, and all complex numbers with a non-finite real or imaginary part are collapsed into a single “point at infinity”.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ 1&gt; import Complex
+[ 2&gt; Complex(.infinity, 0.0) == Complex(0.0, -.nan)
+$R0: Bool = true
+</code></pre></div></div>
+
+<p>This loses a little bit of information, but very few programs make productive use of the distinction, and all programs have their performance adversely effected by the decision to try to keep it around.
+To make the performance impact concrete, let’s compare the throughput of double-precision complex multiplication on my 2015 MacBook Pro:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Data distribution</th>
+      <th style="text-align: center">C</th>
+      <th style="text-align: center">Swift</th>
+      <th style="text-align: center">Speedup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">well-scaled</td>
+      <td style="text-align: center">1 / 1.4ns</td>
+      <td style="text-align: center">1 / 1.1ns</td>
+      <td style="text-align: center">1.3x</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">poorly-scaled</td>
+      <td style="text-align: center">1 / 4.5ns</td>
+      <td style="text-align: center">1 / 4.1ns</td>
+      <td style="text-align: center">1.1x</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>A note on benchmarking measurements and methodology: throughput in these tables is reported in units of reciprocal time.
+<code class="language-plaintext highlighter-rouge">1/1.1ns</code> means “one result is produced every 1.1 nanoseconds”.
+Smaller denominators are better than larger denominators; <code class="language-plaintext highlighter-rouge">1/1.5ns</code> is twice as fast as <code class="language-plaintext highlighter-rouge">1/3ns</code>.
+These benchmarks do not perform multiplication (or division) in isolation; instead they are measuring the time to compute and sum a set of multiplication (or division) results.
+This introduces some overhead to the measurement, but that overhead falls disproportionately on the <em>faster</em> operation, so this makes the Swift performance look worse than it really is.
+You can see the (very simple) benchmark code in ArithmeticBenchmarkTests.swift.
+Pull requests to add more sophisticated benchmarking are welcome!</p>
+</blockquote>
+
+<p>Because Swift Numerics doesn’t need to give special attention to infinities, it is about 30% faster in the common case where values are well-scaled, and somewhat faster even in the unusual case where there are many poorly-scaled values.
+In pathological cases where there are a large number of infinities or NaNs in the data set, the difference will be greater.</p>
+
+<p>There’s an even larger impact for division:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Data distribution</th>
+      <th style="text-align: center">C</th>
+      <th style="text-align: center">Swift</th>
+      <th style="text-align: center">Speedup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">well-scaled</td>
+      <td style="text-align: center">1 / 19 ns</td>
+      <td style="text-align: center">1 / 5ns</td>
+      <td style="text-align: center">3.8x</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">poorly-scaled</td>
+      <td style="text-align: center">1 / 22 ns</td>
+      <td style="text-align: center">1 / 22ns</td>
+      <td style="text-align: center">n/a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Because Swift Numerics’ complex division operation is exposed to the compiler, it allows greater opportunity for optimization when dividing many values by a single divisor (a very common operation).
+Here’s the same table, if we divide a whole array of values by a single common well-scaled divisor:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Data distribution</th>
+      <th style="text-align: center">C</th>
+      <th style="text-align: center">Swift</th>
+      <th style="text-align: center">Speedup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">well-scaled</td>
+      <td style="text-align: center">1 / 19 ns</td>
+      <td style="text-align: center">1 / 1.8ns</td>
+      <td style="text-align: center">10.6x</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>I have one last trick up my sleeve: if the data is well-scaled, we can use the <code class="language-plaintext highlighter-rouge">reciprocal</code> property and multiply instead, which brings performance up to 1/1.1ns–a 17x speedup!
+This is possible in C as well, of course, but Swift’s optional semantics gives an easy mechanism that makes it safe:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// If divisor is well-scaled, use multiply by reciprocal instead of division.</span>
+<span class="k">if</span> <span class="k">let</span> <span class="nv">recip</span> <span class="o">=</span> <span class="n">divisor</span><span class="o">.</span><span class="n">reciprocal</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">*</span> <span class="n">recip</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// Otherwise, fallback on using division.</span>
+<span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">/</span> <span class="n">divisor</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Swift Numerics also gives <em>better</em> answers for complex divisions in some especially difficult cases–consider the following test problem, from Baudin &amp; Smith’s paper “A Robust Complex Division in Scilab”:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Complex</span><span class="p">(</span><span class="mh">0x1p-1074</span><span class="p">,</span> <span class="mh">0x1p-1074</span><span class="p">)</span> <span class="o">/</span> <span class="kt">Complex</span><span class="p">(</span><span class="mh">0x1p-1073</span><span class="p">,</span> <span class="mh">0x1p-1074</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This looks simple enough; if we scale both the numerator and denominator by <code class="language-plaintext highlighter-rouge">0x1p1074</code>, the problem becomes <code class="language-plaintext highlighter-rouge">(1 + i)/(2 + i)</code>, and we can compute the result by hand:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="sr">/(2+i) = (1+i)(2-i)/5 = ((2+1) + (2-1)i)/5 = (3+i)/</span><span class="mi">5</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Clang (using compiler-rt) produces <code class="language-plaintext highlighter-rouge">(0.5, 0.5)</code> in both C and C++ for this division.
+Python’s complex numbers give a result of <code class="language-plaintext highlighter-rouge">(1.0, 0.0)</code>.
+The <code class="language-plaintext highlighter-rouge">Complex</code> module gives an answer as accurate as you deserve: <code class="language-plaintext highlighter-rouge">(0.6, 0.2)</code>, and does it without sacrificing any performance.</p>
+
+<p>I’m currently working on a patch to make <code class="language-plaintext highlighter-rouge">Complex</code> conform to <code class="language-plaintext highlighter-rouge">ElementaryFunctions</code>, which makes the usual set of transcendental operations available, and brings <code class="language-plaintext highlighter-rouge">Complex</code> up to feature parity with most other languages. Expect this to be available in the next couple weeks.</p>
+
+<h2 id="why-a-package" class="header-with-anchor">Why a Package? <a title="Permalink for Why a Package? section" href="#why-a-package">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+<p>Why am I doing this work as a package, rather than in the Standard Library?
+There are a few reasons, but the major one is simply that <em>not everything should go into the Standard Library</em>.
+Some pieces of Swift Numerics will probably make their way into the Standard Library over time, but some modules need to have a home that isn’t part of every project by default.
+My goal for Swift Numerics is that it provides a common home for such modules that are centered on numerical computing, just like SwiftNIO does for networking.</p>
+
+<p>Making a package has a few other nice benefits:</p>
+
+<ul>
+  <li>It allows us (me and the Swift community) to develop and release these modules on a schedule that isn’t locked to Swift releases.</li>
+  <li>It allows us to release modules for experimentation before we declare their API stabilized.</li>
+</ul>
+
+<h2 id="future-plans" class="header-with-anchor">Future Plans <a title="Permalink for Future Plans section" href="#future-plans">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+<p>In the next few months, I’ll be working to add important additional functionality to the package.
+In particular, a few of the focus areas will be:</p>
+
+<ul>
+  <li>
+    <p>A <a href="https://github.com/apple/swift-numerics/issues/6"><code class="language-plaintext highlighter-rouge">ShapedArray</code> protocol</a> and supporting types, capable of representing multidimensional homogeneous data.
+If you’ve worked with <a href="https://github.com/tensorflow/swift">S4TF</a> before, you’re already familiar with this concept; otherwise, you may have used NumPy arrays in Python, or Fortran, Matlab or Julia arrays.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/apple/swift-numerics/issues/3">Approximate equality</a> for floating-point types (continuing where <a href="https://forums.swift.org/t/se-0259-approximate-equality-for-floating-point/23627">SE-0259</a> left off).</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/apple/swift-numerics/issues/4">Fixed-width integer types</a> larger than 64 bits.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/apple/swift-numerics/issues/8"><code class="language-plaintext highlighter-rouge">Float16</code></a> support.</p>
+  </li>
+</ul>
+
+<p>All of these projects (and others) are tracked on the <a href="https://github.com/apple/swift-numerics/issues">issues page</a> for Swift Numerics.</p>
+
+<h2 id="get-involved" class="header-with-anchor">Get Involved! <a title="Permalink for Get Involved! section" href="#get-involved">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+<p>I love working on Swift Numerics, but I want you to get involved, too.</p>
+
+<ul>
+  <li>If you have questions about how to use the package or the modules, there’s a new Swift Numerics area on the forums under “Related Projects.”</li>
+  <li>If there are features that you’d especially to see, please file issues on the github page.</li>
+  <li>Any information you can provide about your use cases for existing issues is also appreciated!</li>
+  <li>If you’d like to help develop Swift Numerics, jump in and ask some questions on one of the issues, or just throw up a PR that we can start iterating on together.
+I’ll do my best to tag <a href="https://github.com/apple/swift-numerics/contribute">good first issues</a>, but almost anything can be a good first issue if it catches your interest.
+Let me know that you want to work on it, and I’ll help you get going.</li>
+</ul>
+
+<h2 id="questions" class="header-with-anchor">Questions? <a title="Permalink for Questions? section" href="#questions">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Please feel free to post questions about this post on the <a href="https://forums.swift.org/t/swift-numerics/30576/2">associated thread</a> on the Swift forums.</p>
+
+
+
+  <footer>
+    
+      <p>Written by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.github.com/stephentyrone.png?size=64"
+            
+            alt="Steve Canon"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/stephentyrone/" rel="nofollow" title="Steve Canon (@stephentyrone) on GitHub">Steve Canon</a>
+            
+          </span>
+        </div>
+        
+          
+          
+            <div class="about">Steve Canon is a member of Apple’s Swift Standard Library team. Previously he spent a decade working on Apple’s math library and the Accelerate framework.</div>
+          
+        
+      </div>
+    
+  
+</div>
+    
+
+    
+    <nav>
+      
+      <a href="/blog/sswg-update-2019/" rel="prev" title="Previous: SSWG Annual Update">SSWG Annual Update</a>
+      
+
+      
+      <a href="/blog/crypto/" rel="next" title="Next: Introducing Swift Crypto">Introducing Swift Crypto</a>
+      
+    </nav>
+    
+  </footer>
+</article>
+</main>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+  <p>Except where otherwise noted, all content on this blog is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Build an iOS app with SwiftUI</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/getting-started/swiftui/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift.org" />
+  <meta name="twitter:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:title" content="Swift.org" />
+  <meta property="og:url" content="https://swift.org" />
+  <meta property="og:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+  <article class="page">
+  
+    
+      <header>
+        <h1>Build an iOS app with SwiftUI</h1>
+      </header>
+    
+  
+
+  <blockquote>
+  <p>The source code for this guide can be found <a href="https://github.com/0xTim/swift-org-swiftui-tutorial">on GitHub</a></p>
+</blockquote>
+
+<p>In this tutorial you’re going to use Swift and SwiftUI to build a small app to recommend fun new activities to users. Along the way you’ll meet several of the basic components of a SwiftUI app, including text, images, buttons, shapes, stacks, and program state.</p>
+
+<p>To get started, you’ll need to <a href="https://apps.apple.com/app/xcode/id497799835?mt=12">download Xcode from the Mac App Store</a>. It’s free, and comes with Swift and all the other tools you need to follow this tutorial.</p>
+
+<p>Go ahead and launch Xcode once it’s installed, then select Create a new Xcode Project. Select the iOS tab at the top, then select the App template and press Next.</p>
+
+<p><strong>Tip:</strong> Although we’ll be targeting iOS 16, our code will also work great on macOS Ventura and beyond.</p>
+
+<p>When making a new project, Xcode will ask you for a few pieces of information:</p>
+
+<ul>
+  <li>For Product Name, enter “WhyNotTry”.</li>
+  <li>For Organization Identifier you can enter com.example. In real apps we’d normally enter our own domain name here, e.g. org.swift.</li>
+  <li>For Interface make sure SwiftUI is selected.</li>
+  <li>You can uncheck the boxes for Core Data and Include Tests; we won’t be using them here.</li>
+</ul>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/new-project.png" alt="New Xcode Project" /></p>
+
+<p>When you press Next, Xcode will ask where you want to save the project. You’re welcome to choose wherever suits you, but you might find your Desktop is easiest. Once that’s done, Xcode will create the new project for you, then open ContentView.swift for editing. This is where we’ll write all our code, and you’ll see some default SwiftUI code in there for us.</p>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/initial-view.png" alt="Initial SwiftUI project" /></p>
+
+<p>The example code Xcode made for us creates a new view called <code class="language-plaintext highlighter-rouge">ContentView</code>. Views are how SwiftUI represents our app’s user interface on the screen, and we can add custom layout and logic in there.</p>
+
+<p>On the right-hand side of Xcode, you’ll see a live preview of that code running – if you make a change to the code on the left, it will appear in the preview straight away. If you can’t see the preview, follow <a href="https://developer.apple.com/documentation/swiftui/previews-in-xcode">these instructions</a> to enable it.</p>
+
+<p>For example, try replacing the default <code class="language-plaintext highlighter-rouge">body</code> code with this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Hello, SwiftUI!"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/hello-swift-ui.png" alt="Hello SwiftUI" /></p>
+
+<p>You should see your preview update immediately, which makes for really fast prototyping while you work. This is a computed property called <code class="language-plaintext highlighter-rouge">body</code>, and SwiftUI will call that whenever it wants to display our user interface.</p>
+
+<h2 id="building-a-static-ui" class="header-with-anchor">Building a static UI <a title="Permalink for Building a static UI section" href="#building-a-static-ui">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>In this app we’re going to show the user a new activity they could try to keep fit, such as basketball, golf, and hiking. To make it a little more attractive, we’ll display each activity using its name, and also an icon representing the activity, then add a splash of color behind it.</p>
+
+<p>The main part of our user interface will be a circle showing the currently recommended activity. We can draw circles just by writing <code class="language-plaintext highlighter-rouge">Circle</code>, so replace the <code class="language-plaintext highlighter-rouge">Text("Hello, SwiftUI!")</code> view with this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Circle</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/swiftui-circle.png" alt="SwiftUI Circle" /></p>
+
+<p>In your preview you’ll see a large black circle fills the available screen width. That’s a start, but it’s not quite right – we want some color in there, and ideally adding a little space on either side so it doesn’t look so tight.</p>
+
+<p>Both of these can be accomplished by calling methods on the <code class="language-plaintext highlighter-rouge">Circle</code> view. We call these <em>view modifiers</em> in SwiftUI because they modify the way the circle looks or works, and in this case we need to use the <code class="language-plaintext highlighter-rouge">fill()</code> modifier to color the circle, then the <code class="language-plaintext highlighter-rouge">padding()</code> modifier to add some space around it, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Circle</span><span class="p">()</span>
+    <span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/swiftui-circle-color.png" alt="SwiftUI Circle with Color and Padding" /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">.blue</code> color is one of several built-in options, such as <code class="language-plaintext highlighter-rouge">.red</code>, <code class="language-plaintext highlighter-rouge">.white</code>, and <code class="language-plaintext highlighter-rouge">.green</code>. These are all appearance aware, which means they look subtly different depending on the whether the device is in dark mode or light mode.</p>
+
+<p>Over that blue circle we’re going to place an icon showing the activity we recommend. iOS comes with several thousand free icons called <em>SF Symbols</em>, and there’s a <a href="https://developer.apple.com/sf-symbols/">free app you can download that shows you all the options</a>. Each of these icons is available in multiple weights, can be scaled up or down smoothly, and many can also be colored.</p>
+
+<p>Here, though, we want something nice and simple: we want just one icon placed over our circle. This means using another modifier called <code class="language-plaintext highlighter-rouge">overlay()</code>, which places one view over another. Modify your code to this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Circle</span><span class="p">()</span>
+    <span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+    <span class="o">.</span><span class="nf">overlay</span><span class="p">(</span>
+        <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"figure.archery"</span><span class="p">)</span>
+    <span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/swiftui-circle-icon.png" alt="SwiftUI Circle with Icon" /></p>
+
+<p>You should see a small, black archery icon over our large, blue circle – it’s the right idea, but it doesn’t look great.</p>
+
+<p>What we really want is the archery icon to be much bigger, and also much more visible on that background. For that we need another two modifiers: <code class="language-plaintext highlighter-rouge">font()</code> to control the size of the icon, and <code class="language-plaintext highlighter-rouge">foregroundColor()</code> to change its color. Yes, we use a font modifier to control the icon’s size – SF Symbols like this one automatically scale with the rest of our text, which makes them really flexible.</p>
+
+<p>Adjust your <code class="language-plaintext highlighter-rouge">Image</code> code to this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"figure.archery"</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="nf">system</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">144</span><span class="p">))</span>
+    <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/swiftui-circle-icon-sized.png" alt="SwiftUI Circle with Icon Sized" /></p>
+
+<p><strong>Tip:</strong> That <code class="language-plaintext highlighter-rouge">font()</code> modifier asks for a 144-point system font, which is nice and big on all devices.</p>
+
+<p>That should now look a lot better.</p>
+
+<p>Next, let’s add some text below the image so it’s clear to the user what the suggestion is. You already met the <code class="language-plaintext highlighter-rouge">Text</code> view and the <code class="language-plaintext highlighter-rouge">font()</code> modifier, so you can add this code below the <code class="language-plaintext highlighter-rouge">Circle</code> code:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Text</span><span class="p">(</span><span class="s">"Archery!"</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Rather than using a fixed font size, that uses one of SwiftUI’s built in Dynamic Type sizes called <code class="language-plaintext highlighter-rouge">.title</code>. This means the font will grow or shrink depending on the user’s settings, which is usually a good idea.</p>
+
+<p>If everything has gone to plan, your code should look like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kt">Circle</span><span class="p">()</span>
+        <span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+        <span class="o">.</span><span class="nf">overlay</span><span class="p">(</span>
+            <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"figure.archery"</span><span class="p">)</span>
+                <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="nf">system</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">144</span><span class="p">))</span>
+                <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Archery!"</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/circle-with-title.png" alt="Circle With Title Text" /></p>
+
+<p>However, what you see in Xcode’s preview probably won’t match what you were expecting: you’ll see the same icon as before, but no text. What gives?</p>
+
+<p>The problem here is that we’ve told SwiftUI our user interface will have two views inside – the circle and some text – but we haven’t told it how to arrange them. Do we want them side by side? One above the other? Or in some other kind of layout?</p>
+
+<p>We get to choose, but I think here a vertical layout will look better. In SwiftUI we get that with a new view type called <code class="language-plaintext highlighter-rouge">VStack</code>, which is placed <em>around</em> our current code, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">VStack</span> <span class="p">{</span>
+    <span class="kt">Circle</span><span class="p">()</span>
+        <span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+        <span class="o">.</span><span class="nf">overlay</span><span class="p">(</span>
+            <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"figure.archery"</span><span class="p">)</span>
+                <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="nf">system</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">144</span><span class="p">))</span>
+                <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Archery!"</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>And now you should see the layout you expected earlier: our archery icon above the text “Archery!”.</p>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/circle-with-title-vstack.png" alt="Circle With Title Text in a VStack" /></p>
+
+<p>That’s much better!</p>
+
+<p>To finish up our first pass at this user interface, we can add a title at the top. We already have a <code class="language-plaintext highlighter-rouge">VStack</code> that allows us to position views one above the other, but I don’t want the title inside there too because later on we’ll be adding some animation for that part of our screen.</p>
+
+<p>Fortunately, SwiftUI lets us nest stacks freely, meaning that we can place a <code class="language-plaintext highlighter-rouge">VStack</code> inside another <code class="language-plaintext highlighter-rouge">VStack</code> to get the exact behavior we want. So, change your code to this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">VStack</span> <span class="p">{</span>
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Why not try…"</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">largeTitle</span><span class="o">.</span><span class="nf">bold</span><span class="p">())</span>
+
+    <span class="kt">VStack</span> <span class="p">{</span>
+        <span class="kt">Circle</span><span class="p">()</span>
+            <span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+            <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+            <span class="o">.</span><span class="nf">overlay</span><span class="p">(</span>
+                <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"figure.archery"</span><span class="p">)</span>
+                    <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="nf">system</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">144</span><span class="p">))</span>
+                    <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="kt">Text</span><span class="p">(</span><span class="s">"Archery!"</span><span class="p">)</span>
+            <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>That makes the new text have a large title font, and also makes it bold so it stands out better as a real title for our screen.</p>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/why-not-try-title.png" alt="Why Not Try Title Added" /></p>
+
+<p>Now we have two <code class="language-plaintext highlighter-rouge">VStack</code> views: an inner one that holds the circle and “Archery!” text, and an outer one that adds a title around the inner <code class="language-plaintext highlighter-rouge">VStack</code>. This will be very helpful later on when we add animation!</p>
+
+<h2 id="bringing-it-to-life" class="header-with-anchor">Bringing it to life <a title="Permalink for Bringing it to life section" href="#bringing-it-to-life">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>As much fun as archery is, this app really needs to suggest a random activity to users rather than always showing the same thing. That means adding two new properties to our view: one to store the array of possible activities, and one to show whichever one is currently being recommended.</p>
+
+<p>SF Symbols has lots of interesting activities to choose from, so I’ve picked out a handful that work well here. Our <code class="language-plaintext highlighter-rouge">ContentView</code> struct already has a <code class="language-plaintext highlighter-rouge">body</code> property containing our SwiftUI code, but we want to add new properties outside that. So, change your code to this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">ContentView</span><span class="p">:</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">activities</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Archery"</span><span class="p">,</span> <span class="s">"Baseball"</span><span class="p">,</span> <span class="s">"Basketball"</span><span class="p">,</span> <span class="s">"Bowling"</span><span class="p">,</span> <span class="s">"Boxing"</span><span class="p">,</span> <span class="s">"Cricket"</span><span class="p">,</span> <span class="s">"Curling"</span><span class="p">,</span> <span class="s">"Fencing"</span><span class="p">,</span> <span class="s">"Golf"</span><span class="p">,</span> <span class="s">"Hiking"</span><span class="p">,</span> <span class="s">"Lacrosse"</span><span class="p">,</span> <span class="s">"Rugby"</span><span class="p">,</span> <span class="s">"Squash"</span><span class="p">]</span>
+
+    <span class="k">var</span> <span class="nv">selected</span> <span class="o">=</span> <span class="s">"Archery"</span>
+
+    <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Important:</strong> Notice how the <code class="language-plaintext highlighter-rouge">activities</code> and <code class="language-plaintext highlighter-rouge">selected</code> properties are <em>inside</em> the struct – that means they belong to <code class="language-plaintext highlighter-rouge">ContentView</code>, rather than just being free-floating variables in our program.</p>
+
+<p>That creates an array of various activity names, and selects archery as the default. Now we can use the selected activity in our UI using string interpolation – we can place the <code class="language-plaintext highlighter-rouge">selected</code> variable directly inside strings.</p>
+
+<p>For the activity name this is straightforward:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Text</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="n">selected</span><span class="se">)</span><span class="s">!"</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>For the image this is a little more complicated, because we need to prefix it with <code class="language-plaintext highlighter-rouge">figure.</code> then lowercase the activity name – we want <code class="language-plaintext highlighter-rouge">figure.archery</code> rather than <code class="language-plaintext highlighter-rouge">figure.Archery</code>, otherwise the SF Symbol won’t be loaded.</p>
+
+<p>So, change your <code class="language-plaintext highlighter-rouge">Image</code> code this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"figure.</span><span class="se">\(</span><span class="n">selected</span><span class="o">.</span><span class="nf">lowercased</span><span class="p">()</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Those changes mean our UI will display whatever the <code class="language-plaintext highlighter-rouge">selected</code> property is set to, so can see it all change if you place a new string in that property:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="nv">selected</span> <span class="o">=</span> <span class="s">"Baseball"</span>
+</code></pre></div></div>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/baseball.png" alt="Showing Baseball" /></p>
+
+<p>Of course, we want that to change <em>dynamically</em> rather than having to edit the code each time, so we’re going to add a button below our inner <code class="language-plaintext highlighter-rouge">VStack</code> that will change the selected activity every time it’s pressed. This is still inside the outer <code class="language-plaintext highlighter-rouge">VStack</code>, though, which means it will be arranged below the title and activity icon.</p>
+
+<p>Add this code now:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Button</span><span class="p">(</span><span class="s">"Try again"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// change activity</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="nf">buttonStyle</span><span class="p">(</span><span class="o">.</span><span class="n">borderedProminent</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/try-again-button.png" alt="Try Again Button" /></p>
+
+<p>So, your structure should be this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">VStack</span> <span class="p">{</span>
+    <span class="c1">// "Why not try…" text</span>
+
+    <span class="c1">// Inner VStack with icon and activity name</span>
+
+    <span class="c1">// New button code</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The new button code does three things:</p>
+
+<ol>
+  <li>We create the <code class="language-plaintext highlighter-rouge">Button</code> by passing in a title to show as the button’s label.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">// change activity</code> comment is code that will be run when the button is pressed.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">buttonStyle()</code> modifier tells SwiftUI we want this button to stand out, so you’ll see it appear in a blue rectangle with white text.</li>
+</ol>
+
+<p>Just having a comment as the button’s action isn’t very interesting – really we want to make it set <code class="language-plaintext highlighter-rouge">selected</code> to a random element from the <code class="language-plaintext highlighter-rouge">activities</code> array. We can pick a random element from the array by calling the helpfully named <code class="language-plaintext highlighter-rouge">randomElement()</code> method on it, so replace the comment with this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">selected</span> <span class="o">=</span> <span class="n">activities</span><span class="o">.</span><span class="nf">randomElement</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>That code <em>looks</em> right, but it will actually cause compiler errors. We’re telling Swift to pick a random element from the array and place it into the <code class="language-plaintext highlighter-rouge">selected</code> property, but there’s no way for Swift to be sure there’s anything in that array – it could be empty, in which case there’s no random element to return.</p>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/random-element-error.png" alt="Random Element Error" /></p>
+
+<p>Swift calls these <em>optionals</em>: <code class="language-plaintext highlighter-rouge">randomElement()</code> won’t return a regular string, it will return an <em>optional</em> string. This means the string might not be there, so it’s not safe to assign to the <code class="language-plaintext highlighter-rouge">selected</code> property.</p>
+
+<p>Even though we know the array will never be empty – it will <em>always</em> have activities in there – we can give Swift a sensible default value to use just in case the array happens to be empty in the future, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">selected</span> <span class="o">=</span> <span class="n">activities</span><span class="o">.</span><span class="nf">randomElement</span><span class="p">()</span> <span class="p">??</span> <span class="s">"Archery"</span>
+</code></pre></div></div>
+
+<p>That partly fixes our code, but Xcode will still be showing an error. The problem now is that SwiftUI doesn’t like us changing our program’s state right inside our view structs without warning – it wants us to mark all the mutable state ahead of time, so it knows to watch for changes.</p>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/non-state-mutating.png" alt="Non-@State mutating" /></p>
+
+<p>This is done by writing <code class="language-plaintext highlighter-rouge">@State</code> before any view properties that will change, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@State</span> <span class="k">var</span> <span class="nv">selected</span> <span class="o">=</span> <span class="s">"Baseball"</span>
+</code></pre></div></div>
+
+<p>This is called a <em>property wrapper</em>, meaning that it wraps our <code class="language-plaintext highlighter-rouge">selected</code> property with some extra logic. The <code class="language-plaintext highlighter-rouge">@State</code> property wrapper allows us to change view state freely, but it also automatically watches its property for changes so that it can make sure the user interface stays up to date with the latest values.</p>
+
+<p>That fixes the two errors in our code, so you can now press Cmd+R to build and run your app in the iOS simulator. It will suggest baseball by default, but every time you press “Try again” you’ll see it change.</p>
+
+<p><img class="device-aspect-ratio" src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/running-in-simulator.png" alt="Running The App in the Simulator" /></p>
+
+<h2 id="adding-some-polish" class="header-with-anchor">Adding some polish <a title="Permalink for Adding some polish section" href="#adding-some-polish">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Before we’re done with this project, let’s add a handful more tweaks to make it better.</p>
+
+<p>First, an easy one: Apple recommends that local view state always be marked with <code class="language-plaintext highlighter-rouge">private</code> access control. In larger projects, this means you can’t accidentally write code that reads one view’s local state from another, which helps keep your code easier to understand.</p>
+
+<p>This means modifying the <code class="language-plaintext highlighter-rouge">selected</code> property like so:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">selected</span> <span class="o">=</span> <span class="s">"Baseball"</span>
+</code></pre></div></div>
+
+<p>Second, rather than always showing a blue background, we can pick a random color each time. This takes two steps, starting with a new property of all the colors we want to select from – put this next to the <code class="language-plaintext highlighter-rouge">activities</code> property:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="nv">colors</span><span class="p">:</span> <span class="p">[</span><span class="kt">Color</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="n">blue</span><span class="p">,</span> <span class="o">.</span><span class="n">cyan</span><span class="p">,</span> <span class="o">.</span><span class="n">gray</span><span class="p">,</span> <span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="o">.</span><span class="n">indigo</span><span class="p">,</span> <span class="o">.</span><span class="n">mint</span><span class="p">,</span> <span class="o">.</span><span class="n">orange</span><span class="p">,</span> <span class="o">.</span><span class="n">pink</span><span class="p">,</span> <span class="o">.</span><span class="n">purple</span><span class="p">,</span> <span class="o">.</span><span class="n">red</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Now we can change our circle’s <code class="language-plaintext highlighter-rouge">fill()</code> modifier to use <code class="language-plaintext highlighter-rouge">randomElement()</code> on that array, or <code class="language-plaintext highlighter-rouge">.blue</code> if somehow the array ends up being empty:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Circle</span><span class="p">()</span>
+    <span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="nf">randomElement</span><span class="p">()</span> <span class="p">??</span> <span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Third, we can separate the activity <code class="language-plaintext highlighter-rouge">VStack</code> and “Try again” button by adding a new SwiftUI view between them, called <code class="language-plaintext highlighter-rouge">Spacer</code>. This is a flexible space that automatically expands, which means it will push our activity icon to the top of the screen, and the button to the bottom.</p>
+
+<p>Insert it between the two, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">VStack</span> <span class="p">{</span>
+    <span class="c1">// current Circle/Text code</span>
+<span class="p">}</span>
+
+<span class="kt">Spacer</span><span class="p">()</span>
+
+<span class="kt">Button</span><span class="p">(</span><span class="s">"Try again"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>If you add multiple spacers, they will divide the space equally between them. If you try placing a second spacer before the “Why not try…” text you’ll see what I mean – SwiftUI will create and equal amount of space above the text and below the activity name.</p>
+
+<p><img src="https://swift.org/assets/images/getting-started-guides/swiftui-ios/spacers.png" alt="View With Spacers" /></p>
+
+<p>And fourth, it would be nice if the change between activities was smoother, which we can do by animating the change. In SwiftUI, this is done by wrapping changes we want to animate with a call to the <code class="language-plaintext highlighter-rouge">withAnimation()</code> function, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Button</span><span class="p">(</span><span class="s">"Try again"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">withAnimation</span> <span class="p">{</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">activities</span><span class="o">.</span><span class="nf">randomElement</span><span class="p">()</span> <span class="p">??</span> <span class="s">"Archery"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="nf">buttonStyle</span><span class="p">(</span><span class="o">.</span><span class="n">borderedProminent</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>That will cause our button press to move between activities with a gentle fade. If you want, you can customize that animation by passing the animation you want to the <code class="language-plaintext highlighter-rouge">withAnimation()</code> call, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">withAnimation</span><span class="p">(</span><span class="o">.</span><span class="nf">easeInOut</span><span class="p">(</span><span class="nv">duration</span><span class="p">:</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>That’s an improvement, but we can do better!</p>
+
+<p>The fade happens because SwiftUI sees the background color, icon, and text changing, so it removes the old views and replaces it with new views. Earlier I made you create an inner <code class="language-plaintext highlighter-rouge">VStack</code> to house those three views, and now you can see why: we’re going to tell SwiftUI that these views can be identified as a single group, and that the group’s identifier can change over time.</p>
+
+<p>To make that happen, we need to start by defining some more program state inside our view. This will be the identifier for our inner <code class="language-plaintext highlighter-rouge">VStack</code>, and because it will change as our program runs we’ll use <code class="language-plaintext highlighter-rouge">@State</code>. Add this property next to <code class="language-plaintext highlighter-rouge">selected</code>:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">id</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p><strong>Tip:</strong> That’s more local view state, so it’s good practice to mark it with <code class="language-plaintext highlighter-rouge">private</code>.</p>
+
+<p>Next, we can tell SwiftUI to change that identifier every time our button is pressed, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">Button</span><span class="p">(</span><span class="s">"Try again"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">withAnimation</span><span class="p">(</span><span class="o">.</span><span class="nf">easeInOut</span><span class="p">(</span><span class="nv">duration</span><span class="p">:</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">activities</span><span class="o">.</span><span class="nf">randomElement</span><span class="p">()</span> <span class="p">??</span> <span class="s">"Archery"</span>
+        <span class="n">id</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="nf">buttonStyle</span><span class="p">(</span><span class="o">.</span><span class="n">borderedProminent</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Finally, we can use SwiftUI’s <code class="language-plaintext highlighter-rouge">id()</code> modifier to attach that identifier to the whole inner <code class="language-plaintext highlighter-rouge">VStack</code>, meaning that when the identifier changes SwiftUI should consider the whole <code class="language-plaintext highlighter-rouge">VStack</code> as new. This will make it animate the old <code class="language-plaintext highlighter-rouge">VStack</code> being removed and a new <code class="language-plaintext highlighter-rouge">VStack</code> being added, rather than just the individual views inside it. Even better, we can control how that add and remove transition happens using a <code class="language-plaintext highlighter-rouge">transition()</code> modifier, which has various built-in transitions we can use.</p>
+
+<p>So, add these two modifiers to the inner <code class="language-plaintext highlighter-rouge">VStack</code>, telling SwiftUI to identify the whole group using our <code class="language-plaintext highlighter-rouge">id</code> property, and animate its add and removal transitions with a slide:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span><span class="nf">transition</span><span class="p">(</span><span class="o">.</span><span class="n">slide</span><span class="p">)</span>
+<span class="o">.</span><span class="nf">id</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Press Cmd+R to run your app one last time, and you should see that pressing “Try Again” now smoothly animates the old activity off the screen, and replaces it with a new one. It even overlaps animations if you press “Try Again” repeatedly!</p>
+
+<video class="device-aspect-ratio" autoplay="" loop="" muted="">
+  <source src="https://swift.org/assets/videos/getting-started-guides/swiftui-app/demo.mp4" type="video/mp4" />
+</video>
+
+<h2 id="where-now" class="header-with-anchor">Where now? <a title="Permalink for Where now? section" href="#where-now">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>We’ve covered a lot of SwiftUI basics in this tutorial, including text, images, buttons, stacks, animation, and even using <code class="language-plaintext highlighter-rouge">@State</code> to mark values that change over time. SwiftUI is capable of so much more, and can be used to build complex cross-platform apps if needed.</p>
+
+<p>If you’d like to continue learning SwiftUI, there are lots of free resources available. For example, <a href="https://developer.apple.com/tutorials/swiftui">Apple publishes a wide variety of tutorials</a> covering essential topics, drawing and animation, app design, and more. We’ll also post links here on Swift.org to some other popular tutorials – we’re a big and welcoming community, and we’re glad to have you join!</p>
+
+<blockquote>
+  <p>The source code for this guide can be found <a href="https://github.com/0xTim/swift-org-swiftui-tutorial">on GitHub</a></p>
+</blockquote>
+
+
+  
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - REPL Support for Swift Packages</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <meta name="description" content="The swift run command has a new --repl option which launches the Swift REPL with support for importing library targets of a package.
+">
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/blog/swiftpm-repl-support/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="REPL Support for Swift Packages" />
+  <meta name="twitter:description" content="The swift run command has a new --repl option which launches the Swift REPL with support for importing library targets of a package.
+" />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="REPL Support for Swift Packages" />
+  <meta property="og:url" content="https://swift.org/blog/swiftpm-repl-support/" />
+  <meta property="og:description" content="The swift run command has a new --repl option which launches the Swift REPL with support for importing library targets of a package.
+" />
+  <meta property="article:published_time" content="2018-10-08T06:00:00-04:00" />
+  <meta property="article:modified_time" content="2025-02-24T22:09:56-04:00" />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+<article class="post">
+  <header>
+    <h1>REPL Support for Swift Packages</h1>
+
+    <time pubdate datetime="2018-10-08T06:00:00-04:00">October 8, 2018</time>
+    <div class="authors compact">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/9b923f8f8e522c67e81454756fc027e9?s=64&d=mp"
+            
+            alt="Ankit Aggarwal"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/aciidb0mb3r/" rel="nofollow" title="Ankit Aggarwal (@aciidb0mb3r) on GitHub">Ankit Aggarwal</a>
+            
+          </span>
+        </div>
+        
+      </div>
+    
+  
+</div>
+  </header>
+
+  <p>The <code class="language-plaintext highlighter-rouge">swift run</code> command has a new <code class="language-plaintext highlighter-rouge">--repl</code> option which launches the Swift REPL with support for importing library targets of a package.</p>
+
+<p>The Swift distribution comes with a REPL for the Swift language. The Swift REPL is a great tool for experimenting with Swift code without needing to create a throwaway Swift package or Xcode project. The REPL can be launched by running the <code class="language-plaintext highlighter-rouge">swift</code> command without any arguments.</p>
+
+<p>The Swift REPL allows you to import the core libraries like <code class="language-plaintext highlighter-rouge">Foundation</code>, <code class="language-plaintext highlighter-rouge">Dispatch</code> and system modules like <code class="language-plaintext highlighter-rouge">Darwin</code> on macOS and <code class="language-plaintext highlighter-rouge">Glibc</code> on Linux. In fact, the REPL allows you to import any Swift module as long as it can correctly find and load them using the compiler arguments that are provided while launching the REPL. Swift Package Manager leverages this feature and launches the REPL with the compiler arguments that are required for importing library targets of a package.</p>
+
+<h2 id="examples" class="header-with-anchor">Examples <a title="Permalink for Examples section" href="#examples">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Let’s explore the new functionality using some examples:</p>
+
+<h3 id="yams"><a href="https://github.com/jpsim/Yams">Yams</a></h3>
+
+<p>Yams is a Swift package for working with YAML.</p>
+
+<p>Clone the package and launch REPL using <code class="language-plaintext highlighter-rouge">swift run --repl</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/jpsim/Yams
+<span class="nv">$ </span><span class="nb">cd </span>Yams
+<span class="nv">$ </span>swift run <span class="nt">--repl</span>
+</code></pre></div></div>
+
+<p>This should compile the package and launch the Swift REPL. Let’s try using the <code class="language-plaintext highlighter-rouge">dump</code> method which converts an object to YAML:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="mi">1</span><span class="o">&gt;</span> <span class="kd">import</span> <span class="kt">Yams</span>
+
+  <span class="mi">2</span><span class="o">&gt;</span> <span class="k">let</span> <span class="nv">yaml</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Yams</span><span class="o">.</span><span class="nf">dump</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="p">[</span><span class="s">"foo"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s">"bar"</span><span class="p">:</span> <span class="mi">3</span><span class="p">])</span>
+<span class="nv">yaml</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"bar: 3</span><span class="se">\n</span><span class="s">foo:</span><span class="se">\n</span><span class="s">- 1</span><span class="se">\n</span><span class="s">- 2</span><span class="se">\n</span><span class="s">- 3</span><span class="se">\n</span><span class="s">- 4</span><span class="se">\n</span><span class="s">"</span>
+
+  <span class="mi">3</span><span class="o">&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="n">yaml</span><span class="p">)</span>
+<span class="nv">bar</span><span class="p">:</span> <span class="mi">3</span>
+<span class="nv">foo</span><span class="p">:</span>
+<span class="o">-</span> <span class="mi">1</span>
+<span class="o">-</span> <span class="mi">2</span>
+<span class="o">-</span> <span class="mi">3</span>
+<span class="o">-</span> <span class="mi">4</span>
+</code></pre></div></div>
+
+<p>Similarly, we can use the <code class="language-plaintext highlighter-rouge">load</code> method to convert the string back into an object:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="mi">4</span><span class="o">&gt;</span> <span class="k">let</span> <span class="nv">object</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Yams</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="nv">yaml</span><span class="p">:</span> <span class="n">yaml</span><span class="p">)</span>
+<span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?</span> <span class="o">=</span> <span class="mi">2</span> <span class="n">key</span><span class="o">/</span><span class="n">value</span> <span class="n">pairs</span> <span class="p">{</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+
+  <span class="mi">5</span><span class="o">&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+<span class="kt">Optional</span><span class="p">([</span><span class="kt">AnyHashable</span><span class="p">(</span><span class="s">"bar"</span><span class="p">):</span> <span class="mi">3</span><span class="p">,</span> <span class="kt">AnyHashable</span><span class="p">(</span><span class="s">"foo"</span><span class="p">):</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+</code></pre></div></div>
+
+<h3 id="vapors-http">Vapor’s <a href="https://github.com/vapor/http">HTTP</a></h3>
+
+<p>The <a href="http://vapor.codes">Vapor</a> project has a <a href="https://github.com/vapor/http">HTTP</a> package built on top of <a href="https://github.com/apple/swift-nio">SwiftNIO</a> package.</p>
+
+<p>Clone the package and launch REPL using <code class="language-plaintext highlighter-rouge">swift run --repl</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/vapor/http
+<span class="nv">$ </span><span class="nb">cd </span>http
+<span class="nv">$ </span>swift run <span class="nt">--repl</span>
+</code></pre></div></div>
+
+<p>Let’s make a <code class="language-plaintext highlighter-rouge">GET</code> request using the <code class="language-plaintext highlighter-rouge">HTTPClient</code> type:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="mi">1</span><span class="o">&gt;</span> <span class="kd">import</span> <span class="kt">HTTP</span>
+  <span class="mi">2</span><span class="o">&gt;</span> <span class="k">let</span> <span class="nv">worker</span> <span class="o">=</span> <span class="kt">MultiThreadedEventLoopGroup</span><span class="p">(</span><span class="nv">numberOfThreads</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="mi">3</span><span class="o">&gt;</span> <span class="k">let</span> <span class="nv">client</span> <span class="o">=</span> <span class="kt">HTTPClient</span><span class="o">.</span><span class="nf">connect</span><span class="p">(</span><span class="nv">hostname</span><span class="p">:</span> <span class="s">"httpbin.org"</span><span class="p">,</span> <span class="nv">on</span><span class="p">:</span> <span class="n">worker</span><span class="p">)</span><span class="o">.</span><span class="nf">wait</span><span class="p">()</span>
+  <span class="mi">4</span><span class="o">&gt;</span> <span class="k">let</span> <span class="nv">httpReq</span> <span class="o">=</span> <span class="kt">HTTPRequest</span><span class="p">(</span><span class="nv">method</span><span class="p">:</span> <span class="o">.</span><span class="kt">GET</span><span class="p">,</span> <span class="nv">url</span><span class="p">:</span> <span class="s">"/json"</span><span class="p">)</span>
+  <span class="mi">5</span><span class="o">&gt;</span> <span class="k">let</span> <span class="nv">httpRes</span> <span class="o">=</span> <span class="k">try</span> <span class="n">client</span><span class="o">.</span><span class="nf">send</span><span class="p">(</span><span class="n">httpReq</span><span class="p">)</span><span class="o">.</span><span class="nf">wait</span><span class="p">()</span>
+
+  <span class="mi">6</span><span class="o">&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="n">httpRes</span><span class="p">)</span>
+<span class="kt">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="kt">OK</span>
+<span class="kt">Connection</span><span class="p">:</span> <span class="n">keep</span><span class="o">-</span><span class="n">alive</span>
+<span class="kt">Server</span><span class="p">:</span> <span class="n">gunicorn</span><span class="o">/</span><span class="mf">19.9</span><span class="o">.</span><span class="mi">0</span>
+<span class="kt">Date</span><span class="p">:</span> <span class="kt">Sun</span><span class="p">,</span> <span class="mi">30</span> <span class="kt">Sep</span> <span class="mi">2018</span> <span class="mi">21</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">41</span> <span class="kt">GMT</span>
+<span class="kt">Content</span><span class="o">-</span><span class="k">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>
+<span class="kt">Content</span><span class="o">-</span><span class="kt">Length</span><span class="p">:</span> <span class="mi">429</span>
+<span class="kt">Access</span><span class="o">-</span><span class="kt">Control</span><span class="o">-</span><span class="kt">Allow</span><span class="o">-</span><span class="kt">Origin</span><span class="p">:</span> <span class="o">*</span>
+<span class="kt">Access</span><span class="o">-</span><span class="kt">Control</span><span class="o">-</span><span class="kt">Allow</span><span class="o">-</span><span class="kt">Credentials</span><span class="p">:</span> <span class="kc">true</span>
+<span class="kt">Via</span><span class="p">:</span> <span class="mf">1.1</span> <span class="n">vegur</span>
+<span class="p">{</span>
+  <span class="s">"slideshow"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">"author"</span><span class="p">:</span> <span class="s">"Yours Truly"</span><span class="p">,</span>
+    <span class="s">"date"</span><span class="p">:</span> <span class="s">"date of publication"</span><span class="p">,</span>
+    <span class="s">"slides"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s">"title"</span><span class="p">:</span> <span class="s">"Wake up to WonderWidgets!"</span><span class="p">,</span>
+        <span class="s">"type"</span><span class="p">:</span> <span class="s">"all"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s">"items"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s">"Why &lt;em&gt;WonderWidgets&lt;/em&gt; are great"</span><span class="p">,</span>
+          <span class="s">"Who &lt;em&gt;buys&lt;/em&gt; WonderWidgets"</span>
+        <span class="p">],</span>
+        <span class="s">"title"</span><span class="p">:</span> <span class="s">"Overview"</span><span class="p">,</span>
+        <span class="s">"type"</span><span class="p">:</span> <span class="s">"all"</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">"title"</span><span class="p">:</span> <span class="s">"Sample Slide Show"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can use Foundation’s <code class="language-plaintext highlighter-rouge">JSONSerialization</code> to parse the response:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="mi">7</span><span class="o">&gt;</span> <span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">JSONSerialization</span><span class="o">.</span><span class="nf">jsonObject</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="n">httpRes</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">data</span><span class="o">!</span><span class="p">)</span> <span class="k">as!</span> <span class="kt">NSDictionary</span>
+<span class="nv">result</span><span class="p">:</span> <span class="kt">NSDictionary</span> <span class="o">=</span> <span class="mi">1</span> <span class="n">key</span><span class="o">/</span><span class="n">value</span> <span class="n">pair</span> <span class="p">{</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="s">"slideshow"</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="mi">4</span> <span class="n">key</span><span class="o">/</span><span class="n">value</span> <span class="n">pairs</span> <span class="p">{</span>
+      <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s">"slides"</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="mi">2</span> <span class="n">elements</span>
+      <span class="p">}</span>
+      <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s">"author"</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="s">"Yours Truly"</span>
+      <span class="p">}</span>
+      <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s">"title"</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="s">"Sample Slide Show"</span>
+      <span class="p">}</span>
+      <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s">"date"</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="s">"date of publication"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="implementation-details" class="header-with-anchor">Implementation Details <a title="Permalink for Implementation Details section" href="#implementation-details">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Using the REPL with a Swift package requires two pieces of information in order to construct the REPL arguments. The first piece is providing the header search paths for the library targets and their dependencies. For Swift targets, this means providing the path to the module’s <code class="language-plaintext highlighter-rouge">.swiftmodule</code> file and for C targets, we need the path of the directory containing the target’s modulemap file. The second piece is constructing a shared dynamic library that contains all of the library targets. This will allow the REPL to load the required symbols at runtime. SwiftPM does this by synthesizing a special product that contains all of the library targets of the root package. This special product is only built when using the <code class="language-plaintext highlighter-rouge">--repl</code> option and doesn’t affect other package manager operations.</p>
+
+<p>Checkout the <a href="https://github.com/swiftlang/swift-package-manager/pull/1793">pull request</a> that implemented this functionality for full implementation details!</p>
+
+<h2 id="conclusion" class="header-with-anchor">Conclusion <a title="Permalink for Conclusion section" href="#conclusion">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>REPL support for Swift packages will further enhance the REPL environment and enable easier experimentation for library package authors and consumers. The feature is available to try in the latest trunk <a href="/download/#snapshots">snapshot</a>. If you find bugs or have enhancement requests, please file a <a href="https://github.com/swiftlang/swift-package-manager/blob/master/Documentation/Resources.md#reporting-a-good-swiftpm-bug">JIRA</a>!</p>
+
+<h2 id="questions" class="header-with-anchor">Questions? <a title="Permalink for Questions? section" href="#questions">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>If you have questions and are interested in learning more, check out the related <a href="https://forums.swift.org/t/swift-org-blog-repl-support-for-swift-packages/16792">discussion thread</a> in the Swift forums.</p>
+
+
+  <footer>
+    
+      <p>Written by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.gravatar.com/avatar/9b923f8f8e522c67e81454756fc027e9?s=64&d=mp"
+            
+            alt="Ankit Aggarwal"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/aciidb0mb3r/" rel="nofollow" title="Ankit Aggarwal (@aciidb0mb3r) on GitHub">Ankit Aggarwal</a>
+            
+          </span>
+        </div>
+        
+          
+          
+        
+      </div>
+    
+  
+</div>
+    
+
+    
+    <nav>
+      
+      <a href="/blog/how-mirror-works/" rel="prev" title="Previous: How Mirror Works">How Mirror Works</a>
+      
+
+      
+      <a href="/blog/swift-5-exclusivity/" rel="next" title="Next: Swift 5 Exclusivity Enforcement">Swift 5 Exclusivity Enforcement</a>
+      
+    </nav>
+    
+  </footer>
+</article>
+</main>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+  <p>Except where otherwise noted, all content on this blog is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

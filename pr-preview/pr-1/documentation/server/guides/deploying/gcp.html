@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Deploying to Google Cloud Platform (GCP)</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/documentation/server/guides/deploying/gcp.html" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift.org" />
+  <meta name="twitter:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:title" content="Swift.org" />
+  <meta property="og:url" content="https://swift.org" />
+  <meta property="og:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+  <article class="page">
+  
+    
+      <header>
+        <h1>Deploying to Google Cloud Platform (GCP)</h1>
+      </header>
+    
+  
+
+  <p>This guide describes how to build and run your Swift Server on serverless
+architecture with <a href="https://cloud.google.com/build">Google Cloud Build</a> and
+<a href="https://cloud.google.com/run">Google Cloud Run</a>. We’ll use
+<a href="https://cloud.google.com/artifact-registry/docs/docker/quickstart">Artifact Registry</a>
+to store the Docker images.</p>
+
+<h2 id="google-cloud-platform-setup" class="header-with-anchor">Google Cloud Platform Setup <a title="Permalink for Google Cloud Platform Setup section" href="#google-cloud-platform-setup">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>You can read about
+<a href="https://cloud.google.com/gcp/getting-started/">Getting Started with GCP</a> in
+more detail. In order to run Swift Server applications, we need to:</p>
+
+<ul>
+  <li>enable <a href="https://console.cloud.google.com/billing">Billing</a> (requires a credit
+card). Note that when creating a new account, GCP provides you with $300 of
+free credit to use in the first 90 days. You can follow this guide for free
+for a new account. Everything in this guide should fall into the “Free Tier”
+category at GCP (120 build minutes per day, 2 million Cloud Run requests per
+month
+<a href="https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits">Free Tier Usage Limits</a>)</li>
+  <li>enable the
+<a href="https://console.cloud.google.com/apis/api/cloudbuild.googleapis.com/overview">Cloud Build API</a></li>
+  <li>enable the
+<a href="https://console.cloud.google.com/apis/api/run.googleapis.com/overview">Cloud Run Admin API</a></li>
+  <li>enable the
+<a href="https://console.cloud.google.com/apis/api/artifactregistry.googleapis.com/overview">Artifact Registry API</a></li>
+  <li><a href="https://console.cloud.google.com/artifacts/create-repo">create a Repository in the Artifact Registry</a>
+(Format: Docker, Region: your choice)</li>
+</ul>
+
+<h2 id="project-requirements" class="header-with-anchor">Project Requirements <a title="Permalink for Project Requirements section" href="#project-requirements">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Please verify that your server listens on <code class="language-plaintext highlighter-rouge">0.0.0.0</code>, not <code class="language-plaintext highlighter-rouge">127.0.0.1</code> and it’s
+recommended to use the environment variable <code class="language-plaintext highlighter-rouge">$PORT</code> instead of a hard-coded
+value. For the workflow to pass, two files are essential, both need to be in the
+project root:</p>
+
+<ol>
+  <li>Dockerfile</li>
+  <li>cloudbuild.yaml</li>
+</ol>
+
+<h3 id="dockerfile" class="header-with-anchor"><code class="language-plaintext highlighter-rouge">Dockerfile</code> <a title="Permalink for <code class="language-plaintext highlighter-rouge">Dockerfile</code> section" href="#dockerfile">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>You should test your Dockerfile with <code class="language-plaintext highlighter-rouge">docker build . -t test</code> and
+<code class="language-plaintext highlighter-rouge">docker run -p 8080:8080 test</code> and make sure it builds and runs locally.</p>
+
+<p>The <em>Dockerfile</em> is the same as in the <a href="/server/guides/packaging.html#docker">packaging guide</a>.
+Replace <code class="language-plaintext highlighter-rouge">&lt;executable-name&gt;</code> with your <code class="language-plaintext highlighter-rouge">executableTarget</code> (ie. “Server”):</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#------- build -------</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">swift:centos</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">builder</span>
+
+<span class="c"># set up the workspace</span>
+<span class="k">RUN </span><span class="nb">mkdir</span> /workspace
+<span class="k">WORKDIR</span><span class="s"> /workspace</span>
+
+<span class="c"># copy the source to the docker image</span>
+<span class="k">COPY</span><span class="s"> . /workspace</span>
+
+<span class="k">RUN </span>swift build <span class="nt">-c</span> release <span class="nt">--static-swift-stdlib</span>
+
+<span class="c">#------- package -------</span>
+<span class="k">FROM</span><span class="s"> centos:8</span>
+<span class="c"># copy executable</span>
+<span class="k">COPY</span><span class="s"> --from=builder /workspace/.build/release/&lt;executable-name&gt; /</span>
+
+<span class="c"># set the entry point (application name)</span>
+<span class="k">CMD</span><span class="s"> ["&lt;executable-name&gt;"]</span>
+</code></pre></div></div>
+
+<h3 id="cloudbuildyaml" class="header-with-anchor"><code class="language-plaintext highlighter-rouge">cloudbuild.yaml</code> <a title="Permalink for <code class="language-plaintext highlighter-rouge">cloudbuild.yaml</code> section" href="#cloudbuildyaml">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">cloudbuild.yaml</code> files contains a set of steps to build the server image
+directly in the cloud and deploy a new Cloud Run instance after the successful
+build. <code class="language-plaintext highlighter-rouge">${_VAR}</code> are
+<a href="https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values">“substitution variables”</a>
+that are available during build time and can be passed on into the runtime
+environment in the “deploy” phase. We will set the variables later when we
+configure the <a href="#deployment">Build Trigger</a> (Step 5).</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gcr.io/cloud-builders/docker'</span>
+    <span class="na">entrypoint</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bash'</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">-c'</span>
+      <span class="pi">-</span> <span class="pi">|</span>
+        <span class="s">docker pull ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:latest || exit 0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gcr.io/cloud-builders/docker'</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">build</span>
+      <span class="pi">-</span> <span class="s">-t</span>
+      <span class="pi">-</span> <span class="s">${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:$SHORT_SHA</span>
+      <span class="pi">-</span> <span class="s">-t</span>
+      <span class="pi">-</span> <span class="s">${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:latest</span>
+      <span class="pi">-</span> <span class="s">.</span>
+      <span class="pi">-</span> <span class="s">--cache-from</span>
+      <span class="pi">-</span> <span class="s">${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:latest</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gcr.io/cloud-builders/docker'</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="pi">[</span>
+        <span class="s1">'</span><span class="s">push'</span><span class="pi">,</span>
+        <span class="s1">'</span><span class="s">${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:$SHORT_SHA'</span>
+      <span class="pi">]</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gcr.io/cloud-builders/gcloud'</span>
+    <span class="na">args</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">run</span>
+      <span class="pi">-</span> <span class="s">deploy</span>
+      <span class="pi">-</span> <span class="s">swift-service</span>
+      <span class="pi">-</span> <span class="s">--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:$SHORT_SHA</span>
+      <span class="pi">-</span> <span class="s">--port=8080</span>
+      <span class="pi">-</span> <span class="s">--region=${_REGION}</span>
+      <span class="pi">-</span> <span class="s">--memory=512Mi</span>
+      <span class="pi">-</span> <span class="s">--platform=managed</span>
+      <span class="pi">-</span> <span class="s">--allow-unauthenticated</span>
+      <span class="pi">-</span> <span class="s">--min-instances=0</span>
+      <span class="pi">-</span> <span class="s">--max-instances=5</span>
+<span class="na">images</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s1">'</span><span class="s">${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:$SHORT_SHA'</span>
+  <span class="pi">-</span> <span class="s1">'</span><span class="s">${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY_NAME}/${_SERVICE_NAME}:latest'</span>
+<span class="na">timeout</span><span class="pi">:</span> <span class="s">1800s</span>
+</code></pre></div></div>
+
+<h3 id="the-steps-in-detail" class="header-with-anchor">The steps in detail <a title="Permalink for The steps in detail section" href="#the-steps-in-detail">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<ol>
+  <li>Pull the latest image from the Artifact Registry to retrieve cached layers</li>
+  <li>Build the image with <code class="language-plaintext highlighter-rouge">$SHORT_SHA</code> and <code class="language-plaintext highlighter-rouge">latest</code> tag</li>
+  <li>Push the image to the Artifact Registry</li>
+  <li>Deploy the image to Cloud Run</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">images</code> specifies the build images to store in the registry. The default
+<code class="language-plaintext highlighter-rouge">timeout</code> is 10 minutes, so we’ll need to increase it for Swift builds. We use
+<code class="language-plaintext highlighter-rouge">8080</code> as the default port here, though it’s recommended to remove this line and
+have the server listen on <code class="language-plaintext highlighter-rouge">$PORT</code>.</p>
+
+<h2 id="deployment" class="header-with-anchor">Deployment <a title="Permalink for Deployment section" href="#deployment">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p><img src="/assets/images/server-guides/gcp-connect-repo.png" alt="cloud build trigger settings and how to connect a code repository" /></p>
+
+<p>Push all files to a remote repository. Cloud Build currently supports, GitHub,
+Bitbucket and GitLab. now) and head to
+<a href="https://console.cloud.google.com/cloud-build/triggers">Cloud Build Triggers</a>
+and click “Create Trigger”:</p>
+
+<ol>
+  <li>Add a name and description</li>
+  <li>Event: “Push to a branch” is active</li>
+  <li>Source: “Connect New Repository” and authorize with your code provider, and
+add the repository where your Swift server code is hosted. Note that you need
+to configure
+<a href="https://cloud.google.com/build/docs/automating-builds/build-repos-from-github">GitHub</a>,
+<a href="https://cloud.google.com/build/docs/automating-builds/build-repos-from-gitlab">GitLab</a>
+or
+<a href="https://cloud.google.com/build/docs/automating-builds/build-repos-from-bitbucket-cloud">Bitbucket</a>
+to allow GCP access first.</li>
+  <li>Configuration: “Cloud Build configuration file” / Location: Repository</li>
+  <li>Advanced:
+<a href="https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values">Substitution variables</a>:
+You need to set the variables for region, repository name and service name
+here. You can pick a
+<a href="https://cloud.google.com/about/locations/">region of your choice</a> (ie.
+<code class="language-plaintext highlighter-rouge">us-central1</code>). All custom variables must start with an underscore
+(<code class="language-plaintext highlighter-rouge">_REGION</code>). <code class="language-plaintext highlighter-rouge">_REPOSITORY_NAME</code> and <code class="language-plaintext highlighter-rouge">_SERVICE_NAME</code> are up to you. If you use
+environment variables for example to connect to a database or 3rd party
+services, you can set the values here too.</li>
+  <li>“Create”</li>
+</ol>
+
+<p>As a last step before deploying the new service, go to the
+<a href="https://console.cloud.google.com/cloud-build/settings">Cloud Build Settings</a>
+and make sure “Cloud Run” is enabled. This gives Cloud Build the necessary IAM
+permissions to deploy Cloud Run services.</p>
+
+<p><img src="/assets/images/server-guides/gcp-cloud-build-settings.png" alt="cloud build settings" /></p>
+
+<p>In the Trigger overview page, you should see your new “swift-service” trigger.
+Click on “RUN” on the right to start the trigger manually from the <code class="language-plaintext highlighter-rouge">main</code>
+branch. With a simple Hummingbird project the build takes about 7-8 minutes.
+Vapor takes about 25 minutes on the standard/small build machines, which are
+fairly slow. “Jordane” from the Vapor Discord community
+<a href="https://discord.com/channels/431917998102675485/447893851374616576/915819735738888222">recommends using <code class="language-plaintext highlighter-rouge">machineType: E2_HIGHCPU_8</code></a>
+in the <code class="language-plaintext highlighter-rouge">cloudbuild.yaml</code> to speed up deployments:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">options</span><span class="pi">:</span>
+  <span class="na">machineType</span><span class="pi">:</span> <span class="s1">'</span><span class="s">E2_HIGHCPU_8'</span>
+</code></pre></div></div>
+
+<p>After a successful build you should see the service URL in the build logs:</p>
+
+<p><img src="/assets/images/server-guides/gcp-cloud-build.png" alt="successful build and deployment to cloud run" /></p>
+
+<p>You can head over to Cloud Run and see your service running there:</p>
+
+<p><img src="/assets/images/server-guides/gcp-cloud-run.png" alt="cloud run overview" /></p>
+
+<p>The trigger will deploy every new commit on <code class="language-plaintext highlighter-rouge">main</code>. You can also enable Pull
+Request triggers for feature-driven workflows. Cloud Build also allows
+blue/green builds, auto-scaling and much more.</p>
+
+<p>You can now connect your custom domain to the new service and go live.</p>
+
+<h2 id="cleanup" class="header-with-anchor">Cleanup <a title="Permalink for Cleanup section" href="#cleanup">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<ul>
+  <li>delete the Cloud Run service</li>
+  <li>delete the Cloud Build trigger</li>
+  <li>delete the Artifact Registry repository</li>
+</ul>
+
+
+  
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

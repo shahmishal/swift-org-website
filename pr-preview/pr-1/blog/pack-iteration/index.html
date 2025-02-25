@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Iterate Over Parameter Packs in Swift 6.0</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <meta name="description" content="Parameter packs, introduced in Swift 5.9, make it possible to write generics that abstract over the number of arguments. This eliminates the need to have overloaded copies of the same generic function for one argument, two arguments, three arguments, and so on.
+With Swift 6.0, pack iteration makes it easier than ever to work with parameter packs.
+This post will show you how to make the best use of pack iteration.
+">
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/blog/pack-iteration/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Iterate Over Parameter Packs in Swift 6.0" />
+  <meta name="twitter:description" content="Parameter packs, introduced in Swift 5.9, make it possible to write generics that abstract over the number of arguments. This eliminates the need to have overloaded copies of the same generic function for one argument, two arguments, three arguments, and so on.
+With Swift 6.0, pack iteration makes it easier than ever to work with parameter packs.
+This post will show you how to make the best use of pack iteration.
+" />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Iterate Over Parameter Packs in Swift 6.0" />
+  <meta property="og:url" content="https://swift.org/blog/pack-iteration/" />
+  <meta property="og:description" content="Parameter packs, introduced in Swift 5.9, make it possible to write generics that abstract over the number of arguments. This eliminates the need to have overloaded copies of the same generic function for one argument, two arguments, three arguments, and so on.
+With Swift 6.0, pack iteration makes it easier than ever to work with parameter packs.
+This post will show you how to make the best use of pack iteration.
+" />
+  <meta property="article:published_time" content="2024-03-07T06:30:00-04:00" />
+  <meta property="article:modified_time" content="2025-02-24T22:09:56-04:00" />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+<article class="post">
+  <header>
+    <h1>Iterate Over Parameter Packs in Swift 6.0</h1>
+
+    <time pubdate datetime="2024-03-07T06:30:00-04:00">March 7, 2024</time>
+    <div class="authors compact">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.github.com/simanerush.png?size=64"
+            
+            alt="Sima Nerush"
+            title="Sima Nerush is an incoming engineer on the Apple SwiftUI team. She is an experienced iOS Engineer, Swift Compiler contributor, and a computer science student."
+            />
+          <span class="author">
+            
+              <a href="https://github.com/simanerush/" rel="nofollow" title="Sima Nerush (@simanerush) on GitHub">Sima Nerush</a>
+            
+          </span>
+        </div>
+        
+      </div>
+    
+  
+</div>
+  </header>
+
+  <p>Parameter packs, introduced in Swift 5.9, make it possible to write generics that abstract over the number of arguments. This eliminates the need to have overloaded copies of the same generic function for one argument, two arguments, three arguments, and so on.
+With Swift 6.0, pack iteration makes it easier than ever to work with parameter packs.
+This post will show you how to make the best use of pack iteration.</p>
+
+<h2 id="parameter-packs-recap" class="header-with-anchor">Parameter Packs Recap <a title="Permalink for Parameter Packs Recap section" href="#parameter-packs-recap">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>First, let’s review parameter packs. Consider the following code:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">areEqual</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">"hello"</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">"hello"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">)</span>
+<span class="c1">// false</span>
+</code></pre></div></div>
+
+<p>The above code simply compares two tuples. However, this code wouldn’t work if the tuples contained 7 elements!</p>
+
+<p>The Swift standard library provided comparison operators for tuples up to only 6 elements for a long time:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">(),</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+
+<span class="kd">func</span> <span class="o">==</span> <span class="o">&lt;</span><span class="kt">A</span><span class="p">,</span> <span class="kt">B</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">(</span><span class="kt">A</span><span class="p">,</span> <span class="kt">B</span><span class="p">),</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">(</span><span class="kt">A</span><span class="p">,</span> <span class="kt">B</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">where</span> <span class="kt">A</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">B</span><span class="p">:</span> <span class="kt">Equatable</span>
+
+<span class="kd">func</span> <span class="o">==</span> <span class="o">&lt;</span><span class="kt">A</span><span class="p">,</span> <span class="kt">B</span><span class="p">,</span> <span class="kt">C</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">(</span><span class="kt">A</span><span class="p">,</span> <span class="kt">B</span><span class="p">,</span> <span class="kt">C</span><span class="p">),</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">(</span><span class="kt">A</span><span class="p">,</span> <span class="kt">B</span><span class="p">,</span> <span class="kt">C</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">where</span> <span class="kt">A</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">B</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">C</span><span class="p">:</span> <span class="kt">Equatable</span>
+
+<span class="c1">// and so on, up to 6-element tuples</span>
+</code></pre></div></div>
+<p>In each of the generic functions above, every element of the input tuple has to have its type declared in the generic parameter list of the function. 
+Thus, we need to add a new element to the generic parameter list any time we want to support a larger tuple size. 
+Because of this, the artificial limit of 6-element tuples was imposed.</p>
+
+<p>Parameter packs added the ability to abstract a function over a variable number of type parameters. 
+This means that we can lift the 6-element limit using an <code class="language-plaintext highlighter-rouge">==</code> operator written like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="o">==</span> <span class="o">&lt;</span><span class="k">each</span> <span class="kt">Element</span><span class="p">:</span> <span class="kt">Equatable</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">(</span><span class="k">repeat</span> <span class="k">each</span> <span class="kt">Element</span><span class="p">),</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">(</span><span class="k">repeat</span> <span class="k">each</span> <span class="kt">Element</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+</code></pre></div></div>
+
+<p>Let’s break down the types we see in the above signature:</p>
+
+<ul>
+  <li>Note <code class="language-plaintext highlighter-rouge">each Element</code> in the list of generic parameters. The <code class="language-plaintext highlighter-rouge">each</code> keyword indicates that <code class="language-plaintext highlighter-rouge">Element</code> is a <em>type parameter pack</em>, meaning that it can accept any number of generic arguments. Just like with non-pack (<em>scalar</em>) generic parameters, we can declare a conformance requirement on the type parameter pack. In this case, we require each <code class="language-plaintext highlighter-rouge">Element</code> type to conform to the <code class="language-plaintext highlighter-rouge">Equatable</code> protocol.</li>
+  <li>This function takes in two tuples, <code class="language-plaintext highlighter-rouge">lhs</code> and <code class="language-plaintext highlighter-rouge">rhs</code>, as arguments. In both cases, the tuple’s element type is <code class="language-plaintext highlighter-rouge">repeat each Element</code>. This is called the <em>pack expansion type</em>, which consists of a <code class="language-plaintext highlighter-rouge">repeat</code> keyword followed by a <em>repetition pattern</em>, which has to contain a pack reference. In our case, the repetition pattern is <code class="language-plaintext highlighter-rouge">each Element</code>.</li>
+  <li>At the call site, the user provides <em>value parameter packs</em> for each tuple that will be substituted into their corresponding type parameter packs. At runtime, the repetition pattern will be repeated for each element in the substituted pack.</li>
+</ul>
+
+<p>With the tuple equality operator implemented using parameter packs, let’s look at the call site again to understand these concepts better.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">areEqual</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s">"hello"</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s">"hello"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">)</span>
+<span class="c1">// false</span>
+</code></pre></div></div>
+
+<p>The call to <code class="language-plaintext highlighter-rouge">==</code> substitutes the type pack <code class="language-plaintext highlighter-rouge">{Int, Bool, String}</code> for the <code class="language-plaintext highlighter-rouge">Element</code> type pack. Note that both <code class="language-plaintext highlighter-rouge">lhs</code> and <code class="language-plaintext highlighter-rouge">rhs</code> have the same type.
+Finally, the function <code class="language-plaintext highlighter-rouge">==</code> is called with value packs <code class="language-plaintext highlighter-rouge">{1, true, "hello"}</code> for the value pack of the <code class="language-plaintext highlighter-rouge">lhs</code> tuple and <code class="language-plaintext highlighter-rouge">{1, false, "hello"}</code> for the value pack of the <code class="language-plaintext highlighter-rouge">rhs</code> tuple.</p>
+
+<h2 id="why-pack-iteration" class="header-with-anchor">Why Pack Iteration? <a title="Permalink for Why Pack Iteration? section" href="#why-pack-iteration">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>The example with the new signature of the tuple comparison operator looks great, but how do we actually use the values of the <code class="language-plaintext highlighter-rouge">lhs</code> and <code class="language-plaintext highlighter-rouge">rhs</code> tuples inside the body of the function?
+Feel free to take a moment to think about this.</p>
+
+<p>It turns out that there is just no concise way of implementing the function prior to Swift 6.0.
+One solution involves creating a local function that compares a pair of elements from the two tuples, and then using pack expansion to call that function for every pair of elements, like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NotEqual</span><span class="p">:</span> <span class="kt">Error</span> <span class="p">{}</span>
+
+<span class="kd">func</span> <span class="o">==</span> <span class="o">&lt;</span><span class="k">each</span> <span class="kt">Element</span><span class="p">:</span> <span class="kt">Equatable</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">(</span><span class="k">repeat</span> <span class="k">each</span> <span class="kt">Element</span><span class="p">),</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">(</span><span class="k">repeat</span> <span class="k">each</span> <span class="kt">Element</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+  <span class="c1">// Local throwing function for operating over each element of a pack expansion.</span>
+  <span class="kd">func</span> <span class="n">isEqual</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">Equatable</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">left</span> <span class="o">==</span> <span class="k">right</span> <span class="p">{</span>
+      <span class="k">return</span>
+    <span class="p">}</span>
+    
+    <span class="k">throw</span> <span class="kt">NotEqual</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Do-catch statement for returning false as soon as two tuple elements are not equal.</span>
+  <span class="k">do</span> <span class="p">{</span>
+    <span class="k">repeat</span> <span class="k">try</span> <span class="nf">isEqual</span><span class="p">(</span><span class="k">each</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">each</span> <span class="n">rhs</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above code doesn’t look great, right? To simply check a condition for each pair of elements, we need to declare a local function <code class="language-plaintext highlighter-rouge">isEqual</code>, that just compares the given elements.
+However, this is not enough to make the function return early since the local <code class="language-plaintext highlighter-rouge">isEqual</code> function will still be called on every pair of elements in the parameter packs <code class="language-plaintext highlighter-rouge">lhs</code> and <code class="language-plaintext highlighter-rouge">rhs</code> when expanding them.
+Because of this, <code class="language-plaintext highlighter-rouge">isEqual</code> has to be marked <code class="language-plaintext highlighter-rouge">throws</code> and throw an error once a pair of mismatched elements is found.
+Then, we catch the error in a <code class="language-plaintext highlighter-rouge">catch</code> block to return <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<h2 id="introducing-pack-iteration" class="header-with-anchor">Introducing Pack Iteration <a title="Permalink for Introducing Pack Iteration section" href="#introducing-pack-iteration">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Swift 6.0 greatly simplifies this task with the introduction of pack iteration using the familiar <code class="language-plaintext highlighter-rouge">for</code>-<code class="language-plaintext highlighter-rouge">in</code> loop syntax.</p>
+
+<p>More specifically, with pack iteration, the body of the <code class="language-plaintext highlighter-rouge">==</code> tuple comparison operator simplifies down to a simple <code class="language-plaintext highlighter-rouge">for</code>-<code class="language-plaintext highlighter-rouge">in repeat</code> loop:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="o">==</span> <span class="o">&lt;</span><span class="k">each</span> <span class="kt">Element</span><span class="p">:</span> <span class="kt">Equatable</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">(</span><span class="k">repeat</span> <span class="k">each</span> <span class="kt">Element</span><span class="p">),</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">(</span><span class="k">repeat</span> <span class="k">each</span> <span class="kt">Element</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="k">left</span><span class="p">,</span> <span class="k">right</span><span class="p">)</span> <span class="k">in</span> <span class="nf">repeat</span> <span class="p">(</span><span class="k">each</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">each</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">left</span> <span class="o">==</span> <span class="k">right</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In the above code, we are able to utilize the <code class="language-plaintext highlighter-rouge">for</code>-<code class="language-plaintext highlighter-rouge">in</code> loop capability to iterate over the tuples pairwise.</p>
+
+<p>Note that when iterating over packs, we use the new <code class="language-plaintext highlighter-rouge">for</code>-<code class="language-plaintext highlighter-rouge">in repeat</code> syntax, followed by a value parameter pack that we are iterating over.
+At every iteration, the loop binds each element of the value parameter pack to a local variable.
+This means that in this case, the i<sup>th</sup> element of <code class="language-plaintext highlighter-rouge">lhs</code> will be bound to a local variable <code class="language-plaintext highlighter-rouge">left</code> on the i<sup>th</sup> iteration.
+In the body of the loop, you can use the local variable as you normally would.
+In our case, we compare each pair of elements and return <code class="language-plaintext highlighter-rouge">false</code> once we find a pair where <code class="language-plaintext highlighter-rouge">left != right</code>, using a familiar <code class="language-plaintext highlighter-rouge">guard</code> statement.
+And, of course, we no longer need to throw any errors as we had to before!</p>
+
+<h2 id="using-pack-iteration" class="header-with-anchor">Using Pack Iteration <a title="Permalink for Using Pack Iteration section" href="#using-pack-iteration">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+<p>Let’s now explore more ways you can utilize pack iteration in your Swift code with some examples.</p>
+
+<p>First, consider a situation where you need to write a function to check that all arrays in a given value parameter pack are empty:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="n">allEmpty</span><span class="o">&lt;</span><span class="k">each</span> <span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">array</span><span class="p">:</span> <span class="k">repeat</span> <span class="p">[</span><span class="k">each</span> <span class="kt">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="n">a</span> <span class="k">in</span> <span class="k">repeat</span> <span class="k">each</span> <span class="n">array</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="n">a</span><span class="o">.</span><span class="n">isEmpty</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above function is generic over a type parameter pack <code class="language-plaintext highlighter-rouge">each T</code> and takes in a value parameter pack <code class="language-plaintext highlighter-rouge">array</code>, the type of which is declared using <code class="language-plaintext highlighter-rouge">repeat [each T]</code> pack expansion, where <code class="language-plaintext highlighter-rouge">[each T]</code> is the repetition pattern.
+At the call site, it is repeated for each element in the substituted pack, resulting in values expanding into a list of array literals.</p>
+
+<p>On each iteration of the <code class="language-plaintext highlighter-rouge">for</code>-<code class="language-plaintext highlighter-rouge">in repeat</code> loop, an element of the value parameter pack <code class="language-plaintext highlighter-rouge">array</code> is bound to a local variable <code class="language-plaintext highlighter-rouge">a</code>.
+Note that with pack iteration, elements of the value pack are evaluated on demand, meaning that we are able to return out of the function early without examining all arrays of the value pack.
+In this case, we utilize the <code class="language-plaintext highlighter-rouge">guard</code> statement.</p>
+
+<p>Here is how you might use the <code class="language-plaintext highlighter-rouge">allEmpty</code> function:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="nf">allEmpty</span><span class="p">([</span><span class="s">"One"</span><span class="p">,</span> <span class="s">"Two"</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">],</span> <span class="p">[]))</span>
+<span class="c1">// False</span>
+</code></pre></div></div>
+
+<p>Now, let’s see an example of advanced usage of parameter packs that is greatly simplified by pack iteration.
+First, let’s declare the following protocol:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">ValueProducer</span> <span class="p">{</span>
+  <span class="kd">associatedtype</span> <span class="kt">Value</span><span class="p">:</span> <span class="kt">Codable</span>
+  <span class="kd">func</span> <span class="nf">evaluate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Value</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above protocol <code class="language-plaintext highlighter-rouge">ValueProducer</code> requires the <code class="language-plaintext highlighter-rouge">evaluate()</code> method that’s return type is the associated type <code class="language-plaintext highlighter-rouge">Value</code> that conforms to <code class="language-plaintext highlighter-rouge">Codable</code> protocol.</p>
+
+<p>Suppose you get a parameter pack of values of type <code class="language-plaintext highlighter-rouge">Result&lt;ValueProducer, Error&gt;</code>, and you need to iterate only over the <code class="language-plaintext highlighter-rouge">success</code> elements and call the <code class="language-plaintext highlighter-rouge">evaluate()</code> method on its value.
+Also, suppose you need to save the result of each call into an array.
+Pack iteration makes this task super easy!</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="n">evaluateAll</span><span class="o">&lt;</span><span class="k">each</span> <span class="kt">V</span><span class="p">:</span> <span class="kt">ValueProducer</span><span class="p">,</span> <span class="k">each</span> <span class="kt">E</span><span class="p">:</span> <span class="kt">Error</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">result</span><span class="p">:</span> <span class="k">repeat</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="k">each</span> <span class="kt">V</span><span class="p">,</span> <span class="k">each</span> <span class="kt">E</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kd">any</span> <span class="kt">Codable</span><span class="p">]</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="nv">evaluated</span><span class="p">:</span> <span class="p">[</span><span class="kd">any</span> <span class="kt">Codable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">valueProducer</span><span class="p">)</span> <span class="k">in</span> <span class="k">repeat</span> <span class="k">each</span> <span class="n">result</span> <span class="p">{</span>
+    <span class="n">evaluated</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">valueProducer</span><span class="o">.</span><span class="nf">evaluate</span><span class="p">())</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">evaluated</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let’s first note the signature of the <code class="language-plaintext highlighter-rouge">evaluateAll</code> function. In the generic parameter list, it declares two type parameter packs: <code class="language-plaintext highlighter-rouge">each V: ValueProducer</code>, and <code class="language-plaintext highlighter-rouge">each E: Error</code>.
+Every element of the pack <code class="language-plaintext highlighter-rouge">each V</code>  has to conform to the protocol <code class="language-plaintext highlighter-rouge">ValueProducer</code> declared above, and every element of the pack <code class="language-plaintext highlighter-rouge">each E</code> has to conform to the <code class="language-plaintext highlighter-rouge">Error</code> protocol.
+The function takes in a single argument <code class="language-plaintext highlighter-rouge">result</code> with a pack expansion type <code class="language-plaintext highlighter-rouge">repeat Result&lt;each V, each E&gt;</code>.
+This means that the pattern <code class="language-plaintext highlighter-rouge">Result&lt;each V, each E&gt;</code> will be repeated for every element of packs <code class="language-plaintext highlighter-rouge">each V</code> and <code class="language-plaintext highlighter-rouge">each E</code> at runtime.</p>
+
+<p>To implement the body of the function, we first initialize the <code class="language-plaintext highlighter-rouge">evaluated</code> array.
+Next, note how we can use the <code class="language-plaintext highlighter-rouge">for case</code> pattern to execute the loop’s body only for the <code class="language-plaintext highlighter-rouge">success</code> case of the <code class="language-plaintext highlighter-rouge">Result</code> enum.
+We can grab the <code class="language-plaintext highlighter-rouge">valueProducer</code> variable, which will contain a value of the <code class="language-plaintext highlighter-rouge">ValueProducer</code> type.
+We can now append the result of the call to the <code class="language-plaintext highlighter-rouge">evaluate()</code> method to our <code class="language-plaintext highlighter-rouge">evaluated</code> array, which we finally return.</p>
+
+<p>Here’s how you might use this function:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">IntProducer</span><span class="p">:</span> <span class="kt">ValueProducer</span> <span class="p">{</span>
+
+  <span class="k">let</span> <span class="nv">contained</span><span class="p">:</span> <span class="kt">Int</span>
+
+  <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">contained</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">contained</span> <span class="o">=</span> <span class="n">contained</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">evaluate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">contained</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">struct</span> <span class="kt">BoolProducer</span><span class="p">:</span> <span class="kt">ValueProducer</span> <span class="p">{</span>
+
+  <span class="k">let</span> <span class="nv">contained</span><span class="p">:</span> <span class="kt">Bool</span>
+
+  <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">contained</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">contained</span> <span class="o">=</span> <span class="n">contained</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">evaluate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">contained</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">struct</span> <span class="kt">SomeError</span><span class="p">:</span> <span class="kt">Error</span> <span class="p">{}</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">evaluateAll</span><span class="p">(</span><span class="nv">result</span><span class="p">:</span>
+                    <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">SomeValueProducer</span><span class="p">,</span> <span class="kt">SomeError</span><span class="o">&gt;.</span><span class="nf">success</span><span class="p">(</span><span class="kt">SomeValueProducer</span><span class="p">(</span><span class="mi">5</span><span class="p">)),</span>
+                    <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">SomeValueProducer</span><span class="p">,</span> <span class="kt">SomeError</span><span class="o">&gt;.</span><span class="nf">failure</span><span class="p">(</span><span class="kt">SomeError</span><span class="p">()),</span>
+                    <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">BoolProducer</span><span class="p">,</span> <span class="kt">SomeError</span><span class="o">&gt;.</span><span class="nf">success</span><span class="p">(</span><span class="kt">BoolProducer</span><span class="p">(</span><span class="kc">true</span><span class="p">))))</span>
+
+<span class="c1">// [5, true]</span>
+</code></pre></div></div>
+
+<h2 id="summary" class="header-with-anchor">Summary <a title="Permalink for Summary section" href="#summary">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>We are excited to bring pack iteration to Swift 6.0!
+As seen in this article, pack iteration makes interacting with value parameter packs significantly more straightforward, making such an advanced feature more accessible and intuitive to incorporate into your Swift code.</p>
+
+
+  <footer>
+    
+      <p>Written by</p>
+      <div class="authors">
+  
+    
+    
+      <div class="author">
+        <div class="byline">
+          <img
+            
+              src="https://www.github.com/simanerush.png?size=64"
+            
+            alt="Sima Nerush"
+            title=""
+            />
+          <span class="author">
+            
+              <a href="https://github.com/simanerush/" rel="nofollow" title="Sima Nerush (@simanerush) on GitHub">Sima Nerush</a>
+            
+          </span>
+        </div>
+        
+          
+          
+            <div class="about">Sima Nerush is an incoming engineer on the Apple SwiftUI team. She is an experienced iOS Engineer, Swift Compiler contributor, and a computer science student.</div>
+          
+        
+      </div>
+    
+  
+</div>
+    
+
+    
+    <nav>
+      
+      <a href="/blog/swift-5.10-released/" rel="prev" title="Previous: Swift 5.10 Released">Swift 5.10 Released</a>
+      
+
+      
+      <a href="/blog/byte-sized-swift-tiny-games-playdate/" rel="next" title="Next: Byte-sized Swift: Building Tiny Games for the Playdate">Byte-sized Swift: Building Tiny Games for the Playdate</a>
+      
+    </nav>
+    
+  </footer>
+</article>
+</main>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+  <p>Except where otherwise noted, all content on this blog is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International license</a>.</p>
+
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

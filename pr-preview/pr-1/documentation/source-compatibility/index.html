@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Swift Source Compatibility</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/documentation/source-compatibility/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift.org" />
+  <meta name="twitter:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:title" content="Swift.org" />
+  <meta property="og:url" content="https://swift.org" />
+  <meta property="og:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+  <article class="page">
+  
+    
+      <header>
+        <h1>Swift Source Compatibility</h1>
+      </header>
+    
+  
+
+  <p>Source compatibility is a strong goal for future Swift releases. To aid in this
+goal, a community owned source compatibility test suite serves to regression
+test changes to the compiler against a (gradually increasing) corpus of Swift
+source code. Projects added to this test suite are periodically built against
+the latest development versions of Swift as part of <a href="https://ci.swift.org">Swift’s continuous
+integration system</a>, allowing Swift compiler developers to
+understand the compatibility impact their changes have on real-world Swift
+projects.</p>
+
+<h2 id="current-list-of-projects" class="header-with-anchor">Current List of Projects <a title="Permalink for Current List of Projects section" href="#current-list-of-projects">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<ul>
+ 
+   <li><a href="https://github.com/Dimillian/ACHNBrowserUI.git">ACHNBrowserUI</a></li>
+ 
+   <li><a href="https://github.com/andreamazz/AMScrollingNavbar.git">AMScrollingNavbar</a></li>
+ 
+   <li><a href="https://github.com/Alamofire/Alamofire.git">Alamofire</a></li>
+ 
+   <li><a href="https://github.com/AsyncNinja/AsyncNinja.git">AsyncNinja</a></li>
+ 
+   <li><a href="https://github.com/igor-makarov/BeaconKit.git">BeaconKit</a></li>
+ 
+   <li><a href="https://github.com/IBM-Swift/BlueSocket">BlueSocket</a></li>
+ 
+   <li><a href="https://github.com/bow-swift/bow">Bow</a></li>
+ 
+   <li><a href="https://github.com/carekit-apple/CareKit.git">CareKit</a></li>
+ 
+   <li><a href="https://github.com/badoo/Chatto.git">Chatto</a></li>
+ 
+   <li><a href="https://github.com/emaloney/CleanroomLogger.git">CleanroomLogger</a></li>
+ 
+   <li><a href="https://github.com/JohnEstropia/CoreStore">CoreStore</a></li>
+ 
+   <li><a href="https://github.com/louisdh/cub.git">cub</a></li>
+ 
+   <li><a href="https://github.com/Bouke/DNS.git">DNS</a></li>
+ 
+   <li><a href="https://github.com/bignerdranch/Deferred.git">Deferred</a></li>
+ 
+   <li><a href="https://github.com/SusanDoggie/Doggie.git">Doggie</a></li>
+ 
+   <li><a href="https://github.com/ankurp/Dollar.git">Dollar</a></li>
+ 
+   <li><a href="https://github.com/jflinter/Dwifft.git">Dwifft</a></li>
+ 
+   <li><a href="https://github.com/xmartlabs/Eureka.git">Eureka</a></li>
+ 
+   <li><a href="https://github.com/brentsimmons/Evergreen.git">Evergreen</a></li>
+ 
+   <li><a href="https://github.com/exercism/swift.git">exercism-swift</a></li>
+ 
+   <li><a href="https://github.com/vapor/fluent">fluent</a></li>
+ 
+   <li><a href="https://github.com/groue/GRDB.swift.git">GRDB.swift</a></li>
+ 
+   <li><a href="https://github.com/grpc/grpc-swift">grpc-swift</a></li>
+ 
+   <li><a href="https://github.com/artsabintsev/Guitar.git">Guitar</a></li>
+ 
+   <li><a href="https://github.com/pointfreeco/swift-html.git">Html</a></li>
+ 
+   <li><a href="https://github.com/IBAnimatable/IBAnimatable.git">IBAnimatable</a></li>
+ 
+   <li><a href="https://github.com/jessesquires/JSQCoreDataKit.git">JSQCoreDataKit</a></li>
+ 
+   <li><a href="https://github.com/jessesquires/JSQDataSourcesKit.git">JSQDataSourcesKit</a></li>
+ 
+   <li><a href="https://github.com/kishikawakatsumi/KeychainAccess.git">KeychainAccess</a></li>
+ 
+   <li><a href="https://github.com/kickstarter/Kickstarter-Prelude">Kickstarter-Prelude</a></li>
+ 
+   <li><a href="https://github.com/kickstarter/Kickstarter-ReactiveExtensions">Kickstarter-ReactiveExtensions</a></li>
+ 
+   <li><a href="https://github.com/onevcat/Kingfisher.git">Kingfisher</a></li>
+ 
+   <li><a href="https://github.com/Kitura/Kitura.git">Kitura</a></li>
+ 
+   <li><a href="https://github.com/lyft/Kronos.git">Kronos</a></li>
+ 
+   <li><a href="https://github.com/Bouke/Lark.git">Lark</a></li>
+ 
+   <li><a href="https://github.com/line/line-sdk-ios-swift.git">line-sdk-ios-swift</a></li>
+ 
+   <li><a href="https://github.com/ssamadgh/ModelAssistant.git">ModelAssistant</a></li>
+ 
+   <li><a href="https://github.com/Moya/Moya.git">Moya</a></li>
+ 
+   <li><a href="https://github.com/Bouke/NetService.git">NetService</a></li>
+ 
+   <li><a href="https://github.com/pointfreeco/swift-nonempty.git">NonEmpty</a></li>
+ 
+   <li><a href="https://github.com/Dimillian/MovieSwiftUI.git">MovieSwift</a></li>
+ 
+   <li><a href="https://github.com/ethanhuang13/NSAttributedStringBuilder.git">NSAttributedStringBuilder</a></li>
+ 
+   <li><a href="https://github.com/Hearst-DD/ObjectMapper.git">ObjectMapper</a></li>
+ 
+   <li><a href="https://github.com/pointfreeco/swift-overture.git">Overture</a></li>
+ 
+   <li><a href="https://github.com/PerfectlySoft/Perfect.git">Perfect</a></li>
+ 
+   <li><a href="https://github.com/willowtreeapps/PinkyPromise.git">PinkyPromise</a></li>
+ 
+   <li><a href="https://github.com/pinterest/plank.git">Plank</a></li>
+ 
+   <li><a href="https://github.com/ProcedureKit/ProcedureKit.git">ProcedureKit</a></li>
+ 
+   <li><a href="https://github.com/mxcl/PromiseKit.git">PromiseKit</a></li>
+ 
+   <li><a href="https://github.com/mac-cain13/R.swift.git">R.swift</a></li>
+ 
+   <li><a href="https://github.com/asynchrony/Re-Lax.git">Re-Lax</a></li>
+ 
+   <li><a href="https://github.com/ReSwift/ReSwift.git">ReSwift</a></li>
+ 
+   <li><a href="https://github.com/ReactiveCocoa/ReactiveCocoa.git">ReactiveCocoa</a></li>
+ 
+   <li><a href="https://github.com/DeclarativeHub/ReactiveKit.git">ReactiveKit</a></li>
+ 
+   <li><a href="https://github.com/ReactiveCocoa/ReactiveSwift.git">ReactiveSwift</a></li>
+ 
+   <li><a href="https://github.com/antitypical/Result.git">Result</a></li>
+ 
+   <li><a href="https://github.com/RxSwiftCommunity/RxDataSources">RxDataSources</a></li>
+ 
+   <li><a href="https://github.com/igor-makarov/RxReactiveObjC.git">RxReactiveObjC</a></li>
+ 
+   <li><a href="https://github.com/ReactiveX/RxSwift.git">RxSwift</a></li>
+ 
+   <li><a href="https://github.com/Bouke/SRP.git">SRP</a></li>
+ 
+   <li><a href="https://github.com/nodes-ios/Serpent.git">Serpent</a></li>
+ 
+   <li><a href="https://github.com/krzysztofzablocki/Sourcery.git">Sourcery</a></li>
+ 
+   <li><a href="https://github.com/daltoniam/Starscream">Starscream</a></li>
+ 
+   <li><a href="https://github.com/mattt/Surge">Surge</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-algorithms">swift-algorithms</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-argument-parser">swift-argument-parser</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-atomics">swift-atomics</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-standard-library-preview.git">swift-standard-library-preview</a></li>
+ 
+   <li><a href="https://github.com/malcommac/SwiftDate">SwiftDate</a></li>
+ 
+   <li><a href="https://github.com/nicklockwood/SwiftFormat.git">SwiftFormat</a></li>
+ 
+   <li><a href="https://github.com/davecom/SwiftGraph.git">SwiftGraph</a></li>
+ 
+   <li><a href="https://github.com/realm/SwiftLint.git">SwiftLint-Legacy</a></li>
+ 
+   <li><a href="https://github.com/realm/SwiftLint.git">SwiftLint</a></li>
+ 
+   <li><a href="https://github.com/SwifterSwift/SwifterSwift.git">SwifterSwift</a></li>
+ 
+   <li><a href="https://github.com/dfunckt/swift-futures">swift-futures</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-nio">swift-nio</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-log">swift-log</a></li>
+ 
+   <li><a href="https://github.com/swift-server/async-http-client">async-http-client</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-nio-http2">swift-nio-http2</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-metrics">swift-metrics</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-nio-extras">swift-nio-extras</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-nio-ssl">swift-nio-ssl</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-nio-ssh">swift-nio-ssh</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-nio-transport-services">swift-nio-transport-services</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-crypto">swift-crypto</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-numerics">swift-numerics</a></li>
+ 
+   <li><a href="https://github.com/abertelrud/swift-protobuf-plugin-example.git">swift-protobuf-plugin-example</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-system">swift-system</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-distributed-tracing">swift-distributed-tracing</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-cluster-membership">swift-cluster-membership</a></li>
+ 
+   <li><a href="https://github.com/SwiftyJSON/SwiftyJSON.git">SwiftyJSON</a></li>
+ 
+   <li><a href="https://github.com/bizz84/SwiftyStoreKit">SwiftyStoreKit</a></li>
+ 
+   <li><a href="https://github.com/pointfreeco/swift-tagged.git">Tagged</a></li>
+ 
+   <li><a href="https://github.com/devxoul/Then.git">Then</a></li>
+ 
+   <li><a href="https://github.com/intelygenz/Kommander-iOS.git">kommander</a></li>
+ 
+   <li><a href="https://github.com/alexruperez/LaunchScreenSnapshot.git">launchscreensnapshot</a></li>
+ 
+   <li><a href="https://github.com/lyft/mapper.git">mapper</a></li>
+ 
+   <li><a href="https://github.com/bustoutsolutions/siesta.git">siesta-legacy</a></li>
+ 
+   <li><a href="https://github.com/bustoutsolutions/siesta.git">siesta</a></li>
+ 
+   <li><a href="https://github.com/vapor/console.git">vapor_console</a></li>
+ 
+   <li><a href="https://github.com/vapor/core.git">vapor_core</a></li>
+ 
+   <li><a href="https://github.com/vapor/database-kit.git">vapor_database-kit</a></li>
+ 
+   <li><a href="https://github.com/vapor/multipart.git">vapor_multipart</a></li>
+ 
+   <li><a href="https://github.com/vapor/routing.git">vapor_routing</a></li>
+ 
+   <li><a href="https://github.com/vapor/service.git">vapor_service</a></li>
+ 
+   <li><a href="https://github.com/vapor/template-kit.git">vapor_template-kit</a></li>
+ 
+   <li><a href="https://github.com/vapor/url-encoded-form.git">vapor_url-encoded-form</a></li>
+ 
+   <li><a href="https://github.com/vapor/validation.git">vapor_validation</a></li>
+ 
+   <li><a href="https://github.com/lolgear/Base64CoderSwiftUI.git">Base64CoderSwiftUI</a></li>
+ 
+   <li><a href="https://github.com/Quick/Nimble">Nimble</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-collections">swift-collections</a></li>
+ 
+   <li><a href="https://github.com/apple/swift-collections-benchmark">swift-collections-benchmark</a></li>
+ 
+   <li><a href="https://github.com/sroebert/mqtt-nio">mqtt-nio</a></li>
+ 
+</ul>
+
+<h2 id="adding-projects" class="header-with-anchor">Adding Projects <a title="Permalink for Adding Projects section" href="#adding-projects">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>The Swift source compatibility test suite is community driven, meaning that open
+source Swift project owners are encouraged to submit their projects that meet
+the acceptance criteria for inclusion in the test suite. Projects added to the
+suite serve as general source compatibility tests and are afforded greater
+protection against unintentional source breakage in future Swift releases.</p>
+
+<h3 id="acceptance-criteria" class="header-with-anchor">Acceptance Criteria <a title="Permalink for Acceptance Criteria section" href="#acceptance-criteria">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>To be accepted into the Swift source compatibility test suite, a project must:</p>
+
+<ol>
+  <li>Target Linux, macOS, or iOS/tvOS/watchOS device</li>
+  <li>Be an <em>Xcode</em> or <em>Swift Package Manager</em> project (Carthage and CocoaPods are currently unsupported but are being explored to be supported in the future)</li>
+  <li>Support building on either Linux or macOS</li>
+  <li>Be contained in a publicly accessible Git repository</li>
+  <li>Maintain a project branch that builds against the current Swift GM version compatibility mode
+and passes any unit tests</li>
+  <li>Have maintainers who will commit to resolve issues in a timely manner</li>
+  <li>Be compatible with the latest GM/Beta versions of <em>Xcode</em> and <em>swiftpm</em></li>
+  <li>Add value not already included in the suite</li>
+  <li>Be licensed with one of the following permissive licenses:
+    <ul>
+      <li>BSD</li>
+      <li>MIT</li>
+      <li>Apache License, version 2.0</li>
+      <li>Eclipse Public License</li>
+      <li>Mozilla Public License (MPL) 1.1</li>
+      <li>MPL 2.0</li>
+      <li>CDDL</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Note: Linux compatibility testing in continuous integration is not available
+yet, but Linux projects are being accepted now.</p>
+
+<h3 id="adding-a-project" class="header-with-anchor">Adding a Project <a title="Permalink for Adding a Project section" href="#adding-a-project">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>To add a project meeting the acceptance criteria to the suite, perform the
+following steps:</p>
+
+<ol>
+  <li>Ensure the project builds successfully at a chosen commit against
+the current Swift GM version.</li>
+  <li>Create a pull request against the <a href="https://github.com/swiftlang/swift-source-compat-suite">source compatibility suite
+repository</a>,
+modifying <strong>projects.json</strong> to include a reference to the project being added
+to the test suite.</li>
+</ol>
+
+<p>The project index is a JSON file that contains a list of repositories containing
+Xcode and/or Swift Package Manager target actions.</p>
+
+<p>To add a new Swift Package Manager project, use the following template:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"repository"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Git"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/example/project.git"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"branch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maintainer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"compatibility"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"3.0"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"commit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"195cd8cde2bb717242b3081f9c367ccd0a2f0121"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"platforms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Darwin"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BuildSwiftPackage"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"release"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TestSwiftPackage"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">commit</code> field specifies a commit hash to pin the repository to. It’s
+contained inside a <code class="language-plaintext highlighter-rouge">compatibility</code> field which specifies the version of Swift
+the commit is known to compile against. Multiple commits compatible with
+different versions of Swift can be specified.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">platforms</code> field specifies the platforms that can be used to build the
+project. Linux and Darwin can currently be specified.</p>
+
+<p>If tests aren’t supported, remove the test action entry.</p>
+
+<p>To add a new Swift Xcode workspace, use the following template:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"repository"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Git"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/example/project.git"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"branch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maintainer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"compatibility"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"3.0"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"commit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"195cd8cde2bb717242b3081f9c367ccd0a2f0121"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"platforms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Darwin"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BuildXcodeWorkspaceScheme"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project.xcworkspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project OSX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"platform=macOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Release"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BuildXcodeWorkspaceScheme"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project.xcworkspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project iOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generic/platform=iOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Release"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BuildXcodeWorkspaceScheme"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project.xcworkspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project tvOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generic/platform=tvOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Release"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BuildXcodeWorkspaceScheme"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project.xcworkspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project watchOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generic/platform=watchOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Release"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TestXcodeWorkspaceScheme"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project.xcworkspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project OSX"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"platform=macOS"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TestXcodeWorkspaceScheme"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project.xcworkspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project iOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"platform=iOS Simulator,name=iPhone 7"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TestXcodeWorkspaceScheme"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project.xcworkspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project tvOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"platform=tvOS Simulator,name=Apple TV 1080p"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To add a new Swift Xcode project, use the following template:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"repository"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Git"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/example/project.git"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"branch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maintainer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"compatibility"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"3.0"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"commit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"195cd8cde2bb717242b3081f9c367ccd0a2f0121"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"platforms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Darwin"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BuildXcodeProjectTarget"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"project"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project.xcodeproj"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generic/platform=iOS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Release"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>After adding a new project to the index, ensure it builds successfully at the
+pinned commits against the specified versions of Swift. In the examples,
+the commits are specified as being compatible with Swift 3.0, which is included
+in Xcode 8.0.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Select Xcode 8.0 GM</span>
+<span class="nb">sudo </span>xcode-select <span class="nt">-s</span> /Applications/Xcode.app
+<span class="c"># Build project at pinned commit against selected Xcode</span>
+./check project-path-field
+</code></pre></div></div>
+
+<p>On Linux, you can build against the Swift 3.0 release toolchain:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-O</span> https://download.swift.org/swift-3.0-release/ubuntu1510/swift-3.0-RELEASE/swift-3.0-RELEASE-ubuntu15.10.tar.gz
+<span class="nb">tar </span>xzvf swift-3.0-RELEASE-ubuntu15.10.tar.gz
+./check project-path-field <span class="nt">--swiftc</span> swift-3.0-RELEASE-ubuntu15.10/usr/bin/swiftc
+</code></pre></div></div>
+
+<h2 id="maintaining-projects" class="header-with-anchor">Maintaining Projects <a title="Permalink for Maintaining Projects section" href="#maintaining-projects">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>In the event that Swift introduces a change that breaks source compatibility
+with a project (e.g., a compiler bug fix that fixes wrong behavior in the
+compiler), project maintainers are expected to update their projects and submit
+a new pull request with the updated commit hash within two weeks of being
+notified. Otherwise, unmaintained projects may be removed from the project
+index.</p>
+
+<h2 id="pull-request-testing" class="header-with-anchor">Pull Request Testing <a title="Permalink for Pull Request Testing section" href="#pull-request-testing">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>Pull request testing against the Swift source compatibility suite can be
+executed by commenting with <code class="language-plaintext highlighter-rouge">@swift-ci Please test source compatibility</code> in a
+Swift pull request.</p>
+
+<h2 id="building-projects" class="header-with-anchor">Building Projects <a title="Permalink for Building Projects section" href="#building-projects">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>To build all projects against a specified Swift compiler locally, use the
+<code class="language-plaintext highlighter-rouge">runner.py</code> utility as shown below.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./runner.py <span class="nt">--swift-branch</span> main <span class="nt">--projects</span> projects.json <span class="nt">--swift-version</span> 3 <span class="nt">--include-actions</span> <span class="s1">'action.startswith("Build")'</span> <span class="nt">--swiftc</span> path/to/swiftc
+</code></pre></div></div>
+
+<p>Use the <code class="language-plaintext highlighter-rouge">--include-repos</code> flag to build a specific project.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./runner.py <span class="nt">--swift-branch</span> main <span class="nt">--projects</span> projects.json <span class="nt">--swift-version</span> 3 <span class="nt">--include-actions</span> <span class="s1">'action.startswith("Build")'</span> <span class="nt">--include-repos</span> <span class="s1">'path == "Alamofire"'</span> <span class="nt">--swiftc</span> path/to/swiftc
+</code></pre></div></div>
+
+<p>By default, build output is redirected to per-action <code class="language-plaintext highlighter-rouge">.log</code> files in the current
+working directory. To change this behavior to output build results to standard
+out, use the <code class="language-plaintext highlighter-rouge">--verbose</code> flag.</p>
+
+
+  
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>

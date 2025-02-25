@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swift.org - Migrating to Swift 3</title>
+  
+  <meta name="author" content="Apple Inc." />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  
+  <link rel="license" href="/LICENSE.txt" />
+  <link rel="stylesheet" media="all" href="/assets/stylesheets/application.css" />
+  <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  <link rel="mask-icon" href="/assets/images/icon-swift.svg" color="#F05339" />
+  
+
+  
+  <link rel="canonical" href="https://swift.org/migration-guide-swift3/" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@SwiftLang" />
+  
+  <meta name="twitter:title" content="Swift.org" />
+  <meta name="twitter:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+
+  <meta property="og:site_name" content="Swift.org" />
+  <meta property="og:image" content="https://swift.org/apple-touch-icon-180x180.png" />
+  
+  
+  <meta property="og:title" content="Swift.org" />
+  <meta property="og:url" content="https://swift.org" />
+  <meta property="og:description" content="Swift is a general-purpose programming language built using a modern approach to safety, performance, and software design patterns." />
+  
+</head>
+
+<body>
+
+<script src="/assets/javascripts/color-scheme-toggle.js"></script>
+<header class="site-navigation">
+  <div class="wrapper">
+    <h1 id="logo">
+      <a href="/" title="Swift.org">
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 191.186 59.391"><path fill="#F05138" d="M59.387 16.45a82.463 82.463 0 0 0-.027-1.792c-.035-1.301-.112-2.614-.343-3.9-.234-1.307-.618-2.523-1.222-3.71a12.464 12.464 0 0 0-5.453-5.452C51.156.992 49.941.609 48.635.374c-1.288-.232-2.6-.308-3.902-.343a85.714 85.714 0 0 0-1.792-.027C42.23 0 41.52 0 40.813 0H18.578c-.71 0-1.419 0-2.128.004-.597.004-1.195.01-1.792.027-.325.009-.651.02-.978.036-.978.047-1.959.133-2.924.307-.98.176-1.908.436-2.811.81A12.503 12.503 0 0 0 3.89 3.89a12.46 12.46 0 0 0-2.294 3.158C.992 8.235.61 9.45.374 10.758c-.231 1.286-.308 2.599-.343 3.9a85.767 85.767 0 0 0-.027 1.792C-.001 17.16 0 17.869 0 18.578v22.235c0 .71 0 1.418.004 2.128.004.597.01 1.194.027 1.791.035 1.302.112 2.615.343 3.901.235 1.307.618 2.523 1.222 3.71a12.457 12.457 0 0 0 5.453 5.453c1.186.603 2.401.986 3.707 1.22 1.287.232 2.6.31 3.902.344.597.016 1.195.023 1.793.027.709.005 1.417.004 2.127.004h22.235c.709 0 1.418 0 2.128-.004.597-.004 1.194-.011 1.792-.027 1.302-.035 2.614-.112 3.902-.343 1.306-.235 2.521-.618 3.707-1.222a12.461 12.461 0 0 0 5.453-5.452c.604-1.187.987-2.403 1.222-3.71.231-1.286.308-2.6.343-3.9.016-.598.023-1.194.027-1.792.004-.71.004-1.419.004-2.129V18.578c0-.71 0-1.419-.004-2.128z"/><path fill="#FFF" d="m47.06 36.66-.004-.004c.066-.224.134-.446.191-.675 2.465-9.821-3.55-21.432-13.731-27.546 4.461 6.048 6.434 13.374 4.681 19.78-.156.571-.344 1.12-.552 1.653-.225-.148-.51-.316-.89-.527 0 0-10.127-6.252-21.103-17.312-.288-.29 5.852 8.777 12.822 16.14-3.284-1.843-12.434-8.5-18.227-13.802.712 1.187 1.558 2.33 2.489 3.43C17.573 23.932 23.882 31.5 31.44 37.314c-5.31 3.25-12.814 3.502-20.285.003a30.646 30.646 0 0 1-5.193-3.098c3.162 5.058 8.033 9.423 13.96 11.97 7.07 3.039 14.1 2.833 19.336.05l-.004.007c.024-.016.055-.032.08-.047.214-.116.428-.234.636-.358 2.516-1.306 7.485-2.63 10.152 2.559.654 1.27 2.041-5.46-3.061-11.74z"/><path id="logotype" d="M81.93 38.542c.465 4.12 4.394 6.822 9.852 6.822 5.185 0 8.924-2.701 8.924-6.44 0-3.22-2.265-5.185-7.478-6.495l-5.048-1.282c-7.26-1.801-10.534-5.077-10.534-10.48 0-6.658 5.813-11.27 14.082-11.27 8.022 0 13.726 4.639 13.917 11.325h-5.32c-.41-4.093-3.74-6.604-8.734-6.604-4.94 0-8.378 2.538-8.378 6.249 0 2.892 2.13 4.612 7.369 5.95l4.202 1.09c8.133 1.993 11.462 5.159 11.462 10.863 0 7.259-5.759 11.816-14.928 11.816-8.514 0-14.327-4.53-14.763-11.543h5.376zM140.049 49.43h-5.35l-6.249-21.776h-.109L122.12 49.43h-5.348l-7.914-28.518h5.184l5.513 22.896h.11l6.221-22.896h5.021l6.277 22.896h.11l5.512-22.896h5.13L140.05 49.43zM151.39 13.244c0-1.718 1.419-3.11 3.138-3.11 1.746 0 3.165 1.392 3.165 3.11 0 1.72-1.419 3.139-3.165 3.139a3.157 3.157 0 0 1-3.139-3.139zm.545 7.669h5.213V49.43h-5.213V20.913zM191.186 25.116v-4.204h-5.513v-6.821h-5.185v6.821h-9.964v-2.51c.027-2.538 1.01-3.603 3.357-3.603.764 0 1.528.083 2.156.192v-4.094a18.193 18.193 0 0 0-2.756-.218c-5.568 0-7.915 2.32-7.915 7.642v2.591h-3.983v4.204h3.983V49.43h5.185V25.116H180.488v16.838c0 5.512 2.101 7.64 7.559 7.64 1.174 0 2.51-.082 3.111-.218v-4.257c-.355.055-1.392.137-1.965.137-2.428 0-3.52-1.147-3.52-3.712V25.116h5.513z"/></svg>
+
+      </a>
+    </h1>
+
+    <nav role="navigation">
+      <ul class="navigation-links">
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/getting-started/" data-text="Get Started">Get Started</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/blog/" data-text="Blog">Blog</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/documentation/" data-text="Documentation">Documentation</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/packages/" data-text="Packages">Packages</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/tools/" data-text="Tools">Tools</a>
+                
+                
+              </span>
+            
+            
+          </li>
+        
+          <li class="nav-item">
+            
+              <span class="">
+                
+                  <a href="/community/" data-text="Community">Community</a>
+                
+                
+                  <i>&#9663;</i>
+                
+              </span>
+            
+            
+              <ul class="nav-submenu" role="menu">
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/community/" role="menuitem">Overview</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/swift-evolution/" role="menuitem">Swift Evolution</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/diversity/" role="menuitem">Diversity</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/mentorship/" role="menuitem">Mentorship</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributing/" role="menuitem">Contributing</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Steering Groups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/language-steering-group/" role="menuitem">Language</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/platform-steering-group/" role="menuitem">Platform</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Workgroups</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/contributor-experience-workgroup/" role="menuitem">Contributor Experience</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/sswg/" role="menuitem">Server</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/website/" role="menuitem">Website</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/cxx-interop-workgroup/" role="menuitem">C++ Interoperability</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/documentation-workgroup/" role="menuitem">Documentation</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/foundation-workgroup/" role="menuitem">Foundation</a>
+                    </li>
+                  
+                
+                  
+                  <li class="nav-section">Governance</li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/code-of-conduct/" role="menuitem">Code of Conduct</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/legal/license.html" role="menuitem">License</a>
+                    </li>
+                  
+                
+                  
+                    
+                    <li role="presentation">
+                    
+                      <a href="/support/security.html" role="menuitem">Security</a>
+                    </li>
+                  
+                
+              </ul>
+            
+          </li>
+        
+          <li class="nav-item nav-cta">
+            
+              <a href="/install/" data-text="Install">Install</a>
+            
+            
+          </li>
+        
+      </ul>
+      <button id="menu-toggle" class="menu-item menu-toggle open" aria-expanded="false" aria-label="Toggle Navigation Menu"></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-navigation" role="navigation">
+    <ul class="mobile-navigation-links">
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/getting-started/">Get Started</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/blog/">Blog</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/documentation/">Documentation</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/packages/">Packages</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/tools/">Tools</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/community/">Community</a>
+              
+
+            
+              <button class="section-toggle" aria-expanded="false" aria-label="Toggle Community Section">
+                &#9663;
+              </button>
+            
+          </div>
+          
+            <ul class="section-menu">
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/community/">Overview</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/swift-evolution/">Swift Evolution</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/diversity/">Diversity</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/mentorship/">Mentorship</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributing/">Contributing</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Steering Groups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/language-steering-group/">Language</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/platform-steering-group/">Platform</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Workgroups</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/contributor-experience-workgroup/">Contributor Experience</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/sswg/">Server</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/website/">Website</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/cxx-interop-workgroup/">C++ Interoperability</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/documentation-workgroup/">Documentation</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/foundation-workgroup/">Foundation</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-section">Governance</li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/code-of-conduct/">Code of Conduct</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/legal/license.html">License</a>
+                  </li>
+                
+              
+                
+                  
+                    <li>
+                  
+                    <a href="/support/security.html">Security</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="nav-item">
+          <div class="link-container">
+            
+              <a href="/install/">Install</a>
+              
+
+            
+          </div>
+          
+        </li>
+      
+    </ul>
+  </nav>
+ </header>
+
+<main role="main">
+  <article class="page">
+  
+    
+      <header>
+        <h1>Migrating to Swift 3</h1>
+      </header>
+    
+  
+
+  <p><strong>This is a legacy document for Xcode 8 and migrating from Swift 2.</strong></p>
+
+<p>Xcode 8.0 comes with a Swift Migrator tool that helps you migrate your project to Swift 3, or update it to work with Swift 2.3 and the new SDKs.</p>
+
+<h2 id="pre-migration-preparation" class="header-with-anchor">Pre-Migration Preparation <a title="Permalink for Pre-Migration Preparation section" href="#pre-migration-preparation">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>To get the most effective migration, make sure that the project that you intend to migrate builds successfully, and all its tests pass, when using Xcode 7.3[.1].
+Also make sure that the project is managed under source control. This will allow you to easily review the changes that were applied via the migration assistant and to discard them and re-try the migration if needed.</p>
+
+<p>If you have multiple schemes that build different independent products (or the same product for different platforms) it is important to create one scheme that builds everything in your project and for all the platforms you need, including your unit test targets. The migration assistant does a migrator “build” to gather the changes, using the scheme you have selected, so the targets that will get processed are the ones that are included in the scheme.
+To review and modify what is included in the scheme, invoke the <em>“Edit Scheme…”</em> sheet and select the <em>“Build”</em> tab from the column on the left, and make sure all your targets and their unit tests are included.</p>
+
+<p>If your project depends on other open-source projects that are provided by Carthage or CocoaPods, consult the <a href="#using-carthagecocoapods-projects">Using Carthage/CocoaPods Projects</a> section.</p>
+
+<h2 id="swift-migration-assistant" class="header-with-anchor">Swift Migration Assistant <a title="Permalink for Swift Migration Assistant section" href="#swift-migration-assistant">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+<p>When you open your project with Xcode 8.0 for the first time, you will be prompted via the migration assistant to do a migration pass. The assistant can also be invoked manually from the menu <em>Edit -&gt; Convert -&gt; To Current Swift Syntax…</em></p>
+
+<p>You can choose from two kinds of migration to perform:</p>
+
+<ul>
+  <li><strong>Use Swift 2.3</strong> Modifies your project to enable the <em>Use Legacy Swift</em> build setting and provides source changes to be able to build against the new SDKs.</li>
+  <li><strong>Use Swift 3</strong> This is recommended. You will get source changes to be able to build your project using Swift 3 and take advantage of all the new features in Xcode 8.0.</li>
+</ul>
+
+<p>Optionally, you can move to Swift 2.3 now and invoke the migration assistant again later to update to Swift 3.</p>
+
+<p>After you invoke the migration assistant and you select <em>“Use Swift 2.3”</em> or <em>“Use Swift 3”</em>, you will be presented with a list of targets to migrate. Targets that do not contain any Swift code will not be selected.</p>
+
+<p>Clicking <em>‘Next’</em> will bring up the <em>‘Generate Preview’</em> sheet and the assistant will initiate a migration ‘build’ to get source changes. When this is done, you will be presented with all the changes that will be applied once you click on ‘Save’.
+Note that in the diff view, the original source (before conversion) is on the right and the changes are on the left. Clicking <em>‘Save’</em> will apply the source changes to the original files. If you chose to move to Swift 2.3, the targets will have the <em>“Use Legacy Swift”</em> build setting set.</p>
+
+<p>There may have been issues with processing the targets, that will negatively impact the migration process. Switch to the <em>“Report Navigator”</em> and select the <em>‘Convert’</em> entry that was added; this is the conversion build log. Check the log for errors that may have showed up.</p>
+
+<p>If you see errors about not being able to code-sign the target, try disabling code-signing from the build settings of the target.
+If you see other errors, please file a bug report at https://bugreport.apple.com and include the details.</p>
+
+<p>If you need to apply any workarounds, discard the changes that you accepted from the migration assistant earlier, apply the workarounds, and invoke the assistant manually to re-try the conversion from the start.</p>
+
+<h2 id="swift-3-migration-changes-overview" class="header-with-anchor">Swift 3 Migration Changes Overview <a title="Permalink for Swift 3 Migration Changes Overview section" href="#swift-3-migration-changes-overview">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>There have been many significant changes for Swift 3, which the migrator will help you with. You can see an overview of the Swift 3 evolution proposals here: <a href="https://github.com/swiftlang/swift-evolution">https://github.com/swiftlang/swift-evolution</a></p>
+
+<p>Here is a brief overview of the more impactful source-breaking changes:</p>
+
+<h3 id="api-design-guidelines" class="header-with-anchor">API Design Guidelines <a title="Permalink for API Design Guidelines section" href="#api-design-guidelines">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The Objective-C APIs are imported into Swift 3 according to the new <a href="/documentation/api-design-guidelines">Swift API design guidelines</a>. This affects both how the SDKs are imported and the Objective-C user frameworks. The Swift Standard Library also has many changes for adhering to the guidelines. For more details you can refer to proposal <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0005-objective-c-name-translation.md">SE-0005 - Better Translation of Objective-C APIs Into Swift</a>.
+The migrator is lowercasing enums declared by the user, to match them with the new guidelines.</p>
+
+<h3 id="sdk" class="header-with-anchor">SDK <a title="Permalink for SDK section" href="#sdk">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>Certain frameworks like CoreGraphics and Dispatch, and other types from Foundation, are no longer getting imported as a set of global functions and variables but as member functions and properties on the respective Swift types.
+For details see proposals <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0044-import-as-member.md">SE-0044 - Import as member</a>, <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0088-libdispatch-for-swift3.md">SE-0088 - Modernize libdispatch for Swift 3 naming conventions</a>.</p>
+
+<p>The ‘NS’ prefix from key Foundation types is getting removed in Swift 3, see <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0086-drop-foundation-ns.md">SE-0086 - Drop NS Prefix in Swift Foundation</a>.</p>
+
+<h3 id="swift-standard-library" class="header-with-anchor">Swift Standard Library <a title="Permalink for Swift Standard Library section" href="#swift-standard-library">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<p>The Collection indexing model has changed dramatically in Swift 3, for more details see <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0065-collections-move-indices.md">SE-0065 - A New Model for Collections and Indices</a>.
+The most visible change is that indexes no longer have <code class="language-plaintext highlighter-rouge">successor()</code>, <code class="language-plaintext highlighter-rouge">predecessor()</code>, <code class="language-plaintext highlighter-rouge">advancedBy(_:)</code>, <code class="language-plaintext highlighter-rouge">advancedBy(_:limit:)</code>, or <code class="language-plaintext highlighter-rouge">distanceTo(_:)</code> methods. Instead, those operations are moved to the collection, which is now responsible for incrementing and decrementing its indices.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myIndex.successor()  =&gt;  myCollection.index(after: myIndex)
+myIndex.predecessor()  =&gt;  myCollection.index(before: myIndex)
+myIndex.advance(by: …) =&gt; myCollection.index(myIndex, offsetBy: …)
+</code></pre></div></div>
+
+<p>If the migrator does not know the collection responsible for the indices, it will insert an editor placeholder that you must fill with your collection.</p>
+
+<p>In support of the collections changes, Range types also had some changes.  Previously <code class="language-plaintext highlighter-rouge">x..&lt;y</code> and <code class="language-plaintext highlighter-rouge">x...y</code> produced the same type, <code class="language-plaintext highlighter-rouge">Range&lt;T&gt;</code>.  Now these expressions can produce one of the four types: <code class="language-plaintext highlighter-rouge">Range</code>, <code class="language-plaintext highlighter-rouge">CountableRange</code>, <code class="language-plaintext highlighter-rouge">ClosedRange</code>, <code class="language-plaintext highlighter-rouge">CountableClosedRange</code>. We split <code class="language-plaintext highlighter-rouge">Range</code> into <code class="language-plaintext highlighter-rouge">Range</code> and <code class="language-plaintext highlighter-rouge">ClosedRange</code> types to allow closed ranges that include the maximum value of the type (for example, <code class="language-plaintext highlighter-rouge">0...Int8.max</code> works now).
+The plain range types and their ~Countable counterparts differ in the capabilities:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Range&lt;Bound&gt;</code> and <code class="language-plaintext highlighter-rouge">ClosedRange&lt;Bound&gt;</code> now only require <code class="language-plaintext highlighter-rouge">Comparable</code> for the bound.  This allows you to create a <code class="language-plaintext highlighter-rouge">Range&lt;String&gt;</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Range</code> and <code class="language-plaintext highlighter-rouge">ClosedRange</code> can’t be iterated over (they are not collections anymore), since a value that is merely <code class="language-plaintext highlighter-rouge">Comparable</code> cannot be incremented.</li>
+  <li><code class="language-plaintext highlighter-rouge">CountableRange</code> and <code class="language-plaintext highlighter-rouge">CountableClosedRange</code> require <code class="language-plaintext highlighter-rouge">Strideabe</code> from their bound and they conform to <code class="language-plaintext highlighter-rouge">Collection</code> so that you can iterate over them.</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">..&lt;</code> and <code class="language-plaintext highlighter-rouge">...</code> operators try to do the right thing and return the most capable range, so that code like <code class="language-plaintext highlighter-rouge">for i in 1..&lt;10</code> infers a <code class="language-plaintext highlighter-rouge">CountableRange</code> and continues to work. If you have a variable that is typed as one range type, and you need to pass it to an API that accepts a different type, use the initializers on range types to convert:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var r = 0..&lt;10 // CountableRange&lt;Int&gt;
+Range(r) // converts to Range&lt;Int&gt;
+</code></pre></div></div>
+
+<h3 id="language" class="header-with-anchor">Language <a title="Permalink for Language section" href="#language">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+<ul>
+  <li>
+    <p><strong>Consistent first argument labels</strong>
+The first argument label in functions is now considered API by default, see <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0046-first-label.md">SE-0046 - Establish consistent label behavior across all parameters including first labels</a>.
+The migrator adds underscore labels to preserve the existing APIs:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  func foo(bar: Int) =&gt; func foo(_ bar: Int)
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Changes with handling of UnsafePointer&lt;T&gt;</strong>
+In Swift 3, the nullability of non-object pointer types is now represented explicitly using optionals, such as <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;Int&gt;?</code>, see <a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0055-optional-unsafe-pointers.md">SE-0055 - Make unsafe pointer nullability explicit using Optional</a>. This means that the types <code class="language-plaintext highlighter-rouge">UnsafePointer</code>, <code class="language-plaintext highlighter-rouge">UnsafeMutablePointer</code>, <code class="language-plaintext highlighter-rouge">AutoreleasingUnsafeMutablePointer</code>, <code class="language-plaintext highlighter-rouge">OpaquePointer</code>, <code class="language-plaintext highlighter-rouge">Selector</code>, and <code class="language-plaintext highlighter-rouge">NSZone</code> now represent non-nullable pointers, i.e. pointers that are never <code class="language-plaintext highlighter-rouge">nil</code>. Code working with these types may have to make several changes:</p>
+
+    <ul>
+      <li>To set a pointer to <code class="language-plaintext highlighter-rouge">nil</code>, it must be optional. The migrator will handle some simple cases here, but in general you must decide whether your pointers should be optional just like your object references.</li>
+      <li>Results from C functions that return nullable pointers must be explicitly unwrapped before accessing the <code class="language-plaintext highlighter-rouge">pointee</code> property (formerly <code class="language-plaintext highlighter-rouge">memory</code>) or subscript elements. Optional chaining syntax works well here, e.g. <code class="language-plaintext highlighter-rouge">result?.pointee = sum</code>.</li>
+      <li>Callbacks (C functions or blocks) that take or return pointer types must match the original declaration in using or omitting <code class="language-plaintext highlighter-rouge">Optional</code>.</li>
+      <li>Due to compiler limitations, passing a pointer through a function that uses C variadics (such as NSLog) is not allowed. As a workaround, please use the following idiom to pass it as a pointer-sized integer value instead: <code class="language-plaintext highlighter-rouge">Int(bitPattern: nullablePointer)</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Objective-C lightweight generic classes are now imported as generic types</strong>
+<a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0057-importing-objc-generics.md">SE-0057 - Importing Objective-C Lightweight Generics</a>
+Because Objective-C generics are not represented at runtime,  there are some limitations on what can be done with them in Swift:
+    <ul>
+      <li>
+        <p>If an Objective-C generic class is used in a checked <code class="language-plaintext highlighter-rouge">as?</code>, <code class="language-plaintext highlighter-rouge">as!</code>, or <code class="language-plaintext highlighter-rouge">is</code> cast, the generic parameters are not checked at runtime. The cast succeeds if the operand is an instance of the Objective-C class, regardless of parameters.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let x = NSFoo&lt;NSNumber&gt;(value: NSNumber(integer: 0))
+let y: AnyObject = x
+let z = y as! NSFoo&lt;NSString&gt; // Succeeds
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Swift subclasses can only inherit an Objective-C generic class if its generic parameters are fully specified.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Error: Can't inherit Objective-C generic class with unbound parameter T
+class SwiftFoo1&lt;T&gt;: NSFoo&lt;T&gt; { }
+// OK: Can inherit Objective-C generic class with specific parameters
+class SwiftFoo2&lt;T&gt;: NSFoo&lt;NSString&gt; { }
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Swift can extend Objective-C generic classes, but the extensions cannot be constrained, and definitions inside the extension do not have access to the class’s generic parameters.</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>extension NSFoo {
+  // Error: Can't access generic param T
+  func foo() -&gt; T {
+    return T()
+  }
+}
+
+// Error: extension can't be constrained
+extension NSFoo where T: NSString {
+}
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Foundation container classes <code class="language-plaintext highlighter-rouge">NS[Mutable]Array</code>, <code class="language-plaintext highlighter-rouge">NS[Mutable]Set</code>, and  <code class="language-plaintext highlighter-rouge">NS[Mutable]Dictionary</code> are still imported as nongeneric classes for the time being.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Objective-C id is imported as as Swift Any type</strong>
+<a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0116-id-as-any.md">SE-0116 - Import Objective-C id as Swift Any type</a>
+Objective-C interfaces that use <code class="language-plaintext highlighter-rouge">id</code> and untyped collections will be imported into Swift as taking the <code class="language-plaintext highlighter-rouge">Any</code> type instead of <code class="language-plaintext highlighter-rouge">AnyObject</code>.</p>
+  </li>
+  <li>
+    <p><strong>Changes with handling of ImplicitlyUnwrappedOptional</strong>
+<a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0054-abolish-iuo.md">SE-0054 - Abolish ImplicitlyUnwrappedOptional type</a>
+Variable bindings which previously had inferred type <code class="language-plaintext highlighter-rouge">T!</code> from their binding on the right-hand side will now have type <code class="language-plaintext highlighter-rouge">T?</code>. The compiler will emit an error at sites where those bound variables are used in a context that demands a non-optional type and suggest that the value be forced with the <code class="language-plaintext highlighter-rouge">!</code> operator.
+Explicitly written nested IUO types (like <code class="language-plaintext highlighter-rouge">[Int!]</code>) will have to be rewritten to use the corresponding optional type (<code class="language-plaintext highlighter-rouge">[Int?]</code>) or non-optional type (<code class="language-plaintext highlighter-rouge">[Int]</code>) depending on what’s more appropriate for the context. However, most declarations with non-nested IUO type will continue to work as they did before.
+Unsugared use of the <code class="language-plaintext highlighter-rouge">ImplicitlyUnwrappedOptional</code> type will have to be replaced with the postfix <code class="language-plaintext highlighter-rouge">!</code> notation.</p>
+  </li>
+  <li>
+    <p><strong>Closures are non-escaping by default</strong>
+<a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0103-make-noescape-default.md">SE-0103 - Make non-escaping closures the default</a>
+The default for closures was switched and they require an <code class="language-plaintext highlighter-rouge">@escaping</code> annotation if a closure argument can escape the function body.</p>
+  </li>
+  <li><strong>UnsafeRawPointer type was introduced to enforce type safety with respect to unsafe pointer conversion.</strong>
+<a href="https://github.com/swiftlang/swift-evolution/blob/main/proposals/0107-unsaferawpointer.md">SE-0107 - UnsafeRawPointer API</a>
+An <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]RawPointer</code> type has been introduced. It replaces <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]Pointer&lt;Void&gt;</code>. Conversion from <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;T&gt;</code> to <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;U&gt;</code> has been disallowed. <code class="language-plaintext highlighter-rouge">Unsafe[Mutable]RawPointer</code> provides an API for untyped memory access and an API for binding memory to a type. Binding memory allows for safe conversion between pointer types.
+For detailed instructions on how to migrate your code to the new API refer to the <a href="/migration-guide-swift3/se-0107-migrate.html">UnsafeRawPointer migration guide</a>.</li>
+</ul>
+
+<h2 id="after-migration" class="header-with-anchor">After Migration <a title="Permalink for After Migration section" href="#after-migration">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>While the migrator will take care of many mechanical changes for you, it is likely that you will need to make more manual changes to be able to build the project after applying the migrator changes.</p>
+
+<p>You may see compiler errors that have associated fixits; while the migrator is designed to incorporate fixits that the Swift 3 compiler provides, it is a known limitation that this is not guaranteed to work 100% (particularly when you have inter-dependencies between targets) and some fixits may be missed.</p>
+
+<p>Even if it compiles fine, the code that the migrator provided may not be ‘ideal’, for example you may see casts to ‘NS’ prefixed types (<code class="language-plaintext highlighter-rouge">url as NSRL</code>), that would be better if the code was restructured to use related APIs on the new <code class="language-plaintext highlighter-rouge">URL</code> value type instead.
+You may also see new comments that the migrator added (<code class="language-plaintext highlighter-rouge">/*Migrator FIXME: ...*/</code>) where it provides a hint on how to convert the code better.</p>
+
+<p>See <a href="#known-migration-issues">Known Migration Issues</a> section, for a list of issues that you may encounter while trying to migrate your project.</p>
+
+<h2 id="using-carthagecocoapods-projects" class="header-with-anchor">Using Carthage/CocoaPods Projects <a title="Permalink for Using Carthage/CocoaPods Projects section" href="#using-carthagecocoapods-projects">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<p>If you are using binary Swift modules from other projects that are not built along with your project in your Xcode workspace, you can choose from one of the following migration strategies:</p>
+
+<ul>
+  <li>
+    <p><strong>Include the source code of the project in your Xcode workspace</strong>
+With this approach you will build and migrate the open-source project along with your own project. Use Xcode 7.3[.1] to make the necessary changes and validate that the project builds and links everything correctly. Include the other Xcode project files in your workspace and setup your scheme for building the targets that your project depends on. If you have setup framework search paths for finding the binary Swift modules inside Carthage’s build folder, either remove the search paths or clean the build folder, so that you are sure that you are only using the Swift modules that are built from your Xcode workspace.</p>
+  </li>
+  <li>
+    <p><strong>Wait until the upstream open-source project updates to Swift 2.3 or Swift 3</strong>
+You can follow this workflow for migrating your project:</p>
+    <ul>
+      <li>Keep your project as it is building with Xcode 7.3</li>
+      <li>Invoke the migration assistant and apply the source changes that are suggested for your own project only (for Swift 2.3 or Swift 3)</li>
+      <li>Before trying to build, modify the Carthage/CocoaPods dependency file and specify the specific tag/branch of the project that is migrated to Swift 2.3 or Swift 3; update your dependencies and try to build your project with the updated dependencies and the source changes that you got from the migrator.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="known-migration-issues" class="header-with-anchor">Known Migration Issues <a title="Permalink for Known Migration Issues section" href="#known-migration-issues">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h2>
+
+<h3 id="swift-standard-library-1" class="header-with-anchor">Swift Standard Library <a title="Permalink for Swift Standard Library section" href="#swift-standard-library-1">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<ul>
+  <li>The migrator may fail to migrate uses of the indexing methods on <code class="language-plaintext highlighter-rouge">SetIndex</code> and <code class="language-plaintext highlighter-rouge">DictionaryIndex</code>.
+    <ul>
+      <li>Workaround: Manually migrate the indexing methods to their collection counterparts. Roughly:
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">index.successor()</code> migrates to <code class="language-plaintext highlighter-rouge">Collection.index(after: index)</code></li>
+          <li><code class="language-plaintext highlighter-rouge">index.predecessor()</code> migrates to <code class="language-plaintext highlighter-rouge">Collection.index(before: index)</code></li>
+          <li><code class="language-plaintext highlighter-rouge">index.advancedBy(delta)</code> migrates to <code class="language-plaintext highlighter-rouge">Collection.index(index, offsetBy: delta)</code></li>
+          <li><code class="language-plaintext highlighter-rouge">index.advancedBy(delta, limit: otherIndex)</code> migrates to <code class="language-plaintext highlighter-rouge">Collection.index(index, offsetBy: delta, limitedBy: otherIndex)</code></li>
+          <li><code class="language-plaintext highlighter-rouge">index.distanceTo(otherIndex)</code> migrates to <code class="language-plaintext highlighter-rouge">Collection.distance(from: index, to: otherIndex)</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>In Swift 2.2 the <code class="language-plaintext highlighter-rouge">Unmanaged</code> type had a static method <code class="language-plaintext highlighter-rouge">fromOpaque(_:)</code> and an instance method <code class="language-plaintext highlighter-rouge">toOpaque()</code>, which converted the unmanaged reference from and to the <code class="language-plaintext highlighter-rouge">COpaquePointer</code> type. In Swift 3 these have been changed to convert from an <code class="language-plaintext highlighter-rouge">UnsafePointer&lt;Void&gt;</code> and to an <code class="language-plaintext highlighter-rouge">UnsafeMutablePointer&lt;Void&gt;</code> to match the common use of being passed as the “context pointer” for a C API. In most cases, you will be able to simply remove uses of <code class="language-plaintext highlighter-rouge">COpaquePointer</code> (now renamed to <code class="language-plaintext highlighter-rouge">OpaquePointer</code>).</li>
+  <li>If you have any user-defined Collection types, you may see the compiler error <em>“‘MyCollection’ does not conform to protocol ‘Collection’“</em>.
+    <ul>
+      <li>Collections are now responsible for incrementing/decrementing their indices. To make your type conform to <code class="language-plaintext highlighter-rouge">Collection</code>, implement the method <code class="language-plaintext highlighter-rouge">func index(after: Index) -&gt; Index</code>. For a <code class="language-plaintext highlighter-rouge">BidirectionalCollection</code>, also implement <code class="language-plaintext highlighter-rouge">func index(before: Index) -&gt; Index</code>.</li>
+      <li>For <code class="language-plaintext highlighter-rouge">RandomAccessCollection</code>, you should also implement <code class="language-plaintext highlighter-rouge">func index(_: Index, offsetBy: Int) -&gt; Index</code> and <code class="language-plaintext highlighter-rouge">func distance(from: Index, to: Index) -&gt; IndexDistance</code>.</li>
+    </ul>
+  </li>
+  <li>If you have a variable of type <code class="language-plaintext highlighter-rouge">Range</code> formed from the half-open range operator (e.g. <code class="language-plaintext highlighter-rouge">1..&lt;2</code>) that is used as <code class="language-plaintext highlighter-rouge">Sequence</code> (e.g. in a <code class="language-plaintext highlighter-rouge">for-in</code> loop), you might see an error like **“type ‘Range<Int>' does not conform to protocol 'Sequence'"**
+</Int>    <ul>
+      <li>The fix is to switch to <code class="language-plaintext highlighter-rouge">CountableRange</code>.</li>
+    </ul>
+  </li>
+  <li>Users may need to manually rename <code class="language-plaintext highlighter-rouge">Collection.Index.Distance</code> to <code class="language-plaintext highlighter-rouge">Collection.IndexDistance</code> (no dot)</li>
+  <li>Users may need to manually rename the tuple element <code class="language-plaintext highlighter-rouge">index</code> to <code class="language-plaintext highlighter-rouge">offset</code> when accessing the result of <code class="language-plaintext highlighter-rouge">Collection.enumerated()</code></li>
+  <li>If you see an error that <code class="language-plaintext highlighter-rouge">Range&lt;Index&gt;</code> does not conform to protocol <code class="language-plaintext highlighter-rouge">Sequence</code> after migrating a range of indices, use the collection’s <code class="language-plaintext highlighter-rouge">indices</code> property.
+    <ul>
+      <li>E.g. <code class="language-plaintext highlighter-rouge">for _ in str.startIndex..&lt;someIndex {}</code> –&gt; <code class="language-plaintext highlighter-rouge">for _ in str.indices[str.startIndex..&lt;someIndex] {}</code></li>
+    </ul>
+  </li>
+  <li>The initializer <code class="language-plaintext highlighter-rouge">Zip2Sequence(_:_:)</code> has been removed; use the free function <code class="language-plaintext highlighter-rouge">zip(_:_:)</code> instead.</li>
+  <li>Using <code class="language-plaintext highlighter-rouge">min</code>/<code class="language-plaintext highlighter-rouge">max</code> inside extensions to <code class="language-plaintext highlighter-rouge">Collection</code> can cause collisions with <code class="language-plaintext highlighter-rouge">Collection</code>’s native methods; add <code class="language-plaintext highlighter-rouge">Swift</code>. before <code class="language-plaintext highlighter-rouge">min</code>/<code class="language-plaintext highlighter-rouge">max</code> to resolve the issue.</li>
+  <li><code class="language-plaintext highlighter-rouge">Selector()</code> should be migrated to <code class="language-plaintext highlighter-rouge">nil</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Range&lt;&gt;.reversed</code> got removed; to simulate its functionality, users can call <code class="language-plaintext highlighter-rouge">&lt;Collection&gt;[&lt;Range&gt;].indices.reversed()</code>.</li>
+  <li>The migrator does not rewrite generic constraints for types that don’t exist in Swift 3.&amp;24868384
+    <ul>
+      <li>For example, <code class="language-plaintext highlighter-rouge">func foo&lt;C: CollectionType where C.Index: BidirectionalIndexType&gt;() {}</code> should migrate to <code class="language-plaintext highlighter-rouge">func foo&lt;C: BidirectionalCollection&gt;() {}</code> but instead it migrates to <code class="language-plaintext highlighter-rouge">func foo&lt;C: Collection where C.Index: BidirectionalIndex&gt;() {}</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="sdk-1" class="header-with-anchor">SDK <a title="Permalink for SDK section" href="#sdk-1">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+
+<ul>
+  <li>Some protocols gained new required methods in new SDK releases. The migrator will not currently add implementations of those methods into your code.
+    <ul>
+      <li>Workaround: Manually add implementations for new protocol requirements.</li>
+    </ul>
+  </li>
+  <li>In Swift 3, many of Foundation’s “stringly-typed” APIs have been changed to use struct “wrapper types”, such as the new <code class="language-plaintext highlighter-rouge">Notification.Name</code> type. Since, it’s common for notification names and other string constants to be declared globally or as static members, the best way to take advantage of these new types is usually to construct the wrapper at the point of declaration:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static let MyGreatNotification = Notification.Name("MyGreatNotification")
+
+// Use site (no change)
+NotificationCenter.default().post(name: MyController.MyGreatNotification, object: self)'
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">FileAttributeKey</code> is another of the “stringly-typed” APIs that have been changed to use struct “wrapper types”. When such types are used with dictionaries (such as the result of <code class="language-plaintext highlighter-rouge">FileManager</code>’s <code class="language-plaintext highlighter-rouge">attributesOfItem(atPath:)</code> method), the string value will usually need to be extracted with the <code class="language-plaintext highlighter-rouge">rawValue</code> property.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">let mtime = try FileManager.default().attributesOfItem(atPath: "/")[FileAttributeKey.size.rawValue] as? NSNumber</code></li>
+    </ul>
+  </li>
+  <li>The migrator will convert most uses of <code class="language-plaintext highlighter-rouge">NSURL</code> to the new value type <code class="language-plaintext highlighter-rouge">URL</code>. However, there are certain methods on <code class="language-plaintext highlighter-rouge">NSURL</code>, like <code class="language-plaintext highlighter-rouge">checkResourceIsReachableAndReturnError</code>, that produce errors through an out-parameter instead of using Swift’s error-handling mechanism. The corresponding method on <code class="language-plaintext highlighter-rouge">URL</code>, <code class="language-plaintext highlighter-rouge">checkResourceIsReachable</code>, uses the error-handling mechanism as expected.&amp;26613405
+    <ul>
+      <li>The Swift 3 migrator is conservative and will continue using the <code class="language-plaintext highlighter-rouge">NSURL</code> methods; you will need to manually update your code if you want to use the new APIs on the <code class="language-plaintext highlighter-rouge">URL</code> value type. For the common pattern of treating an error as unreachable, you can use <code class="language-plaintext highlighter-rouge">try?</code>: <code class="language-plaintext highlighter-rouge">let isReachable = (try? resourceURL.checkResourceIsReachable()) ?? false)</code>
+  	- (Note that for this particular API it’s recommended you switch to URL’s <code class="language-plaintext highlighter-rouge">resourceValues(forKeys:)</code>, which handles the casting for you.)</li>
+      <li>The <code class="language-plaintext highlighter-rouge">port</code> property on <code class="language-plaintext highlighter-rouge">NSURL</code> produces an optional <code class="language-plaintext highlighter-rouge">NSNumber</code>, while the  corresponding property on <code class="language-plaintext highlighter-rouge">URL</code> is an optional <code class="language-plaintext highlighter-rouge">Int</code>. The Swift 3 migrator is conservative and will continue using the <code class="language-plaintext highlighter-rouge">NSURL</code> property; you will need to manually update your code if you want to use the new API.</li>
+    </ul>
+  </li>
+  <li>The migrator will convert most uses of <code class="language-plaintext highlighter-rouge">NSData</code> to the new value type <code class="language-plaintext highlighter-rouge">Data</code>. However, there are certain methods on <code class="language-plaintext highlighter-rouge">NSData</code> that operate on <code class="language-plaintext highlighter-rouge">UnsafeMutablePointer&lt;Void&gt;</code>, while the corresponding methods on <code class="language-plaintext highlighter-rouge">Data</code> use <code class="language-plaintext highlighter-rouge">UnsafeMutablePointer&lt;UInt8&gt;</code>. (For example, <code class="language-plaintext highlighter-rouge">NSData.getBytes(_:length:)</code> is more accepting than <code class="language-plaintext highlighter-rouge">Data.copyBytes(_:length:)</code>.) As a reminder, the in-memory layout of Swift types is not guaranteed.
+    <ul>
+      <li>The migrator is conservative and will continue using the <code class="language-plaintext highlighter-rouge">NSData</code> methods; you will need to manually update your code if you want to use the new APIs.</li>
+      <li><code class="language-plaintext highlighter-rouge">NSData(contentsOfMappedFile: x)</code> can be changed to <code class="language-plaintext highlighter-rouge">Data(contentsOf: x, options: .mappedAlways)</code></li>
+      <li><code class="language-plaintext highlighter-rouge">NSData(data: x)</code> can be changed to <code class="language-plaintext highlighter-rouge">x</code></li>
+    </ul>
+  </li>
+  <li>The migrator is conservative but there are some uses of <code class="language-plaintext highlighter-rouge">NSDate</code> that have better representations in Swift 3:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">(x as NSDate).earlierDate(y)</code> can be changed to <code class="language-plaintext highlighter-rouge">x &lt; y ? x : y</code></li>
+      <li><code class="language-plaintext highlighter-rouge">(x as NSDate).laterDate(y)</code> can be changed to <code class="language-plaintext highlighter-rouge">x &lt; y ? y : x</code></li>
+    </ul>
+  </li>
+  <li>The migrator will not add cases to switch statements that have gained cases in newer SDKs.
+    <ul>
+      <li>Workaround: Add the cases manually to switch statements, adding the appropriate availability checks.</li>
+    </ul>
+  </li>
+  <li><em>error: downcast from</em> <code class="language-plaintext highlighter-rouge">CALayer?</code> <em>to</em> <code class="language-plaintext highlighter-rouge">CALayer</code> <em>only unwraps optionals; did you mean to use ‘!’?</em>
+    <ul>
+      <li>Remove <code class="language-plaintext highlighter-rouge">as! CALayer</code> and replace with <code class="language-plaintext highlighter-rouge">!</code></li>
+    </ul>
+  </li>
+  <li>The migrator will migrate global constants to namespaces enum cases, but may not add the appropriate <code class="language-plaintext highlighter-rouge">.rawValue</code> call when passed into functions that accept the raw value instead of the new enum type.</li>
+  <li>Some types are now generic (e.g. <code class="language-plaintext highlighter-rouge">NSCache</code> -&gt; <code class="language-plaintext highlighter-rouge">Cache&lt;Key,Value&gt;</code>, <code class="language-plaintext highlighter-rouge">NSMapTable</code> -&gt; <code class="language-plaintext highlighter-rouge">MapTable&lt;Key,Value&gt;</code>).  After migrating to Swift 3 you may need to add appropriate generic parameters for them.</li>
+  <li>If you implement an optional Objective-C protocol requirement in a subclass of a class that declares conformance, you’ll see a warning, <em>“Instance method ‘…’ nearly matches optional requirement ‘…’ of protocol ‘…’”</em>
+    <ul>
+      <li>Workaround: Add an <code class="language-plaintext highlighter-rouge">@objc(objectiveC:name:)</code> attribute before the implementation of the optional requirement with the original Objective-C selector inside.</li>
+    </ul>
+  </li>
+  <li>Using literals as an option may now require invoking the corresponding constructor of that option, e.g.  <code class="language-plaintext highlighter-rouge">NSWindowStyleMask(rawValue: 8345)</code>.</li>
+  <li>The migrator does not modify uses of <code class="language-plaintext highlighter-rouge">NSMutable*</code> types that have value type equivalents (e.g. <code class="language-plaintext highlighter-rouge">NSMutableData</code> -&gt; <code class="language-plaintext highlighter-rouge">Data</code>, <code class="language-plaintext highlighter-rouge">NSMutableURLSession</code> -&gt; <code class="language-plaintext highlighter-rouge">URLSession</code>), but most SDK functions now expect the new value types.
+    <ul>
+      <li>Change these to their value type equivalents, being careful to account for the change from reference to value semantics.  For a quick workaround, you can cast them at the point they are used (e.g. <code class="language-plaintext highlighter-rouge">as Data</code>), but this may cause additional copies.</li>
+    </ul>
+  </li>
+  <li>After migration to Swift 3, you may see an error like <em>“Extension of a generic Objective-C class cannot access the class’s generic parameters at runtime”</em>.
+    <ul>
+      <li>When trying to use methods from a generic Objective-C class that have generic parameters in their signature, from inside an extension.  You can avoid this by calling the API through a variable that erases the specific type of <code class="language-plaintext highlighter-rouge">self</code> e.g.: <code class="language-plaintext highlighter-rouge">let typeErasedSelf = self as! MyObjCType&lt;AnyObject&gt;</code></li>
+    </ul>
+  </li>
+  <li>When migrating functions like <code class="language-plaintext highlighter-rouge">Pasteboard.￼readObjects(forClasses:options:</code>), the migrator may aggressively rename the first argument, e.g. <code class="language-plaintext highlighter-rouge">NSURL.self</code> to <code class="language-plaintext highlighter-rouge">URL.self</code>, this causes compiler errors; to solve the issue, users can discard the migrator’s changes.</li>
+  <li>The migrator will not change the deallocator type when migrating <code class="language-plaintext highlighter-rouge">NSData(bytes:length:deallocator:)</code>.
+    <ul>
+      <li>Workaround: Change the type from <code class="language-plaintext highlighter-rouge">(UnsafeMutablePointer&lt;Void&gt;, Int) -&gt; Void</code> to <code class="language-plaintext highlighter-rouge">(UnsafeMutablePointer&lt;Int8&gt;, Int) -&gt; Void</code></li>
+    </ul>
+  </li>
+  <li>Certain methods have been marked unavailable for watchOS, but are still required for iOS.  If you get errors that you cannot override these unavailable methods, please enclose them in and <code class="language-plaintext highlighter-rouge">#if os(iOS)</code> block.</li>
+  <li>Users may need to manually migrate calls to <code class="language-plaintext highlighter-rouge">String(contentsOfURL:usedEncoding:)</code> to <code class="language-plaintext highlighter-rouge">String(contentsOf:usedEncoding:)</code> which now accepts an <code class="language-plaintext highlighter-rouge">inout String.Encoding</code> instead of an <code class="language-plaintext highlighter-rouge">UnsafeMutablePointer</code> for the <code class="language-plaintext highlighter-rouge">usedEncoding</code> argument.</li>
+  <li>After migrator’s automatic changes, some values’ types may change from <code class="language-plaintext highlighter-rouge">NSURL</code> to <code class="language-plaintext highlighter-rouge">URL</code>, leading to compiler errors of unavailable members. To solve this issue, users may need to manually add cast, in the <code class="language-plaintext highlighter-rouge">URL</code> example, something like <code class="language-plaintext highlighter-rouge">x as NSURL</code>.</li>
+  <li>Users may want to manually simplify option sets by using inferred types, e.g. changing from <code class="language-plaintext highlighter-rouge">DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault)</code> to <code class="language-plaintext highlighter-rouge">DispatchQueue.global(attributes: .qosDefault)</code>.</li>
+  <li><strong>Dispatch</strong>
+    <ul>
+      <li>
+        <p>The free function <code class="language-plaintext highlighter-rouge">dispatch_once</code> is no longer available in Swift.  In Swift, you can use lazily initialized globals or static properties and get the same thread-safety and called-once guarantees as <code class="language-plaintext highlighter-rouge">dispatch_once</code> provided.
+  Example:</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  let myGlobal = { … global contains initialization in a call to a closure … }()
+  _ = myGlobal  // using myGlobal will invoke the initialization code only the first time it is used.
+</code></pre></div>        </div>
+      </li>
+      <li>There are now specific protocols for each of the <code class="language-plaintext highlighter-rouge">DispatchSource</code> types.  You should change <code class="language-plaintext highlighter-rouge">dispatch_source_t</code> to one of these specific protocols, such as <code class="language-plaintext highlighter-rouge">DispatchSourceTimer</code>, <code class="language-plaintext highlighter-rouge">DispatchSourceProcess</code>, etc. as appropriate.</li>
+      <li>The Dispatch queue APIs now use the <code class="language-plaintext highlighter-rouge">DispatchAttributes</code> <code class="language-plaintext highlighter-rouge">OptionSet</code>.  If you previously used <code class="language-plaintext highlighter-rouge">dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_DEFAULT, 0))</code>, you should now use use the option set, as in <code class="language-plaintext highlighter-rouge">DispatchQueue(label: name, attributes: [.serial, .qosDefault])</code></li>
+      <li><code class="language-plaintext highlighter-rouge">dispatch_get_specific</code> no longer takes an <code class="language-plaintext highlighter-rouge">UnsafeMutablePointer&lt;Void&gt;</code>, and it does not add the required argument label.
+        <ul>
+          <li>Workaround: Replace your <code class="language-plaintext highlighter-rouge">UnsafeMutablePointer&lt;Void&gt;</code> keys with <code class="language-plaintext highlighter-rouge">DispatchSpecificKey&lt;T&gt;</code> , and add the missing <code class="language-plaintext highlighter-rouge">key:</code> label.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="swift-3-language" class="header-with-anchor">Swift 3 Language <a title="Permalink for Swift 3 Language section" href="#swift-3-language">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+<ul>
+  <li>The migrator may not fully migrate closures that take <code class="language-plaintext highlighter-rouge">ImplicitlyUnwrappedOptional</code>s.
+    <ul>
+      <li>Workaround: Promote them to use regular optionals.</li>
+    </ul>
+  </li>
+  <li>The migrator may incorrectly insert <code class="language-plaintext highlighter-rouge">?</code> after values of implicitly unwrapped optional type where <code class="language-plaintext highlighter-rouge">!</code> would be more appropriate.  This can allow a nil value to be silently propagated instead of deterministically trapping.
+    <ul>
+      <li>Workaround: Use <code class="language-plaintext highlighter-rouge">!</code> instead of <code class="language-plaintext highlighter-rouge">?</code> in these cases when you desire nil values to trap.</li>
+    </ul>
+  </li>
+  <li>The migrator will not migrate <code class="language-plaintext highlighter-rouge">if let</code> statements which no longer return optional.
+    <ul>
+      <li>Workaround: Remove the statement from the <code class="language-plaintext highlighter-rouge">if let</code> statement. If you need to keep a lexical scope, bring the binding inside a <code class="language-plaintext highlighter-rouge">do</code> statement.</li>
+    </ul>
+  </li>
+  <li>The migrator does not add leading dots to enum cases. This can cause conflicts when the migrator lowercases them.
+    <ul>
+      <li>Workaround: Manually add leading dots to enum cases that don’t already have them.</li>
+    </ul>
+  </li>
+  <li>Properties whose name conflicts with Foundation types after removing their NS prefix will lead to module-qualified type names. For example, if there is a <code class="language-plaintext highlighter-rouge">var URL: NSURL</code>, it will be rewritten as <code class="language-plaintext highlighter-rouge">var URL: Foundation.URL</code>
+    <ul>
+      <li>Workaround: Rename these properties before migration, so they don’t conflict. The Swift API guidelines suggest they should be lowercased.</li>
+    </ul>
+  </li>
+  <li>Enums whose raw types are String may require manual renaming to follow the new Swift naming guideline.</li>
+  <li>The migrator may add unnecessary Swift module qualifications to SequenceType conformances, e.g. <code class="language-plaintext highlighter-rouge">struct MySequence: SequenceType</code> =&gt; <code class="language-plaintext highlighter-rouge">struct MySequence: Swift.Sequence</code>.
+    <ul>
+      <li>Workaround: Remove the leading <code class="language-plaintext highlighter-rouge">Swift.</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="miscellaneous" class="header-with-anchor">Miscellaneous <a title="Permalink for Miscellaneous section" href="#miscellaneous">
+            <?xml version="1.0" encoding="utf-8"?> <svg width="24px" height="24px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="m 11.58824,9.823529 q 0,-0.294117 -0.20589,-0.499999 L 9.85294,7.794118 q -0.20588,-0.205883 -0.5,-0.205883 -0.30882,0 -0.52941,0.235295 0.0221,0.02206 0.13971,0.136029 0.11764,0.113971 0.15808,0.158088 0.0404,0.04412 0.1103,0.139706 0.0698,0.09559 0.0956,0.1875 0.0257,0.09191 0.0257,0.202206 0,0.294117 -0.20588,0.5 -0.20588,0.205882 -0.5,0.205882 -0.1103,0 -0.20221,-0.02573 Q 8.35293,9.301471 8.25733,9.231621 8.16173,9.161771 8.11763,9.121327 8.07353,9.080887 7.95954,8.963238 7.84557,8.845591 7.82351,8.823533 7.58086,9.051474 7.58086,9.360297 q 0,0.294118 0.20588,0.5 l 1.51471,1.522059 q 0.19853,0.19853 0.5,0.19853 0.29412,0 0.5,-0.191177 l 1.08088,-1.073529 q 0.20589,-0.205883 0.20589,-0.492648 z M 6.41912,4.639706 q 0,-0.294118 -0.20588,-0.5 L 4.69853,2.617647 q -0.20588,-0.205882 -0.5,-0.205882 -0.28677,0 -0.5,0.198529 L 2.61765,3.683823 q -0.20589,0.205883 -0.20589,0.492648 0,0.294117 0.20589,0.499999 l 1.52941,1.529412 q 0.19853,0.19853 0.5,0.19853 0.30882,0 0.52941,-0.227942 Q 5.15437,6.15441 5.03676,6.040441 4.91912,5.92647 4.87868,5.882353 4.83828,5.838233 4.76838,5.742647 q -0.0698,-0.09559 -0.0956,-0.1875 -0.0257,-0.09191 -0.0257,-0.202206 0,-0.294117 0.20588,-0.5 0.20588,-0.205882 0.5,-0.205882 0.1103,0 0.20221,0.02573 0.0919,0.02573 0.1875,0.09559 0.0956,0.06985 0.1397,0.110294 0.0441,0.04044 0.15809,0.158089 Q 6.15443,5.154409 6.17649,5.176467 6.41914,4.948526 6.41914,4.639703 z M 13,9.823529 q 0,0.882353 -0.625,1.492647 l -1.08088,1.07353 Q 10.68382,13 9.80147,13 q -0.88971,0 -1.5,-0.625 L 6.78676,10.852941 Q 6.17647,10.242647 6.17647,9.360294 q 0,-0.904412 0.64706,-1.536764 L 6.17647,7.176471 Q 5.54412,7.82353 4.64706,7.82353 q -0.88235,0 -1.5,-0.617648 L 1.617647,5.676471 Q 1,5.058824 1,4.176471 1,3.294118 1.625,2.683824 L 2.70588,1.610294 Q 3.31618,1 4.19853,1 q 0.88971,0 1.5,0.625 l 1.51471,1.522059 q 0.61029,0.610294 0.61029,1.492647 0,0.904412 -0.64706,1.536764 L 7.82353,6.823529 Q 8.45588,6.17647 9.35294,6.17647 q 0.88235,0 1.5,0.617648 l 1.52941,1.529411 Q 13,8.941176 13,9.823529 z"/></svg>
+          </a></h3>
+<ul>
+  <li>If you have multiple schemes in your project that cover different targets, you will only get notified that you need to migrate one of them.  You will need to manually select the new scheme, then run <em>Edit -&gt; Convert -&gt; To Current Swift Syntax</em> to migrate the remaining schemes. Or you can create a scheme that includes all the targets from your project, and have it selected before running the migration assistant.</li>
+</ul>
+
+
+
+  
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    
+    <p class="copyright">Copyright © 2025 Apple Inc. All rights reserved.</p>
+    <p class="trademark">Swift and the Swift logo are trademarks of Apple Inc.</p>
+    <p class="privacy">
+      <a href="//www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+      <a href="//www.apple.com/legal/privacy/en-ww/cookies/">Cookies</a>
+      <a href="/openapi">API</a>
+    </p>
+  </div>
+  <div class="footer-other">
+    <form
+      class="color-scheme-toggle"
+      role="radiogroup"
+      tabindex="0"
+      id="color-scheme-toggle"
+    >
+      <legend class="visuallyhidden">Color scheme preference</legend>
+      <label for="scheme-light">
+        <input id="scheme-light" type="radio" name="color-scheme-preference" value="light">
+        <span class="color-scheme-toggle-label">Light</span>
+      </label>
+      <label for="scheme-dark">
+        <input id="scheme-dark" type="radio" name="color-scheme-preference" value="dark">
+        <span class="color-scheme-toggle-label">Dark</span>
+      </label>
+      <label for="scheme-auto" id="scheme-auto-wrapper">
+        <input id="scheme-auto" type="radio" name="color-scheme-preference" value="auto">
+        <span class="color-scheme-toggle-label">Auto</span>
+      </label>
+    </form>
+    <aside>
+      <a href="https://x.com/swiftlang" rel="me" title="Follow @SwiftLang on X"><i class="x"></i></a>
+      <a href="https://bsky.app/profile/swift.org" rel="me" title="Follow @swift.org on Bluesky"><i class="bluesky"></i></a>
+      <a href="https://mastodon.social/@swiftlang" rel="me" title="Follow @swiftLang on Mastodon"><i class="mastodon"></i></a>
+      <a href="/atom.xml" title="Subscribe to Site Updates"><i class="feed"></i></a>
+    </aside>
+  </div>
+</footer>
+
+
+<script src="/assets/javascripts/application.js"></script>
+<!-- metrics -->
+<script>
+    /* RSID: */
+    var s_account="awdswiftorg"
+</script>
+
+<!-- /metrics -->
+</body>
+</html>
