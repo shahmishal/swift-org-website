@@ -14,10 +14,14 @@ concurrency: preview-${{ github.ref }}
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
-    container: ruby:3.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
+      - name: Set up Ruby 3.3
+        uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
+        with:
+          ruby-version: 3.3
 
       - name: Install and Build
         if: github.event.action != 'closed' # You might want to skip the build if the PR has been closed
