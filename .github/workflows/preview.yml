@@ -26,6 +26,10 @@ jobs:
       - name: Set env
         run: echo "JEKYLL_ENV=stage" >> $GITHUB_ENV
 
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
       - name: Install and Build
         if: github.event.action != 'closed' # You might want to skip the build if the PR has been closed
         run: bundle install && bundle exec jekyll build --baseurl /swift-org-website/pr-preview/pr-1
