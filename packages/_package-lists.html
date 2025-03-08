@@ -2,7 +2,7 @@
   {%- for category in site.data.packages.packages.categories %}
   <li class="grid-level-1 selectable">
     {%- assign url = "packages/" | append: category.slug | append: ".md" %}
-    <a href="{% link {{ url }} %}">
+    <a href="{{ url }}">
       <h3>{{ category.name }}</h3>
       <p>{{ category.brief }}</p>
     </a>

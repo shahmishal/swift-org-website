@@ -37,7 +37,7 @@
       {%- for month in year.months %}
         {%- assign url = "packages/showcase-" | append: month.slug | append: "-" | append: year.year | append: ".md" %}
         <li>
-          <a href="{% link {{ url }} %}">{{ month.month }}</a>
+          <a href="{{ url }}">{{ month.month }}</a>
         </li>
       {% endfor %}
     </ul>
