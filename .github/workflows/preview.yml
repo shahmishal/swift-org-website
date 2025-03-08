@@ -23,8 +23,8 @@ jobs:
         with:
           ruby-version: 3.3.6
 
-      - name: Set env
-        run: echo "JEKYLL_ENV=stage" >> $GITHUB_ENV
+      # - name: Set env
+      #   run: echo "JEKYLL_ENV=stage" >> $GITHUB_ENV
 
       - name: Setup Pages
         id: pages
