@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text" xml:lang="en">Swift.org</title>
-  <link type="application/atom+xml" href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/atom.xml" rel="self"/>
-  <link type="text/html" href="/swift-org-website/pr-preview/pr-1" rel="alternate"/>
-  <updated>2025-03-08T02:14:32-04:00</updated>
+  <link type="application/atom+xml" href="https://shahmishal.github.io/atom.xml" rel="self"/>
+  <link type="text/html" href="/swift-org-website/pr-preview/pr-1/" rel="alternate"/>
+  <updated>2025-03-08T02:19:03-04:00</updated>
   <id>tag:swift.org,2015-12-03:Swift</id>
 
   
@@ -16,9 +16,9 @@
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/how-swifts-server-support-powers-things-cloud/"/>
+    <link href="https://shahmishal.github.io/blog/how-swifts-server-support-powers-things-cloud/"/>
     <updated>2025-02-21T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/how-swifts-server-support-powers-things-cloud/</id>
+    <id>https://shahmishal.github.io/blog/how-swifts-server-support-powers-things-cloud/</id>
     <content type="html">&lt;p&gt;You might be familiar with &lt;a href=&quot;https://culturedcode.com/things/&quot;&gt;Things&lt;/a&gt;, a delightful personal task manager that has won two Apple Design Awards and is available across Apple devices including iPhone, iPad, Mac, Apple Watch, and Apple Vision Pro. At Cultured Code, the team behind Things, we care about a great user experience across every aspect of the product. This extends to our server back end, and after a rewrite our Things Cloud service has transitioned entirely to Swift. Over the past year in production, Swift has consistently proven to be reliable, performant, and remarkably well-suited for our server-side need.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt=&quot;Things logo&quot; src=&quot;/assets/images/how-swifts-server-support-powers-things-cloud/things-logo.png&quot; width=&quot;160&quot; height=&quot;160&quot; style=&quot;max-width: 80%; width: 160px; height: auto; margin: 0 auto; display: block;&quot; /&gt;&lt;/p&gt;
@@ -143,9 +143,9 @@
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/grpc-swift-2/"/>
+    <link href="https://shahmishal.github.io/blog/grpc-swift-2/"/>
     <updated>2025-02-14T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/grpc-swift-2/</id>
+    <id>https://shahmishal.github.io/blog/grpc-swift-2/</id>
     <content type="html">&lt;p&gt;Say hello to gRPC Swift 2: a major update that brings first-class concurrency
 support and more expressive APIs for a seamless developer experience.&lt;/p&gt;
 
@@ -357,9 +357,9 @@ forums&lt;/a&gt;. Let’s connect!&lt;/p&gt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/vscode-swift-2/"/>
+    <link href="https://shahmishal.github.io/blog/vscode-swift-2/"/>
     <updated>2025-02-10T12:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/vscode-swift-2/</id>
+    <id>https://shahmishal.github.io/blog/vscode-swift-2/</id>
     <content type="html">&lt;p&gt;Today, we are excited to announce a new version of the Swift extension for
 Visual Studio Code – now &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=swiftlang.swift-vscode&quot;&gt;published to the extension
 marketplace&lt;/a&gt;
@@ -400,9 +400,9 @@ post.&lt;/p&gt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/the-next-chapter-in-swift-build-technologies/"/>
+    <link href="https://shahmishal.github.io/blog/the-next-chapter-in-swift-build-technologies/"/>
     <updated>2025-02-01T02:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/the-next-chapter-in-swift-build-technologies/</id>
+    <id>https://shahmishal.github.io/blog/the-next-chapter-in-swift-build-technologies/</id>
     <content type="html">&lt;p&gt;Swift continues to grow in popularity as a cross-platform language supporting a wide variety of use cases, with support on a &lt;a href=&quot;/blog/embedded-swift-examples/&quot;&gt;variety of embedded devices&lt;/a&gt;, form factors that encompass &lt;a href=&quot;https://developer.apple.com/documentation/watchos-apps/building_a_watchos_app&quot;&gt;wearables&lt;/a&gt; to &lt;a href=&quot;/documentation/server/&quot;&gt;server&lt;/a&gt;, and a wide variety of &lt;a href=&quot;/documentation/articles/static-linux-getting-started.html&quot;&gt;operating systems&lt;/a&gt;. As Swift expands, there’s value in investing in matching cross-platform build tools that provide a powerful, consistent, and flexible experience across the ecosystem.&lt;/p&gt;
 
 &lt;p&gt;As a foundational step in this new chapter of Swift build technologies, today Apple is open sourcing &lt;a href=&quot;https://github.com/swiftlang/swift-build&quot;&gt;Swift Build&lt;/a&gt;, a powerful and extensible build engine that provides a set of build rules for building Swift projects. Swift Build is the engine used by Xcode, which supports millions of apps in the App Store as well as the internal build process for Apple’s own operating systems. The open source repository also includes support for targeting Linux and Windows.&lt;/p&gt;
@@ -447,9 +447,9 @@ post.&lt;/p&gt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/announcing-swift-6/"/>
+    <link href="https://shahmishal.github.io/blog/announcing-swift-6/"/>
     <updated>2024-09-17T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/announcing-swift-6/</id>
+    <id>https://shahmishal.github.io/blog/announcing-swift-6/</id>
     <content type="html">&lt;p&gt;We’re delighted to announce the general availability of Swift 6. This is a major new release that expands Swift to more platforms and domains.&lt;/p&gt;
 
 &lt;p&gt;Many people know of Swift as a language for app development, with a million apps on the App Store. But Swift is great for more than just apps. Swift’s safety, speed, and approachability make it a great choice for many other use cases including libraries, internet-scale services, and the most performance-critical and secure code.&lt;/p&gt;
@@ -719,9 +719,9 @@ post.&lt;/p&gt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/introducing-swift-nio-oblivious-http/"/>
+    <link href="https://shahmishal.github.io/blog/introducing-swift-nio-oblivious-http/"/>
     <updated>2024-08-21T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/introducing-swift-nio-oblivious-http/</id>
+    <id>https://shahmishal.github.io/blog/introducing-swift-nio-oblivious-http/</id>
     <content type="html">&lt;p&gt;We’re excited to introduce an implementation of provisional support for Oblivious HTTP to the Swift ecosystem, with the availability of a new package called &lt;a href=&quot;https://github.com/apple/swift-nio-oblivious-http&quot;&gt;SwiftNIO Oblivious HTTP&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.rfc-editor.org/rfc/rfc9458.html&quot;&gt;Oblivious HTTP&lt;/a&gt; is a protocol to allow a client to make requests of a server without the server being able to identify the source of those requests. Conventional HTTP requests can reveal identifying information about the client such as the originating IP address, and can allow multiple requests from the same client to be identified as originating from the same node. In contrast, Oblivious HTTP provides a secure mechanism for protecting identifying client information, achieved by combining HTTP message encryption with a trusted third party relay service, providing increased privacy to users without incurring a significant performance overhead.&lt;/p&gt;
@@ -842,9 +842,9 @@ post.&lt;/p&gt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/announcing-swift-homomorphic-encryption/"/>
+    <link href="https://shahmishal.github.io/blog/announcing-swift-homomorphic-encryption/"/>
     <updated>2024-07-30T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/announcing-swift-homomorphic-encryption/</id>
+    <id>https://shahmishal.github.io/blog/announcing-swift-homomorphic-encryption/</id>
     <content type="html">&lt;p&gt;We’re excited to announce a new open source Swift package for homomorphic
 encryption in Swift:
 &lt;a href=&quot;https://github.com/apple/swift-homomorphic-encryption&quot;&gt;swift-homomorphic-encryption&lt;/a&gt;.&lt;/p&gt;
@@ -969,9 +969,9 @@ researchers in the Swift community to enable new use cases!&lt;/p&gt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/ready-for-swift-6/"/>
+    <link href="https://shahmishal.github.io/blog/ready-for-swift-6/"/>
     <updated>2024-07-01T05:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/ready-for-swift-6/</id>
+    <id>https://shahmishal.github.io/blog/ready-for-swift-6/</id>
     <content type="html">&lt;p&gt;Swift 6 introduces &lt;a href=&quot;https://www.swift.org/migration/documentation/swift-6-concurrency-migration-guide/dataracesafety&quot;&gt;compile-time data race safety checking&lt;/a&gt; for any code that &lt;a href=&quot;https://www.swift.org/migration/documentation/swift-6-concurrency-migration-guide/swift6mode&quot;&gt;opts in to use the Swift 6 language mode&lt;/a&gt;. While individual modules can adopt this mode incrementally and independently of their dependencies, the full benefit of runtime data race safety is only realized when all modules have opted in. Therefore, the quick adoption of Swift 6 language mode across the ecosystem of open-source packages will play a key role in advancing data race safety across the entire Swift ecosystem.&lt;/p&gt;
 
 &lt;p&gt;Data races can lead to crashes, inconsistent behaviour, and performance issues in apps so the sooner apps and their dependencies can adopt the Swift 6 language mode and opt in to these checks, the better!&lt;/p&gt;
@@ -1022,9 +1022,9 @@ researchers in the Swift community to enable new use cases!&lt;/p&gt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/swiftlang-github/"/>
+    <link href="https://shahmishal.github.io/blog/swiftlang-github/"/>
     <updated>2024-06-10T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/swiftlang-github/</id>
+    <id>https://shahmishal.github.io/blog/swiftlang-github/</id>
     <content type="html">&lt;p&gt;Today, we are announcing an exciting development for the Swift programming language: its migration to a dedicated GitHub organization at &lt;a href=&quot;http://github.com/swiftlang&quot;&gt;GitHub.com/swiftlang&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This migration reflects the growth and maturity of the Swift community and highlights Swift’s versatility beyond Apple’s own ecosystems. Over the last decade, many inspiring individuals’ hard and creative work has elevated Swift into various creative and practical applications. With a GitHub organization dedicated to Swift, we are creating an even more conducive environment for collaboration and innovation. This change will allow Swift to expand its reach to more platforms and use cases, sparking fresh possibilities and broadening Swift’s impact across the technology landscape.&lt;/p&gt;
@@ -1075,9 +1075,9 @@ researchers in the Swift community to enable new use cases!&lt;/p&gt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/embedded-swift-examples/"/>
+    <link href="https://shahmishal.github.io/blog/embedded-swift-examples/"/>
     <updated>2024-04-03T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/embedded-swift-examples/</id>
+    <id>https://shahmishal.github.io/blog/embedded-swift-examples/</id>
     <content type="html">&lt;p&gt;We’re pleased to introduce a &lt;a href=&quot;https://github.com/apple/swift-embedded-examples&quot;&gt;repository of example projects&lt;/a&gt; that demonstrate how Embedded Swift can be used to develop software on a range of microcontrollers.&lt;/p&gt;
 
 &lt;p&gt;Swift is a scalable language, great for writing desktop and mobile apps, server backends, and system software. And as you &lt;a href=&quot;https://www.swift.org/blog/byte-sized-swift-tiny-games-playdate/&quot;&gt;may have seen&lt;/a&gt;, thanks to a new, experimental compilation mode, you can use Swift to target embedded environments like ARM and RISC-V microcontrollers as well, popular for building professional and hobbyist electronics projects such as IoT devices.&lt;/p&gt;
@@ -1116,9 +1116,9 @@ Swift on STM32F746, Raspberry Pi Pico, nRF52840, and ESP32C6
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/sswg-update-2024/"/>
+    <link href="https://shahmishal.github.io/blog/sswg-update-2024/"/>
     <updated>2024-03-28T10:30:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/sswg-update-2024/</id>
+    <id>https://shahmishal.github.io/blog/sswg-update-2024/</id>
     <content type="html">&lt;p&gt;In this annual post, the &lt;a href=&quot;/sswg/&quot;&gt;Swift Server WorkGroup (SSWG)&lt;/a&gt; reflects on the community, ecosystem-wide accomplishments and the workgroup’s focus areas for the year ahead.&lt;/p&gt;
 
 &lt;p&gt;Since our &lt;a href=&quot;/blog/sswg-update-2023/&quot;&gt;previous update&lt;/a&gt;, Swift on the Server has continued to grow in many ways. Let’s start with a look at the progress made in 2023, then look ahead and next steps for 2024.&lt;/p&gt;
@@ -1232,9 +1232,9 @@ We also learned that there is a lot of interest in standardized tooling such as 
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/adwaita-swift/"/>
+    <link href="https://shahmishal.github.io/blog/adwaita-swift/"/>
     <updated>2024-03-25T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/adwaita-swift/</id>
+    <id>https://shahmishal.github.io/blog/adwaita-swift/</id>
     <content type="html">&lt;p&gt;Swift is well-suited for creating user interfaces thanks to the clean syntax, static typing, and special features making code easier to write.
 &lt;a href=&quot;https://docs.swift.org/swift-book/documentation/the-swift-programming-language/advancedoperators/#Result-Builders&quot;&gt;Result builders&lt;/a&gt;, combined with Swift’s &lt;a href=&quot;https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures/#Closure-Expression-Syntax&quot;&gt;closure expression syntax&lt;/a&gt;, can significantly enhance code readability.&lt;/p&gt;
 
@@ -1400,9 +1400,9 @@ Flathub is an app store powered by &lt;a href=&quot;https://flatpak.org/&quot;&g
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/benchmarks/"/>
+    <link href="https://shahmishal.github.io/blog/benchmarks/"/>
     <updated>2024-03-20T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/benchmarks/</id>
+    <id>https://shahmishal.github.io/blog/benchmarks/</id>
     <content type="html">&lt;p&gt;In the world of software development, the old adage “make it work, make it right, make it fast” serves as a guiding principle for creating robust, efficient applications. This journey starts with ensuring that our code functions as intended, a task where unit and integration testing have proven indispensable. However, ensuring functionality is only part of the equation. The true measure of an application’s excellence extends into its performance - how fast and efficiently it operates under various conditions. Herein lies the critical but often overlooked third step: &lt;em&gt;making it fast&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;In the realm of professional trading software, the role of a comprehensive benchmarking framework integrated with Continuous Integration (CI) parallels the importance of unit and integration testing. Just as unit and integration tests are essential for ensuring the functional correctness of software, benchmarking within a CI pipeline is crucial for continuously validating the non-functional aspects, such as high throughput, low latency, predictable performance and consistent resource usage. This is vital for maintaining the competitive edge in a fast-paced financial environment where the extreme market data rates and performance requirements means that even small variations in response time - on the scale of microseconds - can significantly impact trade outcomes.&lt;/p&gt;
@@ -1581,13 +1581,13 @@ Flathub is an app store powered by &lt;a href=&quot;https://flatpak.org/&quot;&g
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/byte-sized-swift-tiny-games-playdate/"/>
+    <link href="https://shahmishal.github.io/blog/byte-sized-swift-tiny-games-playdate/"/>
     <updated>2024-03-12T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/byte-sized-swift-tiny-games-playdate/</id>
+    <id>https://shahmishal.github.io/blog/byte-sized-swift-tiny-games-playdate/</id>
     <content type="html">&lt;p&gt;I’m excited to share &lt;a href=&quot;https://github.com/apple/swift-playdate-examples&quot;&gt;swift-playdate-examples&lt;/a&gt;, a technical demonstration of using Swift to build games for &lt;a href=&quot;https://play.date/&quot;&gt;Playdate&lt;/a&gt;, a handheld game system by &lt;a href=&quot;https://panic.com&quot;&gt;Panic&lt;/a&gt;.&lt;/p&gt;
 
 &lt;video title=&quot;A screencapture of Swift Break running on Playdate hardware mirrored to a Mac.&quot; autoplay=&quot;&quot; loop=&quot;&quot; muted=&quot;&quot; style=&quot;width: 100%; border-radius: 15px;&quot;&gt;
-  &lt;source src=&quot;https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/assets/images/2024-03-12-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-swiftbreak.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+  &lt;source src=&quot;https://shahmishal.github.io/assets/images/2024-03-12-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-swiftbreak.mp4&quot; type=&quot;video/mp4&quot; /&gt;
 &lt;/video&gt;
 
 &lt;h2 id=&quot;why-swift&quot; class=&quot;header-with-anchor&quot;&gt;Why Swift? &lt;a title=&quot;Permalink for Why Swift? section&quot; href=&quot;#why-swift&quot;&gt;
@@ -1892,7 +1892,7 @@ test.o: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 &lt;span class=&quot;o&
 &lt;p&gt;Once again, I deployed my game to the Playdate and … it actually worked! You can see the game in action below:&lt;/p&gt;
 
 &lt;video title=&quot;A video of Conway&apos;s Game of Life running on Playdate hardware mirrored to a Mac.&quot; autoplay=&quot;&quot; loop=&quot;&quot; muted=&quot;&quot; style=&quot;width: 100%; border-radius: 15px;&quot;&gt;
-  &lt;source src=&quot;https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/assets/images/2024-03-12-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-life.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+  &lt;source src=&quot;https://shahmishal.github.io/assets/images/2024-03-12-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-life.mp4&quot; type=&quot;video/mp4&quot; /&gt;
 &lt;/video&gt;
 
 &lt;p&gt;I then integrated my manual compilation steps into the Makefiles found in the Playdate SDK, going through a number of options before landing on the final solution found in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swift-playdate-examples&lt;/code&gt;. The result of this effort was a single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make&lt;/code&gt; command to build a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pdx&lt;/code&gt; compatible with both the simulator and hardware!&lt;/p&gt;
@@ -1963,7 +1963,7 @@ test.o: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 &lt;span class=&quot;o&
 &lt;p&gt;This feature required calculating a normal vector relative to a hypothetical curve representing a rounded paddle and then reflecting the ball’s velocity about the normal. Here’s a visualization of the intended behavior:&lt;/p&gt;
 
 &lt;video title=&quot;A Desmos geometric animation of Swift Break ball bouncing logic.&quot; autoplay=&quot;&quot; loop=&quot;&quot; muted=&quot;&quot; style=&quot;width: 100%; border-radius: 15px;&quot;&gt;
-  &lt;source src=&quot;https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/assets/images/2024-03-12-byte-sized-swift-tiny-games-playdate/desmos-ball-bounce.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+  &lt;source src=&quot;https://shahmishal.github.io/assets/images/2024-03-12-byte-sized-swift-tiny-games-playdate/desmos-ball-bounce.mp4&quot; type=&quot;video/mp4&quot; /&gt;
 &lt;/video&gt;
 
 &lt;blockquote&gt;
@@ -2028,7 +2028,7 @@ test.o: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 &lt;span class=&quot;o&
 &lt;p&gt;With these adjustments, I attempted once more, and &lt;em&gt;finally&lt;/em&gt; “Swift Break” successfully ran on the Playdate hardware! I’ve included a brief video showcasing the game below:&lt;/p&gt;
 
 &lt;video title=&quot;A screencapture of Swift Break running on Playdate hardware mirrored to a Mac.&quot; autoplay=&quot;&quot; loop=&quot;&quot; muted=&quot;&quot; style=&quot;width: 100%; border-radius: 15px;&quot;&gt;
-  &lt;source src=&quot;https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/assets/images/2024-03-12-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-swiftbreak.mp4&quot; type=&quot;video/mp4&quot; /&gt;
+  &lt;source src=&quot;https://shahmishal.github.io/assets/images/2024-03-12-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-swiftbreak.mp4&quot; type=&quot;video/mp4&quot; /&gt;
 &lt;/video&gt;
 
 &lt;h2 id=&quot;wrapping-up&quot; class=&quot;header-with-anchor&quot;&gt;Wrapping Up &lt;a title=&quot;Permalink for Wrapping Up section&quot; href=&quot;#wrapping-up&quot;&gt;
@@ -2055,9 +2055,9 @@ test.o: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 &lt;span class=&quot;o&
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/pack-iteration/"/>
+    <link href="https://shahmishal.github.io/blog/pack-iteration/"/>
     <updated>2024-03-07T06:30:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/pack-iteration/</id>
+    <id>https://shahmishal.github.io/blog/pack-iteration/</id>
     <content type="html">&lt;p&gt;Parameter packs, introduced in Swift 5.9, make it possible to write generics that abstract over the number of arguments. This eliminates the need to have overloaded copies of the same generic function for one argument, two arguments, three arguments, and so on.
 With Swift 6.0, pack iteration makes it easier than ever to work with parameter packs.
 This post will show you how to make the best use of pack iteration.&lt;/p&gt;
@@ -2296,9 +2296,9 @@ As seen in this article, pack iteration makes interacting with value parameter p
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/swift-5.10-released/"/>
+    <link href="https://shahmishal.github.io/blog/swift-5.10-released/"/>
     <updated>2024-03-05T10:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/swift-5.10-released/</id>
+    <id>https://shahmishal.github.io/blog/swift-5.10-released/</id>
     <content type="html">&lt;p&gt;Swift was designed to be safe by default, preventing entire categories of programming mistakes at compile time. Sources of undefined behavior in C-based languages, such as using variables before they’re initialized or a use-after-free, are defined away in Swift.&lt;/p&gt;
 
 &lt;p&gt;An increasingly important source of undefined behavior is concurrent code that inadvertently accesses memory from one thread at the same time that another thread is writing to the same memory. This kind of unsafety is called a &lt;em&gt;data race&lt;/em&gt;, and data races make concurrent programs exceptionally difficult to write correctly. Swift solves this problem through &lt;em&gt;data isolation&lt;/em&gt; provided by actors and tasks, which guarantees mutually exclusive access to shared mutable state. Data isolation enforcement has been under active development since 2020 when the &lt;a href=&quot;https://forums.swift.org/t/swift-concurrency-roadmap/41611&quot;&gt;Swift concurrency roadmap&lt;/a&gt; was posted.&lt;/p&gt;
@@ -2454,9 +2454,9 @@ note: isolate &apos;globalCache&apos; to a global actor, or convert it to a &apo
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/swift-google-summer-of-code-2024/"/>
+    <link href="https://shahmishal.github.io/blog/swift-google-summer-of-code-2024/"/>
     <updated>2024-02-23T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/swift-google-summer-of-code-2024/</id>
+    <id>https://shahmishal.github.io/blog/swift-google-summer-of-code-2024/</id>
     <content type="html">&lt;p&gt;We’re happy to announce that Swift will once again be joining &lt;a href=&quot;https://summerofcode.withgoogle.com&quot;&gt;Google Summer of Code 2024&lt;/a&gt;!&lt;/p&gt;
 
 &lt;p&gt;Summer of Code is an annual program, organized by Google, which provides hands-on experience for newcomers contributing
@@ -2498,9 +2498,9 @@ Applications start on March 18, 2024, and end on April 2, 2024 at 18:00 UTC.&lt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/mlx-swift/"/>
+    <link href="https://shahmishal.github.io/blog/mlx-swift/"/>
     <updated>2024-02-20T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/mlx-swift/</id>
+    <id>https://shahmishal.github.io/blog/mlx-swift/</id>
     <content type="html">&lt;p&gt;The Swift programming language has a lot of potential to be used for machine learning research because it combines the ease of use and high-level syntax of a language like Python with the speed of a compiled language like C++.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/ml-explore/mlx&quot;&gt;MLX&lt;/a&gt;  is an array framework for machine learning research on Apple silicon. MLX is intended for research and not for production deployment of models in apps.&lt;/p&gt;
@@ -2620,9 +2620,9 @@ Applications start on March 18, 2024, and end on April 2, 2024 at 18:00 UTC.&lt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/summer-of-code-2023-summary/"/>
+    <link href="https://shahmishal.github.io/blog/summer-of-code-2023-summary/"/>
     <updated>2024-02-13T06:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/summer-of-code-2023-summary/</id>
+    <id>https://shahmishal.github.io/blog/summer-of-code-2023-summary/</id>
     <content type="html">&lt;p&gt;The Swift project regularly participates in &lt;a href=&quot;https://summerofcode.withgoogle.com&quot;&gt;Google Summer of Code&lt;/a&gt; in order to help people new to the open source ecosystem dip their toes in contributing to Swift and its growing ecosystem.&lt;/p&gt;
 
 &lt;p&gt;During the 2023 edition of the program, we ran three projects, all of which completed their assigned projects successfully.&lt;/p&gt;
@@ -2806,9 +2806,9 @@ Applications start on March 18, 2024, and end on April 2, 2024 at 18:00 UTC.&lt;
       <name>Swift.org</name>
     
     </author>
-    <link href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/swift-openapi-generator-1.0/"/>
+    <link href="https://shahmishal.github.io/blog/swift-openapi-generator-1.0/"/>
     <updated>2024-01-31T08:00:00-04:00</updated>
-    <id>https://shahmishal.github.io/swift-org-website/pr-preview/pr-1/blog/swift-openapi-generator-1.0/</id>
+    <id>https://shahmishal.github.io/blog/swift-openapi-generator-1.0/</id>
     <content type="html">&lt;p&gt;We’re happy to announce the stable 1.0 release of &lt;a href=&quot;https://github.com/apple/swift-openapi-generator&quot;&gt;Swift OpenAPI Generator&lt;/a&gt;!&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://openapis.org&quot;&gt;OpenAPI&lt;/a&gt; is an open standard for describing the behavior of HTTP services with a rich ecosystem of tooling. One thing OpenAPI is particularly known for is tooling to generate &lt;em&gt;interactive&lt;/em&gt; documentation. But the core motivation of OpenAPI is &lt;em&gt;code-generation&lt;/em&gt;, which allows adopters to use an API-first approach to server development and, because many existing services document their API in this format, allows client developers to generate type-safe, idiomatic code to call these APIs.&lt;/p&gt;
