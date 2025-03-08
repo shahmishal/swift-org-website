@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Swift.org - User Stories - color color scheme Toggle</title>
+  <title>Swift.org - Community Showcase: August 2024</title>
   
   <meta name="author" content="Apple Inc." />
   <meta name="viewport" content="width=device-width initial-scale=1" />
@@ -24,7 +24,7 @@
   
 
   
-  <link rel="canonical" href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1//user-stories/color-preference-toggle.html" />
+  <link rel="canonical" href="https://shahmishal.github.io/swift-org-website/pr-preview/pr-1//packages/showcase-august-2024.html" />
   
 
   <meta name="twitter:card" content="summary" />
@@ -522,154 +522,205 @@
  </header>
 
 <main role="main">
-  <article class="page">
+  <article class="page-wide">
   
     
       <header>
-        <h1>User Stories - color color scheme Toggle</h1>
+        <h1>Community Showcase: August 2024</h1>
       </header>
     
   
-
-  <h1 id="user-stories---color-color-scheme-toggle">User Stories - color color scheme Toggle</h1>
-
-<p>Feature: Initial site load with initial color scheme preference
-    Background (all):
-        Given the user loads the site for the first time
-        And has no localStorage key value for color scheme preference</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Background:
-    Given the user's system supports light, dark, auto color schemes
-    And the user's system is set to Auto
-
-Scenario: System supports light, dark, auto color schemes - Light appearance
-    Given the user's system appearance is Light
-    When the user loads the site
-    Then the color scheme toggle UI has options for Light, Dark, and Auto
-    And is set to Auto
-    And the page displays Light colors
-
-Scenario: System supports light, dark, auto color schemes - Dark appearance
-    Given the user's system appearance is Dark
-    When the user loads the site
-    Then the color scheme toggle UI has options for Light, Dark, and Auto
-    And is set to Auto
-    And the page displays Dark colors
-
-Background:
-    Given the user's system does NOT support auto color scheme
-    And the user's system is set to Dark
-
-Scenario: System does NOT support auto color scheme
-    Given the appearance is Dark
-    When the user loads the site
-    Then the color scheme toggle UI has options for Light and Dark
-    And is set to Dark
-    And the page displays Dark colors
-
-Background:
-    Given the user's system does NOT support any color scheme
-
-Scenario: System does NOT support any color schemes
-    When the user loads the site
-    Then the color scheme toggle UI has options for Light and Dark
-    And is set to Light
-    And the page displays Light colors
-</code></pre></div></div>
-
-<p>Feature: Listen for System preference changes
-    Background:
-      Given the System preference is set to Auto
-      And the System appearance is Light</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Scenario: System changes to Dark (manually by user or automatically by the system)
-  Given the color scheme toggle UI is Auto
-  When the System preference is changed to Dark
-  Then the site color scheme toggle UI should remain Auto
-  And the site appearance should automatically update to Dark
-
-Scenario: System changes to Light (manually by user or automatically by the system)
-  Given the color scheme toggle UI is Auto
-  When the System preference is changed to Light
-  Then the site color scheme toggle UI should remain Auto
-  And the site appearance should remain Light
-</code></pre></div></div>
-
-<p>Feature: Color scheme preference persists across concurrent sessions
-    Background:
-        Given a user has two windows or tabs of the site open</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Given the color scheme toggle UI is Dark
-When the user changes the color scheme toggle UI to Light in one session
-Then the other session should automatically update to Light
-And without the user needing to refresh the page
-</code></pre></div></div>
-
-<p>Feature: Color scheme preference persists across new sessions
-    Background:
-        Given the color scheme toggle UI is Dark</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Scenario: User opens new window or tab
-    Given the user opens a new window or tab
-    When they load the site
-    Then the color scheme toggle UI is set to Dark
-    And the site appearance is Dark
-
-Scenario: User quits the browser and reopens the session
-    Given the user reopens the browser
-    When the previous session is opened
-    Then the color scheme toggle UI is set to Dark
-    And the site appearance is Dark
-
-Scenario: User quits the browser and starts a new session
-    Given the user reopens the browser
-    And loads a new window or tab
-    When the page loads
-    Then the color scheme toggle UI is set to Dark
-    And the site appearance is Dark
-</code></pre></div></div>
-
-<p>Feature: Manual manipulation of <code class="language-plaintext highlighter-rouge">localStorage</code> color preference value
-    Likely done by the user via Web Inspector</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Scenario: Previous key is valid
-    Given an invalid localStorage value is entered (e.g., Red)
-    And the old value is valid (e.g., Dark)
-    When the invalid value is submitted
-    Then the previous value (Dark), should be set/used
-
-Scenario: Previous key is empty or invalid
-    Given an invalid localStorage value is entered (e.g., Red)
-    And the old value is empty or invalid
-    When the invalid value is submitted
-    Then the value/color preference UI toggle/appearance should be set to Auto
-
-Scenario: User manually enters valid value
-    Given a valid localStorage value is entered (e.g., Light)
-    When the value is submitted
-    Then that value (Light) should be set/used
-</code></pre></div></div>
-
-<p>Feature: Proper color scheme with Safari’s strict caching
-    Background:
-        Given a user is on the homepage
-        And the color scheme toggle UI is Dark</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Given the user goes to a new page
-And sets the color scheme toggle UI to Light
-When the user selects the browser back button to go to the previous page (i.e., the homepage)
-Then the homepage should display Light colors
-And the color scheme toggle UI should be set to Light
-</code></pre></div></div>
-
-<p>Feature: Color scheme toggle works on page when Cookies are disabled
-    Given the user has cookies disabled
-    When the user loads the page
-    Then the toggle should still work as expected on that page
-    But the setting will not be able to persist across pages or sessions</p>
-
-
   
+<section class="package-list">
+  <nav>
+    <a href="/swift-org-website/pr-preview/pr-1/packages/showcase.html" rel="parent">View this month’s Community Showcase</a>
+  </nav>
+
+  <p>
+    The Community Showcase of Swift packages features packages from around the Swift community nominated via
+    <a href="https://forums.swift.org/t/68168">this thread on the Swift forums</a> and voted on by the
+    <a href="https://swift.org/website-workgroup/">Swift Website Workgroup</a>.
+  </p>
+  <p><strong>This list is an archive of the Community Showcase from August 2024</strong>.</p>
+
+  <ul> <li class="with-note">
+  <a href="https://swiftpackageindex.com/DiscordBM/DiscordBM" target="_blank">
+    <h4>
+      <div class="name">DiscordBM</div>
+      <div class="owner">by DiscordBM</div>
+    </h4>
+    <section class="description"><p>A multiplatform Discord library, primarily for making bots. It has full support for Swift concurrency and type-safe APIs with abstractions for easier testability.</p>
+</section>
+    <section class="metadata">
+      
+      <div class="lozenge platform-compatibility" title="Apple (iOS, macOS, visionOS, watchOS, tvOS) and Linux">
+        
+        <span>Apple</span>
+        
+        <span>Linux</span>
+        
+      </div>
+       
+      <div class="lozenge swift-compatibility" title="Swift version compatibility">
+        <span>5.9+</span>
+      </div>
+      
+      <div class="lozenge license" title="Package license"><span>Apache 2.0</span></div>
+    </section>
+  </a>
+  
+  <section class="note"><p>Nominated in <a href="https://forums.swift.org/t/nominations-for-the-packages-community-showcase-on-swift-org/68168/74" target="_blank">this forum post</a>.</p>
+</section>
+  
+</li>
+ <li class="with-note">
+  <a href="https://swiftpackageindex.com/giginet/swift-testing-revolutionary" target="_blank">
+    <h4>
+      <div class="name">swift-testing-revolutionary</div>
+      <div class="owner">by Kohki Miki</div>
+    </h4>
+    <section class="description"><p>A tool to convert XCTest cases to swift-testing format. It includes an Xcode plugin, Swift package plugin, and a command line tool.</p>
+</section>
+    <section class="metadata">
+      
+      <div class="lozenge platform-compatibility" title="Apple (macOS, visionOS) and Linux">
+        
+        <span>Apple</span>
+        
+        <span>Linux</span>
+        
+      </div>
+       
+      <div class="lozenge swift-compatibility" title="Swift version compatibility">
+        <span>6.0+</span>
+      </div>
+      
+      <div class="lozenge license" title="Package license"><span>MIT</span></div>
+    </section>
+  </a>
+  
+  <section class="note"><p>Discussed on <a href="https://share.transistor.fm/s/08c0a3f9" target="_blank">Episode 46 of Swift Package Indexing</a>.</p>
+</section>
+  
+</li>
+ <li class="with-note">
+  <a href="https://swiftpackageindex.com/swiftlang/swiftly" target="_blank">
+    <h4>
+      <div class="name">swiftly</div>
+      <div class="owner">by The Swift Programming Language</div>
+    </h4>
+    <section class="description"><p>Manages Swift toolchain installations, allowing users to easily install, switch between, and update various Swift versions and development snapshots.</p>
+</section>
+    <section class="metadata">
+      
+      <div class="lozenge platform-compatibility" title="Apple (macOS)">
+        
+        <span>Apple</span>
+        
+      </div>
+       
+      <div class="lozenge swift-compatibility" title="Swift version compatibility">
+        <span>5.10+</span>
+      </div>
+      
+      <div class="lozenge license" title="Package license"><span>Apache 2.0</span></div>
+    </section>
+  </a>
+  
+  <section class="note"><p>Discussed on <a href="https://share.transistor.fm/s/53ee9157" target="_blank">Episode 45 of Swift Package Indexing</a>.</p>
+</section>
+  
+</li>
+ <li class="with-note">
+  <a href="https://swiftpackageindex.com/schwa/SwiftFormats" target="_blank">
+    <h4>
+      <div class="name">SwiftFormats</div>
+      <div class="owner">by Jonathan Wight</div>
+    </h4>
+    <section class="description"><p>Expands <code class="language-plaintext highlighter-rouge">FormatStyle</code> implementations for various types, enabling advanced formatting and parsing for strings, including extensions for string interpolation.</p>
+</section>
+    <section class="metadata">
+      
+      <div class="lozenge platform-compatibility" title="Apple (iOS, macOS, visionOS, watchOS, tvOS)">
+        
+        <span>Apple</span>
+        
+      </div>
+       
+      <div class="lozenge swift-compatibility" title="Swift version compatibility">
+        <span>5.10+</span>
+      </div>
+      
+      <div class="lozenge license" title="Package license"><span>BSD 3-Clause</span></div>
+    </section>
+  </a>
+  
+  <section class="note"><p>Nominated in <a href="https://forums.swift.org/t/nominations-for-the-packages-community-showcase-on-swift-org/68168/67" target="_blank">this forum post</a>.</p>
+</section>
+  
+</li>
+ <li class="with-note">
+  <a href="https://swiftpackageindex.com/SvenTiigi/WhatsNewKit" target="_blank">
+    <h4>
+      <div class="name">WhatsNewKit</div>
+      <div class="owner">by Sven Tiigi</div>
+    </h4>
+    <section class="description"><p>WhatsNewKit enables showcasing new app features with full customization, supporting automatic and manual presentation modes across various platforms and frameworks.</p>
+</section>
+    <section class="metadata">
+      
+      <div class="lozenge platform-compatibility" title="Apple (iOS, macOS, visionOS)">
+        
+        <span>Apple</span>
+        
+      </div>
+       
+      <div class="lozenge swift-compatibility" title="Swift version compatibility">
+        <span>5.9+</span>
+      </div>
+      
+      <div class="lozenge license" title="Package license"><span>MIT</span></div>
+    </section>
+  </a>
+  
+  <section class="note"><p>Nominated in <a href="https://forums.swift.org/t/nominations-for-the-packages-community-showcase-on-swift-org/68168/59" target="_blank">this forum post</a>.</p>
+</section>
+  
+</li>
+ <li class="with-note">
+  <a href="https://swiftpackageindex.com/tayloraswift/swift-dom" target="_blank">
+    <h4>
+      <div class="name">swift-dom</div>
+      <div class="owner">by taylorswift</div>
+    </h4>
+    <section class="description"><p>Generate HTML and related formats using a memory-efficient, cross-platform, efficient, expressive DSL.</p>
+</section>
+    <section class="metadata">
+      
+      <div class="lozenge platform-compatibility" title="Apple (iOS, macOS, visionOS, watchOS, tvOS) and Linux">
+        
+        <span>Apple</span>
+        
+        <span>Linux</span>
+        
+      </div>
+       
+      <div class="lozenge swift-compatibility" title="Swift version compatibility">
+        <span>5.10+</span>
+      </div>
+      
+      <div class="lozenge license" title="Package license"><span>Apache 2.0</span></div>
+    </section>
+  </a>
+  
+  <section class="note"><p>Nominated in <a href="https://forums.swift.org/t/nominations-for-the-packages-community-showcase-on-swift-org/68168/66" target="_blank">this forum post</a>.</p>
+</section>
+  
+</li>
+
+  </ul>
+</section>
+
 </article>
 
 </main>

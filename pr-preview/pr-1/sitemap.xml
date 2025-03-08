@@ -15,15 +15,6 @@
         
         
         
-        <url>
-            <loc>https://shahmishal.github.io/.well-known/atproto-dtd</loc>
-            
-                <priority>0.7</priority>
-            
-        </url>
-    
-        
-        
         
         <url>
             <loc>https://shahmishal.github.io/404.html</loc>
@@ -275,7 +266,6 @@
         
         
         
-        
         <url>
             <loc>https://shahmishal.github.io/assets/javascripts/application.js</loc>
             
@@ -288,6 +278,16 @@
         
         <url>
             <loc>https://shahmishal.github.io/assets/stylesheets/application.css</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/assets/stylesheets/application.css.map</loc>
             
                 <priority>0.7</priority>
             
@@ -1438,16 +1438,6 @@
         
         
         <url>
-            <loc>https://shahmishal.github.io/openapi/TestSwiftOrgClient/</loc>
-            
-                <priority>0.7</priority>
-            
-        </url>
-    
-        
-        
-        
-        <url>
             <loc>https://shahmishal.github.io/package-manager/</loc>
             
                 <priority>0.7</priority>
@@ -1459,6 +1449,216 @@
         
         <url>
             <loc>https://shahmishal.github.io/packages/</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/logging.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/macros.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/networking.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/server.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-april-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-august-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-december-2023.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-december-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-february-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-january-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-january-2025.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-july-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-june-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-march-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-may-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-november-2023.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-november-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-october-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase-september-2024.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/showcase.html</loc>
+            
+                <priority>0.7</priority>
+            
+        </url>
+    
+        
+        
+        
+        <url>
+            <loc>https://shahmishal.github.io/packages/testing.html</loc>
             
                 <priority>0.7</priority>
             
@@ -1871,16 +2071,6 @@
         
         <url>
             <loc>https://shahmishal.github.io/tspl/</loc>
-            
-                <priority>0.7</priority>
-            
-        </url>
-    
-        
-        
-        
-        <url>
-            <loc>https://shahmishal.github.io/user-stories/color-preference-toggle.html</loc>
             
                 <priority>0.7</priority>
             
