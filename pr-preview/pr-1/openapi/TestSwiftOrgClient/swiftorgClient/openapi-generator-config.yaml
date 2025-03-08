@@ -1,1 +1,6 @@
-../openapi-generator-config.yaml
+generate:
+  - types
+  - client
+namingStrategy: idiomatic
+nameOverrides:
+  'x86_64': 'x86_64'
